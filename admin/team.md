@@ -11,7 +11,7 @@
 
 | Name | Github | About |
 | --- | --- | --- |
-| Andew | [Andrewphanguyen](https://github.com/andrewphanguyen)||
+| Andew | [Andrewphanguyen](https://github.com/andrewphanguyen)| 3rd year CS from San Diego|
 | Kevin | [radiomediocre](https://github.com/qiwenkevin) | 3rd year Math-CS from Canada|
 |Chris|||
 |Bobby|||
