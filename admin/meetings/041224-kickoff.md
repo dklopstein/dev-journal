@@ -2,6 +2,7 @@
 ## Friday, 1:16PM April 12, 2024
 
 # Kickoff Meeting
+### Meeting held in Geisel - 1st level - West
 
 ### Attendance (9/10)
 - Chris
@@ -17,7 +18,7 @@
 ### Absent
 - Justin
 
-Meeting held in Geisel - 1st level - West
+
 
 ## Agenda
 1. Introductions
@@ -27,5 +28,17 @@ Meeting held in Geisel - 1st level - West
 
 ### Branding Notes
 Team Ideas: Triton ____, Raccoon ____, ChatGPT Merchants
+Leading Team Name idea: The Git Gremlins
+Roles: Not sure what roles to use; still waiting on assignment
+Nathan & Bobby - Iron
+Chris - Bronze
+Kai - Silver
+Sonya - Gold
+Derek - Platinum
+Sahana - Diamond
+Justin - Ascendant
+Kevin - Immortal
+Andrew - Radiant
+Justin - Ascendant
 
 
