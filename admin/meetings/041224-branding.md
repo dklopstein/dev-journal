@@ -27,11 +27,12 @@
 
 ## Choose team name, brand, and teamcolors
 1. Team name: Git Gremlins
-2. Brand: !()[]
+2. Brand: ![Logo](/admin/branding/Git%20Gremlins%20Logo.png)
 3. Team colors: Green and gold
 
 ## Ideals
-1.
+1. Communication is key
+2. 
 
 
 
