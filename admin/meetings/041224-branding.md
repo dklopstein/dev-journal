@@ -40,17 +40,3 @@
 7. Adaptability
 
 ## Notes
-
-### Roles:
-
-Not sure what roles to use; still waiting on assignment\
-Temporary Valorant Roles:\
-Nathan & Bobby - Iron\
-Chris - Bronze\
-Kai - Silver\
-Sonya - Gold\
-Derek - Platinum\
-Sahana - Diamond\
-Justin - Ascendant\
-Kevin - Immortal\
-Andrew - Radiant
