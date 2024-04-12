@@ -31,9 +31,13 @@
 3. Team colors: Green and gold
 
 ## Ideals
-1. Communication is key
-2. 
-
+1. Communication
+2. Respect
+3. Transparency
+4. Empathy
+5. Accountability
+6. Responsibility
+7. Adaptability
 
 ## Notes
 
