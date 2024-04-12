@@ -24,6 +24,7 @@
 1. Choose team name, brand, and teamcolors
 2. Build team page skeleton
 3. Agree on ideals
+4. Group Assignments
 
 ## Choose team name, brand, and teamcolors
 1. Team name: Git Gremlins
@@ -41,6 +42,9 @@
 ## Intro Video Ideas
 - Pass around phone with small introduction
 - Valorant montage, Twitch streamer style, everyone gives intro with Valorant clips according to our rank playing in the background
+
+## Group Assignments
+- Record a video of yourself saying your name, rank, and year (about 10 seconds) by Saturday night
 
 
 ## Notes
