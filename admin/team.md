@@ -11,8 +11,8 @@
 
 | Name | Github | About |
 | --- | --- | --- |
-| Andew | Andrewphanguyen||
-| Kevin | radiomediocre | [Link](https://github.com/qiwenkevin/about-qiwenkevin)|
+| Andew | [Andrewphanguyen](https://github.com/andrewphanguyen)||
+| Kevin | [radiomediocre](https://github.com/qiwenkevin) | 3rd year Math-CS from Canada|
 |Chris|||
 |Bobby|||
 |Andrew|||
