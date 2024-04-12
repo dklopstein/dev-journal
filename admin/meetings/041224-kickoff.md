@@ -26,19 +26,22 @@
 3. Roles
 4. 
 
-### Branding Notes
-Team Ideas: Triton ____, Raccoon ____, ChatGPT Merchants
-Leading Team Name idea: The Git Gremlins
-Roles: Not sure what roles to use; still waiting on assignment
-Nathan & Bobby - Iron
-Chris - Bronze
-Kai - Silver
-Sonya - Gold
-Derek - Platinum
-Sahana - Diamond
-Justin - Ascendant
-Kevin - Immortal
-Andrew - Radiant
-Justin - Ascendant
+## Branding Notes
+Team Ideas: Triton ____, Raccoon ____, ChatGPT Merchants, Geisel Gremlins\
+Leading Team Name idea: The Git Gremlins (GG)\
+
+### Roles:
+
+Not sure what roles to use; still waiting on assignment
+Temporary Valorant Roles:\
+Nathan & Bobby - Iron\
+Chris - Bronze\
+Kai - Silver\
+Sonya - Gold\
+Derek - Platinum\
+Sahana - Diamond\
+Justin - Ascendant\
+Kevin - Immortal\
+Andrew - Radiant\
 
 
