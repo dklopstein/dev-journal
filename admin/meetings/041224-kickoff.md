@@ -40,6 +40,20 @@
 7. Specific issues: bring up specific/technical issues, seeking help from teammates
 8. Big Picture Wrap Up: large context summary of where project is at, what's next, goals moving forward, take away points
 
+### Roles:
+
+Not sure what roles to use; still waiting on assignment\
+Temporary Valorant Roles:\
+Nathan & Bobby - Iron\
+Chris - Bronze\
+Kai - Silver\
+Sonya - Gold\
+Derek - Platinum\
+Sahana - Diamond\
+Justin - Ascendant\
+Kevin - Immortal\
+Andrew - Radiant
+
 ## Scheduling
 - Fridays ~12:30PM are a good time for everyone
 - At least one Friday meeting per week, possibility for multiple per week welcome when course begins to pick up speed
