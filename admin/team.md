@@ -1,9 +1,12 @@
 # Git Gremlins
 
 ## Values: 
+- Communication is key
 - Respect each other
-- We are responsible for our own work
-- we work as a team
+- Be transparent and make sure everyone knows their jobs
+- Be empathetic of others perspectives
+- We are accountable of our own work
+- We adapt based on obstacles we face
 
 
 | Name | Github | About |
