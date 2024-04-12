@@ -39,4 +39,9 @@
 6. Responsibility
 7. Adaptability
 
+## Into Video Ideas
+- Pass around phone with small introduction
+- Valorant montage, Twitch streamer style, everyone gives intro with Valorant clips according to our rank playing in the background
+
+
 ## Notes
