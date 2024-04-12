@@ -36,7 +36,6 @@
 3. Transparency
 4. Empathy
 5. Accountability
-6. Responsibility
 7. Adaptability
 
 ## Intro Video Ideas
