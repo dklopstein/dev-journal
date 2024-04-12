@@ -28,7 +28,7 @@
 ## Choose team name, brand, and teamcolors
 1. Team name: Git Gremlins
 2. Brand: ![Logo](/admin/branding/Git%20Gremlins%20Logo.png)
-3. Team colors: Green and gold
+3. Team colors: Green and Gold
 
 ## Ideals
 1. Communication
@@ -39,7 +39,7 @@
 6. Responsibility
 7. Adaptability
 
-## Into Video Ideas
+## Intro Video Ideas
 - Pass around phone with small introduction
 - Valorant montage, Twitch streamer style, everyone gives intro with Valorant clips according to our rank playing in the background
 
