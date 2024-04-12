@@ -29,12 +29,16 @@
 - Added everyone as collaborator/owner
 - Create needed directories
 
-## Meeting Structure
-- Want to start with attendance
-- Review: what we worked on, what we finished, what went well, what didn't
-- Go over where we are currently: what stage we're on, what is currently going on
-- Agenda: what steps are next, who will handle what, etc.
-- 
+## General Meeting Structure
+1. Start with attendance
+2. Review: what we worked on, what we finished, what went well, what didn't
+3. Constructive Feedback: give feedback to work completed, raised issues, what needs fixing
+4. Current: what step we're on, what is currently going on, what problems are still on deck
+5. Agenda: what steps are next, needs for enxt meeting, who will handle what, what needs fixing
+6. Big Picture Wrap Up: large context summary of where project is at, what's next, goals moving forward
+7. Specific issues: bring up specific/technical issues, seeking help from teammates
+
+
 
 
 ## Branding Notes
