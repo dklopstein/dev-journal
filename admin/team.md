@@ -1,8 +1,21 @@
-Team Name: Git Gremlins
+# Git Gremlins
 
-Values: Respect each other, We are responsible for our own work, we work as a team
+## Values: 
+- Respect each other
+- We are responsible for our own work
+- we work as a team
 
 
-Team Lead Andew Nguyen
-
-Github: Andrewphanguyen
+| Name | Github | About |
+| --- | --- | --- |
+| Andew | Andrewphanguyen||
+| Kevin | radiomediocre | [Link](https://github.com/qiwenkevin/about-qiwenkevin)|
+|Chris|||
+|Bobby|||
+|Andrew|||
+|Sonya|||
+|Kai|||
+|Sahana|||
+|Derek|||
+|Nathan|||
+|Justin|||
