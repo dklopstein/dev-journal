@@ -1,27 +1,31 @@
 # Welcome to our Team Page
+
 # Team 25 - Git Gremlins
 
-Brand: ![Logo](/admin/branding/Git%20Gremlins%20Logo.png)
+## Our Brand: 
+![Logo](/admin/branding/Git%20Gremlins%20Logo.png)
 
-## Values: 
+## Our Values: 
+
 - Communication is key
-- Respect each other
-- Be transparent and make sure everyone knows their jobs
-- Be empathetic of others perspectives
-- We are accountable of our own work
-- We adapt based on obstacles we face
+- Treat each other with respect
+- Be transparent and make sure everyone knows their roles and responsibilities
+- Be empathetic and mindful of other members
+- Each person is accountable for their own work
+- We will adapt based on obstacles we face
 
+## Meet the Team
 
 | Name | Github | About |
 | --- | --- | --- |
-| Andew | [Andrewphanguyen](https://github.com/andrewphanguyen)| 3rd year CS from San Diego|
-| Kevin | [radiomediocre](https://github.com/qiwenkevin) | 3rd year Math-CS from Canada|
+| Andew | [Andrewphanguyen](https://github.com/andrewphanguyen)| 3rd year CS major from San Diego|
+| Kevin | [radiomediocre](https://github.com/qiwenkevin) | 3rd year Math-CS major from Canada|
 |Chris|||
 |Bobby|||
 |Andrew|||
 |Sonya|||
 |Kai|||
-|Sahana|||
+|Sahana|[sahananar](https://github.com/sahananar)| 3rd year Data Science major from the Bay Area |
 |Derek|||
 |Nathan|||
 |Justin|||
