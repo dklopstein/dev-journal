@@ -1,4 +1,7 @@
-# Git Gremlins
+# Welcome to our Team Page
+# Team 25 - Git Gremlins
+
+Brand: ![Logo](/admin/branding/Git%20Gremlins%20Logo.png)
 
 ## Values: 
 - Communication is key
