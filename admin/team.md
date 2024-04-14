@@ -20,7 +20,7 @@
 | --- | --- | --- |
 | Andew | [Andrewphanguyen](https://github.com/andrewphanguyen)| 3rd year CS major from San Diego|
 | Kevin | [radiomediocre](https://github.com/qiwenkevin) | 3rd year Math-CS major from Canada|
-|Chris|||
+|Chris| [ChEdwards492](https://github.com/chedwards492) | 3rd year CE major from Los Angeles |
 |Bobby|||
 |Andrew|||
 |Sonya|||
