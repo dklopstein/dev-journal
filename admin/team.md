@@ -24,7 +24,7 @@
 |Bobby|||
 |Andrew|||
 |Sonya|||
-|Kai|||
+|Kai|[kaiwoessner](https://github.com/kaiwoessner)| 2nd year CE major from Ssan Diego|
 |Sahana|[sahananar](https://github.com/sahananar)| 3rd year Data Science major from the Bay Area |
 |Derek|||
 |Nathan|||
