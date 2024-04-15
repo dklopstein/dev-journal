@@ -18,14 +18,14 @@
 
 | Name | Github | About |
 | --- | --- | --- |
-| Andew | [Andrewphanguyen](https://github.com/andrewphanguyen)| 3rd year CS major from San Diego|
-| Kevin | [radiomediocre](https://github.com/qiwenkevin) | 3rd year Math-CS major from Canada|
+| Andew | [Andrewphanguyen](https://github.com/andrewphanguyen)| 3rd year CS major from San Diego |
+| Kevin | [radiomediocre](https://github.com/qiwenkevin) | 3rd year Math-CS major from Canada |
 |Chris| [ChEdwards492](https://github.com/chedwards492) | 3rd year CE major from Los Angeles |
 |Bobby| [BobbyYuuu](https://github.com/BobbyYuuuu) | 3rd year Math-CS major from San Francisco | 
 |Andrew|||
-|Sonya|  [KimSeongah](https://github.com/kimseongah) |  3rd year CS major from South Korea |
-|Kai|[kaiwoessner](https://github.com/kaiwoessner)| 2nd year CE major from San Diego|
+|Sonya|  [KimSeongah](https://github.com/kimseongah) | 3rd year CS major from South Korea |
+|Kai|[kaiwoessner](https://github.com/kaiwoessner)| 2nd year CE major from San Diego |
 |Sahana|[sahananar](https://github.com/sahananar)| 3rd year Data Science major from the Bay Area |
 |Derek||| 
-|Nathan|||
+|Nathan|[NathanD0wd](https://github.com/NathanD0wd)| 2nd year Computer Science major, Philosophy minor from Virginia |
 |Justin|||
