@@ -26,6 +26,6 @@
 |Sonya|  [KimSeongah](https://github.com/kimseongah) | 3rd year CS major from South Korea |
 |Kai|[kaiwoessner](https://github.com/kaiwoessner)| 2nd year CE major from San Diego |
 |Sahana|[sahananar](https://github.com/sahananar)| 3rd year Data Science major from the Bay Area |
-|Derek||| 
+| Derek | [dklopstein](https://github.com/dklopstein) | 3rd year Math-CS major from Bakersfield, California
 |Nathan|[NathanD0wd](https://github.com/NathanD0wd)| 2nd year Computer Science major, Philosophy minor from Virginia |
 |Justin|[jjustinyyang](https://github.com/jjustinyyang)|2nd year Computer Science major from San Diego/Taiwan|
