@@ -1,7 +1,7 @@
 # Team 25
-## Wednesday, 2:30PM April 24, 2024
+## Friday, 12:30PM April 26, 2024
 
-# Warm-up exercise Meeting
+# Warm-up exercise Meeting 2
 ### Meeting held in 1st floor Price
 
 ### Attendance (7/10)
