@@ -4,7 +4,7 @@
 # Warm-up exercise Meeting
 ### Meeting held in 1st floor Price
 
-### Attendance (10/10)
+### Attendance (7/10)
 - Chris
 - Bobby
 - Sonya
