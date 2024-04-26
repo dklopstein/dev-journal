@@ -29,7 +29,7 @@
 
 
 ## Website Design
-Split into our two groups, and discussed style changes made overnight. Task list team implemented a button color change to css file.
+Split into our two groups, and discussed style changes made overnight. Task list team implemented a button color change to css file. Sentiment analysis team finished commenting code.
 
 
 ## Check In
@@ -37,7 +37,7 @@ Checked in on both teams websites, and briefly discussed the work we did separat
 
 
 ## Documentation
-Both teams added final documentation to files. Completed final styling for JS testing for task list.
+Both teams added final documentation to files. Completed final styling for JS testing for task list and sentiment analysis.
 
 
 ## SWOT Analysis
