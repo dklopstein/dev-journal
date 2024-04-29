@@ -1,4 +1,9 @@
-# Attendance
+# Team 25
+## Sunday April 28, 2024
+# Sprint Review Meeting: Warmup
+### Meeting held online through Zoom
+
+### Attendance
 Bobby\
 Chris\
 Nathan\
@@ -9,7 +14,7 @@ Derek
 
 ![img](../misc/CSE110-Team25-sprint-review.jpeg)
 
-# Agenda
+## Agenda
 Big Wrap-Up\
 Show & Tell
 
