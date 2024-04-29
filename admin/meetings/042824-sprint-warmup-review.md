@@ -7,15 +7,17 @@ Kai\
 Justin\
 Derek
 
+![img](../misc/CSE110-Team25-sprint-review.jpeg)
+
 # Agenda
-Big Wrap-Up
+Big Wrap-Up\
 Show & Tell
 
 ## Big Wrap-Up
 - Tasks 1 & 2 successfully completed and submitted
 - good job everybody
 
-## SHow & Tell
+## Show & Tell
 Bobby
 - HTML structure, some CSS planning
 - Thinks there should be more design before
@@ -42,7 +44,7 @@ Sahana
 - documentation and image-generation
 - Planned out features
 
-Seonyah
+Seongah
 - Image-generation
 - CSS & JS features
 - Initial Design & structure
