@@ -4,11 +4,15 @@ Chris\
 Nathan\
 Andrew\
 Kai\
-Justin\
+Justin
 
 # Agenda
+Big Wrap-Up
+Show & Tell
 
-# Review
+# Big Wrap-Up
+- Tasks 1 & 2 successfully completed and submitted
+- good job everybody
 
 # Pictures of app
 
@@ -20,6 +24,7 @@ Bobby\
 Nathan\
 - CSS, design of task list
 - Ensured responsiveness
+- More testing for responsiveness
 
 Kai\
 - Testing & bug fixes with JS
@@ -28,15 +33,20 @@ Kai\
 Chris\
 - General HTML structure
 - covered JSON read-in function
+- would like to see more rigorous testing
+
+Justin\
+- JSON read-in functionality & testing
+- wants to see more solidified design before implementation
 
 Sahana\
 - documentation and image-generation
-- features planning
+- Planned out features
 
 Seonyah\
 - Image-generation
 - CSS & JS features
-- Initial Design
+- Initial Design & structure
 
 Andrew\
 - HTML & CSS code
@@ -44,9 +54,9 @@ Andrew\
 
 Derek\
 - Input functionality with JS feature
+- felt that workload was appropriately divided up
 
-Justin\
-- JSON read-in functionality & testing
+
 
 Kevin\
 - Delete button functionality with JS
