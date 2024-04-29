@@ -17,3 +17,7 @@ Discuss Warmup Execution
 Overview our Accomplishments
 
 ## Discuss Warmup Execution
+![](../misc/WarmupRetrospective.png)
+  
+## Overview our Accomplishments
+
