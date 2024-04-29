@@ -4,16 +4,16 @@
 ### Meeting held online through Zoom
 
 # Attendence
-Bobby
-Chris
-Nathan
-Andrew
-Kai
-Justin
-Derek
+- Bobby
+- Chris
+- Nathan
+- Andrew
+- Kai
+- Justin
+- Derek
 
 ## Agenda
-Discuss Warmup Execution
+Discuss Warmup Execution  
 Overview our Accomplishments
 
 ## Discuss Warmup Execution
