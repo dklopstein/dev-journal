@@ -35,5 +35,6 @@ Use Miro for brainstorming different features, designs, wants, and examples for 
 
 ## Design
 Each group member spend 15 minutes to draw out an design and then share out to group and adopt different opinions.
+![Design](../misc/Brainstorm_Design.png)
 
 
