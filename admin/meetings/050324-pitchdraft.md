@@ -12,20 +12,21 @@
 - Nathan
 - Kevin
 - Derek
+- Andrew (late)
 
 ### Absent
 - Bobby
 - Justin
-- Andrew
-
 
 ## Agenda
-1. Choose color theme
-2. Review overarching decisions
-3. Make flow chart for website
+1. Choose Color Theme
+2. Review Overarching Decisions
+3. Make Flow Chart for Website
 4. Organization
 5. Task List
 6. Calendar
+7. Information Retention
+8. Pitch Preperatio
 
 ## Color
 Gray/egg white, with light/dark blue accents. Exact color scheme on Miro board.
@@ -44,3 +45,11 @@ No deadlines associated with task list, just used to mark completed tasks in the
 
 ## Calender
 Displays tasks completed that day, as well as productivity and mental health. Future days are grayed out. You can press into a day to pull up journal with mental health and tasks completed. Different colors for mental health/productivity levels.
+
+## Information Retention
+Will there be separate user accounts on a single computer or is it just stored locally. Does it save information between open and closing?
+
+## Pitch Preperation
+Working on google doc, then will transfer to markdown. Planning on splitting into groups for tasklist, journal, calendar. Work on getting front end up first, then once the shell of the website looks good, we implement back end. Dividing into 3 groups: home page design, calendar design, JS research into supporting saving data. Intitial phase will be to get website looking good with no functionality, next step is implementing functionality, final will be saving data locally.
+
+Need to include problem, user stories, appetite/timeline, rabbit holes/potential risks, and no-goes/things to avoid.
