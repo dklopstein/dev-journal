@@ -21,21 +21,21 @@
 ## Agenda
 1. Choose Color Theme
 2. Review Overarching Decisions
-3. Make Flow Chart for Website
 4. Organization
 5. Task List
 6. Calendar
 7. Information Retention
-8. Pitch Preperatio
+8. Pitch Preperation
 
 ## Color
 Gray/egg white, with light/dark blue accents. Exact color scheme on Miro board.
 
 ## Big Decisions
-Website will be more of a journal than task list. Journal on main page, daily journaling. Tasks on a side bar. View of week on other side, with current day on the bottom. Journal editor is always open for editing.
-
-## Flow Chart
-Options from home page: make, edit, delete tasks; view calendar/view past journals; journal for the day.
+- Website will be more of a journal than task list.
+- Journal on main page to allow for daily journaling.
+- The tasks will be on a side bar on the left side.
+- On the right side, there is a view of the previous 6 days, with current day on the bottom.
+- The journal editor is always open for editing the current day.
 
 ## Organization
 Store list of features in 3 separate Google docs: Tasks, Journaling, Calendar.
@@ -47,9 +47,11 @@ No deadlines associated with task list, just used to mark completed tasks in the
 Displays tasks completed that day, as well as productivity and mental health. Future days are grayed out. You can press into a day to pull up journal with mental health and tasks completed. Different colors for mental health/productivity levels.
 
 ## Information Retention
-Will there be separate user accounts on a single computer or is it just stored locally. Does it save information between open and closing?
+Will there be separate user accounts on a single computer or is it just stored locally. Does it save information between open and closing? Will assign team members to explore solutions.
 
 ## Pitch Preperation
 Working on google doc, then will transfer to markdown. Planning on splitting into groups for tasklist, journal, calendar. Work on getting front end up first, then once the shell of the website looks good, we implement back end. Dividing into 3 groups: home page design, calendar design, JS research into supporting saving data. Intitial phase will be to get website looking good with no functionality, next step is implementing functionality, final will be saving data locally.
 
 Need to include problem, user stories, appetite/timeline, rabbit holes/potential risks, and no-goes/things to avoid.
+
+
