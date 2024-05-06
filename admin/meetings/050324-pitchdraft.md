@@ -54,4 +54,8 @@ Working on google doc, then will transfer to markdown. Planning on splitting int
 
 Need to include problem, user stories, appetite/timeline, rabbit holes/potential risks, and no-goes/things to avoid.
 
+## Assignments
+Home Page Frontend: Chris, Sonya, Nathan\
+Calendar Frontend: Kai, Sahana, Andrew\
+Backend: Kevin, Derek, Justin, Bobby
 
