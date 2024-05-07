@@ -1,0 +1,104 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+  height: 100%;
+  background-color: yellow;
+  overflow: hidden;
+}
+body {
+  height: 100%;
+  background-color: #ddd;
+}
+
+main {
+height: 100%;
+position: relative;
+
+}
+
+.task-list { 
+  width: 16%;
+  position: relative;
+  float: left;
+  height:100%;
+  
+
+  border: red solid 2px;
+}
+
+.main-wrap { 
+  width: 84%;
+  position: relative;
+  float: left;
+  height: 100%;
+  border: blue solid 2px;
+}
+
+.top-bar {
+  position: relative;
+  border: green solid 2px;
+  height: 20%;
+}
+
+.journal-week-wrap {
+  position: relative;
+  height: 80%;
+}
+
+.today-entry-wrap {
+  position: relative;
+  float: left;
+  width: 80%;
+  height: 100%;
+
+  border: lightblue solid 2px;
+}
+
+.past-week {
+  border: lightgreen solid 2px;
+  float: right;
+
+  width: 20%;
+  height: 100%;
+}
+
+.today-entry {
+  border: purple solid 9px;
+  height: 100%;
+
+  margin-bottom: 4rem;
+}
+
+.journal {
+  border: black solid 2px;
+  margin-top: 4%;
+  margin-left: 8%;
+  margin-right: 8%;
+  margin-bottom: 2rem;
+  height: 50%;
+  min-height: 16rem;
+
+}
+
+.rating-widget {
+  position: relative;
+  float: left;
+  border: red solid 2px;
+  margin-left: 8%;
+  margin-right: 2%;
+
+  width: 40%;
+  min-height: 100%;
+}
+
+.completed-today {
+  position: relative;
+  float: right;
+  border: black solid 2px;
+
+  margin-right: 8%;
+  width: 40%;
+  height: 4vh;
+}
