@@ -28,16 +28,59 @@
     border: red solid 2px;
   }
   
-  .main-wrap { 
-    width: 84%;
-    position: relative;
-    float: left;
-    height: 100%;
-    border: blue solid 2px;
-  }
-  
   .top-bar {
     position: relative;
     border: green solid 2px;
-    height: 20%;
+    height: 30px;
   }
+
+/* CALENDAR */
+
+/* Main calendar */
+.calendar-wrap {
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* Top Bar Styling */
+.top-bar {
+  position: relative;
+  border: green solid 2px;
+  height: 20%;
+}
+
+/* Calendar Styling */
+.calendar {
+  width: 100%;
+}
+
+/* Calendar Table Styling */
+.calendar table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Header and data of table */
+.calendar table th,
+.calendar table td {
+  border: 3px solid black;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Rows of table head */
+thead tr {
+    color: blue;
+    height: 6vh;
+  }
+
+/* Rows of table body */
+tbody tr {
+    height: 14vh;
+  }
+
+/* Data of table */
+.calendar table td {
+    width: calc(100% / 7); /* Set width to 1/7 of the table's width */
+}
+
