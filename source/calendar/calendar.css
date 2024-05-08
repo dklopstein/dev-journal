@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+  }
+  html {
+    height: 100%;
+    background-color: yellow;
+    overflow: hidden;
+  }
+  body {
+    height: 100%;
+    background-color: #ddd;
+  }
+  
+  main {
+  height: 100%;
+  position: relative;
+  
+  }
+  
+  .task-list { 
+    width: 16%;
+    position: relative;
+    float: left;
+    height:100%;
+    
+  
+    border: red solid 2px;
+  }
+  
+  .main-wrap { 
+    width: 84%;
+    position: relative;
+    float: left;
+    height: 100%;
+    border: blue solid 2px;
+  }
+  
+  .top-bar {
+    position: relative;
+    border: green solid 2px;
+    height: 20%;
+  }
