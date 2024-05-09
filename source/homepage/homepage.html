@@ -7,7 +7,7 @@
 
     <!-- <link rel="stylesheet" href="styles/homepage.css" /> -->
     <link rel="stylesheet" href="homepage.css" />
-    <script src="./assets/scripts/homepage.js" type="module"></script>
+    <script src="homepage.js" type="module"></script>
   </head>
 
   <body>
@@ -24,7 +24,35 @@
   
       <div class="main-wrap">
           <section class="top-bar">
-              Pane 1
+
+              <div class="date-header">
+                <button onclick="changeDate(-1)">
+                  <img src="icons/left-icon.png" alt="Home">
+                </button>
+                <div id="current-date"></div>
+                <button onclick="changeDate(1)">
+                  <img src="icons/right-icon.png" alt="Home">
+                </button>
+              </div>
+              
+              <div class="buttons">
+
+                <!-- Button to go to Home Page-->
+                <button onclick="goTo('home')">
+                  <img src="icons/home-icon.png" alt="Home">
+                </button>
+
+                <!--Button to go to Calendar-->
+                <button onclick="goTo('calendar')">
+                  <img src="icons/calendar-icon.webp" alt="Calendar">
+                </button>
+
+                <!--Button to go to Settings-->
+                <button onclick="goTo('settings')">
+                  <img src="icons/settings-icon.png" alt="Settings">
+                </button>
+
+              </div>
           </section>
           <section class="journal-week-wrap">
             <section class="today-entry-wrap">
