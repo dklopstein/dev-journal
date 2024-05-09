@@ -13,22 +13,57 @@ body {
 }
 
 main {
-height: 100%;
-position: relative;
-
+  display: flex;
+  overflow: hidden;
+  height: 100%;
+  position: relative;
 }
 
 .task-list { 
-  width: 16%;
-  position: relative;
-  float: left;
+  flex: 0 0 14%;
   height:100%;
-  
+  margin: 5px;
+  padding: 1%;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: px 1px lightgrey;
+}
 
-  border: red solid 2px;
+@media (max-width: 1000px) {
+  .task-list {
+      display: none;
+  }
+}
+
+.task-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.task-list li {
+  background: #e0e0e0;
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden; /* Ensures description expands within the li */
+  cursor: pointer; /* Indicates you can interact with the item */
+  text-align: left; /* Keeps text left-aligned */
+}
+
+.task-desc {
+  max-height: 0; /* Start with max-height 0 to keep it hidden */
+  overflow: hidden; /* Prevents any content from spilling out */
+  transition: max-height 0.3s ease-in-out, padding 0.2s ease-in-out; /* Smooth transition for max-height and padding */
+  text-align: left; /* Ensures text alignment doesn't change */
+}
+
+.task-list li:hover .task-desc {
+  max-height: 200px; /* Enough max-height to show the content */
 }
 
 .main-wrap { 
+  flex: 1;
   width: 84%;
   position: relative;
   float: left;
