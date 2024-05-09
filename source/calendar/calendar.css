@@ -17,6 +17,8 @@
   position: relative;
   
   }
+
+ 
   
   .task-list { 
     width: 16%;
@@ -84,3 +86,8 @@ tbody tr {
     width: calc(100% / 7); /* Set width to 1/7 of the table's width */
 }
 
+.calendar tbody td {
+  
+  vertical-align: text-top;
+  text-align: left;
+}
