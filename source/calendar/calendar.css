@@ -1,6 +1,7 @@
 * {
     margin: 0;
     box-sizing: border-box;
+    font-family: Poppins, sans-serif;
   }
   html {
     height: 100%;
@@ -57,14 +58,14 @@
 }
 
 /* Calendar Table Styling */
-.calendar table {
+table {
   width: 100%;
   border-collapse: collapse;
 }
 
 /* Header and data of table */
-.calendar table th,
-.calendar table td {
+table th,
+table td {
   border: 3px solid black;
   padding: 10px;
   text-align: center;
@@ -82,12 +83,33 @@ tbody tr {
   }
 
 /* Data of table */
-.calendar table td {
-    width: calc(100% / 7); /* Set width to 1/7 of the table's width */
-}
-
-.calendar tbody td {
-  
+tbody td {
   vertical-align: text-top;
   text-align: left;
+}
+/* Month and Year header */
+h3{
+  text-align: center;
+  font-size: 6vh;
+}
+
+.button-container-calendar {
+  display: flex;
+  justify-content: space-around; /* Distribute space evenly between items */
+  align-items: center; /* Center items vertically */
+}
+/* Prev button */
+.button-container-calendar #previous{
+  background-color: aqua;
+  height: 3vh;
+  width: 10vw;
+  font-family: Poppins, sans-serif;
+}
+
+/* Next button */
+.button-container-calendar #next{
+  background-color: aqua;
+  height: 3vh;
+  width: 10vw;
+  font-family: Poppins, sans-serif;
 }
