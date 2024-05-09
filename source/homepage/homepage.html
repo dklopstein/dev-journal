@@ -7,7 +7,7 @@
 
     <!-- <link rel="stylesheet" href="styles/homepage.css" /> -->
     <link rel="stylesheet" href="homepage.css" />
-    <script src="./assets/scripts/homepage.js" type="module"></script>
+    <script src="homepage.js" type="module"></script>
   </head>
 
   <body>
@@ -15,27 +15,77 @@
       
     </header>
     <main>
-      <div class="task-list" >
-          <h3>Tasks</h3>
-          <ul id="taskContainer">
-            <li><strong>name</strong>
+      <div class="task-list">
+        <h3>Tasks</h3>
+        <ul id="taskContainer">
+            <li>
+              <input type="checkbox" class="task-checkbox" id="task1">
+              <strong>name</strong>
               <p class="due-date">2024-00-00</p>
-              <div class="task-desc">description</div>
+              <div class="task-desc">
+                description blablablabalbalblblbalblablabalbal
+                <div class="color-buttons">
+                  <button class="color-button red"></button>
+                  <button class="color-button orange"></button>
+                  <button class="color-button yellow"></button>
+                  <button class="color-button green"></button>
+                  <button class="color-button blue"></button>
+                </div>
+              </div>
+              <img src="icons/delete_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="Remove" class="fas fa-trash-alt">
+              
             </li>
-            <li><strong>name</strong>
+            <li>
+              <input type="checkbox" class="task-checkbox" id="task2">
+              <strong>name</strong>
               <p class="due-date">2024-00-00</p>
-              <div class="task-desc">description</div>
+              <div class="task-desc">
+                description blablablabalbalblblbalblablabalbal
+                <div class="color-buttons">
+                  <button class="color-button red"></button>
+                  <button class="color-button orange"></button>
+                  <button class="color-button yellow"></button>
+                  <button class="color-button green"></button>
+                  <button class="color-button blue"></button>
+                </div>
+              </div>
+              <img src="icons/delete_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="Remove" class="fas fa-trash-alt">
             </li>
-            <li><strong>name</strong>
-              <p class="due-date">2024-00-00</p>
-              <div class="task-desc">description</div>
-            </li>
-          </ul>
+        </ul>
       </div>
+    
   
       <div class="main-wrap">
           <section class="top-bar">
-              Pane 1
+
+              <div class="date-header">
+                <button onclick="changeDate(-1)">
+                  <img src="icons/left-icon.png" alt="Home">
+                </button>
+                <div id="current-date"></div>
+                <button onclick="changeDate(1)">
+                  <img src="icons/right-icon.png" alt="Home">
+                </button>
+              </div>
+              
+              <div class="buttons">
+
+                <!-- Button to go to Home Page-->
+                <button onclick="goTo('home')">
+                  <img src="icons/home-icon.png" alt="Home">
+                </button>
+
+                <!--Button to go to Calendar-->
+                <button onclick="goTo('calendar')">
+                  <img src="icons/calendar-icon.webp" alt="Calendar">
+                </button>
+
+                <!--Button to go to Settings-->
+                <button onclick="goTo('settings')">
+                  <img src="icons/settings-icon.png" alt="Settings">
+                </button>
+
+              </div>
           </section>
           <section class="journal-week-wrap">
             <section class="today-entry-wrap">
@@ -44,8 +94,8 @@
                   words words words
                 </div>
                 <div class="rating-completed-wrap">
-                  <div class="rating-widget">seafe</div>
-                  <div class="completed-today">stuff</div>
+                  <div class="rating-widget">Sentiment Rating Widget</div>
+                  <div class="completed-today">Tasks Completed Today</div>
                 </div>
               </div>
               
@@ -55,6 +105,9 @@
           
       </div>
     </main>
+    <footer>
+      sfes
+    </footer>
   </body>
 
 </html>
