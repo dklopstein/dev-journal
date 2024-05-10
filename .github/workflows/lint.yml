@@ -1,0 +1,13 @@
+name: Linting
+on: push
+jobs:
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install modules
+      run: yarn
+    - name: Run ESLint for javascript
+      run: eslint . --ext .js
+    - name: Run stylelint for css
+      uses: actions-hub/stylelint@master
