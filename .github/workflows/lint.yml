@@ -8,7 +8,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: yarn install
+      - run: npm ci
       - uses: sibiraj-s/action-eslint@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }} # optional
