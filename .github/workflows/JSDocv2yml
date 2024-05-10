@@ -1,0 +1,13 @@
+name: JSDoc Generation
+on: push
+jobs:
+  gen-docs: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+      - uses: andstor/jsdoc-action@v1.2.1
+      - uses: actions/checkout@v4
+        with:
+          source_dir: ./source/homepage
+          recurse: true
+          output_dir: ./homepage/docs
