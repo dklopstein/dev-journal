@@ -249,7 +249,6 @@ button:hover {
 .completed-today {
   position: relative;
   float: left;
-  
   width: min(40%, 26rem);
   height: 70%;
   min-height: 7rem;
@@ -264,13 +263,4 @@ button:hover {
   height: 86%;
   max-width: 94.4rem;
   border:coral solid 2px;
-}
-
-/* For smaller screens */
-@media (max-width: 50rem) {
-
-  * {
-    font-size: 90px;
-  }
-
 }
