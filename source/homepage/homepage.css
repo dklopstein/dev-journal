@@ -204,11 +204,9 @@ button:hover {
 .past-week-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  
   width: min(80rem, 100%);
   height: min(12em, 80%);
   padding: max(1.5rem, 3.5vh);
-  
   border: red solid 2px;
 }
 
@@ -217,43 +215,34 @@ button:hover {
 }
 
 .today-entry {
-  
   width: min(70rem, 100%);
   height: 72%;
   padding-right: min(2rem, 3%);
   padding-left: min(2rem, 3%);
-  
-
   border: green solid 2px;
 }
 
 .journal {
   height: 60%;
-
   padding-top: 4%;
   padding-left: 8%;
   padding-right: 8%;
   padding-bottom: 2rem;
-  
-
   border: black solid 2px;
 }
 
 .rating-completed-wrap {
   height: 40%;
-
   border: red solid 2px;
 }
 
 .rating-widget {
   position: relative;
   float: left;
-
   width: min(46%, 30rem);
   height: 70%;
   margin-left: min(5%, 4rem);
   margin-top: max(3vh, 1rem);
-  
   border: red solid 2px;
 }
 
@@ -264,10 +253,8 @@ button:hover {
   width: min(40%, 26rem);
   height: 70%;
   min-height: 7rem;
-
   margin-top: max(3vh, 1rem);
   margin-left: min(5%, 3rem);
-  
   border: black solid 2px;
 }
 
@@ -276,8 +263,6 @@ button:hover {
   min-width: 40rem;
   height: 86%;
   max-width: 94.4rem;
-  
-
   border:coral solid 2px;
 }
 
