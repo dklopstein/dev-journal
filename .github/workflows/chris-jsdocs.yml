@@ -1,8 +1,5 @@
 name: JSDoc Generation
-on: 
-  push:
-    branches:
-      - chris-frontend
+on: push
 jobs:
   gen-docs: 
     runs-on: ubuntu-latest
