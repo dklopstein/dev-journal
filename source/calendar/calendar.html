@@ -13,9 +13,9 @@
   <body>
       <!-- Task list sidebar -->
       <div class="task-list" >
-          <h3>Window 1</h3>
+          <h3>Task List</h3>
           <p>
-              Helloo
+              All Tasks Here
           </p>
       </div>
   
@@ -23,11 +23,20 @@
       <div class="full-calendar">
 
         <!-- Calendar header -->
-          <div class="button-container-calendar">
-              <button id="previous" onclick="previous()"> Previous </button>
-              <h3 id="monthAndYear"></h3>
-              <button id="next" onclick="next()"> Next</button>
-          </div>
+        <div class="top-bar">
+            <!-- Month title and previous/next buttons -->
+            <div class="button-container-calendar">
+                <button id="previous" onclick="previous()"><img src="icons/left-icon.png" alt="Previous"></button>
+                <h3 id="monthAndYear"></h3>
+                <button id="next" onclick="next()"><img src="icons/right-icon.png" alt="Next"></button>
+            </div>
+            <!-- Home, calendar and settings icons -->
+            <div class="button-icons">
+                <button id="homepage"><img src="icons/home-icon.png" alt="Home"></button>
+                <button id="calendarpage"><img src="icons/calendar-icon.png" alt="Calendar"></button>
+                <button id="settingspage"><img src="icons/settings-icon.png" alt="Settings"></button>
+            </div>
+        </div>       
 
         <!-- Calendar Table -->
           <table class="table-calendar" id="calendar" data-lang="en">
@@ -62,4 +71,3 @@
   </body>
 
 </html>
-
