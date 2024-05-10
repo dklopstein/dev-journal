@@ -102,50 +102,49 @@ function showCalendar(month, year) {
     monthAndYear.innerHTML = months[month] + " " + year;
     selectYear.value = year;
     selectMonth.value = month;
- 
+
+    // Calculate previous month and year
+    let previousMonth = month - 1;
+    let previousYear = year;
+    if (previousMonth < 0) {
+        previousMonth = 11;
+        previousYear -= 1;
+    }
+
+    // Calculate the number of days in previous month
+    let daysInPreviousMonth = daysInMonth(previousMonth, previousYear);
+
     let date = 1;
+    let cell, cellText;
+
+    // Loop to create the rows
     for (let i = 0; i < 6; i++) {
         let row = document.createElement("tr");
         for (let j = 0; j < 7; j++) {
+            cell = document.createElement("td");
             if (i === 0 && j < firstDay) {
-                cell = document.createElement("td");
-                cellText = document.createTextNode("");
-                cell.appendChild(cellText);
-                row.appendChild(cell);
+                // Fill the last few days of the previous month
+                let prevMonthDate = daysInPreviousMonth - (firstDay - j) + 1;
+                cellText = document.createTextNode(prevMonthDate);
+                cell.className = "date-picker other-month";
             } else if (date > daysInMonth(month, year)) {
-                break;
+                // Fill the first few days of the next month
+                let nextMonthDate = date - daysInMonth(month, year);
+                cellText = document.createTextNode(nextMonthDate);
+                cell.className = "date-picker other-month";
+                date++;
             } else {
-                cell = document.createElement("td");
-                cell.setAttribute("data-date", date);
-                cell.setAttribute("data-month", month + 1);
-                cell.setAttribute("data-year", year);
-                cell.setAttribute("data-month_name", months[month]);
+                cellText = document.createTextNode(date);
                 cell.className = "date-picker";
-                cell.innerHTML = "<span>" + date + "</span";
- 
-                if (
-                    date === today.getDate() &&
-                    year === today.getFullYear() &&
-                    month === today.getMonth()
-                ) {
-                    cell.className = "date-picker selected";
-                }
- 
-                // Check if there are events on this date
-                if (hasEventOnDate(date, month, year)) {
-                    cell.classList.add("event-marker");
-                    cell.appendChild(
-                        createEventTooltip(date, month, year)
-                 );
-                }
- 
-                row.appendChild(cell);
                 date++;
             }
+            cell.appendChild(cellText);
+            row.appendChild(cell);
         }
         tbl.appendChild(row);
+        // Break the loop when the current month is completely filled
+        if (date > daysInMonth(month, year)) break;
     }
- 
     displayReminders();
 }
  
