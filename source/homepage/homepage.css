@@ -185,11 +185,10 @@ main {
   padding-bottom: 3vh;
   padding-right: 25px;
   gap: 10px;
-
 }
 
 .buttons button img {
-  height: 35px;
+  height: 4vh;
 }
 
 button:hover {
