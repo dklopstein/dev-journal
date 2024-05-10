@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="UTF-8" />
-    <title>Homepage</title>
-
-    <!-- <link rel="stylesheet" href="calendar.css" /> -->
+    <!-- Title -->
+    <title>Calendar</title>
+    <!-- CSS File -->
     <link rel="stylesheet" href="calendar.css" />
+    <!-- Font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-    <script src=".assets/calendar.js" type="module"></script>
   </head>
 
   <body>
+      <!-- Task list sidebar -->
       <div class="task-list" >
           <h3>Window 1</h3>
           <p>
@@ -19,88 +19,26 @@
           </p>
       </div>
   
-      <div class="calendar-wrap">
-        <!-- <section class="top-bar">
-          Pane 1
-        </section> -->
-        <!-- <div class="calendar">
-            <table>
-                <thead>
-                    <tr>
-                    <th>Sunday</th>
-                    <th>Monday</th>
-                    <th>Tuesday</th>
-                    <th>Wednesday</th>
-                    <th>Thursday</th>
-                    <th>Friday</th>
-                    <th>Saturday</th>
-                    </tr>
-                </thead>
+      <!-- Calendar -->
+      <div class="full-calendar">
 
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>2</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div> -->
-
-        <div id="full-calendar">
+        <!-- Calendar header -->
           <div class="button-container-calendar">
               <button id="previous" onclick="previous()"> Previous </button>
               <h3 id="monthAndYear"></h3>
               <button id="next" onclick="next()"> Next</button>
           </div>
+
+        <!-- Calendar Table -->
           <table class="table-calendar" id="calendar" data-lang="en">
               <thead id="thead-month"></thead>
-              <!-- Table body for displaying the calendar -->
               <tbody id="calendar-body"></tbody>
           </table>
+
+          <!-- Calendar date jump -->
           <div class="footer-container-calendar">
               <label for="month">Jump To: </label>
-              <!-- Dropdowns to select a specific month and year -->
+              <!-- Month jump dropdown -->
               <select id="month" onchange="jump()">
                   <option value=0>Jan</option>
                   <option value=1>Feb</option>
@@ -115,12 +53,11 @@
                   <option value=10>Nov</option>
                   <option value=11>Dec</option>
               </select>
-              <!-- Dropdown to select a specific year -->
+              <!-- Year jump dropdown -->
               <select id="year" onchange="jump()"></select>
-          </div>
         </div>
       </div>
-      <!-- Include the JavaScript file for the calendar functionality (TEMPORARY)-->
+      <!-- Javascript file -->
       <script src="./calendar.js"></script>
   </body>
 

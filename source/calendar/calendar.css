@@ -1,55 +1,41 @@
 * {
-    margin: 0;
-    box-sizing: border-box;
-    font-family: Poppins, sans-serif;
-  }
-  html {
-    height: 100%;
-    background-color: yellow;
-    overflow: hidden;
-  }
-  body {
-    height: 100%;
-    background-color: #ddd;
-  }
-  
-  main {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Poppins, sans-serif;
+}
+html {
   height: 100%;
-  position: relative;
-  
-  }
+  background-color: yellow;
+  overflow: hidden;
+}
+body {
+  height: 100%;
+  background-color: #ddd;
+}
+
+main {
+height: 100%;
+position: relative;
+
+}
 
  
+/* Task list sidebar */
+.task-list { 
+  width: 16%;
+  position: relative;
+  float: left;
+  height:100%;
   
-  .task-list { 
-    width: 16%;
-    position: relative;
-    float: left;
-    height:100%;
-    
-  
-    border: red solid 2px;
-  }
-  
-  .top-bar {
-    position: relative;
-    border: green solid 2px;
-    height: 30px;
-  }
+  border: red solid 2px;
+}
 
 /* CALENDAR */
 
 /* Main calendar */
-.calendar-wrap {
+.full-calendar {
   height: 100%;
   overflow-y: auto;
-}
-
-/* Top Bar Styling */
-.top-bar {
-  position: relative;
-  border: green solid 2px;
-  height: 20%;
 }
 
 /* Calendar Styling */
@@ -96,8 +82,8 @@ h3{
 
 .button-container-calendar {
   display: flex;
-  justify-content: space-around; /* Distribute space evenly between items */
-  align-items: center; /* Center items vertically */
+  justify-content: space-around;
+  align-items: center;
 }
 /* Prev button */
 .button-container-calendar #previous{

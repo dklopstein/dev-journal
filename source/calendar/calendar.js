@@ -1,21 +1,4 @@
-// Define an array to store events
-let events = [];
- 
-// letiables to store event input fields and reminder list
-let eventDateInput =
-    document.getElementById("eventDate");
-let eventTitleInput =
-    document.getElementById("eventTitle");
-let eventDescriptionInput =
-    document.getElementById("eventDescription");
-let reminderList =
-    document.getElementById("reminderList");
- 
-// Counter to generate unique event IDs
-let eventIdCounter = 1;
- 
-// Function to generate a range of 
-// years for the year select input
+// Function to generate range of years
 function generate_year_range(start, end) {
     let years = "";
     for (let year = start; year <= end; year++) {
@@ -25,14 +8,14 @@ function generate_year_range(start, end) {
     return years;
 }
  
-// Initialize date-related letiables
+// Initialize Date variables
 today = new Date();
 currentMonth = today.getMonth();
 currentYear = today.getFullYear();
 selectYear = document.getElementById("year");
 selectMonth = document.getElementById("month");
- 
-createYear = generate_year_range(1970, 2050);
+
+createYear = generate_year_range(currentYear-10, currentYear+10);
  
 document.getElementById("year").innerHTML = createYear;
  
@@ -146,41 +129,6 @@ function showCalendar(month, year) {
         if (date > daysInMonth(month, year)) break;
     }
     displayReminders();
-}
- 
-// Function to create an event tooltip
-function createEventTooltip(date, month, year) {
-    let tooltip = document.createElement("div");
-    tooltip.className = "event-tooltip";
-    let eventsOnDate = getEventsOnDate(date, month, year);
-    for (let i = 0; i < eventsOnDate.length; i++) {
-        let event = eventsOnDate[i];
-        let eventDate = new Date(event.date);
-        let eventText = `<strong>${event.title}</strong> - 
-            ${event.description} on 
-            ${eventDate.toLocaleDateString()}`;
-        let eventElement = document.createElement("p");
-        eventElement.innerHTML = eventText;
-        tooltip.appendChild(eventElement);
-    }
-    return tooltip;
-}
- 
-// Function to get events on a specific date
-function getEventsOnDate(date, month, year) {
-    return events.filter(function (event) {
-        let eventDate = new Date(event.date);
-        return (
-            eventDate.getDate() === date &&
-            eventDate.getMonth() === month &&
-            eventDate.getFullYear() === year
-        );
-    });
-}
- 
-// Function to check if there are events on a specific date
-function hasEventOnDate(date, month, year) {
-    return getEventsOnDate(date, month, year).length > 0;
 }
  
 // Function to get the number of days in a month
