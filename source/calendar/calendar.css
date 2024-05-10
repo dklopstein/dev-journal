@@ -59,8 +59,9 @@
 
 /* Calendar Table Styling */
 table {
-  width: 100%;
-  border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
 }
 
 /* Header and data of table */
