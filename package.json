@@ -9,5 +9,8 @@
   "jest": {
     "transform": {},
     "verbose": true
+  },
+  "dependencies": {
+    "jsdoc": "^4.0.3"
   }
 }
