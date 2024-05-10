@@ -1,12 +1,32 @@
-name: JSDoc Generation
-on: push
+name: Generate JSDoc
+
+on:
+  push:
+    branches:
+      - main
+      - homepage-front
+
 jobs:
-  gen-docs: 
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Build
-      - uses: andstor/jsdoc-action@v1.2.1
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          source_dir: ./source/homepage
-          recurse: true
+          node-version: '14'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Generate JSDoc
+        run: npx jsdoc -c jsdoc.config.json
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
