@@ -2,7 +2,6 @@ name: JSDoc Generation
 on: 
   push:
     branches:
-      - main
       - chris-frontend
 jobs:
   gen-docs: 
@@ -14,4 +13,4 @@ jobs:
         with:
           source_dir: ./source/homepage
           recurse: true
-          output_dir: ./homepage/docs
+          output_dir: ./source/homepage
