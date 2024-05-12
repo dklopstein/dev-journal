@@ -8,9 +8,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - run: npm install
       - run: npm ci
       - uses: sibiraj-s/action-eslint@v3
         with:
-          eslint-args: '--ignore-path=.gitignore --quiet'
-          extensions: 'js,jsx,ts,tsx'
+          eslint-args: "--ignore-path=.gitignore --quiet"
+          extensions: "js,jsx,ts,tsx"
           annotations: true
