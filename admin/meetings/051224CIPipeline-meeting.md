@@ -27,6 +27,7 @@
 Go through what has been done for the CIPipeline
 - Automated tests for documentation, unit test, and linting has been completed and they should run properly everytime we do pull request and push. Achknowledge which test should be run based on push or pull, we don't want them to run every single time we make changes, only certain times.
 - Tools like Codacy and CodeClimate are able to show how we can adjust our codes to make our code more organized and it also checks things like security, it provides suggestions and we can use it as a guide for our codes
+- Since we should not have any codes, the linting tests and unit tests should just have some stuff to show that it is working since we are not able to test stuff if we don't have codes
 
 ## ADR documentation
 **ADR**
