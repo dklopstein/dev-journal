@@ -138,3 +138,9 @@ function daysInMonth(iMonth, iYear) {
  
 // Call the showCalendar function initially to display the calendar
 showCalendar(currentMonth, currentYear);
+
+function bla()
+
+{
+    return 1;
+}
