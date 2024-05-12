@@ -17,3 +17,6 @@ Our group wants to make sure that all of our codes are easily readable, and incr
 
 ## e2e testing and other testing
 So far for e2e testing, all we have planned is that we want to test our journal website at the end to ensure that the website functions properly as our group expects. We will test the entire website with different aspects such as using tools like LightHouse or online tools that would rate our website's different aspects. Such as performance, usability, accessibility, we want to make sure that we can have ratings as high as possible so that the users are able to use our website for their convenience and attain high satisfaction. We will also test the features ourselves on different devices and under different situation to ensure that our website will function properly under different circumstances.
+
+## Pipeline Diagram
+![Diagram](phase1.drawio.png)
