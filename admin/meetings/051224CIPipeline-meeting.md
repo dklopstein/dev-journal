@@ -2,9 +2,9 @@
 ## Sunday, 2:30PM May 12, 2024
 
 # Weekly Meeting
-### Meeting held online on Zoom
+## Meeting held online on Zoom
 
-### Attendance (7/10)
+## Attendance (7/10)
 - Chris
 - Nathan
 - Kevin
@@ -13,7 +13,7 @@
 - Derek
 - Kai
 
-### Absent
+## Absent
 - Sonya
 - Sahana
 - Andrew
@@ -26,6 +26,7 @@
 **CIPipeline**
 Go through what has been done for the CIPipeline
 - Automated tests for documentation, unit test, and linting has been completed and they should run properly everytime we do pull request and push. Achknowledge which test should be run based on push or pull, we don't want them to run every single time we make changes, only certain times.
+- Tools like Codacy and CodeClimate are able to show how we can adjust our codes to make our code more organized and it also checks things like security, it provides suggestions and we can use it as a guide for our codes
 
 ## ADR documentation
 **ADR**
