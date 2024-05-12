@@ -1,19 +1,23 @@
-name: Linting
-on: push
+name: Lint
+
+on: pull_request
+
 jobs:
-  linting:
+  run-linters:
+    name: Run linters
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
         with:
-          node-version: 16
-      - run: yarn install
-      - uses: sibiraj-s/action-eslint@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }} # optional
-          eslint-args: '--ignore-path=.gitignore --quiet'
-          extensions: 'js,jsx,ts,tsx'
-          annotations: true
-      - name: Run stylelint for css
-        uses: actions-hub/stylelint@master
+          node-version: 18
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Run linters
+        run: npx eslint .
