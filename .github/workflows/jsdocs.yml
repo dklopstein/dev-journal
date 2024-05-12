@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - homepage-front
+      - chris-frontend
 
 jobs:
   build:
