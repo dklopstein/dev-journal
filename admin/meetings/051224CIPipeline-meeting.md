@@ -21,6 +21,7 @@
 ## Agenda
 1. Review Pipeline
 2. Go through ADR documentation
+3. Lab partners
 
 ## Review
 **CIPipeline**
@@ -37,3 +38,6 @@ Go through what has been done for the CIPipeline
 - Kevin will create the video for the linting and codacy parts
 - Nathan, Kai will do the unit tests part
 - Chris and Andrew will be responsible to pull request review and JSdocs part of the pipeline
+
+## Lab partners
+- Check who has teammed up for lab 6, and match up for people that has not teammed up yet.
