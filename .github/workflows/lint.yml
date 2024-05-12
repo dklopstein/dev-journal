@@ -1,11 +1,18 @@
 name: Linting
 on: push
 jobs:
-  build:
+  eslint:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
-      - name: Install modules
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+
+      - name: Install Dependencies
         run: npm ci
-      - name: Run ESLint
+
+      - name: Lint
         run: eslint . --ext .js,.jsx,.ts,.tsx
