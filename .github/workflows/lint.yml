@@ -15,4 +15,4 @@ jobs:
         run: npm ci
 
       - name: Lint
-        run: eslint . --ext .js,.jsx,.ts,.tsx
+        run: npx eslint .
