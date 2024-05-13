@@ -1,0 +1,264 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+  height: 100%;
+  background-color: yellow;
+  overflow: hidden;
+}
+body {
+  height: 100%;
+  background-color: #ddd;
+}
+main {
+  display: flex;
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+}
+
+.task-list { 
+  flex: 0 0 14%;
+  height:100%;
+  margin: 5px;
+  padding: 1%;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: px 1px lightgrey;
+}
+
+@media (max-width: 800px) {
+  .task-list {
+      display: none;
+  }
+}
+
+.task-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.task-list li {
+  background: #e0e0e0;
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative; /* Sets context for absolute positioning of children */
+  overflow: hidden; /* Ensures description expands within the li */
+  cursor: pointer; /* Indicates you can interact with the item */
+  text-align: left; /* Keeps text left-aligned */
+}
+
+.fas.fa-trash-alt {
+  position: absolute; /* Positioning relative to the nearest positioned ancestor */
+  top: 10px; /* Distance from the top edge of the li */
+  right: 10px; /* Distance from the right edge of the li */
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.due-date {
+  font-size: 80%;
+  color: grey;
+  text-align: right;
+}
+
+.task-desc {
+  max-height: 0; /* Start with max-height 0 to keep it hidden */
+  overflow: hidden; /* Prevents any content from spilling out */
+  overflow-wrap: break-word; /* Force words to break and wrap inside the box */
+  word-break: break-word;
+  transition: max-height 0.3s ease-in-out, padding 0.2s ease-in-out; /* Smooth transition for max-height and padding */
+}
+
+.task-list li:hover .task-desc {
+  max-height: 200px; /* Enough max-height to show the content */
+}
+
+.task-checkbox {
+  appearance: none;
+  margin: 0 10px 0 0;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #555;
+  border-radius: 50%;
+  vertical-align: middle;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
+
+.task-checkbox:checked {
+  background-color: #537692;
+  border-color: #537692;
+}
+
+.task-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 1px;
+  width: 5px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.fas.fa-trash-alt {
+  color: #555;
+  cursor: pointer;
+  margin-left: auto;
+  vertical-align: middle;
+}
+
+.color-buttons {
+  display: flex; /* Lays out the buttons in a row */
+  justify-content: space-around; /* Spaces buttons evenly */
+  margin-top: 5px; /* Space from the description */
+}
+
+.color-button {
+  width: 15px; /* Uniform button size */
+  height: 15px; /* Uniform button size */
+  border-radius: 100%; /* Makes the buttons circular */
+  border: none; /* Removes default button border */
+  cursor: pointer; /* Indicates the buttons are clickable */
+}
+
+.color-button.red { background-color: red; }
+.color-button.orange { background-color: orange; }
+.color-button.yellow { background-color: yellow; }
+.color-button.green { background-color: green; }
+.color-button.blue { background-color: blue; }
+
+
+.main-wrap { 
+  flex: 1;
+  position: relative;
+  float: left;
+  width: 84%;
+  height: 100%;
+  border: blue solid 3px;
+}
+
+.top-bar {
+  position: relative;
+  border: green solid 3px;
+  height: 20%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.date-header {
+  display: flex;
+  justify-content: center;
+  padding-top: 10vh;
+  padding-bottom: 2vh;
+  padding-left: 20px;
+  gap: 10px;
+
+}
+
+.date-header button {
+  padding-top: 5px;
+}
+
+.date-header button img {
+  height: 15px;
+}
+
+.top-bar #current-date {
+  position: relative;
+  font-size: max(15px, min(4vh, 4vw));
+  font-family: cursive;
+
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10vh;
+  padding-bottom: 3vh;
+  padding-right: 25px;
+  gap: 10px;
+}
+
+.buttons button img {
+  height: 4vh;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.past-week-wrap {
+  height: 28%;
+  border: blue solid 2px;
+}
+
+.past-week-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  width: min(80rem, 100%);
+  height: min(12em, 80%);
+  padding: max(1.5rem, 3.5vh);
+  border: red solid 2px;
+}
+
+.past-day {
+  border: black solid 2px;
+}
+
+.today-entry {
+  width: min(70rem, 100%);
+  height: 72%;
+  padding-right: min(2rem, 3%);
+  padding-left: min(2rem, 3%);
+  border: green solid 2px;
+}
+
+.journal {
+  height: 60%;
+  padding-top: 4%;
+  padding-left: 8%;
+  padding-right: 8%;
+  padding-bottom: 2rem;
+  border: black solid 2px;
+}
+
+.rating-completed-wrap {
+  height: 40%;
+  border: red solid 2px;
+}
+
+.rating-widget {
+  position: relative;
+  float: left;
+  width: min(46%, 30rem);
+  height: 70%;
+  margin-left: min(5%, 4rem);
+  margin-top: max(3vh, 1rem);
+  border: red solid 2px;
+}
+
+.completed-today {
+  position: relative;
+  float: left;
+  width: min(40%, 26rem);
+  height: 70%;
+  min-height: 7rem;
+  margin-top: max(3vh, 1rem);
+  margin-left: min(5%, 3rem);
+  border: black solid 2px;
+}
+
+.journal-past-wrap {
+  width: min(100%);
+  min-width: 40rem;
+  height: 86%;
+  max-width: 94.4rem;
+  border:coral solid 2px;
+}

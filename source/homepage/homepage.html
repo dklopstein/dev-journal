@@ -1,1 +1,124 @@
- 
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <title>Homepage</title>
+
+    <link rel="stylesheet" href="homepage.css" />
+    <script src="homepage.js" type="module"></script>
+  </head>
+
+  <body>
+    <header>
+      
+    </header>
+    <main>
+      <div class="task-list">
+        <h3>Tasks</h3>
+        <ul id="taskContainer">
+            <li>
+              <input type="checkbox" class="task-checkbox" id="task1">
+              <strong>name</strong>
+              <p class="due-date">2024-00-00</p>
+              <div class="task-desc">
+                <p>description blablablabalbalblblbalblablabalbal</p>
+                <div class="color-buttons">
+                  <button class="color-button red"></button>
+                  <button class="color-button orange"></button>
+                  <button class="color-button yellow"></button>
+                  <button class="color-button green"></button>
+                  <button class="color-button blue"></button>
+                </div>
+              </div>
+              <img src="icons/delete_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="Remove" class="fas fa-trash-alt">
+              
+            </li>
+            <li>
+              <input type="checkbox" class="task-checkbox" id="task2">
+              <strong>name</strong>
+              <p class="due-date">2024-00-00</p>
+              <div class="task-desc">
+                <p>description blablablabalbalblblbalblablabalbal</p>
+                <div class="color-buttons">
+                  <button class="color-button red"></button>
+                  <button class="color-button orange"></button>
+                  <button class="color-button yellow"></button>
+                  <button class="color-button green"></button>
+                  <button class="color-button blue"></button>
+                </div>
+              </div>
+              <img src="icons/delete_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="Remove" class="fas fa-trash-alt">
+            </li>
+        </ul>
+      </div>
+      <!--Everything but the task list-->
+      <div class="main-wrap">
+          <!--Contain header bar-->
+          <section class="top-bar">
+
+              <div class="date-header">
+                <button onclick="changeDate(-1)">
+                  <img src="icons/left-icon.png" alt="Home">
+                </button>
+                <div id="current-date"></div>
+                <button onclick="changeDate(1)">
+                  <img src="icons/right-icon.png" alt="Home">
+                </button>
+              </div>
+              
+              <div class="buttons">
+
+                <!-- Button to go to Home Page-->
+                <button onclick="goTo('home')">
+                  <img src="icons/home-icon.png" alt="Home">
+                </button>
+
+                <!--Button to go to Calendar-->
+                <button onclick="goTo('calendar')">
+                  <img src="icons/calendar-icon.webp" alt="Calendar">
+                </button>
+
+                <!--Button to go to Settings-->
+                <button onclick="goTo('settings')">
+                  <img src="icons/settings-icon.png" alt="Settings">
+                </button>
+
+              </div>
+          </section>
+          <!--Below header bar-->
+          <div class="journal-past-wrap">
+            <!--Today's Entry, includes journal, ratings, tasks completed-->
+            <section class="today-entry">
+                <div class="journal">
+                  words words words
+                </div>
+                <!--Wraps Sentiment Rating and Tasks Completed-->
+                <div class="rating-completed-wrap">
+                  <div class="rating-widget">Sentiment Rating Widget</div>
+                  <div class="completed-today">Tasks Completed Today</div>
+                </div>
+            </section>
+
+            <!--Holds the past week view-->
+            <section class="past-week-wrap">
+              <div class="past-week-grid">
+                <div class="past-day">f</div>
+                <div class="past-day">f</div>
+                <div class="past-day">f</div>
+                <div class="past-day">f</div>
+                <div class="past-day">f</div>
+                <div class="past-day">f</div>
+                <div class="past-day">f</div>
+              </div>
+            </section>
+          </div>
+          
+      </div>
+    </main>
+    <footer>
+      sfes
+    </footer>
+  </body>
+
+</html>
