@@ -4,7 +4,7 @@
 - Considering that we wanted the focus of our app to be Journaling, how much complexity should we give the tasks feature?
 
 ### The Delimma
-Tasks are certainly a feature of our app. However, what attributes should a task have?\
+Tasks are certainly a feature of our app. However, what attributes should a task have?
 - We can give tasks a name, deadline, and notes.
 - Tasks must have a name so that's not up for debate.
 - If we give tasks deadlines, it implies that the user would want to assign tasks for days in the future.
