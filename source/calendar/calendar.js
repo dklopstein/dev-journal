@@ -1,140 +1,212 @@
-// Function to generate range of years
-function generate_year_range(start, end) {
-    let years = "";
-    for (let year = start; year <= end; year++) {
-        years += "<option value='" +
-            year + "'>" + year + "</option>";
-    }
-    return years;
-}
- 
-// Initialize Date variables
-today = new Date();
-currentMonth = today.getMonth();
-currentYear = today.getFullYear();
+// initialize date variables
+date = new Date();
+currMonth = date.getMonth();
+currYear = date.getFullYear();
+
+// Get Jump variables and list
 selectYear = document.getElementById("year");
 selectMonth = document.getElementById("month");
+createYearRange = gen_years(currYear-10, currYear+10); 
+document.getElementById("year").innerHTML = createYearRange;
 
-createYear = generate_year_range(currentYear-10, currentYear+10);
- 
-document.getElementById("year").innerHTML = createYear;
- 
-let calendar = document.getElementById("calendar");
- 
-let months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
+// Get month and year header
+monthYearHeader = document.getElementById("monthYearHeader");
+// Get body of calendar
+tbody = document.getElementById("tbody-calendar");
+
+// Initialize list of months
+let allMonths = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
 ];
-let days = [
-    "Sun", "Mon", "Tue", "Wed",
-    "Thu", "Fri", "Sat"];
+// Initialize list of days of the week
+let allDays = ["Sun", "Mon", "Tue", "Wed","Thu", "Fri", "Sat"];
  
-$dataHead = "<tr>";
-for (dhead in days) {
-    $dataHead += "<th data-days='" +
-        days[dhead] + "'>" +
-        days[dhead] + "</th>";
+
+// Header of Days of the week
+let HDaysOfWeek = "<tr>";
+// Loop through allDays list
+for (day of allDays){
+    HDaysOfWeek += "<th data-days='" + day + "'>" + day + "</th>";
 }
-$dataHead += "</tr>";
- 
-document.getElementById("thead-month").innerHTML = $dataHead;
- 
-monthAndYear =
-    document.getElementById("monthAndYear");
-showCalendar(currentMonth, currentYear);
- 
-// Function to navigate to the next month
-function next() {
-    currentYear = currentMonth === 11 ?
-        currentYear + 1 : currentYear;
-    currentMonth = (currentMonth + 1) % 12;
-    showCalendar(currentMonth, currentYear);
+// Close header
+HDaysOfWeek += "</tr>";
+// Add filled in day of the week header to calendar table
+document.getElementById("thead-weekheadings").innerHTML = HDaysOfWeek;
+
+
+// Function to goto next month
+function next(){
+    // If Dec to Jan increment year
+    if (currMonth == 11){
+        currYear += 1;
+    }
+    // Increment currMonth and go to 0 if Dec to Jan
+    currMonth = (currMonth + 1) % 12;
+    // Update calendar
+    displayCalendar(currMonth, currYear);
 }
- 
-// Function to navigate to the previous month
-function previous() {
-    currentYear = currentMonth === 0 ?
-        currentYear - 1 : currentYear;
-    currentMonth = currentMonth === 0 ?
-        11 : currentMonth - 1;
-    showCalendar(currentMonth, currentYear);
+
+// Function to goto previous month
+function prev(){
+    // Decrement currMonth
+    currMonth--;
+    // If Jan to Dec decrement year and set month to Dec
+    if (currMonth == -1){
+        currYear -= 1;
+        currMonth = 11;
+    }
+    // Update calendar
+    displayCalendar(currMonth, currYear);
 }
  
 // Function to jump to a specific month and year
 function jump() {
-    currentYear = parseInt(selectYear.value);
-    currentMonth = parseInt(selectMonth.value);
-    showCalendar(currentMonth, currentYear);
+    currYear = parseInt(selectYear.value);
+    currMonth = parseInt(selectMonth.value);
+    displayCalendar(currMonth, currYear);
 }
  
 // Function to display the calendar
-function showCalendar(month, year) {
-    let firstDay = new Date(year, month, 1).getDay();
-    tbl = document.getElementById("calendar-body");
-    tbl.innerHTML = "";
-    monthAndYear.innerHTML = months[month] + " " + year;
-    selectYear.value = year;
-    selectMonth.value = month;
+function displayCalendar(mnth, yr){
+    // Get calendar day of first day in given month
+    let first = new Date(yr, mnth, 1);
 
-    // Calculate previous month and year
-    let previousMonth = month - 1;
-    let previousYear = year;
-    if (previousMonth < 0) {
-        previousMonth = 11;
-        previousYear -= 1;
+    // Get weekday 0-6
+    let firstDay = first.getDay();
+
+    // Clear the table body
+    tbody.innerHTML = "";
+
+    //Create calendar month/year heading
+    monthYearHeader.innerHTML = allMonths[mnth] + " " + yr;
+
+    // Update jump with current month and year
+    selectMonth.value = mnth;
+    selectYear.value = yr;
+
+    // Set previous month and year variables
+    let prevMonth = mnth - 1;
+    let prevYear = yr;
+    if (mnth == 0){
+        prevMonth = 11;
+        prevYear = yr-1;
     }
 
-    // Calculate the number of days in previous month
-    let daysInPreviousMonth = daysInMonth(previousMonth, previousYear);
+    // Set next month and year variables
+    // Set previous month and year variables
+    let nextMonth = mnth + 1;
+    let nextYear = yr;
+    if (mnth == 11){
+        nextMonth = 0;
+        nextYear = yr+1;
+    }
 
-    let date = 1;
-    let cell, cellText;
+    // Intitialize current day of the current and next month
+    let currMonthDay = 1;
+    let nextMonthDay = 1;
 
-    // Loop to create the rows
+    // BUILD CALENDAR
+    // Loop through number of rows
     for (let i = 0; i < 6; i++) {
+        // Create rows
         let row = document.createElement("tr");
+    
+        // Loop through number of columns
         for (let j = 0; j < 7; j++) {
-            cell = document.createElement("td");
-            if (i === 0 && j < firstDay) {
-                // Fill the last few days of the previous month
-                let prevMonthDate = daysInPreviousMonth - (firstDay - j) + 1;
-                cellText = document.createTextNode(prevMonthDate);
-                cell.className = "date-picker other-month";
-            } else if (date > daysInMonth(month, year)) {
-                // Fill the first few days of the next month
-                let nextMonthDate = date - daysInMonth(month, year);
-                cellText = document.createTextNode(nextMonthDate);
-                cell.className = "date-picker other-month";
-                date++;
-            } else {
-                cellText = document.createTextNode(date);
-                cell.className = "date-picker";
-                date++;
+            // Create data for each table cell in the row
+            cell_data = document.createElement("td");
+
+            // Fill in previous month into unfilled cells before first day of month
+            if (i == 0 && j < firstDay) {
+                // Calculate dates of previous month
+                let prevMonthDay = daysInMonth(prevMonth, prevYear) - (firstDay - j) + 1;
+                // Number of current day
+                cellDay = document.createTextNode(prevMonthDay);
+                // Add class date-num and other-month
+                cell_data.className = "other-month-date-num";
+
+                // Current cell date
+                let cellDate = new Date(prevYear, prevMonth, prevMonthDay);
+                // If cell is in the future
+                if (cellDate > date) {
+                    cell_data.classList.add("future-date");
+                }
+
+            } 
+            // Fill next month into unfilled cells after last day of month
+            else if (currMonthDay > daysInMonth(mnth, yr)) {
+                // Number of current day
+                cellDay = document.createTextNode(nextMonthDay);
+                // Add class date-num and other-month
+                cell_data.className = "other-month-date-num";
+
+                // Current cell date
+                let cellDate = new Date(nextYear, nextMonth, nextMonthDay);
+                // If cell is in the future
+                if (cellDate > date) {
+                    cell_data.classList.add("future-date");
+                }
+
+                // Increment next month day counter
+                nextMonthDay++;
+
+            } 
+            // Fill in days of current month
+            else {
+                // Number of current day
+                cellDay = document.createTextNode(currMonthDay);
+                // Add class date-num
+                cell_data.className = "curr-month-date-num";
+
+                // Current cell date
+                let cellDate = new Date(yr, mnth, currMonthDay);
+                // If cell is in the future
+                if (cellDate > date) {
+                    cell_data.classList.add("future-date");
+                }
+                // If cell is today
+                else if (cellDate.toDateString() === date.toDateString()) {
+                    cell_data.classList.add("current-date");
+                }
+
+                // Increment curr month day counter
+                currMonthDay++;
             }
-            cell.appendChild(cellText);
-            row.appendChild(cell);
+            // Append cell number to new cell
+            cell_data.appendChild(cellDay);
+            // Append new cell to row
+            row.appendChild(cell_data);
         }
-        tbl.appendChild(row);
-        // Break the loop when the current month is completely filled
-        if (date > daysInMonth(month, year)) break;
+        // Append row to table
+        tbody.appendChild(row);
+        // When calendar month filled, break loop
+        if (currMonthDay > daysInMonth(mnth, yr)) {
+            break
+        };
     }
-    displayReminders();
+}
+
+// Get number of days in a given month
+function daysInMonth(mnth, yr){
+    // Get last date of current month
+    var lastDay= new Date(yr, ((mnth+1)%12) , 0);
+    // Return max day count
+    return lastDay.getDate();
+}
+
+// Generate dropdown year range
+function gen_years(startYear, endYear) {
+    // Initialize empty string
+    let yearList = "";
+    // Loop through year range
+    for (let yr = startYear; yr < endYear+1; yr++) {
+        // Concatenate the year
+        yearList += "<option value='" + yr + "'>" + yr + "</option>";
+    }
+    // Return concatenated list
+    return yearList;
 }
  
-// Function to get the number of days in a month
-function daysInMonth(iMonth, iYear) {
-    return 32 - new Date(iYear, iMonth, 32).getDate();
-}
- 
-// Call the showCalendar function initially to display the calendar
-showCalendar(currentMonth, currentYear);
+// Initially call displayCalendar to display the calendar
+displayCalendar(currMonth, currYear);

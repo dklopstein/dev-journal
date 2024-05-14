@@ -120,3 +120,18 @@ h3 {
 .button-icons button img {
   height: 4vh;
 }
+
+/* Change color of numbers in future and past months */
+.other-month-date-num {
+  color: gray;
+}
+
+/* Cell is in the future */
+.future-date {
+  background-color: #acadad;
+}
+
+/* Cell is today */
+.current-date {
+  background-color: lightblue;
+}

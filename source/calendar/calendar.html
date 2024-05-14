@@ -26,8 +26,8 @@
         <div class="top-bar">
             <!-- Month title and previous/next buttons -->
             <div class="button-container-calendar">
-                <button id="previous" onclick="previous()"><img src="icons/left-icon.png" alt="Previous"></button>
-                <h3 id="monthAndYear"></h3>
+                <button id="previous" onclick="prev()"><img src="icons/left-icon.png" alt="Previous"></button>
+                <h3 id="monthYearHeader"></h3>
                 <button id="next" onclick="next()"><img src="icons/right-icon.png" alt="Next"></button>
             </div>
             <!-- Home, calendar and settings icons -->
@@ -40,8 +40,8 @@
 
         <!-- Calendar Table -->
           <table class="table-calendar" id="calendar" data-lang="en">
-              <thead id="thead-month"></thead>
-              <tbody id="calendar-body"></tbody>
+              <thead id="thead-weekheadings"></thead>
+              <tbody id="tbody-calendar"></tbody>
           </table>
 
           <!-- Calendar date jump -->
