@@ -31,8 +31,7 @@
                   <button class="color-button blue"></button>
                 </div>
               </div>
-              <img src="icons/delete_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="Remove" class="fas fa-trash-alt">
-              
+              <img src="icons/trash_icon.svg" alt="Remove" class="fas fa-trash-alt">
             </li>
             <li>
               <input type="checkbox" class="task-checkbox" id="task2">
@@ -48,7 +47,7 @@
                   <button class="color-button blue"></button>
                 </div>
               </div>
-              <img src="icons/delete_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="Remove" class="fas fa-trash-alt">
+              <img src="icons/trash_icon.svg" alt="Remove" class="fas fa-trash-alt">
             </li>
         </ul>
       </div>
@@ -95,7 +94,35 @@
                 </div>
                 <!--Wraps Sentiment Rating and Tasks Completed-->
                 <div class="rating-completed-wrap">
-                  <div class="rating-widget">Sentiment Rating Widget</div>
+                  <div class="rating-widget">
+                    <h4>How are you feeling today?</h4>
+                    <div class="feelings">
+                      <!-- 1st Angry button  -->
+                      <button onclick="selectButton(1)">
+                        <img src="icons/1angry.png" alt="Angry Button 1">
+                      </button>
+
+                      <!-- 2nd Upset button -->
+                      <button onclick="selectButton(2)">
+                          <img src="icons/2upset.png" alt="Upset Button 2">
+                      </button>
+
+                      <!-- 3rd Neutral button -->
+                      <button onclick="selectButton(3)">
+                        <img src="icons/3neutral.png" alt="Neutral Button 3">
+                      </button>
+
+                      <!-- 4th Happy button -->
+                      <button onclick="selectButton(4)">
+                        <img src="icons/4happy.png" alt="Happy Button 4">
+                      </button>
+
+                      <!-- 5th Overjoyed button -->
+                      <button onclick="selectButton(5)">
+                        <img src="icons/5overjoyed.png" alt="Overjoyed Button 5">
+                      </button>
+                    </div>
+                  </div>
                   <div class="completed-today">Tasks Completed Today</div>
                 </div>
             </section>

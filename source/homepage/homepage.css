@@ -18,6 +18,7 @@ main {
   position: relative;
 }
 
+/* Start of task list */
 .task-list { 
   flex: 0 0 14%;
   height:100%;
@@ -133,7 +134,7 @@ main {
 .color-button.yellow { background-color: yellow; }
 .color-button.green { background-color: green; }
 .color-button.blue { background-color: blue; }
-
+/* End of task list */
 
 .main-wrap { 
   flex: 1;
@@ -144,6 +145,7 @@ main {
   border: blue solid 3px;
 }
 
+/* Start of top bar */
 .top-bar {
   position: relative;
   border: green solid 3px;
@@ -193,7 +195,9 @@ main {
 button:hover {
   cursor: pointer;
 }
+/* End of top bar */
 
+/* Start of past week */
 .past-week-wrap {
   height: 28%;
   border: blue solid 2px;
@@ -219,7 +223,9 @@ button:hover {
   padding-left: min(2rem, 3%);
   border: green solid 2px;
 }
+/* End of past week */
 
+/* Start of journal */
 .journal {
   height: 60%;
   padding-top: 4%;
@@ -228,7 +234,9 @@ button:hover {
   padding-bottom: 2rem;
   border: black solid 2px;
 }
+/* End of journal */
 
+/* Start of rating */
 .rating-completed-wrap {
   height: 40%;
   border: red solid 2px;
@@ -244,6 +252,19 @@ button:hover {
   border: red solid 2px;
 }
 
+.feelings {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5vw;
+
+}
+
+.feelings button img {
+  height: 4vh;
+}
+/* End of rating */
+
+/* Start of completed list */
 .completed-today {
   position: relative;
   float: left;
@@ -254,6 +275,7 @@ button:hover {
   margin-left: min(5%, 3rem);
   border: black solid 2px;
 }
+/* End of completed list */
 
 .journal-past-wrap {
   width: min(100%);
