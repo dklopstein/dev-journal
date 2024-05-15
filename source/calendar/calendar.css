@@ -21,7 +21,7 @@ position: relative;
  
 /* Task list sidebar */
 .task-list { 
-  width: 16%;
+  width: 20%;
   position: relative;
   float: left;
   height:100%;
