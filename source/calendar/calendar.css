@@ -135,3 +135,10 @@ h3 {
 .current-date {
   background-color: lightblue;
 }
+
+.curr-month-date-num,
+.other-month-date-num {
+  font-size: 14px;
+  padding-left: 3px;
+  padding-top: 1px;
+}
