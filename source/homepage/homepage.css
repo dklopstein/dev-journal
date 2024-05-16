@@ -277,11 +277,24 @@ button:hover {
   display: flex;
   justify-content: flex-start;
   gap: 0.5vw;
-
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .feelings button img {
   height: 4vh;
+}
+
+.productiveness {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5vw;
+  padding-top: 5px;
+}
+
+.productiveness button {
+  font-size: 4vh;
+  width: 6vh;
 }
 /* End of rating */
 
