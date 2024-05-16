@@ -156,76 +156,56 @@ main {
 
 .date-header-wrap {
   position: absolute;
-  bottom: 0;
-  height: max(30%, 1rem);
+  bottom: 1em;
+  height: max(30%, 2rem);
   width: 100%;
 
-  display: grid;
+  display: flex;
   grid-template-columns: 1fr 1fr;
 
-  border: blue solid 2px;
-
+  /* border: blue solid 2px; */
 }
 
 .date-header {
-
   display: flex;
   width: 80%;
-  margin-left: 1em;
-
-
-  /* margin-top: min(6rem, 12%); */
-
-  /* margin-top: 6em;
-  margin-left: 1em;
-  margin-bottom: 1em; */
+  margin-left: 0.5em;
 }
 
 .date-header button {
   padding-top: 5px;
-  width: 10%;
+  width: 2em;
 
   height: 100%;
 }
 
 .date-header button img {
-  height: 18px;
   height: min(18px, 1em);
 }
 
-.top-bar #current-date {
+.date-header #current-date {
+  font-family: cursive;
+  font-size: 1.7em;
+  text-wrap: nowrap;
 
-  /* Center Date */
-  margin-top: auto;
-  margin-bottom: auto;
-
-  margin-right: min(1.2em,3%);
-  margin-left: min(1.2em,3%);
+  margin-right: min(1em,2%);
+  margin-left: min(1em,2%);
 }
 
 .buttons {
   position: absolute;
-  right: 1em;
+  right: 2rem;
+  bottom: 3rem;
+
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
 
   height: 100%;
 }
-/* 
-.buttons {
-  position: relative;
-  float: left;
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 10vh;
-  padding-bottom: 3vh;
-  padding-right: 25px;
-  gap: 10px;
-} */
 
 .buttons button img {
-  height: 4vh;
+  height: 2.5em;
 }
 
 button:hover {
