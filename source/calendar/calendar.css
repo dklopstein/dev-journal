@@ -90,10 +90,10 @@ h3 {
 /* Calendar buttons */
 .button-container-calendar {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   padding-top: 0.5vh;
   padding-bottom: 3vh;
-  padding-right: 25px;
+  padding-right: 200px;
   gap: 10px;
 }
 
