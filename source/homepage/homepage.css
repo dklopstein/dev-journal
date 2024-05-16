@@ -1,6 +1,8 @@
 * {
   margin: 0;
   box-sizing: border-box;
+
+  font-family: "Roboto", sans-serif;
 }
 html {
   height: 100%;
@@ -20,7 +22,7 @@ main {
 
 /* Start of task list */
 .task-list { 
-  flex: 0 0 14%;
+  flex: 0 0 18%;
   height:100%;
   margin: 5px;
   padding: 1%;
@@ -140,56 +142,70 @@ main {
   flex: 1;
   position: relative;
   float: left;
-  width: 84%;
+
   height: 100%;
-  border: blue solid 3px;
+  /* border: blue solid 3px; */
 }
 
 /* Start of top bar */
 .top-bar {
   position: relative;
+  height: 16%;
   border: green solid 3px;
-  height: 20%;
+}
+
+.date-header-wrap {
+  position: absolute;
+  bottom: 1em;
+  height: max(30%, 2rem);
+  width: 100%;
+
   display: flex;
-  justify-content: space-between;
+  grid-template-columns: 1fr 1fr;
+
+  /* border: blue solid 2px; */
 }
 
 .date-header {
   display: flex;
-  justify-content: center;
-  padding-top: 10vh;
-  padding-bottom: 2vh;
-  padding-left: 20px;
-  gap: 10px;
-
+  width: 80%;
+  margin-left: 0.5em;
 }
 
 .date-header button {
   padding-top: 5px;
+  width: 2em;
+
+  height: 100%;
 }
 
 .date-header button img {
-  height: 15px;
+  height: min(18px, 1em);
 }
 
-.top-bar #current-date {
-  position: relative;
-  font-size: max(15px, min(4vh, 4vw));
+.date-header #current-date {
   font-family: cursive;
+  font-size: 1.7em;
+  text-wrap: nowrap;
 
+  margin-right: min(1em,2%);
+  margin-left: min(1em,2%);
 }
 
 .buttons {
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 10vh;
-  padding-bottom: 3vh;
-  padding-right: 25px;
-  gap: 10px;
+  position: absolute;
+  right: 2rem;
+  bottom: 3rem;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+
+  height: 100%;
 }
 
 .buttons button img {
-  height: 4vh;
+  height: 2.5em;
 }
 
 button:hover {
@@ -200,7 +216,7 @@ button:hover {
 /* Start of past week */
 .past-week-wrap {
   height: 28%;
-  border: blue solid 2px;
+  /* border: blue solid 2px; */
 }
 
 .past-week-grid {
@@ -209,7 +225,7 @@ button:hover {
   width: min(80rem, 100%);
   height: min(12em, 80%);
   padding: max(1.5rem, 3.5vh);
-  border: red solid 2px;
+  /* border: red solid 2px; */
 }
 
 .past-day {
@@ -221,34 +237,39 @@ button:hover {
   height: 72%;
   padding-right: min(2rem, 3%);
   padding-left: min(2rem, 3%);
-  border: green solid 2px;
+  /* border: green solid 2px; */
 }
 /* End of past week */
 
 /* Start of journal */
 .journal {
-  height: 60%;
-  padding-top: 4%;
-  padding-left: 8%;
-  padding-right: 8%;
-  padding-bottom: 2rem;
-  border: black solid 2px;
+  height: 55%;
+  /* border: black solid 2px; */
+}
+
+.journal-entry {
+  height: 94%;
+  margin-top: 2%;
+  margin-right: 2em;
+  margin-bottom: 1rem;
+  border: red solid 2px;
 }
 /* End of journal */
 
 /* Start of rating */
 .rating-completed-wrap {
-  height: 40%;
-  border: red solid 2px;
+  position: relative;
+  height: 45%;
+  /* border: red solid 2px; */
 }
 
+
 .rating-widget {
-  position: relative;
-  float: left;
-  width: min(46%, 30rem);
-  height: 70%;
-  margin-left: min(5%, 4rem);
-  margin-top: max(3vh, 1rem);
+  position: absolute;
+  left: 0;
+  width: min(50%, 33rem);
+  height: 100%;
+
   border: red solid 2px;
 }
 
@@ -279,13 +300,11 @@ button:hover {
 
 /* Start of completed list */
 .completed-today {
-  position: relative;
-  float: left;
-  width: min(40%, 26rem);
-  height: 70%;
-  min-height: 7rem;
-  margin-top: max(3vh, 1rem);
-  margin-left: min(5%, 3rem);
+  position: absolute;
+  right: 2em;
+  width: min(41%, 26rem);
+  height: 100%;
+
   border: black solid 2px;
 }
 /* End of completed list */
@@ -295,5 +314,5 @@ button:hover {
   min-width: 40rem;
   height: 86%;
   max-width: 94.4rem;
-  border:coral solid 2px;
+  /* border:coral solid 2px; */
 }
