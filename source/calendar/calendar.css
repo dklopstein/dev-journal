@@ -141,7 +141,6 @@ table th,
 table td {
   border: 3px solid black;
   padding: 10px;
-  text-align: center;
 }
 
 /* Rows of table head */
@@ -157,8 +156,8 @@ tbody tr {
 
 /* Data of table */
 tbody td {
-  vertical-align: text-top;
-  text-align: left;
+  position: relative;
+  padding: 10px;
 }
 /* Month and Year header */
 h3 {
@@ -223,9 +222,35 @@ h3 {
   background-color: var(--accent-color);
 }
 
+/* All calendar numbers */
 .curr-month-date-num,
 .other-month-date-num {
   font-size: 14px;
   padding-left: 3px;
   padding-top: 1px;
 }
+
+/* Calendar date */
+td .cell-date {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}
+
+/* Sentiment icon */
+td .sentiment-icon {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  height: 18px;
+}
+
+td .productivity-icon {
+  position: absolute;
+  right: 24px;
+  top: 5px;
+  height: 18px;
+}
+
+
+

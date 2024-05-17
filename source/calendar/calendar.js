@@ -129,7 +129,11 @@ function displayCalendar(mnth, yr){
                 // Calculate dates of previous month
                 let prevMonthDay = daysInMonth(prevMonth, prevYear) - (firstDay - j) + 1;
                 // Number of current day
-                cellDay = document.createTextNode(prevMonthDay);
+             //   cellNum = document.createTextNode(prevMonthDay);
+                cellNum = document.createElement('span');
+                cellNum.textContent = prevMonthDay;
+                cellNum.className = "cell-date";
+
                 // Add class date-num and other-month
                 cell_data.className = "other-month-date-num";
 
@@ -144,9 +148,11 @@ function displayCalendar(mnth, yr){
             // Fill next month into unfilled cells after last day of month
             else if (currMonthDay > daysInMonth(mnth, yr)) {
                 // Number of current day
-                cellDay = document.createTextNode(nextMonthDay);
+                cellNum = document.createElement('span');
+                cellNum.textContent = nextMonthDay;
                 // Add class date-num and other-month
                 cell_data.className = "other-month-date-num";
+                cellNum.className = "cell-date";
 
                 // Current cell date
                 let cellDate = new Date(nextYear, nextMonth, nextMonthDay);
@@ -162,7 +168,10 @@ function displayCalendar(mnth, yr){
             // Fill in days of current month
             else {
                 // Number of current day
-                cellDay = document.createTextNode(currMonthDay);
+            //    cellNum = document.createTextNode(currMonthDay);
+                cellNum = document.createElement('span');
+                cellNum.textContent = currMonthDay;
+                cellNum.className = "cell-date";
                 // Add class date-num
                 cell_data.className = "curr-month-date-num";
 
@@ -181,7 +190,24 @@ function displayCalendar(mnth, yr){
                 currMonthDay++;
             }
             // Append cell number to new cell
-            cell_data.appendChild(cellDay);
+            cell_data.appendChild(cellNum);
+
+            // Add sentiment icon
+            let sentimentIcon = document.createElement("img");
+            sentimentIcon.src = "./icons/5overjoyed.png"; 
+            sentimentIcon.alt = "sentiment icon";
+            sentimentIcon.className = "sentiment-icon";
+            // Append sentiment icon to new cell
+            cell_data.appendChild(sentimentIcon);
+
+            // Add productivity icon
+            let productivityIcon = document.createElement("img");
+            productivityIcon.src = "./icons/5overjoyed.png"; 
+            productivityIcon.alt = "productivity icon";
+            productivityIcon.className = "productivity-icon";
+            // Append sentiment icon to new cell
+            cell_data.appendChild(productivityIcon);
+
             // Append new cell to row
             row.appendChild(cell_data);
         }
