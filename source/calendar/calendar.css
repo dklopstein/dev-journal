@@ -191,6 +191,28 @@ h3 {
   height: 4vh;
 }
 
+/* Jump button */
+.jump {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 10px;
+}
+
+.jump select {
+  padding: 5px 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: white;
+  font-family: Poppins, sans-serif;
+  border-radius: 4px;
+}
+
+.jump label {
+  white-space: nowrap;
+  margin-right: 5px;
+}
+
 /* Calendar icons */
 .button-icons {
   display: flex;
@@ -205,7 +227,7 @@ h3 {
   padding-top: 5px;
 }
 .button-icons button img {
-  height: 4vh;
+  height: 6vh;
 }
 
 /* Change color of numbers in future and past months */
@@ -229,3 +251,7 @@ h3 {
   padding-left: 3px;
   padding-top: 1px;
 }
+
+
+
+
