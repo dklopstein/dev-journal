@@ -11,12 +11,49 @@
   </head>
 
   <body>
+     <header>
+
+     </header>
+
+     <main>
       <!-- Task list sidebar -->
-      <div class="task-list" >
-          <h3>Task List</h3>
-          <p>
-              All Tasks Here
-          </p>
+      <div class="task-list">
+        <h3>Tasks</h3>
+        <ul id="taskContainer">
+            <li>
+              <input type="checkbox" class="task-checkbox" id="task1">
+              <strong>name</strong>
+              <p class="due-date">2024-00-00</p>
+              <div class="task-desc">
+                <p>description blablablabalbalblblbalblablabalbal</p>
+                <div class="color-buttons">
+                  <button class="color-button red"></button>
+                  <button class="color-button orange"></button>
+                  <button class="color-button yellow"></button>
+                  <button class="color-button green"></button>
+                  <button class="color-button blue"></button>
+                </div>
+              </div>
+              <img src="icons/delete_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="Remove" class="fas fa-trash-alt">
+              
+            </li>
+            <li>
+              <input type="checkbox" class="task-checkbox" id="task2">
+              <strong>name</strong>
+              <p class="due-date">2024-00-00</p>
+              <div class="task-desc">
+                <p>description blablablabalbalblblbalblablabalbal</p>
+                <div class="color-buttons">
+                  <button class="color-button red"></button>
+                  <button class="color-button orange"></button>
+                  <button class="color-button yellow"></button>
+                  <button class="color-button green"></button>
+                  <button class="color-button blue"></button>
+                </div>
+              </div>
+              <img src="icons/delete_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="Remove" class="fas fa-trash-alt">
+            </li>
+        </ul>
       </div>
   
       <!-- Calendar -->
@@ -64,8 +101,12 @@
           </table>
 
       </div>
-      <!-- Javascript file -->
-      <script src="./calendar.js"></script>
+    </main>
+    <footer>
+
+    </footer>
+    <!-- Javascript file -->
+    <script src="./calendar.js"></script>
   </body>
 
 </html>

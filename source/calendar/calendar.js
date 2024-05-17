@@ -180,10 +180,6 @@ function displayCalendar(mnth, yr){
         }
         // Append row to table
         tbody.appendChild(row);
-        // When calendar month filled, break loop
-        // if (currMonthDay > daysInMonth(mnth, yr)) {
-        //     break
-        // };
     }
 }
 
