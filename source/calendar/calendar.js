@@ -118,6 +118,7 @@ function displayCalendar(mnth, yr){
     for (let i = 0; i < 6; i++) {
         // Create rows
         let row = document.createElement("tr");
+        let cellDay;
     
         // Loop through number of columns
         for (let j = 0; j < 7; j++) {
@@ -189,6 +190,7 @@ function displayCalendar(mnth, yr){
                 // Increment curr month day counter
                 currMonthDay++;
             }
+            
             // Append cell number to new cell
             cell_data.appendChild(cellNum);
 
@@ -208,6 +210,25 @@ function displayCalendar(mnth, yr){
             // Append sentiment icon to new cell
             cell_data.appendChild(productivityIcon);
 
+            // Calendar tasks
+            let task1 = document.createElement("button");
+            task1.textContent = "A";
+            task1.className = "task-btn";
+            // Append first task to new cell
+            cell_data.appendChild(task1);
+
+            let task2 = document.createElement("button");
+            task2.textContent = "B";
+            task2.className = "task-btn";
+            // Append second task to new cell
+            cell_data.appendChild(task2);
+
+            let task3 = document.createElement("button");
+            task3.textContent = "C";
+            task3.className = "task-btn";
+            // Append third task to new cell
+            cell_data.appendChild(task3);
+            
             // Append new cell to row
             row.appendChild(cell_data);
         }
