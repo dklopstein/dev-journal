@@ -22,7 +22,7 @@
           <h3>Tasks</h3>
           <img src="icons/add_circle_24dp_FILL0_wght400_GRAD0_opsz24.png" alt="Add" id="addbutton">
         </div>
-        <ul id="taskContainer">
+        <ul class="taskContainer">
             <li>
               <input type="checkbox" class="task-checkbox" id="task1">
               <strong>name</strong>
@@ -139,15 +139,26 @@
                       <button onclick="">5</button>
                     </div>
                   </div>
-                  <div class="completed-today">
+                  <div class="task-list">
                     <h4>Tasks Completed Today</h4>
-                    <ul id="completed-task-display">
-                      <li class="example-task">
-                        <strong>Completed Task</strong>
-                          
-                        <img src="../icons/undo-icon.svg" alt="Undo" class="">
+
+                    <ul class="taskContainer">
+                      <li>
+                        <input type="checkbox" class="task-checkbox" id="task1">
+                        <strong>name</strong>
+                        <div class="task-desc">
+                          <div class="color-buttons">
+                            <button class="color-button red"></button>
+                            <button class="color-button orange"></button>
+                            <button class="color-button yellow"></button>
+                            <button class="color-button green"></button>
+                            <button class="color-button blue"></button>
+                          </div>
+                        </div>
+                        <img src="../icons/trash-icon.svg" alt="Remove" class="fas fa-trash-alt">
                       </li>
-                    </ul>
+                  </ul>
+
                   </div>
                 </div>
             </section>
