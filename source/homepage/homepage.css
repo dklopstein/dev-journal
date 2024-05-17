@@ -37,6 +37,16 @@ main {
   }
 }
 
+.task-header {
+  display: flex;
+}
+
+#addbutton {
+  margin-left: auto;
+  width: 25px;
+  height: 25px;
+}
+
 .task-list ul {
   list-style: none;
   padding: 0;
