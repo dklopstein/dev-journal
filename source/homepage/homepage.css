@@ -302,8 +302,6 @@ button:hover {
   left: 0;
   width: min(50%, 33rem);
   height: 100%;
-
-  border: red solid 2px;
 }
 
 .feelings {
@@ -337,17 +335,36 @@ button:hover {
   right: 2em;
   width: min(41%, 26rem);
   height: 100%;
-
-  border: red solid 2px;
 }
 
-#task-display {
-  display: flex;
-  border: black solid 2px;
+#completed-task-display {
   border-radius: 1em;
-  height: 90%;
   background-color: rgb(252, 249, 249);
+
+  height: 89%;
+  padding-left: 5%;
+  padding-right: 5%;
+
   overflow: scroll;
+  list-style-type: none;
+}
+
+.example-task {
+  margin-top: 0.5em;
+  padding: 0.25em;
+  height: 17%;
+  width: 100%;
+
+  display: inline-flex;
+  justify-content: space-between;
+
+  border-radius: 0.5em;
+  background: #e0e0e0;
+}
+
+.example-task img {
+  height: 1.25em;
+  cursor: pointer;
 }
 /* End of completed list */
 

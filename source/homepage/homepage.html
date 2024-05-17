@@ -35,7 +35,7 @@
                   <button class="color-button blue"></button>
                 </div>
               </div>
-              <img src="icons/trash_icon.svg" alt="Remove" class="fas fa-trash-alt">
+              <img src="../icons/trash-icon.svg" alt="Remove" class="fas fa-trash-alt">
             </li>
             <li>
               <input type="checkbox" class="task-checkbox" id="task2">
@@ -49,7 +49,7 @@
                   <button class="color-button blue"></button>
                 </div>
               </div>
-              <img src="icons/trash_icon.svg" alt="Remove" class="fas fa-trash-alt">
+              <img src="../icons/trash-icon.svg" alt="Remove" class="fas fa-trash-alt">
             </li>
         </ul>
       </div>
@@ -60,11 +60,11 @@
             <div class="date-header-wrap">
               <div class="date-header">
                 <button onclick="changeDate(-1)">
-                  <img src="icons/left-icon.png" alt="Home">
+                  <img src="../icons/left-icon.png" alt="Home">
                 </button>
                 <div id="current-date"></div>
                 <button onclick="changeDate(1)">
-                  <img src="icons/right-icon.png" alt="Home">
+                  <img src="../icons/right-icon.png" alt="Home">
                 </button>
               </div>
   
@@ -72,17 +72,17 @@
   
                 <!-- Button to go to Home Page-->
                 <button onclick="goTo('home')">
-                  <img src="icons/home-icon.png" alt="Home">
+                  <img src="../icons/home-icon.png" alt="Home">
                 </button>
   
                 <!--Button to go to Calendar-->
                 <button onclick="goTo('calendar')">
-                  <img src="icons/calendar-icon.webp" alt="Calendar">
+                  <img src="../icons/calendar-icon.webp" alt="Calendar">
                 </button>
   
                 <!--Button to go to Settings-->
                 <button onclick="goTo('settings')">
-                  <img src="icons/settings-icon.png" alt="Settings">
+                  <img src="../icons/settings-icon.png" alt="Settings">
                 </button>
   
               </div>
@@ -103,31 +103,31 @@
                 <!--Wraps Sentiment Rating and Tasks Completed-->
                 <div class="rating-completed-wrap">
                   <div class="rating-widget">
-                    <h4>How are you feeling today?</h4>
+                    <h4>How's your mental health today?</h4>
                     <div class="feelings">
                       <!-- 1st Angry button  -->
                       <button onclick="">
-                        <img src="icons/1angry.png" alt="Angry Button 1">
+                        <img src="../icons/1angry.png" alt="Angry Button 1">
                       </button>
 
                       <!-- 2nd Upset button -->
                       <button onclick="">
-                          <img src="icons/2upset.png" alt="Upset Button 2">
+                          <img src="../icons/2upset.png" alt="Upset Button 2">
                       </button>
 
                       <!-- 3rd Neutral button -->
                       <button onclick="">
-                        <img src="icons/3neutral.png" alt="Neutral Button 3">
+                        <img src="../icons/3neutral.png" alt="Neutral Button 3">
                       </button>
 
                       <!-- 4th Happy button -->
                       <button onclick="">
-                        <img src="icons/4happy.png" alt="Happy Button 4">
+                        <img src="../icons/4happy.png" alt="Happy Button 4">
                       </button>
 
                       <!-- 5th Overjoyed button -->
                       <button onclick="">
-                        <img src="icons/5overjoyed.png" alt="Overjoyed Button 5">
+                        <img src="../icons/5overjoyed.png" alt="Overjoyed Button 5">
                       </button>
                     </div>
                     <h4>How productive are you feeling today?</h4>
@@ -141,7 +141,13 @@
                   </div>
                   <div class="completed-today">
                     <h4>Tasks Completed Today</h4>
-                    <div id="task-display"></div>
+                    <ul id="completed-task-display">
+                      <li class="example-task">
+                        <strong>Completed Task</strong>
+                          
+                        <img src="../icons/undo-icon.svg" alt="Undo" class="">
+                      </li>
+                    </ul>
                   </div>
                 </div>
             </section>
@@ -163,7 +169,7 @@
       </div>
     </main>
     <footer>
-      sfes
+      
     </footer>
   </body>
 
