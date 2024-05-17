@@ -325,13 +325,28 @@ button:hover {
   border: red solid 2px;
 }
 
-#task-display {
+#completed-task-display {
   display: flex;
   border: black solid 2px;
   border-radius: 1em;
   height: 90%;
   background-color: rgb(252, 249, 249);
   overflow: scroll;
+  list-style-type: none;
+}
+
+.example-task {
+  margin-top: 0.5em;
+  padding-top: 0.25em;
+  display: inline-flex;
+  justify-content: stretch;
+  background: #e0e0e0;
+  height: 17%;
+  width: 90%;
+}
+
+.example-task img {
+  height: 1.25em;
 }
 /* End of completed list */
 
