@@ -66,6 +66,13 @@ function jump() {
     currMonth = parseInt(selectMonth.value);
     displayCalendar(currMonth, currYear);
 }
+
+// Function to go back to current month when clicking the calendar button
+function calendarButton() {
+    currMonth = date.getMonth();
+    currYear = date.getFullYear();
+    displayCalendar(currMonth, currYear);
+}
  
 // Function to display the calendar
 function displayCalendar(mnth, yr){
