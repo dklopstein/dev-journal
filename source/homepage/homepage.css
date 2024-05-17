@@ -25,7 +25,7 @@ main {
   padding: 1%;
   border-radius: 15px;
   background-color: white;
-  box-shadow: px 1px lightgrey;
+  box-shadow: 1px 1px lightgrey;
 }
 
 @media (max-width: 800px) {
