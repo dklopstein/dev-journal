@@ -118,6 +118,7 @@ function displayCalendar(mnth, yr){
     for (let i = 0; i < 6; i++) {
         // Create rows
         let row = document.createElement("tr");
+        let cellDay;
     
         // Loop through number of columns
         for (let j = 0; j < 7; j++) {
@@ -180,8 +181,25 @@ function displayCalendar(mnth, yr){
                 // Increment curr month day counter
                 currMonthDay++;
             }
+            
             // Append cell number to new cell
             cell_data.appendChild(cellDay);
+
+            let btn1 = document.createElement("button");
+            btn1.textContent = "A";
+            btn1.className = "day-btn";
+            cell_data.appendChild(btn1);
+
+            let btn2 = document.createElement("button");
+            btn2.textContent = "B";
+            btn2.className = "day-btn";
+            cell_data.appendChild(btn2);
+
+            let btn3 = document.createElement("button");
+            btn3.textContent = "C";
+            btn3.className = "day-btn";
+            cell_data.appendChild(btn3);
+            
             // Append new cell to row
             row.appendChild(cell_data);
         }
