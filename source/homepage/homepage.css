@@ -25,22 +25,37 @@ main {
   position: relative;
 }
 
+button {
+  background-color: rgba(0,0,0,0);
+  border: rgba(0,0,0,1);
+}
+
 /* Start of task list */
 .task-list { 
-  /* flex: 0 0 18%; */
-  flex: 0 0 max(18%,16em);
+  flex: 0 0 18%;
   height:100%;
   margin: 5px;
   padding: 1%;
   border-radius: 15px;
   background-color: white;
-  box-shadow: 2px 1px lightgrey;
+  box-shadow: px 1px lightgrey;
 }
 
-@media (max-width: 880px) {
+@media (max-width: 800px) {
   .task-list {
       display: none;
   }
+}
+
+.task-header {
+  display: flex;
+}
+
+#addbutton {
+  margin-left: auto;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
 }
 
 .task-list ul {
@@ -55,7 +70,7 @@ main {
   border-radius: 5px;
   position: relative; /* Sets context for absolute positioning of children */
   overflow: hidden; /* Ensures description expands within the li */
-  cursor: pointer; /* Indicates you can interact with the item */
+  /* cursor: pointer; Indicates you can interact with the item */
   text-align: left; /* Keeps text left-aligned */
 }
 
@@ -68,22 +83,11 @@ main {
   cursor: pointer;
 }
 
-.due-date {
-  font-size: 80%;
-  color: grey;
-  text-align: right;
-}
-
-.task-desc {
-  max-height: 0; /* Start with max-height 0 to keep it hidden */
-  overflow: hidden; /* Prevents any content from spilling out */
-  overflow-wrap: break-word; /* Force words to break and wrap inside the box */
-  word-break: break-word;
-  transition: max-height 0.3s ease-in-out, padding 0.2s ease-in-out; /* Smooth transition for max-height and padding */
-}
-
-.task-list li:hover .task-desc {
+.task-list li:hover .color-buttons {
   max-height: 200px; /* Enough max-height to show the content */
+  display: flex; /* Lays out the buttons in a row */
+  justify-content: space-around; /* Spaces buttons evenly */
+  margin-top: 5px; /* Space from the description */
 }
 
 .task-checkbox {
@@ -124,9 +128,7 @@ main {
 }
 
 .color-buttons {
-  display: flex; /* Lays out the buttons in a row */
-  justify-content: space-around; /* Spaces buttons evenly */
-  margin-top: 5px; /* Space from the description */
+  display: none; /* Lays out the buttons in a row */
 }
 
 .color-button {
