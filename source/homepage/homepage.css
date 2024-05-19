@@ -361,7 +361,6 @@ button:hover {
   min-width: 40rem;
   height: 86%;
   max-width: 94.4rem;
-  /* border:coral solid 2px; */
 }
 
 /* Start of completed list */
@@ -370,5 +369,6 @@ button:hover {
   right: 2em;
   width: min(41%, 26rem);
   height: 100%;
+  margin: 0; /* Overwrite inherited margin from task-list */
 }
 /* End of completed list */
