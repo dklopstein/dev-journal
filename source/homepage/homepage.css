@@ -152,14 +152,12 @@ button {
   float: left;
 
   height: 100%;
-  /* border: blue solid 3px; */
 }
 
 /* Start of top bar */
 .top-bar {
   position: relative;
   height: 10%;
-  /* border: green solid 3px; */
 }
 
 .date-header-wrap {
@@ -171,9 +169,6 @@ button {
 
   display: grid;
   grid-template-columns: 1fr 1fr;
-
-  /* border: blue solid 2px; */
-
 }
 
 .date-header {
@@ -188,8 +183,6 @@ button {
 }
 
 .date-header-text {
-
-  /* Center Date */
   margin-top: auto;
   margin-bottom: auto;
   text-align: center;
@@ -264,8 +257,6 @@ button:hover {
   padding-bottom: max(1.5rem, 3.5vh);;
   padding-left: 1em;
   padding-right: 3em;
-  /* padding: max(1.5rem, 3.5vh); */
-  /* border: red solid 2px; */
 }
 
 .past-day {
@@ -277,9 +268,6 @@ button:hover {
   height: 78%;
   padding-right: min(2rem, 3%);
   padding-left: min(2.1rem, 3%);
-
-  
-  /* border: green solid 2px; */
 }
 /* End of past week */
 
@@ -301,15 +289,24 @@ button:hover {
 
   border-radius: 1em;
 }
+
+.journal-entry #textarea {
+  width: 100%;
+  height: 93%;
+}
 /* End of journal */
 
 /* Start of rating */
 .rating-completed-wrap {
   position: relative;
   height: 40%;
-  /* border: red solid 2px; */
 }
 
+.rating-completed-wrap h4 {
+  text-align: center;
+  font-size: 1.2rem;
+  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+}
 
 .rating-widget {
   position: absolute;
@@ -318,24 +315,36 @@ button:hover {
   height: 100%;
 
   background-color: var(--secondary-color);
-
   border-radius: 1em;
 }
 
 .feelings {
   display: flex;
-  justify-content: flex-start;
-  gap: 0.5vw;
-
+  justify-content: center;
+  gap: 0.2em;
+  padding-top: 0.5em;
+  padding-bottom: 5px;
 }
 
 .feelings button img {
-  height: 4vh;
+  height: min(4.2em, 6vw);
+}
+
+.productiveness {
+  display: flex;
+  justify-content: center;
+  gap: 0.1em;
+  padding-top: 0.5em;
+}
+
+.productiveness button {
+  font-size: 2.5em;
+  width: 1.7em;
 }
 /* End of rating */
 
 /* Start of completed list */
-.completed-today {
+.journal-past-wrap .task-list {
   position: absolute;
   right: 2em;
   width: min(44%, 30rem);
@@ -354,3 +363,12 @@ button:hover {
   max-width: 94.4rem;
   /* border:coral solid 2px; */
 }
+
+/* Start of completed list */
+.journal-past-wrap .task-list {
+  position: absolute;
+  right: 2em;
+  width: min(41%, 26rem);
+  height: 100%;
+}
+/* End of completed list */
