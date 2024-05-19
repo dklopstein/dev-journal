@@ -198,8 +198,10 @@ main {
   flex-wrap: nowrap;
 
   white-space: nowrap;
-  /* font-size: min(3.5em, 4vw); */
-  font-size: 3em;
+  font-size: max(1.7em, 2.4vw);
+  font-size: calc(0.8em + 1.4vw);
+  
+  /* font-size: 2.3em; */
 }
 
 .date-header button {
@@ -222,7 +224,8 @@ main {
   padding: 0;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
+  gap: min(1em, 0.7vw);
+  /* gap: 1em; */
 
   height: 40%;
 }
@@ -233,7 +236,7 @@ main {
 }
 
 .nav-buttons button img {
-  width: min(4em, 4vw);
+  width: min(3.4em, 4vw);
   min-width: 2.6em;
   padding-left: 0em;
   padding-right: 0em;
@@ -268,10 +271,10 @@ button:hover {
 }
 
 .today-entry {
-  width: min(70rem, 100%);
+  width: min(66rem, 100%);
   height: 78%;
   padding-right: min(2rem, 3%);
-  padding-left: min(2.3rem, 3%);
+  padding-left: min(2.1rem, 3%);
 
   
   /* border: green solid 2px; */
