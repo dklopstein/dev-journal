@@ -275,10 +275,33 @@ td .productivity-icon {
   height: 18px;
 }
 
-/* Task buttons on calendar page */
-.task-btn {
-  font-size: 0.5em;
-  width: 100%;
+/* Task div in calendar cell */
+.task-div {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  top: 25px;
+  /* CAN UNCOMMENT BGCOLOR TO VISUALIZE TASK-DIV  */
+  /* background-color: pink; */
+  width: 96%;
+  height: 65%;
+}
+
+/* Unordered list in calendar cell */
+.task-ul{
+  margin: 0px;
+  padding-left: 6px;
+  color: black;
+  font-size: 12px;
+}
+
+/* Individual tasks in calendar cell */
+.task-item{
+  list-style-position: inside;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 

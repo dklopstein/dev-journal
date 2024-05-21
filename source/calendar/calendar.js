@@ -118,7 +118,6 @@ function displayCalendar(mnth, yr){
     for (let i = 0; i < 6; i++) {
         // Create rows
         let row = document.createElement("tr");
-        let cellDay;
     
         // Loop through number of columns
         for (let j = 0; j < 7; j++) {
@@ -130,7 +129,6 @@ function displayCalendar(mnth, yr){
                 // Calculate dates of previous month
                 let prevMonthDay = daysInMonth(prevMonth, prevYear) - (firstDay - j) + 1;
                 // Number of current day
-             //   cellNum = document.createTextNode(prevMonthDay);
                 cellNum = document.createElement('span');
                 cellNum.textContent = prevMonthDay;
                 cellNum.className = "cell-date";
@@ -210,25 +208,33 @@ function displayCalendar(mnth, yr){
             // Append sentiment icon to new cell
             cell_data.appendChild(productivityIcon);
 
-            // Calendar tasks
-            let task1 = document.createElement("button");
-            task1.textContent = "A";
-            task1.className = "task-btn";
-            // Append first task to new cell
-            cell_data.appendChild(task1);
+            // Add tasklist in calendar cell
+            // Create tasklist div
+            let taskDiv = document.createElement("div");
+            taskDiv.className = "task-div";
+            // Create unordered list
+            let taskList = document.createElement("ul");
+            taskList.className = "task-ul";
+            // first task
+            let task1 = document.createElement("li");
+            task1.textContent = "I am the first task";
+            task1.className = "task-item";
+            taskList.appendChild(task1);
+            // second task
+            let task2 = document.createElement("li");
+            task2.textContent = "I am the second task";
+            task2.className = "task-item";
+            taskList.appendChild(task2);
+            // third task
+            let task3 = document.createElement("li");
+            task3.textContent = "I am the third task";
+            task3.className = "task-item";
+            taskList.appendChild(task3);
+            // Append taskList to task div;
+            taskDiv.appendChild(taskList);
+            // Append tasklist div to new cell
+            cell_data.appendChild(taskDiv);
 
-            let task2 = document.createElement("button");
-            task2.textContent = "B";
-            task2.className = "task-btn";
-            // Append second task to new cell
-            cell_data.appendChild(task2);
-
-            let task3 = document.createElement("button");
-            task3.textContent = "C";
-            task3.className = "task-btn";
-            // Append third task to new cell
-            cell_data.appendChild(task3);
-            
             // Append new cell to row
             row.appendChild(cell_data);
         }
