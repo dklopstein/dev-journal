@@ -45,6 +45,9 @@ button {
   .task-list {
       display: none;
   }
+  .journal-past-wrap .task-list {
+    display: block;
+  }
 }
 
 .task-header {
@@ -304,7 +307,7 @@ button:hover {
 
 .rating-completed-wrap h4 {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: max(calc(0.7em + 0.4vw), 15px);
   /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
 }
 
@@ -322,24 +325,33 @@ button:hover {
   display: flex;
   justify-content: center;
   gap: 0.2em;
-  padding-top: 0.5em;
-  padding-bottom: 5px;
+  padding-top: calc(1em - 1vw);
+  padding-bottom: min(calc(2.2em - 1.8vw), 1.3em);
 }
 
-.feelings button img {
-  height: min(4.2em, 6vw);
+.rating-widget button img {
+  height: max(min(4em, 5.8vw), 40px);
+}
+
+.rating-widget button img:hover {
+  height: max(min(4.2em, 6vw), 65px);
+  background: radial-gradient(circle, rgb(3, 128, 237) 0%, rgba(0, 0, 0, 0) 100%);
+  border-radius: 50%;
+  transition: 0.5s ease;
+}
+
+.rating-widget img.active {
+  height: max(min(4em, 5.8vw), 40px);
+  background: radial-gradient(circle, rgba(8, 135, 31, 0.75) 50%, rgb(60, 245, 28) 100%);
+  border-radius: 100%;
+  transition: 0.5s ease;
 }
 
 .productiveness {
   display: flex;
   justify-content: center;
   gap: 0.1em;
-  padding-top: 0.5em;
-}
-
-.productiveness button {
-  font-size: 2.5em;
-  width: 1.7em;
+  padding-top: calc(1em - 1vw);
 }
 /* End of rating */
 

@@ -21,3 +21,30 @@ function getDate(container_id) {
     const dateContainer = document.getElementById(container_id);
     dateContainer.textContent = formattedDate;
 }
+
+/**
+ * Shows that a given button has been selected by adding the active property to its classname
+ * 
+ * @param {int} buttonIndex - the index of the button selected.
+ * 1-5 for mental health, 6-10 for productivity
+ */
+function selectWidget(buttonIndex) {
+    // Clear active class from all buttons in row and
+    // Add active class to selected button
+    if (buttonIndex > 5) {
+        const buttons = document.querySelectorAll('.productiveness img');
+        buttons.forEach(button => {
+            button.classList.remove('active');
+        });
+        const selection = document.querySelector(`.rating-widget .productiveness button:nth-child(${buttonIndex - 5}) img`);
+        selection.classList.add('active');
+    }
+    else {
+        const buttons = document.querySelectorAll('.feelings img');
+        buttons.forEach(button => {
+            button.classList.remove('active');
+        });
+        const selection = document.querySelector(`.rating-widget .feelings button:nth-child(${buttonIndex}) img`);
+        selection.classList.add('active');
+    }
+}
