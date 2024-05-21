@@ -2,6 +2,7 @@ window.addEventListener('DOMContentLoaded', init);
 
 function init() {
     getDate('current-date')
+    addTask('Example Task')
 }
 
 /**
@@ -47,4 +48,58 @@ function selectWidget(buttonIndex) {
         const selection = document.querySelector(`.rating-widget .feelings button:nth-child(${buttonIndex}) img`);
         selection.classList.add('active');
     }
+}
+
+/**
+ * A function to create a new task given a title
+ * 
+ * @param {string} name - the title of the task
+ */
+function addTask(name) {
+    // Create the new list item element
+    const li = document.createElement('li');
+
+    // Create and append the checkbox input
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.className = 'task-checkbox';
+    checkbox.id = 'task' + (document.querySelectorAll('.task-checkbox').length + 1);
+    li.appendChild(checkbox);
+
+    // Create and append the strong element with the task name
+    const strong = document.createElement('strong');
+    strong.textContent = name;
+    strong.contentEditable = true;
+    li.appendChild(strong);
+
+    // Create and append the task-desc div
+    const taskDesc = document.createElement('div');
+    taskDesc.className = 'task-desc';
+    li.appendChild(taskDesc);
+
+    // Create and append the color-buttons div
+    const colorButtons = document.createElement('div');
+    colorButtons.className = 'color-buttons';
+    taskDesc.appendChild(colorButtons);
+
+    // List of colors
+    const colors = ['red', 'orange', 'yellow', 'green', 'blue'];
+
+    // Create and append each color button
+    colors.forEach(color => {
+        const button = document.createElement('button');
+        button.className = 'color-button ' + color;
+        colorButtons.appendChild(button);
+    });
+
+    // Create and append the trash icon
+    const trashIcon = document.createElement('img');
+    trashIcon.src = '../icons/trash-icon.svg';
+    trashIcon.alt = 'Remove';
+    trashIcon.className = 'fas fa-trash-alt';
+    li.appendChild(trashIcon);
+
+    // Append the new list item to the task list
+    const taskContainer = document.getElementById('taskContainer');
+    taskContainer.appendChild(li);
 }

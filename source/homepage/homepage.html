@@ -19,26 +19,15 @@
       <div class="task-list">
         <div class="task-header">
           <h3>Tasks</h3>
-          <img src="../icons/add-task-icon.png" alt="Add" id="addbutton">
+          <button onclick="addTask('Example Task')" id="addbutton">
+            <img src="../icons/add-task-icon.png" alt="Add">
+          </button>
+          
         </div>
-        <ul class="taskContainer">
+        <ul id="taskContainer">
             <li>
               <input type="checkbox" class="task-checkbox" id="task1">
-              <strong>name</strong>
-              <div class="task-desc">
-                <div class="color-buttons">
-                  <button class="color-button red"></button>
-                  <button class="color-button orange"></button>
-                  <button class="color-button yellow"></button>
-                  <button class="color-button green"></button>
-                  <button class="color-button blue"></button>
-                </div>
-              </div>
-              <img src="../icons/trash-icon.svg" alt="Remove" class="fas fa-trash-alt">
-            </li>
-            <li>
-              <input type="checkbox" class="task-checkbox" id="task2">
-              <strong>name</strong>
+              <strong contenteditable="true">name</strong>
               <div class="task-desc">
                 <div class="color-buttons">
                   <button class="color-button red"></button>
@@ -151,10 +140,10 @@
                   <div class="task-list">
                     <h4>Tasks Completed Today</h4>
 
-                    <ul class="taskContainer">
+                    <ul id="completedTaskContainer">
                       <li>
                         <input type="checkbox" class="task-checkbox" id="task1">
-                        <strong>name</strong>
+                        <strong contenteditable="true">name</strong>
                         <div class="task-desc">
                           <div class="color-buttons">
                             <button class="color-button red"></button>
