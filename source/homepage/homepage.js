@@ -51,11 +51,9 @@ function selectWidget(buttonIndex) {
 }
 
 /**
- * A function to create a new task given a title
- * 
- * @param {string} name - the title of the task
+ * A function to create a new task and place it in the sidebar
  */
-function addTask(name) {
+function addTask() {
     // Create the new list item element
     const li = document.createElement('li');
 
@@ -68,9 +66,16 @@ function addTask(name) {
 
     // Create and append the strong element with the task name
     const strong = document.createElement('strong');
-    strong.textContent = name;
     strong.contentEditable = true;
     li.appendChild(strong);
+    strong.textContent = 'Default Task Name';
+
+    // Add event listener to hide default text when user starts typing
+    strong.addEventListener('click', function() {
+        if (strong.textContent === 'Default Task Name') {
+            strong.textContent = ''; // Clear default text when user starts typing
+        }
+    });
 
     // Create and append the task-desc div
     const taskDesc = document.createElement('div');
@@ -97,6 +102,17 @@ function addTask(name) {
     trashIcon.src = '../icons/trash-icon.svg';
     trashIcon.alt = 'Remove';
     trashIcon.className = 'fas fa-trash-alt';
+
+    trashIcon.addEventListener('click', function() {
+        // Find the parent <li> element of the clicked trash icon
+        const listItem = trashIcon.closest('li');
+            
+        // Remove the <li> element from the DOM
+        if (listItem) {
+            listItem.remove();
+        }
+    });
+
     li.appendChild(trashIcon);
 
     // Append the new list item to the task list
