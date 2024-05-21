@@ -1,7 +1,10 @@
 window.addEventListener('DOMContentLoaded', init);
 
+/**
+ * Initializes current date heading
+ */
 function init() {
-    getDate('current-date')
+    getDate('current-date');
 }
 
 /**
