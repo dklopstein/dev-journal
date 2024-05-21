@@ -73,8 +73,9 @@ button {
   border-radius: 5px;
   position: relative; /* Sets context for absolute positioning of children */
   overflow: hidden; /* Ensures description expands within the li */
-  /* cursor: pointer; Indicates you can interact with the item */
   text-align: left; /* Keeps text left-aligned */
+  transition: height 0.5s ease;
+  height: 2.7em;
 }
 
 .fas.fa-trash-alt {
@@ -86,9 +87,14 @@ button {
   cursor: pointer;
 }
 
+.task-list li:hover {
+  height: 4em;
+}
+
 .task-list li:hover .color-buttons {
-  max-height: 200px; /* Enough max-height to show the content */
+  max-height: 5em; /* Enough max-height to show the content */
   display: flex; /* Lays out the buttons in a row */
+  opacity: 1; /* Brings the buttons back into view */
   justify-content: space-around; /* Spaces buttons evenly */
   margin-top: 5px; /* Space from the description */
 }
@@ -131,7 +137,7 @@ button {
 }
 
 .color-buttons {
-  display: none; /* Lays out the buttons in a row */
+  opacity: 0;
 }
 
 .color-button {
