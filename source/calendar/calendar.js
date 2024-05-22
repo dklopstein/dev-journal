@@ -165,13 +165,14 @@ function displayCalendar(mnth, yr){
         for (let j = 0; j < 7; j++) {
             // Create data for each table cell in the row
             let cell_data = document.createElement("td");
+            let cellNum;
 
             // Fill in previous month into unfilled cells before first day of month
             if (i === 0 && j < firstDay) {
                 // Calculate dates of previous month
                 let prevMonthDay = daysInMonth(prevMonth, prevYear) - (firstDay - j) + 1;
                 // Number of current day
-                let cellNum = document.createElement('span');
+                cellNum = document.createElement('span');
                 cellNum.textContent = prevMonthDay;
                 cellNum.className = "cell-date";
 
@@ -189,7 +190,7 @@ function displayCalendar(mnth, yr){
             // Fill next month into unfilled cells after last day of month
             else if (currMonthDay > daysInMonth(mnth, yr)) {
                 // Number of current day
-                let cellNum = document.createElement('span');
+                cellNum = document.createElement('span');
                 cellNum.textContent = nextMonthDay;
                 // Add class date-num and other-month
                 cell_data.className = "other-month-date-num";
@@ -210,7 +211,7 @@ function displayCalendar(mnth, yr){
             else {
                 // Number of current day
             //    cellNum = document.createTextNode(currMonthDay);
-                let cellNum = document.createElement('span');
+                cellNum = document.createElement('span');
                 cellNum.textContent = currMonthDay;
                 cellNum.className = "cell-date";
                 // Add class date-num
