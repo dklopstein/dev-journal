@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+      - homepage-front
+      - calendar-front
 
 jobs:
   build:
@@ -22,7 +24,7 @@ jobs:
         run: npm install
 
       - name: Generate JSDoc
-        run: npx jsdoc -c jsdoc.config.json
+        run: npx jsdoc -c config/jsdoc.config.json
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
