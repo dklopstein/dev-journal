@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: homepage/homepage.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,37 +17,40 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: homepage/homepage.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><h1>Git Gremlins</h1>
-<h2><a href="/admin/team.md">Team Page</a></h2></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>window.addEventListener('DOMContentLoaded', init);
+
+function init() {
+    getDate('current-date')
+}
+
+/**
+ * Displays the current date in a specified HTML container.
+ * The date is formatted in a long format with the day of the week, the month name, the day of the month, and the year.
+ * 
+ * @param {string} container_id - The ID of the HTML container where the date will be displayed.
+ */
+function getDate(container_id) {
+    // Get the current date
+    const currentDate = new Date();
+
+    // Format the date (e.g., "May 8, 2024")
+    const formattedDate = currentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+    // Display the date in the designated container
+    const dateContainer = document.getElementById(container_id);
+    dateContainer.textContent = formattedDate;
+}</code></pre>
+        </article>
     </section>
-
-
 
 
 
