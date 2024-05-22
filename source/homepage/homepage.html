@@ -6,7 +6,6 @@
     <title>Homepage</title>
 
     <link rel="stylesheet" href="homepage.css" />
-    <script src="homepage.js" type="module"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -17,37 +16,13 @@
       <div class="task-list">
         <div class="task-header">
           <h3>Tasks</h3>
-          <img src="../icons/add-task-icon.png" alt="Add" id="addbutton">
+          <button onclick="addTask('Example Task')" id="addbutton">
+            <img src="../icons/add-task-icon.png" alt="Add">
+          </button>
+          
         </div>
-        <ul class="taskContainer">
-            <li>
-              <input type="checkbox" class="task-checkbox" id="task1">
-              <strong>name</strong>
-              <div class="task-desc">
-                <div class="color-buttons">
-                  <button class="color-button red"></button>
-                  <button class="color-button orange"></button>
-                  <button class="color-button yellow"></button>
-                  <button class="color-button green"></button>
-                  <button class="color-button blue"></button>
-                </div>
-              </div>
-              <img src="../icons/trash-icon.svg" alt="Remove" class="fas fa-trash-alt">
-            </li>
-            <li>
-              <input type="checkbox" class="task-checkbox" id="task2">
-              <strong>name</strong>
-              <div class="task-desc">
-                <div class="color-buttons">
-                  <button class="color-button red"></button>
-                  <button class="color-button orange"></button>
-                  <button class="color-button yellow"></button>
-                  <button class="color-button green"></button>
-                  <button class="color-button blue"></button>
-                </div>
-              </div>
-              <img src="../icons/trash-icon.svg" alt="Remove" class="fas fa-trash-alt">
-            </li>
+        <ul id="taskContainer">
+            <!-- Container for tasks in sidebar -->
         </ul>
       </div>
       <!--Everything but the task list-->
@@ -100,50 +75,59 @@
                 </div>
                 <!--Wraps Sentiment Rating and Tasks Completed-->
                 <div class="rating-completed-wrap">
+
                   <div class="rating-widget">
                     <h4>How's your mental health today?</h4>
                     <div class="feelings">
                       <!-- 1st Angry button  -->
-                      <button onclick="">
+                      <button onclick="selectWidget(1)">
                         <img src="../icons/1angry.png" alt="Angry Button 1">
                       </button>
-
                       <!-- 2nd Upset button -->
-                      <button onclick="">
+                      <button onclick="selectWidget(2)">
                           <img src="../icons/2upset.png" alt="Upset Button 2">
                       </button>
-
                       <!-- 3rd Neutral button -->
-                      <button onclick="">
+                      <button onclick="selectWidget(3)">
                         <img src="../icons/3neutral.png" alt="Neutral Button 3">
                       </button>
-
                       <!-- 4th Happy button -->
-                      <button onclick="">
-                        <img src="../icons/4happy.png" alt="Happy Button 4">
+                      <button onclick="selectWidget(4)">
+                        <img src="../icons/4happy.png" alt="Happy Button 4" class="">
                       </button>
-
                       <!-- 5th Overjoyed button -->
-                      <button onclick="">
+                      <button onclick="selectWidget(5)">
                         <img src="../icons/5overjoyed.png" alt="Overjoyed Button 5">
                       </button>
                     </div>
+
                     <h4>How productive are you feeling today?</h4>
                     <div class="productiveness">
-                      <button onclick="">1</button>
-                      <button onclick="">2</button>
-                      <button onclick="">3</button>
-                      <button onclick="">4</button>
-                      <button onclick="">5</button>
+                      <button onclick="selectWidget(6)">
+                        <img src="../icons/1-icon.svg" alt="1">
+                      </button>
+                      <button onclick="selectWidget(7)">
+                        <img src="../icons/2-icon.svg" alt="1">
+                      </button>
+                      <button onclick="selectWidget(8)">
+                        <img src="../icons/3-icon.svg" alt="1">
+                      </button>
+                      <button onclick="selectWidget(9)">
+                        <img src="../icons/4-icon.svg" alt="1">
+                      </button>
+                      <button onclick="selectWidget(10)">
+                        <img src="../icons/5-icon.svg" alt="1">
+                      </button>
                     </div>
+
                   </div>
                   <div class="task-list">
                     <h4>Tasks Completed Today</h4>
 
-                    <ul class="taskContainer">
+                    <ul id="completedTaskContainer">
                       <li>
                         <input type="checkbox" class="task-checkbox" id="task1">
-                        <strong>name</strong>
+                        <strong contenteditable="true">name</strong>
                         <div class="task-desc">
                           <div class="color-buttons">
                             <button class="color-button red"></button>
@@ -179,6 +163,7 @@
     <footer>
       sfes
     </footer>
+    <script src="homepage.js"></script>
   </body>
 
 </html>

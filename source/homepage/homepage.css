@@ -45,6 +45,9 @@ button {
   .task-list {
       display: none;
   }
+  .journal-past-wrap .task-list {
+    display: block;
+  }
 }
 
 .task-header {
@@ -53,9 +56,17 @@ button {
 
 #addbutton {
   margin-left: auto;
+}
+
+#addbutton img {
   width: 25px;
   height: 25px;
   cursor: pointer;
+}
+
+.task-list strong {
+  font-size: 0.8em;
+  overflow: hidden;
 }
 
 .task-list ul {
@@ -70,24 +81,26 @@ button {
   border-radius: 5px;
   position: relative; /* Sets context for absolute positioning of children */
   overflow: hidden; /* Ensures description expands within the li */
-  /* cursor: pointer; Indicates you can interact with the item */
   text-align: left; /* Keeps text left-aligned */
+  transition: max-height 1s ease-in;
+  max-height: 2.7em;
 }
 
 .fas.fa-trash-alt {
   position: absolute; /* Positioning relative to the nearest positioned ancestor */
-  top: 10px; /* Distance from the top edge of the li */
-  right: 10px; /* Distance from the right edge of the li */
+  top: 0px; /* Distance from the top edge of the li */
+  right: 0px; /* Distance from the right edge of the li */
   width: 18px;
   height: 18px;
   cursor: pointer;
 }
 
+.task-list li:hover {
+  max-height: 1000px; /* Set max height tall enough to hold all content */
+}
+
 .task-list li:hover .color-buttons {
-  max-height: 200px; /* Enough max-height to show the content */
-  display: flex; /* Lays out the buttons in a row */
-  justify-content: space-around; /* Spaces buttons evenly */
-  margin-top: 5px; /* Space from the description */
+  opacity: 1; /* Brings the buttons back into view */
 }
 
 .task-checkbox {
@@ -128,7 +141,12 @@ button {
 }
 
 .color-buttons {
-  display: none; /* Lays out the buttons in a row */
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  max-height: 5em; /* Enough max-height to show the content */
+  display: flex; /* Lays out the buttons in a row */
+  justify-content: space-around; /* Spaces buttons evenly */
+  margin-top: 5px; /* Space from the description */
 }
 
 .color-button {
@@ -304,7 +322,7 @@ button:hover {
 
 .rating-completed-wrap h4 {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: max(calc(0.7em + 0.4vw), 15px);
   /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
 }
 
@@ -322,24 +340,33 @@ button:hover {
   display: flex;
   justify-content: center;
   gap: 0.2em;
-  padding-top: 0.5em;
-  padding-bottom: 5px;
+  padding-top: calc(1em - 1vw);
+  padding-bottom: min(calc(2.2em - 1.8vw), 1.3em);
 }
 
-.feelings button img {
-  height: min(4.2em, 6vw);
+.rating-widget button img {
+  height: max(min(4em, 5.8vw), 40px);
+}
+
+.rating-widget button img:hover {
+  height: max(min(4.2em, 6vw), 65px);
+  background: radial-gradient(circle, rgb(3, 128, 237) 0%, rgba(0, 0, 0, 0) 100%);
+  border-radius: 50%;
+  transition: 0.5s ease-in-out;
+}
+
+.rating-widget img.active {
+  height: max(min(4em, 5.8vw), 40px);
+  background: radial-gradient(circle, rgba(8, 135, 31, 0.75) 50%, rgb(60, 245, 28) 100%);
+  border-radius: 100%;
+  transition: 0.5s ease;
 }
 
 .productiveness {
   display: flex;
   justify-content: center;
   gap: 0.1em;
-  padding-top: 0.5em;
-}
-
-.productiveness button {
-  font-size: 2.5em;
-  width: 1.7em;
+  padding-top: calc(1em - 1vw);
 }
 /* End of rating */
 
