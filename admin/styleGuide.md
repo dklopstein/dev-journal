@@ -23,6 +23,19 @@ For HTML documents also use one line comments
 
 For JS files, include 3-5 line description for each function. For the body of the function you may include one line comments.
 
+For CSS and HTML files,  group together components' sections with comments like
+/* Start Component 1 */
+...
+/* End Component 1 */
+
 **Line Limits**
 
 Line Length - maximum length of a line of code is 80 characters long
+
+**JSDocs formatting**
+
+Include functions below the file and include other codes such as "addeventlisteners" above the functions.
+
+Include comments for every function and every line of the body of a function.
+
+tab every line in the body of a function.
