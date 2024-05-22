@@ -88,8 +88,8 @@ function prev(){
  
 // Function to jump to a specific month and year
 function jump() {
-    currYear = parseInt(selectYear.value);
-    currMonth = parseInt(selectMonth.value);
+    currYear = parseInt(selectYear.value, 10);
+    currMonth = parseInt(selectMonth.value, 10);
     displayCalendar(currMonth, currYear);
 }
 
