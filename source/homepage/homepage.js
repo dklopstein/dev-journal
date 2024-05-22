@@ -18,10 +18,10 @@ function init() {
  */
 function getDate(container_id) {
     // Get the current date
-    const currentDate = new Date();
+    let currentDate = new Date();
 
     // Format the date (e.g., "May 8, 2024")
-    const formattedDate = currentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    let formattedDate = currentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
     // Display the date in the designated container
     const dateContainer = document.getElementById(container_id);
@@ -119,3 +119,57 @@ function addTask() {
     const taskContainer = document.getElementById('taskContainer');
     taskContainer.appendChild(li);
 }
+
+
+//------------------------------------------
+
+const journal = document.getElementById("journal-text");
+const date = document.getElementById("current-date");
+
+window.onload = function() {
+    loadJournal()
+}
+
+window.onbeforeunload = function() {
+    saveJournal()
+}
+
+// Save every 30 seconds
+// var saveInterval = setInterval(function(){
+//     saveJournal()
+//     console.log("Saved")
+// }, 30000)
+
+function saveJournal() { 
+    let data = getJournal()
+    // change date format from Wednesday, May 22, 2024 to 2024-05-22
+    let dateText = new Date(date.textContent).toLocaleDateString();
+    data[dateText] = {
+        contents: journal.value
+    }
+    console.log(data)
+    localStorage.setItem("journals", JSON.stringify(data))
+}
+
+function getJournal() {
+    let data = JSON.parse(localStorage.getItem("journals"))
+    if (data == null) {
+        data = {}
+    }
+    return data
+}
+
+function loadJournal() {
+    let data = getJournal()
+    let dateText = new Date(date.textContent).toLocaleDateString();
+    if (data[dateText] != null) {
+        journal.value = data[dateText].contents
+    } else {
+        journal.value = ""
+    }
+    console.log(data)
+}
+
+// date.addEventListener("change", loadJournal)
+
+journal.addEventListener("blur", saveJournal)
