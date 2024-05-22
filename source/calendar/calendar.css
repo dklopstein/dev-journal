@@ -1,0 +1,308 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Poppins, sans-serif;
+
+  --main-color: #ddd;
+  --secondary-color: #c1c1c1;
+  --accent-color: #9eb6c9;
+}
+html {
+  height: 100%;
+  background-color: yellow;
+  overflow: hidden;
+}
+body {
+  height: 100%;
+  background-color: var(--main-color);
+}
+
+main {
+  display: flex;
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+
+}
+ 
+/* TASK LIST */
+/* Task list sidebar */
+.task-list { 
+  flex: 0 0 max(18%,16em);
+  height:100%;
+  margin: 5px;
+  padding: 1%;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 1px 1px lightgrey;
+}
+
+@media (max-width: 880px) {
+  .task-list {
+      display: none;
+  }
+}
+
+.task-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.task-list li {
+  background: #e0e0e0;
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative; /* Sets context for absolute positioning of children */
+  overflow: hidden; /* Ensures description expands within the li */
+  cursor: pointer; /* Indicates you can interact with the item */
+  text-align: left; /* Keeps text left-aligned */
+}
+
+.fas.fa-trash-alt {
+  position: absolute; /* Positioning relative to the nearest positioned ancestor */
+  top: 10px; /* Distance from the top edge of the li */
+  right: 10px; /* Distance from the right edge of the li */
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.due-date {
+  font-size: 80%;
+  color: grey;
+  text-align: right;
+}
+
+.task-desc {
+  max-height: 0; /* Start with max-height 0 to keep it hidden */
+  overflow: hidden; /* Prevents any content from spilling out */
+  overflow-wrap: break-word; /* Force words to break and wrap inside the box */
+  word-break: break-word;
+  transition: max-height 0.3s ease-in-out, padding 0.2s ease-in-out; /* Smooth transition for max-height and padding */
+}
+
+.task-list li:hover .task-desc {
+  max-height: 200px; /* Enough max-height to show the content */
+}
+
+.task-checkbox {
+  appearance: none;
+  margin: 0 10px 0 0;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #555;
+  border-radius: 50%;
+  vertical-align: middle;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
+
+.task-checkbox:checked {
+  background-color: #537692;
+  border-color: #537692;
+}
+
+.task-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 1px;
+  width: 5px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* CALENDAR */
+
+/* Main calendar */
+.full-calendar {
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* Calendar Styling */
+.calendar {
+  width: 100%;
+}
+
+/* Calendar Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+/* Header and data of table */
+table th,
+table td {
+  border: 3px solid black;
+  padding: 10px;
+}
+
+/* Rows of table head */
+thead tr {
+    color: blue;
+    height: 5vh;
+  }
+
+/* Rows of table body */
+tbody tr {
+    height: 12vh;
+  }
+
+/* Data of table */
+tbody td {
+  position: relative;
+  padding: 10px;
+}
+/* Month and Year header */
+h3 {
+  text-align: center;
+  font-size: 5vh;
+}
+
+/* Header of calendar with buttons */
+.top-bar {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 10px 20px;
+}
+
+/* Calendar buttons */
+.button-container-calendar {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.5vh;
+  padding-bottom: 3vh;
+  padding-right: 200px;
+  gap: 10px;
+}
+
+.button-container-calendar button {
+  padding-top: 5px;
+}
+.button-container-calendar button img {
+  height: 4vh;
+}
+
+/* Jump button */
+.jump {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 10px;
+}
+
+.jump select {
+  padding: 5px 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: white;
+  font-family: Poppins, sans-serif;
+  border-radius: 4px;
+}
+
+.jump label {
+  white-space: nowrap;
+  margin-right: 5px;
+}
+
+/* Calendar icons */
+.button-icons {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0.5vh;
+  padding-bottom: 3vh;
+  padding-right: 25px;
+  gap: 10px;
+}
+
+.button-icons button {
+  padding-top: 5px;
+}
+.button-icons button img {
+  height: 6vh;
+}
+
+/* Change color of numbers in future and past months */
+.other-month-date-num {
+  color: gray;
+}
+
+/* Cell is in the future */
+.future-date {
+  background-color: var(--secondary-color);
+}
+
+/* Cell is today */
+.current-date {
+  background-color: var(--accent-color);
+}
+
+/* All calendar numbers */
+.curr-month-date-num,
+.other-month-date-num {
+  font-size: 14px;
+  padding-left: 3px;
+  padding-top: 1px;
+}
+
+/* Calendar date */
+td .cell-date {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}
+
+/* Sentiment icon */
+td .sentiment-icon {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  height: 18px;
+}
+
+/* Productivity icon */
+td .productivity-icon {
+  position: absolute;
+  right: 24px;
+  top: 5px;
+  height: 18px;
+}
+
+/* Task div in calendar cell */
+.task-div {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  top: 25px;
+  /* CAN UNCOMMENT BGCOLOR TO VISUALIZE TASK-DIV  */
+  /* background-color: pink; */
+  width: 96%;
+  height: 65%;
+}
+
+/* Unordered list in calendar cell */
+.task-ul{
+  margin: 0px;
+  padding-left: 6px;
+  color: black;
+  font-size: 12px;
+}
+
+/* Individual tasks in calendar cell */
+.task-item{
+  list-style-position: inside;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+
