@@ -1,15 +1,20 @@
 window.addEventListener('DOMContentLoaded', init);
 
+/**
+ * Initializes current date heading
+ * 
+ * @returns {undefined} Nothing
+ */
 function init() {
-    getDate('current-date')
-    addTask('Example Task')
+    getDate('current-date');
 }
 
 /**
  * Displays the current date in a specified HTML container.
- * The date is formatted in a long format with the day of the week, the month name, the day of the month, and the year.
+ * The date is formatted in a long format with the day of the week, 
+ * month name, day, and year.
  * 
- * @param {string} container_id - The ID of the HTML container where the date will be displayed.
+ * @param {string} container_id - ID of the HTML container where the date will be displayed
  */
 function getDate(container_id) {
     // Get the current date
