@@ -68,12 +68,27 @@ function addTask() {
     const strong = document.createElement('strong');
     strong.contentEditable = true;
     li.appendChild(strong);
-    strong.textContent = 'Add Task Name...';
+    strong.textContent = '';
 
-    // Add event listener to hide default text when user starts typing
-    strong.addEventListener('click', function() {
-        if (strong.textContent === 'Add Task Name...') {
-            strong.textContent = ''; // Clear default text when user starts typing
+    // Add event listener to add active to class name when editing
+    document.addEventListener('focus', function(event) {
+        
+    });
+
+    // Add event listener to remove active and blur strong when you click outside of task
+    document.addEventListener('click', function(event) {
+
+    });
+
+    // Add event listener to stop editing when user presses enter
+    strong.addEventListener('keydown', function(event) {
+        if (event.key == 'Enter') {
+            if (!event.shiftKey) {
+                // Shift+Enter pressed, insert a line break
+                // Enter pressed, end editing
+                event.preventDefault(); // Prevent default behavior of Enter key
+                strong.blur(); // Remove focus from the element
+            }
         }
     });
 
@@ -113,4 +128,9 @@ function addTask() {
     // Append the new list item to the task list
     const taskContainer = document.getElementById('taskContainer');
     taskContainer.appendChild(li);
+    
+    // Auto click into the task name text box
+    strong.focus();
+
+    document.getSelection().collapseToEnd();
 }
