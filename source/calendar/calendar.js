@@ -1,39 +1,64 @@
-// initialize date variables
-date = new Date();
-currMonth = date.getMonth();
-currYear = date.getFullYear();
+// Wait for window to load
+window.addEventListener('DOMContentLoaded', init);
 
-// Get Jump variables and list
-selectYear = document.getElementById("year");
-selectMonth = document.getElementById("month");
-createYearRange = gen_years(currYear-10, currYear+10); 
-document.getElementById("year").innerHTML = createYearRange;
+// When page loads
+function init(){
+    // initialize date variables
+    let date = new Date();
+    let currMonth = date.getMonth();
+    let currYear = date.getFullYear();
 
-// Get month and year header
-monthYearHeader = document.getElementById("monthYearHeader");
-// Get body of calendar
-tbody = document.getElementById("tbody-calendar");
+    // Get Jump variables and list
+    let createYearRange = gen_years(currYear-10, currYear+10); 
+    document.getElementById("year").innerHTML = createYearRange;
 
-// Initialize list of months
-let allMonths = [
-    "January","February","March","April","May","June",
-    "July","August","September","October","November","December"
-];
-// Initialize list of days of the week
-let allDays = ["Sun", "Mon", "Tue", "Wed","Thu", "Fri", "Sat"];
- 
+    // Initialize list of days of the week
+    let allDays = ["Sun", "Mon", "Tue", "Wed","Thu", "Fri", "Sat"];
+    
+    // Header of Days of the week
+    let HDaysOfWeek = "<tr>";
+    // Loop through allDays list
+    for (day of allDays){
+        HDaysOfWeek += "<th data-days='" + day + "'>" + day + "</th>";
+    }
+    // Close header
+    HDaysOfWeek += "</tr>";
+    // Add filled in day of the week header to calendar table
+    document.getElementById("thead-weekheadings").innerHTML = HDaysOfWeek;
 
-// Header of Days of the week
-let HDaysOfWeek = "<tr>";
-// Loop through allDays list
-for (day of allDays){
-    HDaysOfWeek += "<th data-days='" + day + "'>" + day + "</th>";
+    // PREVIOUS BUTTON
+    let prevBtn = document.getElementById("previous");
+    prevBtn.addEventListener('click', () => { 
+        prev();
+    });
+    // NEXT BUTTON
+    let nextBtn = document.getElementById("next");
+    nextBtn.addEventListener('click', () => { 
+        next();
+    });
+
+    // CALENDAR BUTTON
+    let calendarBtn = document.getElementById("calendarpage");
+    calendarBtn.addEventListener('click', () => { 
+        calendarButton();
+    });
+
+    // JUMP BUTTON
+    let monthBtn = document.getElementById("month");
+    monthBtn.addEventListener('click', () => { 
+        jump();
+    });
+    let yearBtn = document.getElementById("year");
+    yearBtn.addEventListener('click', () => { 
+        jump();
+    });
+
+    // Initially call displayCalendar to display the calendar
+    displayCalendar(currMonth, currYear);
 }
-// Close header
-HDaysOfWeek += "</tr>";
-// Add filled in day of the week header to calendar table
-document.getElementById("thead-weekheadings").innerHTML = HDaysOfWeek;
 
+
+// FUNCTIONS
 
 // Function to goto next month
 function next(){
@@ -76,11 +101,29 @@ function calendarButton() {
  
 // Function to display the calendar
 function displayCalendar(mnth, yr){
+    // Get today's date
+    let date = new Date();
+    
+    // Initialize list of months
+    let allMonths = [
+        "January","February","March","April","May","June",
+        "July","August","September","October","November","December"
+    ];
+
     // Get calendar day of first day in given month
     let first = new Date(yr, mnth, 1);
 
     // Get weekday 0-6
     let firstDay = first.getDay();
+
+    // Get month and year header
+    let monthYearHeader = document.getElementById("monthYearHeader");
+    // Get body of calendar
+    let tbody = document.getElementById("tbody-calendar");
+
+    // Selected month and year
+    let selectYear = document.getElementById("year");
+    let selectMonth = document.getElementById("month");
 
     // Clear the table body
     tbody.innerHTML = "";
@@ -263,6 +306,3 @@ function gen_years(startYear, endYear) {
     // Return concatenated list
     return yearList;
 }
- 
-// Initially call displayCalendar to display the calendar
-displayCalendar(currMonth, currYear);

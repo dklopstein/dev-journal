@@ -43,6 +43,12 @@ main {
   }
 }
 
+@media (max-width: 700px) {
+  .task-ul {
+    display: none;
+  }
+}
+
 .task-list ul {
   list-style: none;
   padding: 0;

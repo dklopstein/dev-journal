@@ -62,15 +62,15 @@
         <div class="top-bar">
             <!-- Month title and previous/next buttons -->
             <div class="button-container-calendar">
-                <button id="previous" onclick="prev()"><img src="icons/left-icon.png" alt="Previous"></button>
+                <button id="previous"><img src="icons/left-icon.png" alt="Previous"></button>
                 <h3 id="monthYearHeader"></h3>
-                <button id="next" onclick="next()"><img src="icons/right-icon.png" alt="Next"></button>
+                <button id="next"><img src="icons/right-icon.png" alt="Next"></button>
             </div>
             <!-- Calendar date jump -->
             <div class="jump">
               <label for="month">Jump To: </label>
               <!-- Month jump dropdown -->
-              <select id="month" onchange="jump()">
+              <select id="month">
                   <option value=0>Jan</option>
                   <option value=1>Feb</option>
                   <option value=2>Mar</option>
@@ -85,12 +85,12 @@
                   <option value=11>Dec</option>
               </select>
               <!-- Year jump dropdown -->
-              <select id="year" onchange="jump()"></select>
+              <select id="year"></select>
             </div>
             <!-- Home, calendar and settings icons -->
             <div class="button-icons">
                 <button id="homepage"><img src="icons/home-icon.png" alt="Home"></button>
-                <button id="calendarpage" onclick = "calendarButton()"><img src="icons/calendar-icon.png" alt="Calendar"></button>
+                <button id="calendarpage"><img src="icons/calendar-icon.png" alt="Calendar"></button>
                 <button id="settingspage"><img src="icons/settings-icon.png" alt="Settings"></button>
             </div>
         </div>       
