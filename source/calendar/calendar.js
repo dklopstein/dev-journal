@@ -194,7 +194,7 @@ function displayCalendar(mnth, yr){
 
             // Add sentiment icon
             let sentimentIcon = document.createElement("img");
-            sentimentIcon.src = "./icons/5overjoyed.png"; 
+            sentimentIcon.src = "../icons/5overjoyed.png"; 
             sentimentIcon.alt = "sentiment icon";
             sentimentIcon.className = "sentiment-icon";
             // Append sentiment icon to new cell
@@ -202,7 +202,7 @@ function displayCalendar(mnth, yr){
 
             // Add productivity icon
             let productivityIcon = document.createElement("img");
-            productivityIcon.src = "./icons/5overjoyed.png"; 
+            productivityIcon.src = "../icons/5overjoyed.png"; 
             productivityIcon.alt = "productivity icon";
             productivityIcon.className = "productivity-icon";
             // Append sentiment icon to new cell
