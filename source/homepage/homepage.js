@@ -68,24 +68,19 @@ function addTask() {
     const strong = document.createElement('strong');
     strong.contentEditable = true;
     li.appendChild(strong);
-    strong.textContent = 'Default Task Name';
+    strong.textContent = 'Add Task Name...';
 
     // Add event listener to hide default text when user starts typing
     strong.addEventListener('click', function() {
-        if (strong.textContent === 'Default Task Name') {
+        if (strong.textContent === 'Add Task Name...') {
             strong.textContent = ''; // Clear default text when user starts typing
         }
     });
 
-    // Create and append the task-desc div
-    const taskDesc = document.createElement('div');
-    taskDesc.className = 'task-desc';
-    li.appendChild(taskDesc);
-
     // Create and append the color-buttons div
     const colorButtons = document.createElement('div');
     colorButtons.className = 'color-buttons';
-    taskDesc.appendChild(colorButtons);
+    li.appendChild(colorButtons);
 
     // List of colors
     const colors = ['red', 'orange', 'yellow', 'green', 'blue'];
