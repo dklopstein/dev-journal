@@ -192,12 +192,13 @@ button {
 .date-header {
   display: flex;
 
-  margin-left: 0.3em;
+  margin-left: 1.1em;
 
   position: absolute;
   bottom: 0;
 
-  width: 40%;
+  width: 50%;
+
 }
 
 .date-header-text {
@@ -205,16 +206,17 @@ button {
   margin-bottom: auto;
   text-align: center;
 
-  margin-right: min(1.2em,3%);
-  margin-left: min(1.2em,3%);
+  margin-right: min(0.6em,3%);
+  margin-left: min(0.6em,3%);
 
   flex-wrap: nowrap;
 
   white-space: nowrap;
   font-size: max(1.7em, 2.4vw);
   font-size: calc(0.8em + 1.4vw);
+
+  width: 100%;
   
-  /* font-size: 2.3em; */
 }
 
 .date-header button {
@@ -301,7 +303,7 @@ button:hover {
   margin-right: 2em;
   margin-bottom: 1rem;
 
-  padding: 0.8em 1em 0.8em 1em;
+  padding: 0.4em 1em 0.4em 1em;
 
   background-color: var(--secondary-color);
 
@@ -310,7 +312,19 @@ button:hover {
 
 .journal-entry #textarea {
   width: 100%;
-  height: 93%;
+  height: 90%;
+  margin-bottom: 1em;
+
+  background: var(--secondary-color);
+  border: none;
+  border-radius: 1em;
+  resize: none;
+}
+
+.journal-entry #textarea:focus {
+  outline: none !important;
+  border:1px solid --accent-color;
+  box-shadow: 0 0 10px #719ECE;
 }
 /* End of journal */
 

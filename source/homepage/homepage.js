@@ -1,31 +1,57 @@
 window.addEventListener('DOMContentLoaded', init);
 
+// Get current date globals
+var currDate = new Date();
+var day = currDate.getDay();
+var date = currDate.getDate();
+var month = currDate.getMonth();
+var year = currDate.getFullYear();
+
 /**
  * Initializes current date heading
  * 
  * @returns {undefined} Nothing
  */
 function init() {
-    getDate('current-date');
+    // Display the current date
+    displayDate(formatDate(currDate));
+}
+
+
+/**
+ * Updates interface with date
+ * 
+ * @param {string} date - date in string format
+ */
+function displayDate(date) {
+    // Display the date in the designated container
+    const dateContainer = document.getElementById('current-date');
+    dateContainer.textContent = date;
 }
 
 /**
- * Displays the current date in a specified HTML container.
- * The date is formatted in a long format with the day of the week, 
- * month name, day, and year.
- * 
- * @param {string} container_id - ID of the HTML container where the date will be displayed
+ * Updates the global currDate to the next date and updates interface
  */
-function getDate(container_id) {
-    // Get the current date
-    const currentDate = new Date();
+function nextDate() {
+    currDate.setDate(currDate.getDate() + 1);
+    displayDate(formatDate(currDate));
+}
 
+/**
+ * Updates global currDate to the previous date and updates interface
+ */
+function prevDate() {
+    currDate.setDate(currDate.getDate() - 1);
+    displayDate(formatDate(currDate));
+}
+/**
+ * Formats the currDate global variable into proper string display
+ * @returns {string} - properly formatted string representing the date as "Weekday, Month Day, Year"
+ */
+function formatDate() {
     // Format the date (e.g., "May 8, 2024")
-    const formattedDate = currentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-
-    // Display the date in the designated container
-    const dateContainer = document.getElementById(container_id);
-    dateContainer.textContent = formattedDate;
+    const formattedDate = currDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    return formattedDate;
 }
 
 /**

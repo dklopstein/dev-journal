@@ -1,12 +1,12 @@
 // initialize date variables
-date = new Date();
-currMonth = date.getMonth();
-currYear = date.getFullYear();
+var date = new Date();
+var currMonth = date.getMonth();
+var currYear = date.getFullYear();
 
 // Get Jump variables and list
-selectYear = document.getElementById("year");
-selectMonth = document.getElementById("month");
-createYearRange = gen_years(currYear-10, currYear+10); 
+var selectYear = document.getElementById("year");
+var selectMonth = document.getElementById("month");
+var createYearRange = gen_years(currYear-10, currYear+10); 
 document.getElementById("year").innerHTML = createYearRange;
 
 // Get month and year header
