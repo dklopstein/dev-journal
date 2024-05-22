@@ -14,7 +14,7 @@ function init() {
  * The date is formatted in a long format with the day of the week, 
  * month name, day, and year.
  * 
- * @param {string} container_id - The ID of the HTML container where the date will be displayed.
+ * @param {string} container_id - ID of the HTML container where the date will be displayed.
  */
 function getDate(container_id) {
     // Get the current date
