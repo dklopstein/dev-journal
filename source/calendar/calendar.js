@@ -1,4 +1,10 @@
-// Function to generate range of years
+
+/**
+ * Function to generate range of years
+ * 
+ * @param {number} start - start year
+ * @param {number} end - end year
+ */
 function generate_year_range(start, end) {
     let years = "";
     for (let year = start; year <= end; year++) {
