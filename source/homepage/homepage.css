@@ -190,21 +190,21 @@ button {
 }
 
 .date-header {
-  display: flex;
-
+  display: grid;
+  grid-template-columns: 1fr 11fr 1fr;
+  gap: min(4%, 1em);
   margin-left: 1.1em;
 
   position: absolute;
   bottom: 0;
 
   width: 50%;
-
+  max-width: 40em;
 }
 
-.date-header-text {
+/*.date-header-text {
   margin-top: auto;
   margin-bottom: auto;
-  text-align: center;
 
   margin-right: min(0.6em,3%);
   margin-left: min(0.6em,3%);
@@ -212,20 +212,36 @@ button {
   flex-wrap: nowrap;
 
   white-space: nowrap;
-  font-size: max(1.7em, 2.4vw);
-  font-size: calc(0.8em + 1.4vw);
+  /* font-size: calc(0.8em + 1.4vw);
+  font-size: 200%;
 
   width: 100%;
+
+  border: blue solid 2px;
   
+}*/
+
+.date-header-text {
+  text-align: center;
+  width: 100%;
+
+  white-space: nowrap;
+  font-size: 180%;
 }
+
+@media (max-width: 1000px) {
+  .date-header-text {
+    border: red solid 2px;
+
+    font-size: calc(0.8em + 1.4vw);
+  }
+}
+
 
 .date-header button {
   padding-top: 5px;
-  /* width: 2em; */
-
   margin-top: auto;
   margin-bottom: auto;
-  /* height: 60%; */
 }
 
 .date-header button img {

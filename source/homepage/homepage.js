@@ -15,8 +15,21 @@ var year = currDate.getFullYear();
 function init() {
     // Display the current date
     displayDate(formatDate(currDate));
+
+
+    initButtons();
 }
 
+/**
+ * Initializes functionality of buttons
+ */
+async function initButtons() {
+    const nextBtn = await document.querySelector(".next-date-btn");
+    const prevBtn = await document.querySelector(".prev-date-btn");
+
+    nextBtn.addEventListener("click", nextDate);
+    prevBtn.addEventListener("click", prevDate);
+}
 
 /**
  * Updates interface with date
