@@ -206,10 +206,11 @@ button {
 /* Wrap the previous and next day buttons*/
 .date-header-buttons {
   display: grid;
-  grid-template-columns: 1.7em 1fr;
+  grid-template-columns: 1.2em 1fr;
 
   margin-top: auto;
   margin-bottom: 0.4em;
+  margin-left: 0.4em;
 
 }
 
@@ -233,6 +234,8 @@ button {
   width: 2em;
   height: 2em;
 
+  margin-left: 0.4em;
+
   border-radius: 4em;
 
   /* Add button image */
@@ -253,7 +256,6 @@ button {
   width: 100%;
   margin-top: auto;
   margin-bottom: auto;
-  margin-left: 0.6em;
 
   white-space: nowrap;
   font-size: 180%;
