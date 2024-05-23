@@ -118,20 +118,24 @@ function addTask() {
     // Append the new list item to the task list
     const taskContainer = document.getElementById('taskContainer');
     taskContainer.appendChild(li);
+    saveTasks();
 }
 
 
 //------------------------------------------
-
+// Save journal entry
 const journal = document.getElementById("journal-text");
 const date = document.getElementById("current-date");
+const tasks = document.getElementById("taskContainer");
 
 window.onload = function() {
     loadJournal()
+    loadTasks()
 }
 
 window.onbeforeunload = function() {
     saveJournal()
+    saveTasks()
 }
 
 // Save every 30 seconds
@@ -170,6 +174,35 @@ function loadJournal() {
     console.log(data)
 }
 
-// date.addEventListener("change", loadJournal)
+function saveTasks() {
+    let tasks = [];
+    document.querySelectorAll('#taskContainer li').forEach(task => {
+        let checkbox = task.querySelector('input[type="checkbox"]');
+        let taskName = task.querySelector('strong').textContent;
+        tasks.push({
+            text: taskName,
+            checked: checkbox.checked  
+        });
+    });
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+
+function getTasks() {
+    let storedTasks = localStorage.getItem("tasks");
+    return storedTasks ? JSON.parse(storedTasks) : [];
+}
+
+
+function loadTasks() {
+    let tasks = getTasks();
+    if (tasks.length > 0) {
+        tasks.forEach(task => {
+            addTask(task.text, task.checked);
+        });
+    }
+}
 
 journal.addEventListener("blur", saveJournal)
+tasks.addEventListener("blur", saveTasks)
+tasks.addEventListener("change", saveTasks)
