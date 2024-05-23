@@ -160,3 +160,4 @@ function addTask() {
     const taskContainer = document.getElementById('taskContainer');
     taskContainer.appendChild(li);
 }
+
