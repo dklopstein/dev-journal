@@ -191,8 +191,7 @@ button {
 
 .date-header {
   display: grid;
-  grid-template-columns: 1fr 11fr 1fr;
-  gap: min(4%, 1em);
+  grid-template-columns: 1fr 1fr 9fr;
   margin-left: 1.1em;
 
   position: absolute;
@@ -222,30 +221,29 @@ button {
 }*/
 
 .date-header-text {
-  text-align: center;
   width: 100%;
+
+  margin-left: 0.8em;
 
   white-space: nowrap;
   font-size: 180%;
 }
 
-@media (max-width: 1000px) {
-  .date-header-text {
-    border: red solid 2px;
-
-    font-size: calc(0.8em + 1.4vw);
-  }
-}
-
 
 .date-header button {
   padding-top: 5px;
+  max-width: 40px;
   margin-top: auto;
   margin-bottom: auto;
+
+  background: var(--secondary-color);
+
 }
 
 .date-header button img {
   height: 18px;
+
+  padding: auto;
 }
 
 .nav-buttons {
