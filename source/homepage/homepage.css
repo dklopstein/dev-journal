@@ -33,6 +33,7 @@ button {
 /* Start of task list */
 .task-list { 
   flex: 0 0 18%;
+  max-width: 20.2rem; /* Prevents task list expanding with long task names */
   height:100%;
   margin: 5px;
   padding: 1%;
@@ -81,6 +82,7 @@ button {
   border-radius: 5px;
   position: relative; /* Sets context for absolute positioning of children */
   overflow: hidden; /* Ensures description expands within the li */
+  word-wrap: break-word;
   text-align: left; /* Keeps text left-aligned */
   transition: max-height 1s ease-in;
   max-height: 2.7em;
@@ -88,8 +90,8 @@ button {
 
 .fas.fa-trash-alt {
   position: absolute; /* Positioning relative to the nearest positioned ancestor */
-  top: 0px; /* Distance from the top edge of the li */
-  right: 0px; /* Distance from the right edge of the li */
+  top: 4px; /* Distance from the top edge of the li */
+  right: 4px; /* Distance from the right edge of the li */
   width: 18px;
   height: 18px;
   cursor: pointer;

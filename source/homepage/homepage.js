@@ -25,10 +25,12 @@ function init() {
  */
 async function initButtons() {
     const nextBtn = await document.querySelector(".next-date-btn");
-    const prevBtn = await document.querySelector(".prev-date-btn");
-
     nextBtn.addEventListener("click", nextDate);
+    const prevBtn = await document.querySelector(".prev-date-btn");
     prevBtn.addEventListener("click", prevDate);
+    const homepageBtn = await document.querySelector("nav-homepage-btn");
+
+    const calendarBtn = await document.querySelector("nav-calendar-btn");
 }
 
 /**
