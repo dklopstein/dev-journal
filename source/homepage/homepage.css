@@ -33,7 +33,7 @@ button {
 /* Start of task list */
 .task-list { 
   flex: 0 0 18%;
-  max-width: 20.2rem; /* Prevents task list expanding with long task names */
+  max-width: 17rem; /* Prevents task list expanding with long task names */
   height:100%;
   margin: 5px;
   padding: 1%;
@@ -178,6 +178,7 @@ button {
 .top-bar {
   position: relative;
   height: 10%;
+
 }
 
 .date-header-wrap {
@@ -209,7 +210,7 @@ button {
   grid-template-columns: 1.2em 1fr;
 
   margin-top: auto;
-  margin-bottom: 0.4em;
+  margin-bottom: min(0.6em, 14%);
   margin-left: 0.4em;
 
 }
@@ -256,10 +257,9 @@ button {
   width: 100%;
   margin-top: auto;
   margin-bottom: 0em;
-  padding-bottom: 0;
-
+  margin-left: 0.2em;
   white-space: nowrap;
-  font-size: calc(0.8em + 1.6vw);
+  font-size: calc(1.4em + .7vw);
 }
 
 
@@ -304,26 +304,7 @@ button:hover {
 }
 /* End of top bar */
 
-/* Start of past week */
-.past-week-wrap {
-  height: 28%;
-  /* border: blue solid 2px; */
-}
 
-.past-week-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  width: min(78rem, 100%);
-  height: min(12em, 80%);
-  padding-top: max(1.5rem, 3.5vh);
-  padding-bottom: max(1.5rem, 3.5vh);;
-  padding-left: 1em;
-  padding-right: 3em;
-}
-
-.past-day {
-  border: black solid 2px;
-}
 
 .journal-past-wrap {
   width: 100%;
@@ -338,8 +319,6 @@ button:hover {
   padding-right: min(2rem, 3%);
   padding-left: min(2.1rem, 3%);
 }
-
-
 /* End of past week */
 
 /* Start of journal */
@@ -350,7 +329,7 @@ button:hover {
 
 .journal-entry {
   height: 94%;
-  margin-top: 1%;
+  margin-top: 0.4%;
   margin-right: 2em;
   margin-bottom: 1rem;
 
@@ -457,4 +436,23 @@ button:hover {
 }
 /* End of completed list */
 
+/* Start of past week */
+.past-week-wrap {
+  height: 28%;
+}
 
+.past-week-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  width: min(78rem, 100%);
+  height: min(12em, 80%);
+  padding-top: max(1.5rem, 3.5vh);
+  padding-bottom: max(1.5rem, 3.5vh);;
+  padding-left: 1em;
+  padding-right: 3em;
+}
+
+.past-day {
+  border: black solid 2px;
+}
+/* End of past week */
