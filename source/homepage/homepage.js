@@ -23,6 +23,8 @@ function initButtons() {
     nextBtn.addEventListener("click", nextDate);
     const prevBtn = document.querySelector(".prev-date-btn");
     prevBtn.addEventListener("click", prevDate);
+    const addTaskBtn = document.querySelector(".add-task-btn");
+    addTaskBtn.addEventListener("click", addTask);
 }
 
 /**
