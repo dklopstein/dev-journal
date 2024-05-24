@@ -25,6 +25,13 @@ function initButtons() {
     prevBtn.addEventListener("click", prevDate);
     const addTaskBtn = document.querySelector(".add-task-btn");
     addTaskBtn.addEventListener("click", addTask);
+    const ratingSelBtn = document.querySelectorAll(".rating-select-btn");
+    ratingSelBtn.forEach(btn => {
+        btn.addEventListener("click", () => {
+            var id = btn.getAttribute("id");
+            selectWidget(id);
+        });
+    });
 }
 
 /**
