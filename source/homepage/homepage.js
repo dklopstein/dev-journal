@@ -22,10 +22,10 @@ function init() {
 /**
  * Initializes functionality of buttons
  */
-async function initButtons() {
-    const nextBtn = await document.querySelector(".next-date-btn");
+function initButtons() {
+    const nextBtn = document.querySelector(".next-date-btn");
     nextBtn.addEventListener("click", nextDate);
-    const prevBtn = await document.querySelector(".prev-date-btn");
+    const prevBtn = document.querySelector(".prev-date-btn");
     prevBtn.addEventListener("click", prevDate);
 }
 
