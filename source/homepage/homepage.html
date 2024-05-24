@@ -31,12 +31,11 @@
           <section class="top-bar">
             <div class="date-header-wrap">
               <div class="date-header">
-                <button class="prev-date-btn">
-                  <img src="../icons/left-icon.png" alt="Home">
-                </button>
-                <button class="next-date-btn">
-                  <img src="../icons/right-icon.png" alt="Home">
-                </button>
+                <div class="date-header-buttons">
+                  <button class="prev-date-btn"></button>
+                  <button class="next-date-btn"></button>
+                </div>
+                
                 <div class="date-header-text" id="current-date"></div>
                 <!-- <div class="date-header-text" >Wednesday, September 28, 2024</div> -->
                 <!-- <div class="date-header-text" >Friday, May 2, 2024</div> -->
@@ -46,17 +45,21 @@
               <div class="nav-buttons">
   
                 <!-- Button to go to Home Page-->
-                <button onclick="goTo('home')">
-                  <img src="../icons/home-icon.png" alt="Home">
-                </button>
+                <a href="./homepage.html">
+                  <button class="nav-homepage-btn">
+                    <img src="../icons/home-icon.png" alt="Home">
+                  </button>
+                </a>
   
                 <!--Button to go to Calendar-->
-                <button onclick="goTo('calendar')">
-                  <img src="../icons/calendar-icon.webp" alt="Calendar">
-                </button>
+                <a href="../calendar/calendar.html">
+                  <button class="nav-calendar-btn">
+                    <img src="../icons/calendar-icon.webp" alt="Calendar">
+                  </button>
+                </a>
   
                 <!--Button to go to Settings-->
-                <button onclick="goTo('settings')">
+                <button class="nav-settings-btn" href="">
                   <img src="../icons/settings-icon.png" alt="Settings">
                 </button>
   

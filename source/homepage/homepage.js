@@ -7,25 +7,15 @@ var date = currDate.getDate();
 var month = currDate.getMonth();
 var year = currDate.getFullYear();
 
-// I think you may need this if you want to do more with dates (not sure)
-// Update the global date variables
-// function updateDateGlobals() {
-//     day = currDate.getDay();
-//     date = currDate.getDate();
-//     month = currDate.getMonth();
-//     year = currDate.getFullYear();
-// }
-
 /**
  * Initializes current date heading
  * 
  * @returns {undefined} Nothing
  */
 function init() {
-    // Display the current date and week
+    // Display the current date
     displayDate(formatDate(currDate));
     displayWeek();
-
     initButtons();
 }
 
@@ -34,9 +24,8 @@ function init() {
  */
 async function initButtons() {
     const nextBtn = await document.querySelector(".next-date-btn");
-    const prevBtn = await document.querySelector(".prev-date-btn");
-
     nextBtn.addEventListener("click", nextDate);
+    const prevBtn = await document.querySelector(".prev-date-btn");
     prevBtn.addEventListener("click", prevDate);
 }
 
@@ -56,7 +45,6 @@ function displayDate(date) {
  */
 function nextDate() {
     currDate.setDate(currDate.getDate() + 1);
-    console.log(currDate);
     displayDate(formatDate(currDate));
 }
 
@@ -65,7 +53,6 @@ function nextDate() {
  */
 function prevDate() {
     currDate.setDate(currDate.getDate() - 1);
-    console.log(currDate);
     displayDate(formatDate(currDate));
 }
 /**
@@ -170,18 +157,10 @@ function addTask() {
     taskContainer.appendChild(li);
 }
 
-
-
-
-
-
-
-
-
-
-
-// Display bottom week
-function displayWeek(){
+/**
+ * Updates interface with Past Week view
+ */
+function displayWeek() {
 
     // initialize days of the week
     let allDays = ["Sun", "Mon", "Tue", "Wed","Thu", "Fri", "Sat"];
