@@ -3,15 +3,11 @@ window.addEventListener('DOMContentLoaded', init);
 
 // Get current date globals
 var currDate = new Date();
-var day = currDate.getDay();
-var date = currDate.getDate();
 var month = currDate.getMonth();
 var year = currDate.getFullYear();
 
 // Update the global date variables
 function updateDateGlobals() {
-    day = currDate.getDay();
-    date = currDate.getDate();
     month = currDate.getMonth();
     year = currDate.getFullYear();
 }
@@ -97,7 +93,7 @@ function displayCalendar(){
 
     // Get month and year header
     let monthYearHeader = document.getElementById("monthYearHeader");
-    monthYearHeader.innerHTML = allMonths[month] + " " + year;
+    monthYearHeader.textContent = allMonths[parseInt(month, 10)] + " " + year;
 
     // Get and update jump with current month and year
     let selectYear = document.getElementById("year");

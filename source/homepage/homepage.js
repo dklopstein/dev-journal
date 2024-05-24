@@ -2,10 +2,6 @@ window.addEventListener('DOMContentLoaded', init);
 
 // Get current date globals
 var currDate = new Date();
-var day = currDate.getDay();
-var date = currDate.getDate();
-var month = currDate.getMonth();
-var year = currDate.getFullYear();
 
 /**
  * Initializes current date heading
@@ -191,7 +187,7 @@ function displayWeek() {
         }
 
         // current cell Date
-        cellNum = document.createElement('span'); 
+        let cellNum = document.createElement('span'); 
         cellNum.textContent = allDays[currWeekDay.getDay()] + " " + (currWeekDay.getMonth()+1) + "/" + currWeekDay.getDate();
         cellNum.className = "cell-date";
         
