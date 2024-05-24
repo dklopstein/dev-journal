@@ -130,7 +130,7 @@ function addTask() {
 
 //------------------------------------------
 // Save journal entry
-const journal = document.getElementById("journal-text");
+const journal = document.getElementById("textarea");
 const date = document.getElementById("current-date");
 const tasks = document.getElementById("taskContainer");
 
