@@ -255,10 +255,11 @@ button {
 .date-header-text {
   width: 100%;
   margin-top: auto;
-  margin-bottom: auto;
+  margin-bottom: 0em;
+  padding-bottom: 0;
 
   white-space: nowrap;
-  font-size: 180%;
+  font-size: calc(0.8em + 1.6vw);
 }
 
 
