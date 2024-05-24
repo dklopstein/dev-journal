@@ -230,7 +230,7 @@ function displayJump(startYear, endYear) {
     for (let mnth = 0; mnth < 12; mnth++) {
         let monthJump = document.createElement("option");
         monthJump.value = mnth;
-        monthJump.textContent = allMonths[mnth];
+        monthJump.textContent = allMonths[parseInt(mnth,10)];
         monthDropdown.appendChild(monthJump);
     }
 }
