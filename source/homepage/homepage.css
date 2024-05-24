@@ -33,6 +33,7 @@ button {
 /* Start of task list */
 .task-list { 
   flex: 0 0 18%;
+  max-width: 17rem; /* Prevents task list expanding with long task names */
   height:100%;
   margin: 5px;
   padding: 1%;
@@ -81,6 +82,7 @@ button {
   border-radius: 5px;
   position: relative; /* Sets context for absolute positioning of children */
   overflow: hidden; /* Ensures description expands within the li */
+  word-wrap: break-word;
   text-align: left; /* Keeps text left-aligned */
   transition: max-height 1s ease-in;
   max-height: 2.7em;
@@ -88,8 +90,8 @@ button {
 
 .fas.fa-trash-alt {
   position: absolute; /* Positioning relative to the nearest positioned ancestor */
-  top: 0px; /* Distance from the top edge of the li */
-  right: 0px; /* Distance from the right edge of the li */
+  top: 4px; /* Distance from the top edge of the li */
+  right: 4px; /* Distance from the right edge of the li */
   width: 18px;
   height: 18px;
   cursor: pointer;
@@ -176,6 +178,7 @@ button {
 .top-bar {
   position: relative;
   height: 10%;
+
 }
 
 .date-header-wrap {
@@ -190,56 +193,89 @@ button {
 }
 
 .date-header {
-  display: flex;
-
-  margin-left: 0.3em;
+  display: grid;
+  grid-template-columns: 1fr 8fr;
+  margin-left: 1.1em;
 
   position: absolute;
   bottom: 0;
 
-  width: 40%;
+  width: 50%;
+  max-width: 40em;
+}
+
+/* Wrap the previous and next day buttons*/
+.date-header-buttons {
+  display: grid;
+  grid-template-columns: 1.2em 1fr;
+
+  margin-top: auto;
+  margin-bottom: min(0.6em, 14%);
+  margin-left: 0.4em;
+
+}
+
+.prev-date-btn {
+  width: 2em;
+  height: 2em;
+
+  border-radius: 4em;
+
+  /* Add button image */
+  background-image: url('../icons/left-icon.png');
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: 4px;
+}
+
+.next-date-btn {
+  float: left;
+
+  width: 2em;
+  height: 2em;
+
+  margin-left: 0.4em;
+
+  border-radius: 4em;
+
+  /* Add button image */
+  background-image: url('../icons/right-icon.png');
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: 8px;
+  
+}
+
+.date-header-buttons button:hover {
+  background-color: var(--secondary-color);
 }
 
 .date-header-text {
+  width: 100%;
   margin-top: auto;
-  margin-bottom: auto;
-  text-align: center;
-
-  margin-right: min(1.2em,3%);
-  margin-left: min(1.2em,3%);
-
-  flex-wrap: nowrap;
-
+  margin-bottom: 0em;
+  margin-left: 0.2em;
   white-space: nowrap;
-  font-size: max(1.7em, 2.4vw);
-  font-size: calc(0.8em + 1.4vw);
-  
-  /* font-size: 2.3em; */
-}
-
-.date-header button {
-  padding-top: 5px;
-  /* width: 2em; */
-
-  margin-top: auto;
-  margin-bottom: auto;
-  /* height: 60%; */
+  font-size: calc(1.4em + .7vw);
 }
 
 .date-header button img {
   height: 18px;
+  padding: 4px;
 }
+
 
 .nav-buttons {
   position: absolute;
   top: 0.6em;
   right: 2em;
   padding: 0;
+
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: min(1em, 0.7vw);
-  /* gap: 1em; */
-
   height: 40%;
 }
 
@@ -260,25 +296,13 @@ button:hover {
 }
 /* End of top bar */
 
-/* Start of past week */
-.past-week-wrap {
-  height: 28%;
-  /* border: blue solid 2px; */
-}
 
-.past-week-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  width: min(78rem, 100%);
-  height: min(12em, 80%);
-  padding-top: max(1.5rem, 3.5vh);
-  padding-bottom: max(1.5rem, 3.5vh);;
-  padding-left: 1em;
-  padding-right: 3em;
-}
-
-.past-day {
-  border: black solid 2px;
+/* Begin Entry Content */
+.journal-past-wrap {
+  width: 100%;
+  min-width: 40rem;
+  height: 86%;
+  max-width: 94.4rem;
 }
 
 .today-entry {
@@ -287,21 +311,19 @@ button:hover {
   padding-right: min(2rem, 3%);
   padding-left: min(2.1rem, 3%);
 }
-/* End of past week */
 
 /* Start of journal */
 .journal {
   height: 60%;
-  /* border: black solid 2px; */
 }
 
 .journal-entry {
   height: 94%;
-  margin-top: 1%;
+  margin-top: 0.4%;
   margin-right: 2em;
   margin-bottom: 1rem;
 
-  padding: 0.8em 1em 0.8em 1em;
+  padding: 0.4em 1em 0.4em 1em;
 
   background-color: var(--secondary-color);
 
@@ -310,7 +332,24 @@ button:hover {
 
 .journal-entry #textarea {
   width: 100%;
-  height: 93%;
+  height: 90%;
+  margin-bottom: 1em;
+
+  padding-top: 0.2em;
+  padding-left: 0.4em;
+
+  background: var(--secondary-color);
+
+  border: none;
+  border-radius: 1em;
+
+  resize: none;
+}
+
+.journal-entry #textarea:focus {
+  outline: none !important;
+  border:1px solid --accent-color;
+  box-shadow: 0 0 10px #719ECE;
 }
 /* End of journal */
 
@@ -370,33 +409,112 @@ button:hover {
 }
 /* End of rating */
 
+
+
 /* Start of completed list */
 .journal-past-wrap .task-list {
   position: absolute;
   right: 2em;
   width: min(44%, 30rem);
   height: 100%;
-
+  margin: 0; /* Overwrite inherited margin from task-list */
+  max-width: none;
   background-color: var(--secondary-color);
 
   border-radius: 1em;
+
 }
 /* End of completed list */
 
-.journal-past-wrap {
+/* End Entry Content */
+
+/* Start of past week */
+.past-week-wrap {
+  margin-top: 2%;
+  margin-right: 5%;
+  margin-left: 2%;
+  height: 19%;
+}
+
+.past-week-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  width: min(78rem, 100%);
+  height: min(12em, 80%);
+  padding-top: max(1.5rem, 3.5vh);
+  padding-bottom: max(1.5rem, 3.5vh);;
+  padding-left: 1em;
+  padding-right: 3em;
+}
+
+.past-day {
+  border: black solid 2px;
+}
+
+
+/* Calendar Table Styling */
+.table-week {
   width: 100%;
-  min-width: 40rem;
-  height: 86%;
-  max-width: 94.4rem;
-}
-
-/* Start of completed list */
-.journal-past-wrap .task-list {
-  position: absolute;
-  right: 2em;
-  width: min(41%, 26rem);
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 0;
   height: 100%;
-  margin: 0; /* Overwrite inherited margin from task-list */
 }
-/* End of completed list */
 
+/* Calendar Data Cell Styling */
+.table-week td {
+  position: relative;
+  border: 3px solid black;
+  padding: 0;
+}
+
+/* Calendar date */
+td .cell-date {
+  position: absolute;
+  top: 0;
+  left: 2px;
+}
+
+/* Sentiment icon */
+td .sentiment-icon {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  height: 18px;
+}
+
+/* Productivity icon */
+td .productivity-icon {
+  position: absolute;
+  top: 2px;
+  right: 24px;
+  height: 18px;
+}
+
+/* Task div in calendar cell */
+td .task-div {
+  position: absolute;
+  top: 24px;
+  justify-content: space-between;
+
+  width: 96%;
+  height: 78%;
+}
+
+/* Unordered list in calendar cell */
+.task-ul{
+  margin: 0px;
+  padding-left: 6px;
+  padding-bottom: 0;
+  color: black;
+  font-size: 12px;
+}
+
+/* Individual tasks in calendar cell */
+.task-item{
+  list-style-position: inside;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+/* End of past week */
