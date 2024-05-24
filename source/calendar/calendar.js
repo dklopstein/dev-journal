@@ -36,32 +36,22 @@ function initButtons(){
 
     // PREVIOUS BUTTON
     let prevBtn = document.getElementById("previous");
-    prevBtn.addEventListener('click', () => { 
-        prev();
-    });
+    prevBtn.addEventListener('click', prev);
 
     // NEXT BUTTON
     let nextBtn = document.getElementById("next");
-    nextBtn.addEventListener('click', () => { 
-        next();
-    });
+    nextBtn.addEventListener('click', next);
 
     // CALENDAR BUTTON
     let calendarBtn = document.getElementById("calendarpage");
     console.log(calendarBtn);
-    calendarBtn.addEventListener('click', () => { 
-        calendarButton();
-    });
+    calendarBtn.addEventListener('click', calendarButton);
 
     // JUMP BUTTON
     let monthBtn = document.getElementById("month");
-    monthBtn.addEventListener('change', () => { 
-        jump();
-    });
+    monthBtn.addEventListener('change', jump);
     let yearBtn = document.getElementById("year");
-    yearBtn.addEventListener('change', () => { 
-        jump();
-    });
+    yearBtn.addEventListener('change', jump);
 }
 
 // Function to goto next month
