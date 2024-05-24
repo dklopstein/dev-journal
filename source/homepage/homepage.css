@@ -25,6 +25,7 @@ main {
   position: relative;
 }
 
+/* Universal background color for buttons to clear */
 button {
   background-color: rgba(0,0,0,0);
   border: rgba(0,0,0,1);
@@ -41,6 +42,7 @@ button {
   box-shadow: px 1px lightgrey;
 }
 
+/* Hides task list when page reaches certain size */
 @media (max-width: 800px) {
   .task-list {
       display: none;
@@ -50,30 +52,47 @@ button {
   }
 }
 
+/* Formatting for the task list header */
 .task-header {
   display: flex;
 }
 
+/* Aligns add button to right */
 #addbutton {
   margin-left: auto;
 }
 
+/* Formatting for the add button */
 #addbutton img {
   width: 25px;
   height: 25px;
   cursor: pointer;
 }
 
-.task-list strong {
-  font-size: 0.8em;
-  overflow: hidden;
+/* Wrap for task name and checkbox */
+.task-list .input-wrap {
+  display: flex;
+  justify-content: flex-start;
 }
 
+/* Styling for task name */
+.task-list .task-name {
+  width: max(10em, 12vw);
+  resize: none; /* Prevents user from resizing */
+  overflow: hidden; /* Hides scrollbar */
+  margin-top: -4px;
+  /* Hide background and border */
+  background-color: rgba(0, 0, 0, 0);
+  border: rgba(0, 0, 0, 0);
+}
+
+/* Hides bullets for list */
 .task-list ul {
   list-style: none;
   padding: 0;
 }
 
+/* Sizing for each individual task */
 .task-list li {
   background: #e0e0e0;
   margin-top: 5px;
@@ -83,7 +102,7 @@ button {
   overflow: hidden; /* Ensures description expands within the li */
   text-align: left; /* Keeps text left-aligned */
   transition: max-height 1s ease-in;
-  max-height: 2.7em;
+  max-height: 2.25em;
 }
 
 .fas.fa-trash-alt {
@@ -95,11 +114,11 @@ button {
   cursor: pointer;
 }
 
-.task-list li:hover {
+.task-list li:hover, .task-list .active {
   max-height: 1000px; /* Set max height tall enough to hold all content */
 }
 
-.task-list li:hover .color-buttons {
+.task-list li:hover .color-buttons, .task-list .active .color-buttons {
   opacity: 1; /* Brings the buttons back into view */
 }
 
@@ -154,14 +173,7 @@ button {
   height: 15px; /* Uniform button size */
   border-radius: 100%; /* Makes the buttons circular */
   border: none; /* Removes default button border */
-  cursor: pointer; /* Indicates the buttons are clickable */
 }
-
-.color-button.red { background-color: red; }
-.color-button.orange { background-color: orange; }
-.color-button.yellow { background-color: yellow; }
-.color-button.green { background-color: green; }
-.color-button.blue { background-color: blue; }
 /* End of task list */
 
 .main-wrap { 

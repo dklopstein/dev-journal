@@ -55,12 +55,15 @@ function selectWidget(buttonIndex) {
     }
 }
 
-// Add event listener to remove active and blur strong when you click outside of task
+// Add event listener to remove active and blur task when you click outside of task
 document.addEventListener('click', function(event) {
-    const currElement = document.getElementsByClassName('')
+    const currTask = document.querySelector('#taskContainer .active');
 
-    if (!li.contains(event.target)) {
-        strong.blur();
+    if (currTask && !currTask.contains(event.target)) {
+        currTask.classList.remove('active');
+        const textarea = currTask.querySelector('.task-name');
+        textarea.blur();
+        autoResize(textarea)
     }
 });
 
@@ -71,33 +74,43 @@ function addTask() {
     // Create the new list item element
     const li = document.createElement('li');
 
-    // Create and append the checkbox input
+    // Create a div to hold checkbox and input
+    const input_wrap = document.createElement('div');
+    input_wrap.className = 'input-wrap';
+
+    // Create and append the checkbox input to input_wrap
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.className = 'task-checkbox';
     checkbox.id = 'task' + (document.querySelectorAll('.task-checkbox').length + 1);
-    li.appendChild(checkbox);
+    input_wrap.appendChild(checkbox);
 
-    // Create and append the strong element with the task name
-    const strong = document.createElement('strong');
-    strong.contentEditable = true;
-    li.appendChild(strong);
-    strong.textContent = '';
+    // Create and append the input element with the task name
+    const task_name = document.createElement('textarea');
+    task_name.placeholder = 'Input Task Name...';
+    task_name.className = 'task-name';
+    task_name.maxLength = 100;
+    input_wrap.appendChild(task_name);
+
+    // Append input-wrap to li
+    li.appendChild(input_wrap);
 
     // Add event listener to add active to class name when editing
-    strong.addEventListener('focus', function(event) {
+    task_name.addEventListener('focus', function(event) {
         li.classList.add('active');
     });
 
     // Add event listener to stop editing when user presses enter
-    strong.addEventListener('keydown', function(event) {
+    task_name.addEventListener('keydown', function(event) {
         if (event.key == 'Enter') {
             if (!event.shiftKey) {
                 // Shift+Enter pressed, insert a line break
                 // Enter pressed, end editing
                 event.preventDefault(); // Prevent default behavior of Enter key
-                strong.blur(); // Remove focus from the element
+                task_name.blur(); // Remove focus from the element
                 li.classList.remove('active');
+                const textarea = li.querySelector('.task-name');
+                autoResize(textarea);
             }
         }
     });
@@ -108,12 +121,22 @@ function addTask() {
     li.appendChild(colorButtons);
 
     // List of colors
-    const colors = ['red', 'orange', 'yellow', 'green', 'blue'];
+    const colors = ['red', 'orange', 'yellow', 'green', 'blue', '#e0e0e0'];
 
     // Create and append each color button
     colors.forEach(color => {
         const button = document.createElement('button');
         button.className = 'color-button ' + color;
+        button.style.background = color;
+        button.addEventListener('click', function(event) {
+            li.style.background = color;
+            if ( color == 'blue' || color == 'green' || color == 'red') {
+                task_name.style.color = '#e0e0e0';
+            }
+            else {
+                task_name.style.color = 'black';
+            }
+        });
         colorButtons.appendChild(button);
     });
 
@@ -140,7 +163,21 @@ function addTask() {
     taskContainer.appendChild(li);
     
     // Auto click into the task name text box
-    strong.focus();
+    setTimeout(() => {
+        task_name.focus();
+        document.getSelection().collapseToEnd();
+    }, 0);
+}
 
-    document.getSelection().collapseToEnd();
+/**
+ * Resizes the textarea holding the task name for an element
+ * 
+ * @param {textarea} textarea to resize in task
+ */
+function autoResize(textarea) {
+    textarea.style.height = 'auto'; // Reset the height
+    textarea.style.height = textarea.scrollHeight + 'px'; // Set the height to the scroll height
+    if (textarea.value == '') {
+        textarea.style.height = '24px';
+    }
 }
