@@ -55,6 +55,15 @@ function selectWidget(buttonIndex) {
     }
 }
 
+// Add event listener to remove active and blur strong when you click outside of task
+document.addEventListener('click', function(event) {
+    const currElement = document.getElementsByClassName('')
+
+    if (!li.contains(event.target)) {
+        strong.blur();
+    }
+});
+
 /**
  * A function to create a new task and place it in the sidebar
  */
@@ -76,13 +85,8 @@ function addTask() {
     strong.textContent = '';
 
     // Add event listener to add active to class name when editing
-    document.addEventListener('focus', function(event) {
-        
-    });
-
-    // Add event listener to remove active and blur strong when you click outside of task
-    document.addEventListener('click', function(event) {
-
+    strong.addEventListener('focus', function(event) {
+        li.classList.add('active');
     });
 
     // Add event listener to stop editing when user presses enter
@@ -93,6 +97,7 @@ function addTask() {
                 // Enter pressed, end editing
                 event.preventDefault(); // Prevent default behavior of Enter key
                 strong.blur(); // Remove focus from the element
+                li.classList.remove('active');
             }
         }
     });
