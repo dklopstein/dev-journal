@@ -53,7 +53,7 @@ function selectWidget(buttonIndex) {
         });
         const selection = document.querySelector(`.rating-widget .feelings button:nth-child(${buttonIndex}) img`);
         selection.classList.add('active');
-        saveWidgets(buttonIndex);
+        saveRating(buttonIndex);
     }
 }
 
@@ -137,7 +137,7 @@ const tasks = document.getElementById("taskContainer");
 window.onload = function() {
     loadJournal()
     loadTasks()
-    loadWidgets()
+    loadRating()
     loadProductivity()
 }
 
@@ -152,11 +152,24 @@ window.onbeforeunload = function() {
 //     console.log("Saved")
 // }, 30000)
 
+function saveToStorage(data, dateText, key, value){
+    if (!(dateText in data)){
+        data[dateText] = {}
+    }
+    data[dateText][key] = value;
+}
+
+function loadFromStorage(data, dateText, key){
+    if (!(dateText in data)){
+        return;
+    }
+    return data[dateText][key];
+}
+
 function saveJournal() { 
     let data = getJournal()
-    // change date format from Wednesday, May 22, 2024 to 2024-05-22
     let dateText = new Date(date.textContent).toLocaleDateString();
-    data[dateText].contents = journal.value;
+    saveToStorage(data, dateText, "contents", journal.value)
     console.log(data)
     localStorage.setItem("journals", JSON.stringify(data))
 }
@@ -172,11 +185,7 @@ function getJournal() {
 function loadJournal() {
     let data = getJournal()
     let dateText = new Date(date.textContent).toLocaleDateString();
-    if (data[dateText] != null) {
-        journal.value = data[dateText].contents
-    } else {
-        journal.value = ""
-    }
+    journal.value = loadFromStorage(data, dateText, "contents")
     console.log(data)
 }
 
@@ -211,35 +220,35 @@ function loadTasks() {
     }
 }
 
-function saveWidgets(value){
-    let data = JSON.parse(localStorage.getItem("journals"));
+function saveRating(value){
+    let data = getJournal();
     let dateText = new Date(date.textContent).toLocaleDateString();
-    data[dateText].rating = value;
+    saveToStorage(data, dateText, "rating", value);
     console.log(data);
     localStorage.setItem("journals", JSON.stringify(data));
 }
 
-function loadWidgets() {
-    let data = JSON.parse(localStorage.getItem("journals"));
+function loadRating() {
+    let data = getJournal();
     let dateText = new Date(date.textContent).toLocaleDateString();
-    let rating = data[dateText].rating;
-    if (rating != null) {
+    let rating = loadFromStorage(data, dateText, "rating");
+    if (rating != null){
         selectWidget(rating);
     }
 }
 
 function saveProductivity(value){
-    let data = JSON.parse(localStorage.getItem("journals"));
+    let data = getJournal();
     let dateText = new Date(date.textContent).toLocaleDateString();
-    data[dateText].productivity = value;
+    saveToStorage(data, dateText, "productivity", value);
     console.log(data);
     localStorage.setItem("journals", JSON.stringify(data));
 }
 
 function loadProductivity() {
-    let data = JSON.parse(localStorage.getItem("journals"));
+    let data = getJournal();
     let dateText = new Date(date.textContent).toLocaleDateString();
-    let productivity = data[dateText].productivity;
+    let productivity = loadFromStorage(data, dateText, "productivity")
     if (productivity != null) {
         selectWidget(productivity);
     }
