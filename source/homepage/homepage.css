@@ -368,21 +368,24 @@ button:hover {
   position: relative;
   height: 40%;
 }
-
 .rating-completed-wrap h4 {
   text-align: center;
   font-size: max(calc(0.7em + 0.4vw), 15px);
-  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
 }
 
 .rating-widget {
   position: absolute;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
   left: 0;
   width: min(50%, 33rem);
   height: 100%;
-
   background-color: var(--secondary-color);
   border-radius: 1em;
+  padding: 1.5em;
 }
 
 .feelings {
@@ -394,18 +397,18 @@ button:hover {
 }
 
 .rating-widget button img {
-  height: max(min(4em, 5.8vw), 40px);
+  height: max(min(3.5em, 5.8vw), 40px);
 }
 
 .rating-widget button img:hover {
-  height: max(min(4.2em, 6vw), 65px);
+  height: max(min(4em, 6vw), 65px);
   background: radial-gradient(circle, rgb(3, 128, 237) 0%, rgba(0, 0, 0, 0) 100%);
   border-radius: 50%;
   transition: 0.5s ease-in-out;
 }
 
 .rating-widget img.active {
-  height: max(min(4em, 5.8vw), 40px);
+  height: max(min(3.5em, 5.8vw), 40px);
   background: radial-gradient(circle, rgba(8, 135, 31, 0.75) 50%, rgb(60, 245, 28) 100%);
   border-radius: 100%;
   transition: 0.5s ease;
@@ -417,6 +420,44 @@ button:hover {
   gap: 0.1em;
   padding-top: calc(1em - 1vw);
 }
+
+/* Add media queries for smaller screens */
+@media (max-width: 900px) {
+  .rating-widget h4{
+    font-size: 14px;
+  }
+  .rating-widget button img {
+    height: max(min(3.1em, 4.8vw), 30px);
+  }
+  .rating-widget button img:hover {
+    height: max(min(3.2em, 5vw), 45px);
+  }
+  .rating-widget img.active {
+    height: max(min(3.1em, 4.8vw), 30px);
+  }
+}
+
+@media (max-width: 800px) {
+  .rating-widget h4{
+    font-size: 13px;
+  }
+  .rating-widget button img {
+    height: max(min(3em, 4.8vw), 30px);
+  }
+  .rating-widget button img:hover {
+    height: max(min(3.2em, 5vw), 45px);
+  }
+  .rating-widget img.active {
+    height: max(min(3em, 4.8vw), 30px);
+  }
+}
+
+@media (max-width: 600px) {
+  .rating-widget h4{
+    font-size: 12px;
+  }
+}
+
 /* End of rating */
 
 
