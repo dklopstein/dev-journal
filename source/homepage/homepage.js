@@ -2,10 +2,6 @@ window.addEventListener('DOMContentLoaded', init);
 
 // Get current date globals
 var currDate = new Date();
-var day = currDate.getDay();
-var date = currDate.getDate();
-var month = currDate.getMonth();
-var year = currDate.getFullYear();
 
 /**
  * Initializes current date heading
@@ -15,22 +11,27 @@ var year = currDate.getFullYear();
 function init() {
     // Display the current date
     displayDate(formatDate(currDate));
-
-
+    displayWeek();
     initButtons();
 }
 
 /**
  * Initializes functionality of buttons
  */
-async function initButtons() {
-    const nextBtn = await document.querySelector(".next-date-btn");
+function initButtons() {
+    const nextBtn = document.querySelector(".next-date-btn");
     nextBtn.addEventListener("click", nextDate);
-    const prevBtn = await document.querySelector(".prev-date-btn");
+    const prevBtn = document.querySelector(".prev-date-btn");
     prevBtn.addEventListener("click", prevDate);
-    const homepageBtn = await document.querySelector("nav-homepage-btn");
-
-    const calendarBtn = await document.querySelector("nav-calendar-btn");
+    const addTaskBtn = document.querySelector(".add-task-btn");
+    addTaskBtn.addEventListener("click", addTask);
+    const ratingSelBtn = document.querySelectorAll(".rating-select-btn");
+    ratingSelBtn.forEach(btn => {
+        btn.addEventListener("click", () => {
+            var id = btn.getAttribute("id");
+            selectWidget(id);
+        });
+    });
 }
 
 /**
@@ -161,3 +162,93 @@ function addTask() {
     taskContainer.appendChild(li);
 }
 
+/**
+ * Updates interface with Past Week view
+ */
+function displayWeek() {
+
+    // initialize days of the week
+    let allDays = ["Sun", "Mon", "Tue", "Wed","Thu", "Fri", "Sat"];
+
+    // Get and clear the table
+    let table = document.getElementById("week-calendar");
+    table.innerHTML = "";
+
+    // Copy the global date into local variable
+    let currWeekDay = new Date();
+    currWeekDay.setDate(currWeekDay.getDate() + 1);
+
+    // BUILD CALENDAR
+    // Create row
+    let row = document.createElement("tr");
+
+    // Loop through number of columns
+    for (let i = 0; i < 7; i++) {
+        // Create data for each table cell in the row
+        let cellData = document.createElement("td");
+
+        // Calculate dates
+        if (i === 0){
+            currWeekDay.setDate(currWeekDay.getDate() + (i-8));
+        }
+        else {
+            currWeekDay.setDate(currWeekDay.getDate() + 1);
+        }
+
+        // current cell Date
+        let cellNum = document.createElement('span'); 
+        cellNum.textContent = allDays[currWeekDay.getDay()] + " " + (currWeekDay.getMonth()+1) + "/" + currWeekDay.getDate();
+        cellNum.className = "cell-date";
+        
+        // Append cell number to new cell
+        cellData.appendChild(cellNum);
+
+        // Add sentiment icon
+        let sentimentIcon = document.createElement("img");
+        sentimentIcon.src = "../icons/5overjoyed.png"; 
+        sentimentIcon.alt = "sentiment icon";
+        sentimentIcon.className = "sentiment-icon";
+        // Append sentiment icon to new cell
+        cellData.appendChild(sentimentIcon);
+
+        // Add productivity icon
+        let productivityIcon = document.createElement("img");
+        productivityIcon.src = "../icons/5overjoyed.png"; 
+        productivityIcon.alt = "productivity icon";
+        productivityIcon.className = "productivity-icon";
+        // Append sentiment icon to new cell
+        cellData.appendChild(productivityIcon);
+
+        // Add tasklist in calendar cell
+        // Create tasklist div
+        let taskDiv = document.createElement("div");
+        taskDiv.className = "task-div";
+        // Create unordered list
+        let taskList = document.createElement("ul");
+        taskList.className = "task-ul";
+        // first task
+        let task1 = document.createElement("li");
+        task1.textContent = "I am the first task";
+        task1.className = "task-item";
+        taskList.appendChild(task1);
+        // second task
+        let task2 = document.createElement("li");
+        task2.textContent = "I am the second task";
+        task2.className = "task-item";
+        taskList.appendChild(task2);
+        // third task
+        let task3 = document.createElement("li");
+        task3.textContent = "I am the third task";
+        task3.className = "task-item";
+        taskList.appendChild(task3);
+        // Append taskList to task div;
+        taskDiv.appendChild(taskList);
+        // Append tasklist div to new cell
+        cellData.appendChild(taskDiv);
+
+        // Append new cell to row
+        row.appendChild(cellData);
+    }
+    // Append row to table
+    table.appendChild(row);
+}
