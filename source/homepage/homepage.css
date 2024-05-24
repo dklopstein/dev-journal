@@ -1,6 +1,13 @@
 * {
   margin: 0;
   box-sizing: border-box;
+
+  font-family: "Poppins", sans-serif;
+
+  --main-color: #ddd;
+  --secondary-color: #c1c1c1;
+  --accent-color: #9eb6c9;
+
 }
 html {
   height: 100%;
@@ -9,7 +16,7 @@ html {
 }
 body {
   height: 100%;
-  background-color: #ddd;
+  background-color: var(--main-color);
 }
 main {
   display: flex;
@@ -18,8 +25,15 @@ main {
   position: relative;
 }
 
+button {
+  background-color: rgba(0,0,0,0);
+  border: rgba(0,0,0,1);
+}
+
+/* Start of task list */
 .task-list { 
-  flex: 0 0 14%;
+  flex: 0 0 18%;
+  max-width: 17rem; /* Prevents task list expanding with long task names */
   height:100%;
   margin: 5px;
   padding: 1%;
@@ -32,6 +46,28 @@ main {
   .task-list {
       display: none;
   }
+  .journal-past-wrap .task-list {
+    display: block;
+  }
+}
+
+.task-header {
+  display: flex;
+}
+
+#addbutton {
+  margin-left: auto;
+}
+
+#addbutton img {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.task-list strong {
+  font-size: 0.8em;
+  overflow: hidden;
 }
 
 .task-list ul {
@@ -46,35 +82,27 @@ main {
   border-radius: 5px;
   position: relative; /* Sets context for absolute positioning of children */
   overflow: hidden; /* Ensures description expands within the li */
-  cursor: pointer; /* Indicates you can interact with the item */
+  word-wrap: break-word;
   text-align: left; /* Keeps text left-aligned */
+  transition: max-height 1s ease-in;
+  max-height: 2.7em;
 }
 
 .fas.fa-trash-alt {
   position: absolute; /* Positioning relative to the nearest positioned ancestor */
-  top: 10px; /* Distance from the top edge of the li */
-  right: 10px; /* Distance from the right edge of the li */
+  top: 4px; /* Distance from the top edge of the li */
+  right: 4px; /* Distance from the right edge of the li */
   width: 18px;
   height: 18px;
   cursor: pointer;
 }
 
-.due-date {
-  font-size: 80%;
-  color: grey;
-  text-align: right;
+.task-list li:hover {
+  max-height: 1000px; /* Set max height tall enough to hold all content */
 }
 
-.task-desc {
-  max-height: 0; /* Start with max-height 0 to keep it hidden */
-  overflow: hidden; /* Prevents any content from spilling out */
-  overflow-wrap: break-word; /* Force words to break and wrap inside the box */
-  word-break: break-word;
-  transition: max-height 0.3s ease-in-out, padding 0.2s ease-in-out; /* Smooth transition for max-height and padding */
-}
-
-.task-list li:hover .task-desc {
-  max-height: 200px; /* Enough max-height to show the content */
+.task-list li:hover .color-buttons {
+  opacity: 1; /* Brings the buttons back into view */
 }
 
 .task-checkbox {
@@ -115,6 +143,9 @@ main {
 }
 
 .color-buttons {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  max-height: 5em; /* Enough max-height to show the content */
   display: flex; /* Lays out the buttons in a row */
   justify-content: space-around; /* Spaces buttons evenly */
   margin-top: 5px; /* Space from the description */
@@ -133,132 +164,357 @@ main {
 .color-button.yellow { background-color: yellow; }
 .color-button.green { background-color: green; }
 .color-button.blue { background-color: blue; }
-
+/* End of task list */
 
 .main-wrap { 
   flex: 1;
   position: relative;
   float: left;
-  width: 84%;
+
   height: 100%;
-  border: blue solid 3px;
 }
 
+/* Start of top bar */
 .top-bar {
   position: relative;
-  border: green solid 3px;
-  height: 20%;
-  display: flex;
-  justify-content: space-between;
+  height: 10%;
+
+}
+
+.date-header-wrap {
+  position: absolute;
+  height: max(30%, 5rem);
+  height: 100%;
+  width: min(70em, 100%);
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .date-header {
-  display: flex;
-  justify-content: center;
-  padding-top: 10vh;
-  padding-bottom: 2vh;
-  padding-left: 20px;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 1fr 8fr;
+  margin-left: 1.1em;
+
+  position: absolute;
+  bottom: 0;
+
+  width: 50%;
+  max-width: 40em;
+}
+
+/* Wrap the previous and next day buttons*/
+.date-header-buttons {
+  display: grid;
+  grid-template-columns: 1.2em 1fr;
+
+  margin-top: auto;
+  margin-bottom: min(0.6em, 14%);
+  margin-left: 0.4em;
 
 }
 
-.date-header button {
-  padding-top: 5px;
+.prev-date-btn {
+  width: 2em;
+  height: 2em;
+
+  border-radius: 4em;
+
+  /* Add button image */
+  background-image: url('../icons/left-icon.png');
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: 4px;
+}
+
+.next-date-btn {
+  float: left;
+
+  width: 2em;
+  height: 2em;
+
+  margin-left: 0.4em;
+
+  border-radius: 4em;
+
+  /* Add button image */
+  background-image: url('../icons/right-icon.png');
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: 8px;
+  
+}
+
+.date-header-buttons button:hover {
+  background-color: var(--secondary-color);
+}
+
+.date-header-text {
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: 0em;
+  margin-left: 0.2em;
+  white-space: nowrap;
+  font-size: calc(1.4em + .7vw);
 }
 
 .date-header button img {
-  height: 15px;
+  height: 18px;
+  padding: 4px;
 }
 
-.top-bar #current-date {
-  position: relative;
-  font-size: max(15px, min(4vh, 4vw));
-  font-family: cursive;
 
+.nav-buttons {
+  position: absolute;
+  top: 0.6em;
+  right: 2em;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: min(1em, 0.7vw);
+  height: 40%;
 }
 
-.buttons {
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 10vh;
-  padding-bottom: 3vh;
-  padding-right: 25px;
-  gap: 10px;
+.nav-buttons button {
+  background-color: transparent;
+  border: none;
 }
 
-.buttons button img {
-  height: 4vh;
+.nav-buttons button img {
+  width: min(3.4em, 4vw);
+  min-width: 2.6em;
+  padding-left: 0em;
+  padding-right: 0em;
 }
 
 button:hover {
   cursor: pointer;
 }
+/* End of top bar */
 
+
+/* Begin Entry Content */
+.journal-past-wrap {
+  width: 100%;
+  min-width: 40rem;
+  height: 86%;
+  max-width: 94.4rem;
+}
+
+.today-entry {
+  width: min(66rem, 100%);
+  height: 78%;
+  padding-right: min(2rem, 3%);
+  padding-left: min(2.1rem, 3%);
+}
+
+/* Start of journal */
+.journal {
+  height: 60%;
+}
+
+.journal-entry {
+  height: 94%;
+  margin-top: 0.4%;
+  margin-right: 2em;
+  margin-bottom: 1rem;
+
+  padding: 0.4em 1em 0.4em 1em;
+
+  background-color: var(--secondary-color);
+
+  border-radius: 1em;
+}
+
+.journal-entry #textarea {
+  width: 100%;
+  height: 90%;
+  margin-bottom: 1em;
+
+  padding-top: 0.2em;
+  padding-left: 0.4em;
+
+  background: var(--secondary-color);
+
+  border: none;
+  border-radius: 1em;
+
+  resize: none;
+}
+
+.journal-entry #textarea:focus {
+  outline: none !important;
+  border:1px solid --accent-color;
+  box-shadow: 0 0 10px #719ECE;
+}
+/* End of journal */
+
+/* Start of rating */
+.rating-completed-wrap {
+  position: relative;
+  height: 40%;
+}
+
+.rating-completed-wrap h4 {
+  text-align: center;
+  font-size: max(calc(0.7em + 0.4vw), 15px);
+  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+}
+
+.rating-widget {
+  position: absolute;
+  left: 0;
+  width: min(50%, 33rem);
+  height: 100%;
+
+  background-color: var(--secondary-color);
+  border-radius: 1em;
+}
+
+.feelings {
+  display: flex;
+  justify-content: center;
+  gap: 0.2em;
+  padding-top: calc(1em - 1vw);
+  padding-bottom: min(calc(2.2em - 1.8vw), 1.3em);
+}
+
+.rating-widget button img {
+  height: max(min(4em, 5.8vw), 40px);
+}
+
+.rating-widget button img:hover {
+  height: max(min(4.2em, 6vw), 65px);
+  background: radial-gradient(circle, rgb(3, 128, 237) 0%, rgba(0, 0, 0, 0) 100%);
+  border-radius: 50%;
+  transition: 0.5s ease-in-out;
+}
+
+.rating-widget img.active {
+  height: max(min(4em, 5.8vw), 40px);
+  background: radial-gradient(circle, rgba(8, 135, 31, 0.75) 50%, rgb(60, 245, 28) 100%);
+  border-radius: 100%;
+  transition: 0.5s ease;
+}
+
+.productiveness {
+  display: flex;
+  justify-content: center;
+  gap: 0.1em;
+  padding-top: calc(1em - 1vw);
+}
+/* End of rating */
+
+
+
+/* Start of completed list */
+.journal-past-wrap .task-list {
+  position: absolute;
+  right: 2em;
+  width: min(44%, 30rem);
+  height: 100%;
+  margin: 0; /* Overwrite inherited margin from task-list */
+  max-width: none;
+  background-color: var(--secondary-color);
+
+  border-radius: 1em;
+
+}
+/* End of completed list */
+
+/* End Entry Content */
+
+/* Start of past week */
 .past-week-wrap {
-  height: 28%;
-  border: blue solid 2px;
+  margin-top: 2%;
+  margin-right: 5%;
+  margin-left: 2%;
+  height: 19%;
 }
 
 .past-week-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  width: min(80rem, 100%);
+  width: min(78rem, 100%);
   height: min(12em, 80%);
-  padding: max(1.5rem, 3.5vh);
-  border: red solid 2px;
+  padding-top: max(1.5rem, 3.5vh);
+  padding-bottom: max(1.5rem, 3.5vh);;
+  padding-left: 1em;
+  padding-right: 3em;
 }
 
 .past-day {
   border: black solid 2px;
 }
 
-.today-entry {
-  width: min(70rem, 100%);
-  height: 72%;
-  padding-right: min(2rem, 3%);
-  padding-left: min(2rem, 3%);
-  border: green solid 2px;
+
+/* Calendar Table Styling */
+.table-week {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 0;
+  height: 100%;
 }
 
-.journal {
-  height: 60%;
-  padding-top: 4%;
-  padding-left: 8%;
-  padding-right: 8%;
-  padding-bottom: 2rem;
-  border: black solid 2px;
-}
-
-.rating-completed-wrap {
-  height: 40%;
-  border: red solid 2px;
-}
-
-.rating-widget {
+/* Calendar Data Cell Styling */
+.table-week td {
   position: relative;
-  float: left;
-  width: min(46%, 30rem);
-  height: 70%;
-  margin-left: min(5%, 4rem);
-  margin-top: max(3vh, 1rem);
-  border: red solid 2px;
+  border: 3px solid black;
+  padding: 0;
 }
 
-.completed-today {
-  position: relative;
-  float: left;
-  width: min(40%, 26rem);
-  height: 70%;
-  min-height: 7rem;
-  margin-top: max(3vh, 1rem);
-  margin-left: min(5%, 3rem);
-  border: black solid 2px;
+/* Calendar date */
+td .cell-date {
+  position: absolute;
+  top: 0;
+  left: 2px;
 }
 
-.journal-past-wrap {
-  width: min(100%);
-  min-width: 40rem;
-  height: 86%;
-  max-width: 94.4rem;
-  border:coral solid 2px;
+/* Sentiment icon */
+td .sentiment-icon {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  height: 18px;
 }
+
+/* Productivity icon */
+td .productivity-icon {
+  position: absolute;
+  top: 2px;
+  right: 24px;
+  height: 18px;
+}
+
+/* Task div in calendar cell */
+td .task-div {
+  position: absolute;
+  top: 24px;
+  justify-content: space-between;
+
+  width: 96%;
+  height: 78%;
+}
+
+/* Unordered list in calendar cell */
+.task-ul{
+  margin: 0px;
+  padding-left: 6px;
+  padding-bottom: 0;
+  color: black;
+  font-size: 12px;
+}
+
+/* Individual tasks in calendar cell */
+.task-item{
+  list-style-position: inside;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+/* End of past week */

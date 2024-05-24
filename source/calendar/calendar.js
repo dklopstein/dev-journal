@@ -1,152 +1,264 @@
+// Wait for window to load
+window.addEventListener('DOMContentLoaded', init);
 
-/**
- * Function to generate range of years
- * 
- * @param {number} start - start year
- * @param {number} end - end year
- */
-function generate_year_range(start, end) {
-    let years = "";
-    for (let year = start; year <= end; year++) {
-        years += "<option value='" +
-            year + "'>" + year + "</option>";
-    }
-    return years;
-}
- 
-// Initialize Date variables
-today = new Date();
-currentMonth = today.getMonth();
-currentYear = today.getFullYear();
-selectYear = document.getElementById("year");
-selectMonth = document.getElementById("month");
+// Get current date globals
+var currDate = new Date();
+var month = currDate.getMonth();
+var year = currDate.getFullYear();
 
-createYear = generate_year_range(currentYear-10, currentYear+10);
- 
-document.getElementById("year").innerHTML = createYear;
- 
-let calendar = document.getElementById("calendar");
- 
-let months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-];
-let days = [
-    "Sun", "Mon", "Tue", "Wed",
-    "Thu", "Fri", "Sat"];
- 
-$dataHead = "<tr>";
-for (dhead in days) {
-    $dataHead += "<th data-days='" +
-        days[dhead] + "'>" +
-        days[dhead] + "</th>";
+// Update the global date variables
+function updateDateGlobals() {
+    month = currDate.getMonth();
+    year = currDate.getFullYear();
 }
-$dataHead += "</tr>";
- 
-document.getElementById("thead-month").innerHTML = $dataHead;
- 
-monthAndYear =
-    document.getElementById("monthAndYear");
-showCalendar(currentMonth, currentYear);
- 
-// Function to navigate to the next month
-function next() {
-    currentYear = currentMonth === 11 ?
-        currentYear + 1 : currentYear;
-    currentMonth = (currentMonth + 1) % 12;
-    showCalendar(currentMonth, currentYear);
+
+// When page loads
+function init(){
+    // Initially display the jump button
+    displayJump(year-5,year+5);
+
+    // Initially display the calendar and calendar header
+    calendarHeader();
+    displayCalendar();
+
+    // Initialize the buttons 
+    initButtons();
 }
- 
-// Function to navigate to the previous month
-function previous() {
-    currentYear = currentMonth === 0 ?
-        currentYear - 1 : currentYear;
-    currentMonth = currentMonth === 0 ?
-        11 : currentMonth - 1;
-    showCalendar(currentMonth, currentYear);
+
+
+// FUNCTIONS
+
+function initButtons(){
+
+    // PREVIOUS BUTTON
+    let prevBtn = document.getElementById("previous");
+    prevBtn.addEventListener('click', prev);
+
+    // NEXT BUTTON
+    let nextBtn = document.getElementById("next");
+    nextBtn.addEventListener('click', next);
+
+    // CALENDAR BUTTON
+    let calendarBtn = document.getElementById("calendarpage");
+    console.log(calendarBtn);
+    calendarBtn.addEventListener('click', calendarButton);
+
+    // JUMP BUTTON
+    let monthBtn = document.getElementById("month");
+    monthBtn.addEventListener('change', jump);
+    let yearBtn = document.getElementById("year");
+    yearBtn.addEventListener('change', jump);
 }
- 
-// Function to jump to a specific month and year
-function jump() {
-    currentYear = parseInt(selectYear.value);
-    currentMonth = parseInt(selectMonth.value);
-    showCalendar(currentMonth, currentYear);
+
+// Function to goto next month
+function next(){
+    // Increment the month
+    currDate.setMonth(currDate.getMonth() + 1);
+    updateDateGlobals();
+    displayCalendar();
+}
+
+// Function to goto previous month
+function prev(){
+    // Decrement the month
+    currDate.setMonth(currDate.getMonth() - 1);
+    updateDateGlobals();
+    displayCalendar();
+}
+
+
+// Function to go back to today's month when clicking the calendar button
+function calendarButton() {
+    currDate = new Date();
+    updateDateGlobals();
+    displayCalendar();
 }
  
 // Function to display the calendar
-function showCalendar(month, year) {
-    let firstDay = new Date(year, month, 1).getDay();
-    tbl = document.getElementById("calendar-body");
-    tbl.innerHTML = "";
-    monthAndYear.innerHTML = months[month] + " " + year;
-    selectYear.value = year;
+function displayCalendar(){
+    // Get body and clear current calendar
+    let tbody = document.getElementById("tbody-calendar");
+    tbody.innerHTML = "";
+
+    // Initialize list of months
+    let allMonths = [
+        "January","February","March","April","May","June",
+        "July","August","September","October","November","December"
+    ];
+
+    // Get day of the week of first day in given month
+    let currCalendarMonth = new Date(year, month, 1);
+    let today = new Date();
+    let dayOffset = -(currCalendarMonth.getDay());
+
+    // Get month and year header
+    let monthYearHeader = document.getElementById("monthYearHeader");
+    monthYearHeader.textContent = allMonths[parseInt(month, 10)] + " " + year;
+
+    // Get and update jump with current month and year
+    let selectYear = document.getElementById("year");
+    let selectMonth = document.getElementById("month");
     selectMonth.value = month;
+    selectYear.value = year;
 
-    // Calculate previous month and year
-    let previousMonth = month - 1;
-    let previousYear = year;
-    if (previousMonth < 0) {
-        previousMonth = 11;
-        previousYear -= 1;
-    }
-
-    // Calculate the number of days in previous month
-    let daysInPreviousMonth = daysInMonth(previousMonth, previousYear);
-
-    let date = 1;
-    let cell, cellText;
-
-    // Loop to create the rows
+    let currDay;
+    // BUILD CALENDAR
+    // Loop through number of rows
     for (let i = 0; i < 6; i++) {
+        // Create rows
         let row = document.createElement("tr");
+    
+        // Loop through number of columns
         for (let j = 0; j < 7; j++) {
-            cell = document.createElement("td");
-            if (i === 0 && j < firstDay) {
-                // Fill the last few days of the previous month
-                let prevMonthDate = daysInPreviousMonth - (firstDay - j) + 1;
-                cellText = document.createTextNode(prevMonthDate);
-                cell.className = "date-picker other-month";
-            } else if (date > daysInMonth(month, year)) {
-                // Fill the first few days of the next month
-                let nextMonthDate = date - daysInMonth(month, year);
-                cellText = document.createTextNode(nextMonthDate);
-                cell.className = "date-picker other-month";
-                date++;
-            } else {
-                cellText = document.createTextNode(date);
-                cell.className = "date-picker";
-                date++;
+            // Create data for each table cell in the row
+            let cellData = document.createElement("td");
+
+            // Create span for cell number
+            let cellNum = document.createElement('span');
+
+            // Add offset to first date in calendar
+            if (i === 0 && j === 0){
+                currCalendarMonth.setDate(currCalendarMonth.getDate() + dayOffset);
+                currDay = currCalendarMonth.getDate();
             }
-            cell.appendChild(cellText);
-            row.appendChild(cell);
+            // Increment date by one
+            else {
+                currCalendarMonth.setDate(currCalendarMonth.getDate() + 1);
+                currDay = currCalendarMonth.getDate();
+            }
+            // Add number and class to cellNum
+            cellNum.textContent = currDay;
+            cellNum.className = "cell-date";
+
+            // If current month
+            if (currCalendarMonth.getMonth() === currDate.getMonth()) {
+                cellData.classList.add("curr-month-date-num");
+            }
+            // If other month
+            else {
+                cellData.classList.add("other-month-date-num");
+            }
+
+            // If cell is today
+            if (currCalendarMonth.toDateString() === today.toDateString()) {
+                cellData.classList.add("current-date");
+            }
+            // If cell is in the past
+            else if (currCalendarMonth < today) {
+                cellData.classList.add("past-date");
+            }
+            // If cell is in the future
+            else {
+                cellData.classList.add("future-date");
+            }
+
+            // Add cell number to calendar cell
+            cellData.appendChild(cellNum);
+
+
+            // Add sentiment icon
+            let sentimentIcon = document.createElement("img");
+            sentimentIcon.src = "./icons/5overjoyed.png"; 
+            sentimentIcon.alt = "sentiment icon";
+            sentimentIcon.className = "sentiment-icon";
+            // Append sentiment icon to new cell
+            cellData.appendChild(sentimentIcon);
+
+            // Add productivity icon
+            let productivityIcon = document.createElement("img");
+            productivityIcon.src = "./icons/5overjoyed.png"; 
+            productivityIcon.alt = "productivity icon";
+            productivityIcon.className = "productivity-icon";
+            // Append sentiment icon to new cell
+            cellData.appendChild(productivityIcon);
+
+            // Add tasklist in calendar cell
+            // Create tasklist div
+            let taskDiv = document.createElement("div");
+            taskDiv.className = "task-div";
+            // Create unordered list
+            let taskList = document.createElement("ul");
+            taskList.className = "task-ul";
+            // first task
+            let task1 = document.createElement("li");
+            task1.textContent = "I am the first task";
+            task1.className = "task-item";
+            taskList.appendChild(task1);
+            // second task
+            let task2 = document.createElement("li");
+            task2.textContent = "I am the second task";
+            task2.className = "task-item";
+            taskList.appendChild(task2);
+            // third task
+            let task3 = document.createElement("li");
+            task3.textContent = "I am the third task";
+            task3.className = "task-item";
+            taskList.appendChild(task3);
+            // Append taskList to task div;
+            taskDiv.appendChild(taskList);
+            // Append tasklist div to new cell
+            cellData.appendChild(taskDiv);
+
+            // Append new cell to row
+            row.appendChild(cellData);
         }
-        tbl.appendChild(row);
-        // Break the loop when the current month is completely filled
-        if (date > daysInMonth(month, year)) break;
+        // Append row to table
+        tbody.appendChild(row);
     }
-    displayReminders();
 }
- 
-// Function to get the number of days in a month
-function daysInMonth(iMonth, iYear) {
-    return 32 - new Date(iYear, iMonth, 32).getDate();
+
+// Generate dropdown year range
+function displayJump(startYear, endYear) {
+
+    // YEARS
+    let yearDropdown = document.getElementById("year")
+    // Loop through year range and append to list
+    for (let yr = startYear; yr < endYear+1; yr++) {
+        let yearJump = document.createElement("option");
+        yearJump.value = yr;
+        yearJump.textContent = yr;
+        yearDropdown.appendChild(yearJump);
+    }
+
+    // MONTHS
+    let allMonths = [
+        "January","February","March","April","May","June",
+        "July","August","September","October","November","December"
+    ];
+    let monthDropdown = document.getElementById("month")
+    // Loop through months and append to list
+    for (let mnth = 0; mnth < 12; mnth++) {
+        let monthJump = document.createElement("option");
+        monthJump.value = mnth;
+        monthJump.textContent = allMonths[parseInt(mnth,10)];
+        monthDropdown.appendChild(monthJump);
+    }
 }
- 
-// Call the showCalendar function initially to display the calendar
-showCalendar(currentMonth, currentYear);
 
-function bla()
+// Function to jump to a specific month and year
+function jump() {
+    let selectYear = document.getElementById("year");
+    let selectMonth = document.getElementById("month");
+    let jumpMonth = parseInt(selectMonth.value, 10);
+    let jumpYear = parseInt(selectYear.value, 10);
+    currDate = new Date(jumpYear, jumpMonth)
+    updateDateGlobals();
+    displayCalendar();
+}
 
-{
-    return 1;
+function calendarHeader(){
+    // Initialize list of days of the week
+    let allDays = ["Sun", "Mon", "Tue", "Wed","Thu", "Fri", "Sat"];
+
+    // Header of Days of the week
+    let thead = document.getElementById("thead-weekheadings");
+    let headerRow = document.createElement("tr");
+
+    // Loop through allDays list and append day of week to row
+    for (let dow of allDays){
+        let headerData = document.createElement("th");
+        headerData.textContent = dow;
+        headerRow.appendChild(headerData);
+    }
+    thead.appendChild(headerRow);
 }
