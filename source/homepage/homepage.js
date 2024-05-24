@@ -44,6 +44,7 @@ function selectWidget(buttonIndex) {
         });
         const selection = document.querySelector(`.rating-widget .productiveness button:nth-child(${buttonIndex - 5}) img`);
         selection.classList.add('active');
+        saveProductivity(buttonIndex);
     }
     else {
         const buttons = document.querySelectorAll('.feelings img');
@@ -52,6 +53,7 @@ function selectWidget(buttonIndex) {
         });
         const selection = document.querySelector(`.rating-widget .feelings button:nth-child(${buttonIndex}) img`);
         selection.classList.add('active');
+        saveWidgets(buttonIndex);
     }
 }
 
@@ -135,6 +137,8 @@ const tasks = document.getElementById("taskContainer");
 window.onload = function() {
     loadJournal()
     loadTasks()
+    loadWidgets()
+    loadProductivity()
 }
 
 window.onbeforeunload = function() {
@@ -152,9 +156,7 @@ function saveJournal() {
     let data = getJournal()
     // change date format from Wednesday, May 22, 2024 to 2024-05-22
     let dateText = new Date(date.textContent).toLocaleDateString();
-    data[dateText] = {
-        contents: journal.value
-    }
+    data[dateText].contents = journal.value;
     console.log(data)
     localStorage.setItem("journals", JSON.stringify(data))
 }
@@ -188,7 +190,6 @@ function saveTasks() {
             checked: checkbox.checked  
         });
     });
-    console.log(tasks)
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
@@ -207,6 +208,40 @@ function loadTasks() {
             curLi.querySelector("strong").textContent = task['text']
             curLi.querySelector('input[type="checkbox"]').checked = task['checked']
         });
+    }
+}
+
+function saveWidgets(value){
+    let data = JSON.parse(localStorage.getItem("journals"));
+    let dateText = new Date(date.textContent).toLocaleDateString();
+    data[dateText].rating = value;
+    console.log(data);
+    localStorage.setItem("journals", JSON.stringify(data));
+}
+
+function loadWidgets() {
+    let data = JSON.parse(localStorage.getItem("journals"));
+    let dateText = new Date(date.textContent).toLocaleDateString();
+    let rating = data[dateText].rating;
+    if (rating != null) {
+        selectWidget(rating);
+    }
+}
+
+function saveProductivity(value){
+    let data = JSON.parse(localStorage.getItem("journals"));
+    let dateText = new Date(date.textContent).toLocaleDateString();
+    data[dateText].productivity = value;
+    console.log(data);
+    localStorage.setItem("journals", JSON.stringify(data));
+}
+
+function loadProductivity() {
+    let data = JSON.parse(localStorage.getItem("journals"));
+    let dateText = new Date(date.textContent).toLocaleDateString();
+    let productivity = data[dateText].productivity;
+    if (productivity != null) {
+        selectWidget(productivity);
     }
 }
 
