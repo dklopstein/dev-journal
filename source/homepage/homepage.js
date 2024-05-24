@@ -82,6 +82,8 @@ function addTask() {
         }
     });
 
+    strong.addEventListener("blur", saveTasks);
+
     // Create and append the color-buttons div
     const colorButtons = document.createElement('div');
     colorButtons.className = 'color-buttons';
@@ -119,6 +121,8 @@ function addTask() {
     const taskContainer = document.getElementById('taskContainer');
     taskContainer.appendChild(li);
     saveTasks();
+
+    return li;
 }
 
 
@@ -184,6 +188,7 @@ function saveTasks() {
             checked: checkbox.checked  
         });
     });
+    console.log(tasks)
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
@@ -198,7 +203,9 @@ function loadTasks() {
     let tasks = getTasks();
     if (tasks.length > 0) {
         tasks.forEach(task => {
-            addTask(task.text, task.checked);
+            let curLi = addTask();
+            curLi.querySelector("strong").textContent = task['text']
+            curLi.querySelector('input[type="checkbox"]').checked = task['checked']
         });
     }
 }
