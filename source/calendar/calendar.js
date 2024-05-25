@@ -17,9 +17,10 @@ function init(){
     // Initially display the jump button
     displayJump(year-5,year+5);
 
-    // Initially display the calendar and calendar header
+    // Initially display the calendar, calendar header, and task colors
     calendarHeader();
     displayCalendar();
+    taskColor();
 
     // Initialize the buttons 
     initButtons();
@@ -40,7 +41,6 @@ function initButtons(){
 
     // CALENDAR BUTTON
     let calendarBtn = document.getElementById("calendarpage");
-    console.log(calendarBtn);
     calendarBtn.addEventListener('click', calendarButton);
 
     // JUMP BUTTON
@@ -189,16 +189,17 @@ function displayCalendar(){
             task2.textContent = "I am the second task";
             task2.className = "task-item";
             taskList.appendChild(task2);
-            // third task
-            let task3 = document.createElement("li");
-            task3.textContent = "I am the third task";
-            task3.className = "task-item";
-            taskList.appendChild(task3);
+            
+            // extra tasks
+            let taskExtra = document.createElement("li");
+            taskExtra.textContent = "5+";               // Change with #Tasks-2
+            taskExtra.className = "task-indicator";
+            taskList.appendChild(taskExtra);
+
             // Append taskList to task div;
             taskDiv.appendChild(taskList);
             // Append tasklist div to new cell
             cellData.appendChild(taskDiv);
-
             // Append new cell to row
             row.appendChild(cellData);
         }
@@ -261,4 +262,18 @@ function calendarHeader(){
         headerRow.appendChild(headerData);
     }
     thead.appendChild(headerRow);
+}
+
+
+function taskColor(){
+    // Get all elements with class .task-item
+    const taskItems = document.querySelectorAll('.task-item');
+    // Loop through each task item and assign a random color
+    taskItems.forEach(taskItem => {
+        // Generate a random color
+        const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+        
+        // Set the color as the value of --task-color for this task item
+        taskItem.style.setProperty('--task-color', randomColor);
+    });
 }

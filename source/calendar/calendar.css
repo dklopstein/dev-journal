@@ -304,6 +304,7 @@ td .productivity-icon {
   padding-left: 6px;
   color: black;
   font-size: 12px;
+  line-height: 1;
 }
 
 /* Individual tasks in calendar cell */
@@ -312,6 +313,21 @@ td .productivity-icon {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+/* Individual tasks in calendar cell */
+.task-item::marker{
+  color: var(--task-color, "black");
+  font-size: 1.5em; 
+}
+
+/* Extra tasks in calendar cell */
+.task-indicator{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-top: 7px;
+  font-weight: bolder;
 }
 
 
