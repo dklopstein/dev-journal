@@ -117,8 +117,8 @@ button {
 /* Positioning for trash icon */
 .fas.fa-trash-alt {
   position: absolute; /* Positioning relative to the nearest positioned ancestor */
-  top: 4px; /* Distance from the top edge of the li */
-  right: 4px; /* Distance from the right edge of the li */
+  top: 2px; /* Distance from the top edge of the li */
+  right: 2px; /* Distance from the right edge of the li */
   width: 18px;
   height: 18px;
   cursor: pointer;
@@ -153,16 +153,9 @@ button {
   margin-left: -6px;
 }
 
+/* Change to indicate task was completed */
 .complete .task-checkbox {
   background: black;
-}
-
-/* Style for trash icon alt */
-.fas.fa-trash-alt {
-  color: #555;
-  cursor: pointer;
-  margin-left: auto;
-  vertical-align: middle;
 }
 
 /* Default set up for color buttons */

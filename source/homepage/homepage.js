@@ -134,7 +134,7 @@ function addTask() {
     check.src = '../icons/check-icon.svg';
     check.alt = 'Check';
     // Append img to checkbox
-    checkbox.appendChild(check);
+    // checkbox.appendChild(check);
 
     // Append checkbox to input wrap
     input_wrap.appendChild(checkbox);
