@@ -34,12 +34,13 @@ button {
 /* Start of task list */
 .task-list { 
   flex: 0 0 18%;
+  max-width: 17rem; /* Prevents task list expanding with long task names */
   height:100%;
   margin: 5px;
   padding: 1%;
   border-radius: 15px;
   background-color: white;
-  box-shadow: px 1px lightgrey;
+  box-shadow: 1px 1px lightgrey;
 }
 
 /* Hides task list when page reaches certain size */
@@ -101,6 +102,7 @@ button {
   border-radius: 5px;
   position: relative; /* Sets context for absolute positioning of children */
   overflow: hidden; /* Ensures description expands within the li */
+  word-wrap: break-word;
   text-align: left; /* Keeps text left-aligned */
   transition: max-height 1s ease-in;
   max-height: 2.25em;
@@ -108,8 +110,8 @@ button {
 
 .fas.fa-trash-alt {
   position: absolute; /* Positioning relative to the nearest positioned ancestor */
-  top: 0px; /* Distance from the top edge of the li */
-  right: 0px; /* Distance from the right edge of the li */
+  top: 4px; /* Distance from the top edge of the li */
+  right: 4px; /* Distance from the right edge of the li */
   width: 18px;
   height: 18px;
   cursor: pointer;
@@ -171,6 +173,7 @@ button {
 .top-bar {
   position: relative;
   height: 10%;
+
 }
 
 .date-header-wrap {
@@ -185,56 +188,92 @@ button {
 }
 
 .date-header {
-  display: flex;
-
-  margin-left: 0.3em;
+  display: grid;
+  grid-template-columns: 1fr 8fr;
+  margin-left: 1.1em;
 
   position: absolute;
   bottom: 0;
 
-  width: 40%;
+  width: 50%;
+  max-width: 40em;
+}
+
+/* Wrap the previous and next day buttons*/
+.date-header-buttons {
+  display: grid;
+  grid-template-columns: 1.2em 1fr;
+
+  margin-top: auto;
+  margin-bottom: min(0.6em, 14%);
+  margin-left: 0.4em;
+
+}
+
+.prev-date-btn {
+  width: 2em;
+  height: 2em;
+
+  border-radius: 4em;
+
+  /* Add button image */
+  background-image: url('../icons/left-icon.png');
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: 4px;
+}
+
+.next-date-btn {
+  float: left;
+
+  width: 2em;
+  height: 2em;
+
+  margin-left: 0.4em;
+
+  border-radius: 4em;
+
+  /* Add button image */
+  background-image: url('../icons/right-icon.png');
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: 8px;
+  
+}
+
+.date-header-buttons button:hover {
+  background-color: var(--secondary-color);
 }
 
 .date-header-text {
+  width: 100%;
   margin-top: auto;
-  margin-bottom: auto;
-  text-align: center;
-
-  margin-right: min(1.2em,3%);
-  margin-left: min(1.2em,3%);
-
-  flex-wrap: nowrap;
-
+  margin-bottom: 0em;
+  margin-left: 0.2em;
   white-space: nowrap;
-  font-size: max(1.7em, 2.4vw);
-  font-size: calc(0.8em + 1.4vw);
-  
-  /* font-size: 2.3em; */
+  font-size: calc(1.4em + .7vw);
 }
 
-.date-header button {
-  padding-top: 5px;
-  /* width: 2em; */
 
-  margin-top: auto;
-  margin-bottom: auto;
-  /* height: 60%; */
-}
+
 
 .date-header button img {
   height: 18px;
+  padding: 4px;
 }
+
 
 .nav-buttons {
   position: absolute;
   top: 0.6em;
   right: 2em;
   padding: 0;
+
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: min(1em, 0.7vw);
-  /* gap: 1em; */
-
   height: 40%;
 }
 
@@ -255,10 +294,185 @@ button:hover {
 }
 /* End of top bar */
 
+
+/* Begin Entry Content */
+.journal-past-wrap {
+  width: 100%;
+  min-width: 40rem;
+  height: 86%;
+  max-width: 94.4rem;
+}
+
+.today-entry {
+  width: min(66rem, 100%);
+  height: 78%;
+  padding-right: min(2rem, 3%);
+  padding-left: min(2.1rem, 3%);
+}
+
+/* Start of journal */
+.journal {
+  height: 60%;
+}
+
+.journal-entry {
+  height: 94%;
+  margin-top: 0.4%;
+  margin-right: 2em;
+  margin-bottom: 1rem;
+
+  padding: 0.4em 1em 0.4em 1em;
+
+  background-color: var(--secondary-color);
+
+  border-radius: 1em;
+}
+
+.journal-entry #textarea {
+  width: 100%;
+  height: 90%;
+  margin-bottom: 1em;
+
+  padding-top: 0.2em;
+  padding-left: 0.4em;
+
+  background: var(--secondary-color);
+
+  border: none;
+  border-radius: 1em;
+
+  resize: none;
+}
+
+.journal-entry #textarea:focus {
+  outline: none !important;
+  border:1px solid --accent-color;
+  box-shadow: 0 0 10px #719ECE;
+}
+/* End of journal */
+
+/* Start of rating */
+.rating-completed-wrap {
+  position: relative;
+  height: 40%;
+}
+.rating-completed-wrap h4 {
+  text-align: center;
+  font-size: max(calc(0.7em + 0.4vw), 15px);
+}
+
+.rating-widget {
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  width: min(50%, 33rem);
+  height: 100%;
+  background-color: var(--secondary-color);
+  border-radius: 1em;
+  padding: 1.5em;
+}
+
+.feelings {
+  display: flex;
+  justify-content: center;
+  gap: 0.2em;
+  padding-top: calc(1em - 1vw);
+  padding-bottom: min(calc(2.2em - 1.8vw), 1.3em);
+}
+
+.rating-widget button img {
+  height: max(min(3.5em, 5.8vw), 40px);
+}
+
+.rating-widget button img:hover {
+  height: max(min(4em, 6vw), 65px);
+  background: radial-gradient(circle, rgb(3, 128, 237) 0%, rgba(0, 0, 0, 0) 100%);
+  border-radius: 50%;
+  transition: 0.5s ease-in-out;
+}
+
+.rating-widget img.active {
+  height: max(min(3.5em, 5.8vw), 40px);
+  background: radial-gradient(circle, rgba(8, 135, 31, 0.75) 50%, rgb(60, 245, 28) 100%);
+  border-radius: 100%;
+  transition: 0.5s ease;
+}
+
+.productiveness {
+  display: flex;
+  justify-content: center;
+  gap: 0.1em;
+  padding-top: calc(1em - 1vw);
+}
+
+/* Add media queries for smaller screens */
+@media (max-width: 900px) {
+  .rating-widget h4{
+    font-size: 14px;
+  }
+  .rating-widget button img {
+    height: max(min(3.1em, 4.8vw), 30px);
+  }
+  .rating-widget button img:hover {
+    height: max(min(3.2em, 5vw), 45px);
+  }
+  .rating-widget img.active {
+    height: max(min(3.1em, 4.8vw), 30px);
+  }
+}
+
+@media (max-width: 800px) {
+  .rating-widget h4{
+    font-size: 13px;
+  }
+  .rating-widget button img {
+    height: max(min(3em, 4.8vw), 30px);
+  }
+  .rating-widget button img:hover {
+    height: max(min(3.2em, 5vw), 45px);
+  }
+  .rating-widget img.active {
+    height: max(min(3em, 4.8vw), 30px);
+  }
+}
+
+@media (max-width: 600px) {
+  .rating-widget h4{
+    font-size: 12px;
+  }
+}
+
+/* End of rating */
+
+
+
+/* Start of completed list */
+.journal-past-wrap .task-list {
+  position: absolute;
+  right: 2em;
+  width: min(44%, 30rem);
+  height: 100%;
+  margin: 0; /* Overwrite inherited margin from task-list */
+  max-width: none;
+  background-color: var(--secondary-color);
+
+  border-radius: 1em;
+
+}
+/* End of completed list */
+
+/* End Entry Content */
+
 /* Start of past week */
 .past-week-wrap {
-  height: 28%;
-  /* border: blue solid 2px; */
+  margin-top: 2%;
+  margin-right: 5%;
+  margin-left: 2%;
+  height: 19%;
 }
 
 .past-week-grid {
@@ -276,122 +490,70 @@ button:hover {
   border: black solid 2px;
 }
 
-.today-entry {
-  width: min(66rem, 100%);
+
+/* Calendar Table Styling */
+.table-week {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 0;
+  height: 100%;
+}
+
+/* Calendar Data Cell Styling */
+.table-week td {
+  position: relative;
+  border: 3px solid black;
+  padding: 0;
+}
+
+/* Calendar date */
+td .cell-date {
+  position: absolute;
+  top: 0;
+  left: 2px;
+}
+
+/* Sentiment icon */
+td .sentiment-icon {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  height: 18px;
+}
+
+/* Productivity icon */
+td .productivity-icon {
+  position: absolute;
+  top: 2px;
+  right: 24px;
+  height: 18px;
+}
+
+/* Task div in calendar cell */
+td .task-div {
+  position: absolute;
+  top: 24px;
+  justify-content: space-between;
+
+  width: 96%;
   height: 78%;
-  padding-right: min(2rem, 3%);
-  padding-left: min(2.1rem, 3%);
+}
+
+/* Unordered list in calendar cell */
+.task-ul{
+  margin: 0px;
+  padding-left: 6px;
+  padding-bottom: 0;
+  color: black;
+  font-size: 12px;
+}
+
+/* Individual tasks in calendar cell */
+.task-item{
+  list-style-position: inside;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 /* End of past week */
-
-/* Start of journal */
-.journal {
-  height: 60%;
-  /* border: black solid 2px; */
-}
-
-.journal-entry {
-  height: 94%;
-  margin-top: 1%;
-  margin-right: 2em;
-  margin-bottom: 1rem;
-
-  padding: 0.8em 1em 0.8em 1em;
-
-  background-color: var(--secondary-color);
-
-  border-radius: 1em;
-}
-
-.journal-entry #textarea {
-  width: 100%;
-  height: 93%;
-}
-/* End of journal */
-
-/* Start of rating */
-.rating-completed-wrap {
-  position: relative;
-  height: 40%;
-}
-
-.rating-completed-wrap h4 {
-  text-align: center;
-  font-size: max(calc(0.7em + 0.4vw), 15px);
-  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
-}
-
-.rating-widget {
-  position: absolute;
-  left: 0;
-  width: min(50%, 33rem);
-  height: 100%;
-
-  background-color: var(--secondary-color);
-  border-radius: 1em;
-}
-
-.feelings {
-  display: flex;
-  justify-content: center;
-  gap: 0.2em;
-  padding-top: calc(1em - 1vw);
-  padding-bottom: min(calc(2.2em - 1.8vw), 1.3em);
-}
-
-.rating-widget button img {
-  height: max(min(4em, 5.8vw), 40px);
-}
-
-.rating-widget button img:hover {
-  height: max(min(4.2em, 6vw), 65px);
-  background: radial-gradient(circle, rgb(3, 128, 237) 0%, rgba(0, 0, 0, 0) 100%);
-  border-radius: 50%;
-  transition: 0.5s ease-in-out;
-}
-
-.rating-widget img.active {
-  height: max(min(4em, 5.8vw), 40px);
-  background: radial-gradient(circle, rgba(8, 135, 31, 0.75) 50%, rgb(60, 245, 28) 100%);
-  border-radius: 100%;
-  transition: 0.5s ease;
-}
-
-.productiveness {
-  display: flex;
-  justify-content: center;
-  gap: 0.1em;
-  padding-top: calc(1em - 1vw);
-}
-/* End of rating */
-
-/* Start of completed list */
-.journal-past-wrap .task-list {
-  position: absolute;
-  right: 2em;
-  width: min(44%, 30rem);
-  height: 100%;
-
-  background-color: var(--secondary-color);
-
-  border-radius: 1em;
-}
-/* End of completed list */
-
-.journal-past-wrap {
-  width: 100%;
-  min-width: 40rem;
-  height: 86%;
-  max-width: 94.4rem;
-}
-
-/* Start of completed list */
-.journal-past-wrap .task-list {
-  position: absolute;
-  right: 2em;
-  width: min(41%, 26rem);
-  height: 100%;
-  margin: 0; /* Overwrite inherited margin from task-list */
-}
-/* End of completed list */
-

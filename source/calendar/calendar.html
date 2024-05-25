@@ -1,1 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Title -->
+    <title>Calendar</title>
+    <!-- CSS File -->
+    <link rel="stylesheet" href="calendar.css" />
+    <!-- Font style -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+  </head>
 
+  <body>
+     <header>
+
+     </header>
+
+     <main>
+      <!-- Task list sidebar -->
+      <div class="task-list">
+        <h3>Tasks</h3>
+        <ul id="taskContainer">
+            <li>
+              <input type="checkbox" class="task-checkbox" id="task1">
+              <strong>name</strong>
+              <p class="due-date">2024-00-00</p>
+              <div class="task-desc">
+                <p>description blablablabalbalblblbalblablabalbal</p>
+                <div class="color-buttons">
+                  <button class="color-button red"></button>
+                  <button class="color-button orange"></button>
+                  <button class="color-button yellow"></button>
+                  <button class="color-button green"></button>
+                  <button class="color-button blue"></button>
+                </div>
+              </div>
+              <img src="icons/delete_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="Remove" class="fas fa-trash-alt">
+              
+            </li>
+            <li>
+              <input type="checkbox" class="task-checkbox" id="task2">
+              <strong>name</strong>
+              <p class="due-date">2024-00-00</p>
+              <div class="task-desc">
+                <p>description blablablabalbalblblbalblablabalbal</p>
+                <div class="color-buttons">
+                  <button class="color-button red"></button>
+                  <button class="color-button orange"></button>
+                  <button class="color-button yellow"></button>
+                  <button class="color-button green"></button>
+                  <button class="color-button blue"></button>
+                </div>
+              </div>
+              <img src="icons/delete_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="Remove" class="fas fa-trash-alt">
+            </li>
+        </ul>
+      </div>
+  
+      <!-- Calendar -->
+      <div class="full-calendar">
+        <!-- Calendar header -->
+        <div class="top-bar">
+            <!-- Month title and previous/next buttons -->
+            <div class="button-container-calendar">
+                <button id="previous"><img src="icons/left-icon.png" alt="Previous"></button>
+                <h3 id="monthYearHeader"></h3>
+                <button id="next"><img src="icons/right-icon.png" alt="Next"></button>
+            </div>
+            <!-- Calendar date jump -->
+            <div class="jump">
+              <label for="month">Jump To: </label>
+              <!-- Month jump dropdown -->
+              <select id="month"></select>
+              <!-- Year jump dropdown -->
+              <select id="year"></select>
+            </div>
+            <!-- Home, calendar and settings icons -->
+            <div class="button-icons">
+                <button id="homepage"><img src="icons/home-icon.png" alt="Home"></button>
+                <button id="calendarpage"><img src="icons/calendar-icon.png" alt="Calendar"></button>
+                <button id="settingspage"><img src="icons/settings-icon.png" alt="Settings"></button>
+            </div>
+        </div>       
+
+        <!-- Calendar Table -->
+          <table class="table-calendar" id="calendar" data-lang="en">
+              <thead id="thead-weekheadings"></thead>
+              <tbody id="tbody-calendar"></tbody>
+          </table>
+      </div>
+    </main>
+    <footer>
+    </footer>
+    <!-- Javascript file -->
+    <script src="./calendar.js"></script>
+  </body>
+
+</html>
