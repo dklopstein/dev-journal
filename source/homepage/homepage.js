@@ -123,12 +123,39 @@ function addTask() {
     const input_wrap = document.createElement('div');
     input_wrap.className = 'input-wrap';
 
-    // Create and append the checkbox input to input_wrap
+    // Create the checkbox input to input_wrap
     const checkbox = document.createElement('button');
     checkbox.className = 'task-checkbox';
     checkbox.id = 'task' + task_counter;
     task_counter++;
+
+    // Create img element for checkbox
+    const check = document.createElement('img');
+    check.src = '../icons/check-icon.svg';
+    check.alt = 'Check';
+    // Append img to checkbox
+    checkbox.appendChild(check);
+
+    // Append checkbox to input wrap
     input_wrap.appendChild(checkbox);
+
+    // Event listener to move task to completed when it is selected
+    checkbox.addEventListener('click', function() {
+        // Add or remove completed from class name
+        // Find closest li item (task)
+        const task = checkbox.closest('li');
+
+        if (task.className.includes('complete')) {
+            task.classList.remove('complete');
+            const taskContainer = document.getElementById('taskContainer');
+            taskContainer.appendChild(task);
+        }
+        else {
+            task.classList.add('complete');
+            const completedTaskContainer = document.getElementById('completedTaskContainer');
+            completedTaskContainer.appendChild(task);
+        }
+    });
 
     // Create and append the input element with the task name
     const task_name = document.createElement('textarea');
@@ -141,7 +168,7 @@ function addTask() {
     li.appendChild(input_wrap);
 
     // Add event listener to add active to class name when editing
-    task_name.addEventListener('focus', function(event) {
+    task_name.addEventListener('focus', function() {
         li.classList.add('active');
     });
 
@@ -173,7 +200,7 @@ function addTask() {
         const button = document.createElement('button');
         button.className = 'color-button ' + color;
         button.style.background = color;
-        button.addEventListener('click', function(event) {
+        button.addEventListener('click', function() {
             li.style.background = color;
             if ( color == 'blue' || color == 'green' || color == 'red') {
                 task_name.style.color = '#e0e0e0';
@@ -193,11 +220,11 @@ function addTask() {
 
     trashIcon.addEventListener('click', function() {
         // Find the parent <li> element of the clicked trash icon
-        const listItem = trashIcon.closest('li');
+        const task = trashIcon.closest('li');
             
         // Remove the <li> element from the DOM
-        if (listItem) {
-            listItem.remove();
+        if (task) {
+            task.remove();
         }
     });
 
@@ -206,9 +233,6 @@ function addTask() {
     // Append the new list item to the task list
     const taskContainer = document.getElementById('taskContainer');
     taskContainer.appendChild(li);
-
-    // Event listener to call func to move task to completed when it is selected
-    checkbox.addEventListener('click', moveTask(li));
     
     // Auto click into the task name text box
     setTimeout(() => {
@@ -228,17 +252,6 @@ function autoResize(textarea) {
     if (textarea.value == '') {
         textarea.style.height = '24px';
     }
-}
-
-/**
- * function to move tasks between task list and completed tasks
- * 
- * @param {li} li is the element that will be moved from task-list to completed tasks and vice versa
- */
-function moveTask(li) {
-    const li_parent = li.parentElement;
-    const button = li.querySelector('task-checkbox');
-    alert(button);
 }
 
 /**
