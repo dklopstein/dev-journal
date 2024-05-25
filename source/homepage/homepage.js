@@ -1,5 +1,5 @@
 window.addEventListener('DOMContentLoaded', init);
-
+let task_counter = 1;
 /**
  * Initializes current date heading
  * 
@@ -79,10 +79,10 @@ function addTask() {
     input_wrap.className = 'input-wrap';
 
     // Create and append the checkbox input to input_wrap
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
+    const checkbox = document.createElement('button');
     checkbox.className = 'task-checkbox';
-    checkbox.id = 'task' + (document.querySelectorAll('.task-checkbox').length + 1);
+    checkbox.id = 'task' + task_counter;
+    task_counter++;
     input_wrap.appendChild(checkbox);
 
     // Create and append the input element with the task name
@@ -161,6 +161,9 @@ function addTask() {
     // Append the new list item to the task list
     const taskContainer = document.getElementById('taskContainer');
     taskContainer.appendChild(li);
+
+    // Event listener to call func to move task to completed when it is selected
+    checkbox.addEventListener('click', moveTask(li));
     
     // Auto click into the task name text box
     setTimeout(() => {
@@ -180,4 +183,15 @@ function autoResize(textarea) {
     if (textarea.value == '') {
         textarea.style.height = '24px';
     }
+}
+
+/**
+ * function to move tasks between task list and completed tasks
+ * 
+ * @param {li} li is the element that will be moved from task-list to completed tasks and vice versa
+ */
+function moveTask(li) {
+    const li_parent = li.parentElement;
+    const button = li.querySelector('task-checkbox');
+    alert(button);
 }
