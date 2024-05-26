@@ -28,6 +28,9 @@
         <article>
             <pre class="prettyprint source linenums"><code>window.addEventListener('DOMContentLoaded', init);
 
+// Counter for iding tasks
+let task_counter = 1;
+
 // Get current date globals
 var currDate = new Date();
 
@@ -125,6 +128,18 @@ function selectWidget(buttonIndex) {
     }
 }
 
+// Add event listener to remove active and blur task when you click outside of task
+document.addEventListener('click', function(event) {
+    const currTask = document.querySelector('#taskContainer .active');
+
+    if (currTask &amp;&amp; !currTask.contains(event.target)) {
+        currTask.classList.remove('active');
+        const textarea = currTask.querySelector('.task-name');
+        textarea.blur();
+        autoResize(textarea)
+    }
+});
+
 /**
  * A function to create a new task and place it in the sidebar
  */
@@ -132,23 +147,44 @@ function addTask() {
     // Create the new list item element
     const li = document.createElement('li');
 
-    // Create and append the checkbox input
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
+    // Create a div to hold checkbox and input
+    const input_wrap = document.createElement('div');
+    input_wrap.className = 'input-wrap';
+
+    // Create and append the checkbox input to input_wrap
+    const checkbox = document.createElement('button');
     checkbox.className = 'task-checkbox';
-    checkbox.id = 'task' + (document.querySelectorAll('.task-checkbox').length + 1);
-    li.appendChild(checkbox);
+    checkbox.id = 'task' + task_counter;
+    task_counter++;
+    input_wrap.appendChild(checkbox);
 
-    // Create and append the strong element with the task name
-    const strong = document.createElement('strong');
-    strong.contentEditable = true;
-    li.appendChild(strong);
-    strong.textContent = 'Add Task Name...';
+    // Create and append the input element with the task name
+    const task_name = document.createElement('textarea');
+    task_name.placeholder = 'Input Task Name...';
+    task_name.className = 'task-name';
+    task_name.maxLength = 100;
+    input_wrap.appendChild(task_name);
 
-    // Add event listener to hide default text when user starts typing
-    strong.addEventListener('click', function() {
-        if (strong.textContent === 'Add Task Name...') {
-            strong.textContent = ''; // Clear default text when user starts typing
+    // Append input-wrap to li
+    li.appendChild(input_wrap);
+
+    // Add event listener to add active to class name when editing
+    task_name.addEventListener('focus', function(event) {
+        li.classList.add('active');
+    });
+
+    // Add event listener to stop editing when user presses enter
+    task_name.addEventListener('keydown', function(event) {
+        if (event.key == 'Enter') {
+            if (!event.shiftKey) {
+                // Shift+Enter pressed, insert a line break
+                // Enter pressed, end editing
+                event.preventDefault(); // Prevent default behavior of Enter key
+                task_name.blur(); // Remove focus from the element
+                li.classList.remove('active');
+                const textarea = li.querySelector('.task-name');
+                autoResize(textarea);
+            }
         }
     });
 
@@ -158,12 +194,22 @@ function addTask() {
     li.appendChild(colorButtons);
 
     // List of colors
-    const colors = ['red', 'orange', 'yellow', 'green', 'blue'];
+    const colors = ['red', 'orange', 'yellow', 'green', 'blue', '#e0e0e0'];
 
     // Create and append each color button
     colors.forEach(color => {
         const button = document.createElement('button');
         button.className = 'color-button ' + color;
+        button.style.background = color;
+        button.addEventListener('click', function(event) {
+            li.style.background = color;
+            if ( color == 'blue' || color == 'green' || color == 'red') {
+                task_name.style.color = '#e0e0e0';
+            }
+            else {
+                task_name.style.color = 'black';
+            }
+        });
         colorButtons.appendChild(button);
     });
 
@@ -188,6 +234,39 @@ function addTask() {
     // Append the new list item to the task list
     const taskContainer = document.getElementById('taskContainer');
     taskContainer.appendChild(li);
+
+    // Event listener to call func to move task to completed when it is selected
+    checkbox.addEventListener('click', moveTask(li));
+    
+    // Auto click into the task name text box
+    setTimeout(() => {
+        task_name.focus();
+        document.getSelection().collapseToEnd();
+    }, 0);
+}
+
+/**
+ * Resizes the textarea holding the task name for an element
+ * 
+ * @param {textarea} textarea to resize in task
+ */
+function autoResize(textarea) {
+    textarea.style.height = 'auto'; // Reset the height
+    textarea.style.height = textarea.scrollHeight + 'px'; // Set the height to the scroll height
+    if (textarea.value == '') {
+        textarea.style.height = '24px';
+    }
+}
+
+/**
+ * function to move tasks between task list and completed tasks
+ * 
+ * @param {li} li is the element that will be moved from task-list to completed tasks and vice versa
+ */
+function moveTask(li) {
+    const li_parent = li.parentElement;
+    const button = li.querySelector('task-checkbox');
+    alert(button);
 }
 
 /**
@@ -279,8 +358,7 @@ function displayWeek() {
     }
     // Append row to table
     table.appendChild(row);
-}
-</code></pre>
+}</code></pre>
         </article>
     </section>
 
@@ -290,13 +368,13 @@ function displayWeek() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#displayDate">displayDate</a></li><li><a href="global.html#displayWeek">displayWeek</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initButtons">initButtons</a></li><li><a href="global.html#nextDate">nextDate</a></li><li><a href="global.html#prevDate">prevDate</a></li><li><a href="global.html#selectWidget">selectWidget</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#autoResize">autoResize</a></li><li><a href="global.html#displayDate">displayDate</a></li><li><a href="global.html#displayWeek">displayWeek</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initButtons">initButtons</a></li><li><a href="global.html#moveTask">moveTask</a></li><li><a href="global.html#nextDate">nextDate</a></li><li><a href="global.html#prevDate">prevDate</a></li><li><a href="global.html#selectWidget">selectWidget</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Fri May 24 2024 23:19:00 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sun May 26 2024 23:55:45 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
