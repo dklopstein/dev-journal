@@ -1,3 +1,11 @@
+const DEBUG = true;
+
+function _log(msg) {
+    if (DEBUG) {
+        console.log(msg);
+    }
+}
+
 window.addEventListener('DOMContentLoaded', init);
 
 // Get current date globals
@@ -23,7 +31,7 @@ function initButtons() {
     nextBtn.addEventListener("click", nextDate);
     const prevBtn = document.querySelector(".prev-date-btn");
     prevBtn.addEventListener("click", prevDate);
-    const addTaskBtn = document.querySelector(".add-task-btn");
+    const addTaskBtn = document.querySelector("#addbutton");
     addTaskBtn.addEventListener("click", addTask);
     const ratingSelBtn = document.querySelectorAll(".rating-select-btn");
     ratingSelBtn.forEach(btn => {
@@ -51,6 +59,8 @@ function displayDate(date) {
 function nextDate() {
     currDate.setDate(currDate.getDate() + 1);
     displayDate(formatDate(currDate));
+    unselectAllWidgets();
+    loadAll();
 }
 
 /**
@@ -59,6 +69,8 @@ function nextDate() {
 function prevDate() {
     currDate.setDate(currDate.getDate() - 1);
     displayDate(formatDate(currDate));
+    unselectAllWidgets();
+    loadAll();
 }
 /**
  * Formats the currDate global variable into proper string display
@@ -86,7 +98,7 @@ function selectWidget(buttonIndex) {
         });
         const selection = document.querySelector(`.rating-widget .productiveness button:nth-child(${buttonIndex - 5}) img`);
         selection.classList.add('active');
-        saveProductivity(buttonIndex);
+        saveWidgets(buttonIndex);
     }
     else {
         const buttons = document.querySelectorAll('.feelings img');
@@ -95,8 +107,22 @@ function selectWidget(buttonIndex) {
         });
         const selection = document.querySelector(`.rating-widget .feelings button:nth-child(${buttonIndex}) img`);
         selection.classList.add('active');
-        saveRating(buttonIndex);
+        saveWidgets(buttonIndex);
     }
+}
+
+/**
+ * Unselects all widgets by removing the active property from their classnames
+ */
+function unselectAllWidgets() {
+    const buttons = document.querySelectorAll('.feelings img');
+    buttons.forEach(button => {
+        button.classList.remove('active');
+    });
+    const buttons2 = document.querySelectorAll('.productiveness img');
+    buttons2.forEach(button => {
+        button.classList.remove('active');
+    });
 }
 
 /**
@@ -261,28 +287,41 @@ function displayWeek() {
 }
 //------------------------------------------
 // Save journal entry
+
+// Get the all relevent elements from page
 const journal = document.getElementById("textarea");
 const date = document.getElementById("current-date");
 const tasks = document.getElementById("taskContainer");
 
+// Load journal entry and tasks from local storage on page load
 window.onload = function() {
-    loadJournal()
-    loadTasks()
-    loadRating()
-    loadProductivity()
+    loadAll();
 }
 
+// Save journal entry and tasks to local storage on page unload
 window.onbeforeunload = function() {
     saveJournal()
     saveTasks()
 }
 
+// const AUTO_SAVE_INTERVAL = 30000;
+// Save journal entry and tasks to local storage on timer
 // Save every 30 seconds
 // var saveInterval = setInterval(function(){
 //     saveJournal()
-//     console.log("Saved")
-// }, 30000)
+//     saveTasks()
+//     _log("Saved")
+// }, AUTO_SAVE_INTERVAL)
 
+/**
+ * Save journal entry to local storage
+ * 
+ * @param {string} data - journal entry text in parsed json format
+ * @param {string} dateText - date of the journal entry in locale date string format
+ * @param {string} key - key to store the value under
+ * @param {string} value - value to store
+ * 
+ */
 function saveToStorage(data, dateText, key, value){
     if (!(dateText in data)){
         data[dateText] = {}
@@ -290,6 +329,13 @@ function saveToStorage(data, dateText, key, value){
     data[dateText][key] = value;
 }
 
+/**
+ * Load journal entry from local storage
+ * 
+ * @param {string} data - journal entry text in parsed json format
+ * @param {string} dateText - date of the journal entry in locale date string format
+ * @param {string} key - key to get the value from
+ */
 function loadFromStorage(data, dateText, key){
     if (!(dateText in data)){
         return;
@@ -297,14 +343,22 @@ function loadFromStorage(data, dateText, key){
     return data[dateText][key];
 }
 
+/**
+ * Save journal entry to local storage
+ */
 function saveJournal() { 
     let data = getJournal()
-    let dateText = new Date(currDate.textContent).toLocaleDateString();
+    let dateText = new Date(date.textContent).toLocaleDateString();
     saveToStorage(data, dateText, "contents", journal.value)
-    console.log(data)
+    _log(data)
     localStorage.setItem("journals", JSON.stringify(data))
 }
 
+/**
+ * Get journal entry from local storage
+ * 
+ * @returns {string} journal entry text in parsed json format
+ */
 function getJournal() {
     let data = JSON.parse(localStorage.getItem("journals"))
     if (data == null) {
@@ -313,13 +367,19 @@ function getJournal() {
     return data
 }
 
+/**
+ * Load journal entry from local storage
+ */
 function loadJournal() {
     let data = getJournal()
     let dateText = new Date(date.textContent).toLocaleDateString();
-    journal.value = loadFromStorage(data, dateText, "contents")
-    console.log(data)
+    journal.value = loadFromStorage(data, dateText, "contents") || "";
+    _log(data)
 }
 
+/**
+ * Save tasks to local storage
+ */
 function saveTasks() {
     let tasks = [];
     document.querySelectorAll('#taskContainer li').forEach(task => {
@@ -333,13 +393,19 @@ function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-
+/**
+ * Get tasks from local storage
+ *
+ * @returns {string} tasks in parsed json format or empty array if no tasks
+ */
 function getTasks() {
     let storedTasks = localStorage.getItem("tasks");
     return storedTasks ? JSON.parse(storedTasks) : [];
 }
 
-
+/**
+ * Load tasks from local storage
+ */
 function loadTasks() {
     let tasks = getTasks();
     if (tasks.length > 0) {
@@ -351,40 +417,49 @@ function loadTasks() {
     }
 }
 
-function saveRating(value){
+/**
+ * Save widgets to local storage
+ * 
+ * @param {int} value - value of the widget selected:
+ * 1-5 for mental health, 6-10 for productivity
+ */
+function saveWidgets(value){
     let data = getJournal();
     let dateText = new Date(date.textContent).toLocaleDateString();
-    saveToStorage(data, dateText, "rating", value);
-    console.log(data);
+    if (value < 6){
+        saveToStorage(data, dateText, "rating", value);
+    }
+    else {
+        saveToStorage(data, dateText, "productivity", value);
+    }
     localStorage.setItem("journals", JSON.stringify(data));
 }
 
-function loadRating() {
+/**
+ * Load widgets from local storage
+ */
+function loadWidgets() {
     let data = getJournal();
     let dateText = new Date(date.textContent).toLocaleDateString();
     let rating = loadFromStorage(data, dateText, "rating");
+    let productivity = loadFromStorage(data, dateText, "productivity");
     if (rating != null){
         selectWidget(rating);
     }
-}
-
-function saveProductivity(value){
-    let data = getJournal();
-    let dateText = new Date(date.textContent).toLocaleDateString();
-    saveToStorage(data, dateText, "productivity", value);
-    console.log(data);
-    localStorage.setItem("journals", JSON.stringify(data));
-}
-
-function loadProductivity() {
-    let data = getJournal();
-    let dateText = new Date(date.textContent).toLocaleDateString();
-    let productivity = loadFromStorage(data, dateText, "productivity")
-    if (productivity != null) {
+    if (productivity != null){
         selectWidget(productivity);
     }
 }
 
+/**
+ * Load all data from local storage
+ */
+function loadAll() {
+    loadJournal();
+    loadTasks();
+    loadWidgets();
+}
+// Save journal entry and tasks to local storage on events
 journal.addEventListener("blur", saveJournal)
 tasks.addEventListener("blur", saveTasks)
 tasks.addEventListener("change", saveTasks)
