@@ -20,7 +20,6 @@ function init(){
     // Initially display the calendar, calendar header, and task colors
     calendarHeader();
     displayCalendar();
-    taskColor();
 
     // Initialize the buttons 
     initButtons();
@@ -206,6 +205,9 @@ function displayCalendar(){
         // Append row to table
         tbody.appendChild(row);
     }
+    
+    // Add taskcolor to calendar cells
+    taskColor();
 }
 
 // Generate dropdown year range
