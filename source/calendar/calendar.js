@@ -15,7 +15,7 @@ function updateDateGlobals() {
 // When page loads
 function init(){
     // Initially display the jump button
-    displayJump(year-5,year+5);
+   // displayJump(year-5,year+5);
 
     // Initially display the calendar, calendar header, and task colors
     calendarHeader();
@@ -31,22 +31,22 @@ function init(){
 function initButtons(){
 
     // PREVIOUS BUTTON
-    let prevBtn = document.getElementById("previous");
+    let prevBtn = document.querySelector(".prev-date-btn");
     prevBtn.addEventListener('click', prev);
 
     // NEXT BUTTON
-    let nextBtn = document.getElementById("next");
+    let nextBtn = document.querySelector(".next-date-btn");
     nextBtn.addEventListener('click', next);
 
     // CALENDAR BUTTON
-    let calendarBtn = document.getElementById("calendarpage");
-    calendarBtn.addEventListener('click', calendarButton);
+    // let calendarBtn = document.getElementById("calendarpage");
+    // calendarBtn.addEventListener('click', calendarButton);
 
     // JUMP BUTTON
-    let monthBtn = document.getElementById("month");
-    monthBtn.addEventListener('change', jump);
-    let yearBtn = document.getElementById("year");
-    yearBtn.addEventListener('change', jump);
+    // let monthBtn = document.getElementById("month");
+    // monthBtn.addEventListener('change', jump);
+    // let yearBtn = document.getElementById("year");
+    // yearBtn.addEventListener('change', jump);
 }
 
 // Function to goto next month
@@ -95,10 +95,10 @@ function displayCalendar(){
     monthYearHeader.textContent = allMonths[parseInt(month, 10)] + " " + year;
 
     // Get and update jump with current month and year
-    let selectYear = document.getElementById("year");
-    let selectMonth = document.getElementById("month");
-    selectMonth.value = month;
-    selectYear.value = year;
+    // let selectYear = document.getElementById("year");
+    // let selectMonth = document.getElementById("month");
+    // selectMonth.value = month;
+    // selectYear.value = year;
 
     let currDay;
     // BUILD CALENDAR

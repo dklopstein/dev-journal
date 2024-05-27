@@ -26,6 +26,12 @@ main {
   position: relative;
 
 }
+
+/* Remove background for all buttons */
+button {
+  background-color: rgba(0,0,0,0);
+  border: rgba(0,0,0,1);
+}
  
 /* TASK LIST */
 /* Task list sidebar */
@@ -173,33 +179,95 @@ h3 {
   font-size: 5vh;
 }
 
-/* Header of calendar with buttons */
+/* Start of top bar */
 .top-bar {
-  display: flex;
-  justify-content: space-between; 
-  align-items: center; 
-  padding: 10px 20px;
+  position: relative;
+  height: 10%;
+
 }
 
-/* Calendar buttons */
-.button-container-calendar {
-  display: flex;
-  justify-content: center;
-  padding-top: 0.5vh;
-  padding-bottom: 3vh;
-  padding-right: 200px;
-  gap: 10px;
+/* Full top bar */
+.date-header-wrap {
+  position: absolute;
+  height: max(30%, 5rem);
+  height: 100%;
+  width: min(70em, 100%);
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
-.button-container-calendar button {
-  padding-top: 5px;
+/* Next, Prev, and Header organization */
+.date-header {
+  display: grid;
+  grid-template-columns: 1fr 8fr;
+  margin-left: 1.1em;
+
+  position: absolute;
+  bottom: 0;
+
+  width: 50%;
+  max-width: 40em;
 }
-.button-container-calendar button img {
-  height: 4vh;
+
+/* Next and Prev button hover */
+.date-header-buttons button:hover {
+  background-color: var(--secondary-color);
 }
+
+/* Calendar date header */
+.date-header-text {
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: 0em;
+  margin-left: 0.2em;
+  white-space: nowrap;
+  font-size: calc(1.4em + .7vw);
+}
+
+/* Next and Prev button images */
+.date-header button img {
+  height: 18px;
+  padding: 4px;
+}
+
+/* Navigation buttons */
+.nav-buttons {
+  position: absolute;
+  top: 0.6em;
+  right: 2em;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: min(1em, 0.7vw);
+  height: 40%;
+}
+
+/* Navigation buttons */
+.nav-buttons button {
+  background-color: transparent;
+  border: none;
+}
+
+/* Navigation button images */
+.nav-buttons button img {
+  width: min(3.4em, 4vw);
+  min-width: 2.6em;
+  padding-left: 0em;
+  padding-right: 0em;
+}
+
+/* Add cursor when hovering over buttons */
+button:hover {
+  cursor: pointer;
+}
+
+/* End of top bar */
 
 /* Jump button */
-.jump {
+/* .jump {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -218,6 +286,52 @@ h3 {
 .jump label {
   white-space: nowrap;
   margin-right: 5px;
+} */
+
+/* Wrap the previous and next day buttons*/
+.date-header-buttons {
+  display: grid;
+  grid-template-columns: 1.2em 1fr;
+
+  margin-top: auto;
+  margin-bottom: min(0.6em, 14%);
+  margin-left: 0.4em;
+
+}
+
+/* Goto previous month button */
+.prev-date-btn {
+  width: 2em;
+  height: 2em;
+
+  border-radius: 4em;
+
+  /* Add button image */
+  background-image: url('../icons/left-icon.png');
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: 4px;
+}
+
+/* Goto next month button */
+.next-date-btn {
+  float: left;
+
+  width: 2em;
+  height: 2em;
+
+  margin-left: 0.4em;
+
+  border-radius: 4em;
+
+  /* Add button image */
+  background-image: url('../icons/right-icon.png');
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: 8px;
+  
 }
 
 /* Calendar icons */

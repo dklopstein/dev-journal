@@ -34,7 +34,7 @@
                   <button class="color-button blue"></button>
                 </div>
               </div>
-              <img src="calendar/icons/settings-icon.png" alt="Remove" class="fas fa-trash-alt">
+              <img src="icons/settings-icon.png" alt="Remove" class="fas fa-trash-alt">
               
             </li>
             <li>
@@ -51,36 +51,52 @@
                   <button class="color-button blue"></button>
                 </div>
               </div>
-              <img src="calendar/icons/settings-icon.png" alt="Remove" class="fas fa-trash-alt">
+              <img src="icons/settings-icon.png" alt="Remove" class="fas fa-trash-alt">
             </li>
         </ul>
       </div>
   
       <!-- Calendar -->
       <div class="full-calendar">
-        <!-- Calendar header -->
-        <div class="top-bar">
-            <!-- Month title and previous/next buttons -->
-            <div class="button-container-calendar">
-                <button id="previous"><img src="icons/left-icon.png" alt="Previous"></button>
-                <h3 id="monthYearHeader"></h3>
-                <button id="next"><img src="icons/right-icon.png" alt="Next"></button>
+        <!--Contain header bar-->
+        <section class="top-bar">
+          <div class="date-header-wrap">
+            <div class="date-header">
+              <div class="date-header-buttons">
+                <button class="prev-date-btn"></button>
+                <button class="next-date-btn"></button>
+              </div>
+              
+              <h3 class="date-header-text" id="monthYearHeader"></h3>
+              
             </div>
-            <!-- Calendar date jump -->
-            <div class="jump">
-              <label for="month">Jump To: </label>
-              <!-- Month jump dropdown -->
-              <select id="month"></select>
-              <!-- Year jump dropdown -->
-              <select id="year"></select>
+
+            <div class="nav-buttons">
+
+              <!-- Button to go to Home Page-->
+              <a href="./homepage.html">
+                <button class="nav-homepage-btn">
+                  <img src="../icons/home-icon.png" alt="Home">
+                </button>
+              </a>
+
+              <!--Button to go to Calendar-->
+              <a href="../calendar/calendar.html">
+                <button class="nav-calendar-btn">
+                  <img src="../icons/calendar-icon.webp" alt="Calendar">
+                </button>
+              </a>
+
+              <!--Button to go to Settings-->
+              <button class="nav-settings-btn" href="">
+                <img src="../icons/settings-icon.png" alt="Settings">
+              </button>
+
             </div>
-            <!-- Home, calendar and settings icons -->
-            <div class="button-icons">
-                <button id="homepage"><img src="icons/home-icon.png" alt="Home"></button>
-                <button id="calendarpage"><img src="icons/calendar-icon.png" alt="Calendar"></button>
-                <button id="settingspage"><img src="icons/settings-icon.png" alt="Settings"></button>
-            </div>
-        </div>       
+          </div>
+          
+            
+        </section>
 
         <!-- Calendar Table -->
           <table class="table-calendar" id="calendar" data-lang="en">
@@ -96,3 +112,14 @@
   </body>
 
 </html>
+
+
+
+            <!-- Calendar date jump
+            <div class="jump">
+              <label for="month">Jump To: </label>
+              Month jump dropdown
+              <select id="month"></select>
+              Year jump dropdown
+              <select id="year"></select>
+            </div> -->
