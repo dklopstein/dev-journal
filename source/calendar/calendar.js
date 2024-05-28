@@ -221,6 +221,8 @@ function displayCalendar(){
     
     // Add taskcolor to calendar cells
     taskColor();
+    // Change the header if the window size is too small
+    windowWidth();
 }
 
 // Generate dropdown year range
