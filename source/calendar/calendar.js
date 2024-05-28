@@ -61,6 +61,9 @@ function initButtons(){
             yearDropdown();
         });
     });
+
+    // RESIZE WINDOW FOR RESPONSIVENESS
+    window.addEventListener('resize', windowWidth);
 }
 
 // Function to goto next month
@@ -302,3 +305,27 @@ function yearDropdown() {
     let yearDrop = document.getElementById("year-dropdown");
     yearDrop.classList.toggle("show-dropdown");
 }
+
+// Resize header if width of window decreases
+function windowWidth() {
+    console.log(window.innerWidth);
+    if (window.innerWidth < 920) {
+        // Initialize list of abbreviated months
+        let allMonths = [
+            "Jan","Feb","Mar","Apr","May","Jun",
+            "Jul","Aug","Sept","Oct","Nov","Dec"
+        ];
+
+        let monthHeader = document.getElementById("month");
+        monthHeader.textContent = allMonths[parseInt(month, 10)];
+    }
+    else{
+        // Initialize list of months
+        let allMonths = [
+        "January","February","March","April","May","June",
+        "July","August","September","October","November","December"
+        ];
+        let monthHeader = document.getElementById("month");
+        monthHeader.textContent = allMonths[parseInt(month, 10)];
+    }
+  }
