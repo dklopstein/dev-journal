@@ -222,9 +222,34 @@ button:hover {
   cursor: pointer;
 }
 
+.jump-btn {
+  background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 16px;
+    color: black; 
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.jump-btn:hover {
+  background-color: var(--accent-color); 
+  color: white;
+  border-radius: 5px;
+}
+
 /* Hide the month and year dropdown */
 .month-drop, .year-drop{
   display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  z-index: 100;
+  width: auto;
 }
 
 /* Shown month dropdown */
