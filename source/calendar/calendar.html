@@ -66,8 +66,16 @@
                 <button class="prev-date-btn"></button>
                 <button class="next-date-btn"></button>
               </div>
-              
-              <h3 class="date-header-text" id="monthYearHeader"></h3>
+
+              <!-- Calendar header and date jump -->
+              <div class="jump">
+                  <!-- Month jump dropdown -->
+                  <button class="jump-btn" id="month">Month</button>
+                  <div id="month-dropdown" class="month-drop"></div>
+                  <!-- Year jump dropdown -->
+                  <button class="jump-btn" id="year">Year</button>
+                  <div id="year-dropdown" class="year-drop"></div>
+              </div>
               
             </div>
 
@@ -112,14 +120,3 @@
   </body>
 
 </html>
-
-
-
-            <!-- Calendar date jump
-            <div class="jump">
-              <label for="month">Jump To: </label>
-              Month jump dropdown
-              <select id="month"></select>
-              Year jump dropdown
-              <select id="year"></select>
-            </div> -->

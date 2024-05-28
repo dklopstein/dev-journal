@@ -32,6 +32,13 @@ button {
   background-color: rgba(0,0,0,0);
   border: rgba(0,0,0,1);
 }
+
+/* Remove background for all select boxes */
+select {
+  background-color: rgba(0,0,0,0);
+  border: rgba(0,0,0,1);
+  appearance: none;
+}
  
 /* TASK LIST */
 /* Task list sidebar */
@@ -130,55 +137,6 @@ button {
   transform: rotate(45deg);
 }
 
-/* CALENDAR */
-
-/* Main calendar */
-.full-calendar {
-  height: 100%;
-  overflow-y: auto;
-}
-
-/* Calendar Styling */
-.calendar {
-  width: 100%;
-}
-
-/* Calendar Table Styling */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-}
-
-/* Header and data of table */
-table th,
-table td {
-  border: 3px solid black;
-  padding: 10px;
-}
-
-/* Rows of table head */
-thead tr {
-    color: blue;
-    height: 5vh;
-  }
-
-/* Rows of table body */
-tbody tr {
-    height: 12vh;
-  }
-
-/* Data of table */
-tbody td {
-  position: relative;
-  padding: 10px;
-}
-/* Month and Year header */
-h3 {
-  text-align: center;
-  font-size: 5vh;
-}
-
 /* Start of top bar */
 .top-bar {
   position: relative;
@@ -264,29 +222,39 @@ button:hover {
   cursor: pointer;
 }
 
-/* End of top bar */
-
-/* Jump button */
-/* .jump {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 10px;
+/* Hide the month and year dropdown */
+.month-drop, .year-drop{
+  display: none;
 }
 
-.jump select {
-  padding: 5px 10px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  background-color: white;
-  font-family: Poppins, sans-serif;
-  border-radius: 4px;
+/* Shown month dropdown */
+.month-drop.show-dropdown{
+  display: block;
+
+  position: absolute;
+  width: 85px;
+  left: 70px;
+  background-color: var(--main-color);
+  border: 2px solid black;
+  z-index: 9999;
 }
 
-.jump label {
-  white-space: nowrap;
-  margin-right: 5px;
-} */
+/* Shown year dropdown */
+.year-drop.show-dropdown{
+  display: block;
+
+  position: absolute;
+  width: 50px;
+  left: 200px;
+  background-color: var(--main-color);
+  border: 2px solid black;
+  z-index: 9999;
+}
+
+/* Set font size of header */
+#month, #year {
+  font-size: 30px;
+}
 
 /* Wrap the previous and next day buttons*/
 .date-header-buttons {
@@ -334,21 +302,49 @@ button:hover {
   
 }
 
-/* Calendar icons */
-.button-icons {
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 0.5vh;
-  padding-bottom: 3vh;
-  padding-right: 25px;
-  gap: 10px;
+/* End of Top Header Bar */
+
+/* Start of Calendar Table */
+
+/* Main calendar */
+.full-calendar {
+  height: 100%;
+  overflow-y: auto;
 }
 
-.button-icons button {
-  padding-top: 5px;
+/* Calendar Styling */
+.calendar {
+  width: 100%;
 }
-.button-icons button img {
-  height: 6vh;
+
+/* Calendar Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+/* Header and data of table */
+table th,
+table td {
+  border: 3px solid black;
+  padding: 10px;
+}
+
+/* Rows of table head */
+thead tr {
+  color: blue;
+}
+
+/* Rows of table body */
+tbody tr {
+  height: 13vh;
+}
+
+/* Data of table */
+tbody td {
+  position: relative;
+  padding: 10px;
 }
 
 /* Change color of numbers in future and past months */
@@ -404,10 +400,6 @@ td .productivity-icon {
   flex-direction: column;
   justify-content: space-between;
   top: 25px;
-
-  /* CAN UNCOMMENT BGCOLOR TO VISUALIZE TASK-DIV  */
-  /* background-color: pink; */
-
   width: 96%;
   height: 65%;
 }

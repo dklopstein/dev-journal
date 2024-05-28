@@ -14,8 +14,8 @@ function updateDateGlobals() {
 
 // When page loads
 function init(){
-    // Initially display the jump button
-   // displayJump(year-5,year+5);
+    // Initiaze the jump buttons
+    displayJump(year-6,year+5);
 
     // Initially display the calendar, calendar header, and task colors
     calendarHeader();
@@ -38,15 +38,29 @@ function initButtons(){
     let nextBtn = document.querySelector(".next-date-btn");
     nextBtn.addEventListener('click', next);
 
-    // CALENDAR BUTTON
-    // let calendarBtn = document.getElementById("calendarpage");
-    // calendarBtn.addEventListener('click', calendarButton);
+    // TOGGLE JUMP LIST
+    let monthToggle = document.getElementById("month");
+    monthToggle.addEventListener('click', monthDropdown);
+    let yearToggle = document.getElementById("year");
+    yearToggle.addEventListener('click', yearDropdown);
 
     // JUMP BUTTON
-    // let monthBtn = document.getElementById("month");
-    // monthBtn.addEventListener('change', jump);
-    // let yearBtn = document.getElementById("year");
-    // yearBtn.addEventListener('change', jump);
+    let monthJumpBtn = document.querySelectorAll(".month-btn");
+    monthJumpBtn.forEach(btn => {
+        btn.addEventListener("click", () => {
+            let monthValue = btn.getAttribute("value");
+            jump(monthValue, year);
+            monthDropdown();
+        });
+    });
+    let yearJumpBtn = document.querySelectorAll(".year-btn");
+    yearJumpBtn.forEach(btn => {
+        btn.addEventListener("click", () => {
+            let yearValue = btn.getAttribute("value");
+            jump(month, yearValue);
+            yearDropdown();
+        });
+    });
 }
 
 // Function to goto next month
@@ -91,14 +105,10 @@ function displayCalendar(){
     let dayOffset = -(currCalendarMonth.getDay());
 
     // Get month and year header
-    let monthYearHeader = document.getElementById("monthYearHeader");
-    monthYearHeader.textContent = allMonths[parseInt(month, 10)] + " " + year;
-
-    // Get and update jump with current month and year
-    // let selectYear = document.getElementById("year");
-    // let selectMonth = document.getElementById("month");
-    // selectMonth.value = month;
-    // selectYear.value = year;
+    let monthHeader = document.getElementById("month");
+    let yearHeader = document.getElementById("year");
+    monthHeader.textContent = allMonths[parseInt(month, 10)];
+    yearHeader.textContent = year;
 
     let currDay;
     // BUILD CALENDAR
@@ -212,15 +222,17 @@ function displayCalendar(){
 
 // Generate dropdown year range
 function displayJump(startYear, endYear) {
-
     // YEARS
-    let yearDropdown = document.getElementById("year")
+    let yearDropdown = document.getElementById("year-dropdown")
+
     // Loop through year range and append to list
     for (let yr = startYear; yr < endYear+1; yr++) {
-        let yearJump = document.createElement("option");
+        let yearJump = document.createElement("button");
         yearJump.value = yr;
         yearJump.textContent = yr;
+        yearJump.className = "year-btn";
         yearDropdown.appendChild(yearJump);
+        
     }
 
     // MONTHS
@@ -228,23 +240,23 @@ function displayJump(startYear, endYear) {
         "January","February","March","April","May","June",
         "July","August","September","October","November","December"
     ];
-    let monthDropdown = document.getElementById("month")
+    let monthDropdown = document.getElementById("month-dropdown")
     // Loop through months and append to list
     for (let mnth = 0; mnth < 12; mnth++) {
-        let monthJump = document.createElement("option");
+        let monthJump = document.createElement("button");
         monthJump.value = mnth;
         monthJump.textContent = allMonths[parseInt(mnth,10)];
+        monthJump.className = "month-btn";
         monthDropdown.appendChild(monthJump);
     }
 }
 
 // Function to jump to a specific month and year
-function jump() {
-    let selectYear = document.getElementById("year");
-    let selectMonth = document.getElementById("month");
-    let jumpMonth = parseInt(selectMonth.value, 10);
-    let jumpYear = parseInt(selectYear.value, 10);
-    currDate = new Date(jumpYear, jumpMonth)
+function jump(mnth, yr) {
+    // console.log(mnth);
+    // console.log(yr);
+    currDate = new Date(yr, mnth)
+    // console.log(currDate);
     updateDateGlobals();
     displayCalendar();
 }
@@ -278,4 +290,15 @@ function taskColor(){
         // Set the color as the value of --task-color for this task item
         taskItem.style.setProperty('--task-color', randomColor);
     });
+}
+
+// Open month dropdown
+function monthDropdown() {
+    let monthDrop = document.getElementById("month-dropdown");
+    monthDrop.classList.toggle("show-dropdown");
+}
+
+function yearDropdown() {
+    let yearDrop = document.getElementById("year-dropdown");
+    yearDrop.classList.toggle("show-dropdown");
 }
