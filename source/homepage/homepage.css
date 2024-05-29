@@ -25,6 +25,7 @@ main {
   position: relative;
 }
 
+/* Universal background color for buttons to clear */
 button {
   background-color: rgba(0,0,0,0);
   border: rgba(0,0,0,1);
@@ -42,6 +43,7 @@ button {
   box-shadow: 1px 1px lightgrey;
 }
 
+/* Hides task list when page reaches certain size */
 @media (max-width: 800px) {
   .task-list {
       display: none;
@@ -51,30 +53,54 @@ button {
   }
 }
 
+/* Formatting for the task list header */
 .task-header {
   display: flex;
 }
 
+/* Aligns add button to right */
 #addbutton {
   margin-left: auto;
 }
 
+/* Formatting for the add button */
 #addbutton img {
   width: 25px;
   height: 25px;
   cursor: pointer;
 }
 
-.task-list strong {
-  font-size: 0.8em;
-  overflow: hidden;
+/* Wrap for task name and checkbox */
+.task-list .input-wrap {
+  display: flex;
+  justify-content: flex-start;
 }
 
+/* Styling for task name */
+.task-list .task-name {
+  width: max(10em, 12vw);
+  resize: none; /* Prevents user from resizing */
+  overflow: hidden; /* Hides scrollbar */
+  margin-top: -4px;
+  height: 24px;
+  max-height: 108px;
+  /* Hide background and border */
+  background-color: rgba(0, 0, 0, 0);
+  border: rgba(0, 0, 0, 0);
+}
+
+/* New width when in completed task list */
+.complete .task-name {
+  width: max(14em, calc(10em + 13vw));
+}
+
+/* Hides bullets for list */
 .task-list ul {
   list-style: none;
   padding: 0;
 }
 
+/* Sizing for each individual task */
 .task-list li {
   background: #e0e0e0;
   margin-top: 5px;
@@ -85,85 +111,70 @@ button {
   word-wrap: break-word;
   text-align: left; /* Keeps text left-aligned */
   transition: max-height 1s ease-in;
-  max-height: 2.7em;
+  max-height: 2.25em;
 }
 
+/* Positioning for trash icon */
 .fas.fa-trash-alt {
   position: absolute; /* Positioning relative to the nearest positioned ancestor */
-  top: 4px; /* Distance from the top edge of the li */
-  right: 4px; /* Distance from the right edge of the li */
+  top: 2px; /* Distance from the top edge of the li */
+  right: 2px; /* Distance from the right edge of the li */
   width: 18px;
   height: 18px;
   cursor: pointer;
 }
 
-.task-list li:hover {
+/* Resize when hover or actively editing */
+.task-list li:hover, .task-list .active {
   max-height: 1000px; /* Set max height tall enough to hold all content */
 }
 
-.task-list li:hover .color-buttons {
+/* Display buttons when hovering or actively editing */
+.task-list li:hover .color-buttons, .task-list .active .color-buttons {
   opacity: 1; /* Brings the buttons back into view */
 }
 
+/* Checkbox appearance */
 .task-checkbox {
   appearance: none;
   margin: 0 10px 0 0;
   width: 16px;
   height: 16px;
-  border: 2px solid #555;
+  border: 2px solid black;
   border-radius: 50%;
   vertical-align: middle;
   cursor: pointer;
   position: relative;
-  display: inline-block;
 }
 
-.task-checkbox:checked {
-  background-color: #537692;
-  border-color: #537692;
+/* Formatting for check in checkbox */
+.task-checkbox img {
+  height: 15px;
+  margin-left: -6px;
 }
 
-.task-checkbox:checked::after {
-  content: "";
-  position: absolute;
-  left: 3px;
-  top: 1px;
-  width: 5px;
-  height: 8px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
+/* Change to indicate task was completed */
+.complete .task-checkbox {
+  background: black;
 }
 
-.fas.fa-trash-alt {
-  color: #555;
-  cursor: pointer;
-  margin-left: auto;
-  vertical-align: middle;
-}
-
+/* Default set up for color buttons */
 .color-buttons {
-  opacity: 0;
-  transition: opacity 0.5s ease;
+  opacity: 0; /* Hide buttons */
+  transition: opacity 0.5s ease; /* Transition for buttons reappearing */
   max-height: 5em; /* Enough max-height to show the content */
   display: flex; /* Lays out the buttons in a row */
   justify-content: space-around; /* Spaces buttons evenly */
   margin-top: 5px; /* Space from the description */
 }
 
+/* Size of each color button */
 .color-button {
   width: 15px; /* Uniform button size */
   height: 15px; /* Uniform button size */
   border-radius: 100%; /* Makes the buttons circular */
   border: none; /* Removes default button border */
-  cursor: pointer; /* Indicates the buttons are clickable */
 }
-
-.color-button.red { background-color: red; }
-.color-button.orange { background-color: orange; }
-.color-button.yellow { background-color: yellow; }
-.color-button.green { background-color: green; }
-.color-button.blue { background-color: blue; }
 /* End of task list */
 
 .main-wrap { 
@@ -260,6 +271,9 @@ button {
   white-space: nowrap;
   font-size: calc(1.4em + .7vw);
 }
+
+
+
 
 .date-header button img {
   height: 18px;
@@ -358,21 +372,24 @@ button:hover {
   position: relative;
   height: 40%;
 }
-
 .rating-completed-wrap h4 {
   text-align: center;
   font-size: max(calc(0.7em + 0.4vw), 15px);
-  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
 }
 
 .rating-widget {
   position: absolute;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
   left: 0;
   width: min(50%, 33rem);
   height: 100%;
-
   background-color: var(--secondary-color);
   border-radius: 1em;
+  padding: 1.5em;
 }
 
 .feelings {
@@ -384,18 +401,18 @@ button:hover {
 }
 
 .rating-widget button img {
-  height: max(min(4em, 5.8vw), 40px);
+  height: max(min(3.5em, 5.8vw), 40px);
 }
 
 .rating-widget button img:hover {
-  height: max(min(4.2em, 6vw), 65px);
+  height: max(min(4em, 6vw), 65px);
   background: radial-gradient(circle, rgb(3, 128, 237) 0%, rgba(0, 0, 0, 0) 100%);
   border-radius: 50%;
   transition: 0.5s ease-in-out;
 }
 
 .rating-widget img.active {
-  height: max(min(4em, 5.8vw), 40px);
+  height: max(min(3.5em, 5.8vw), 40px);
   background: radial-gradient(circle, rgba(8, 135, 31, 0.75) 50%, rgb(60, 245, 28) 100%);
   border-radius: 100%;
   transition: 0.5s ease;
@@ -407,6 +424,44 @@ button:hover {
   gap: 0.1em;
   padding-top: calc(1em - 1vw);
 }
+
+/* Add media queries for smaller screens */
+@media (max-width: 900px) {
+  .rating-widget h4{
+    font-size: 14px;
+  }
+  .rating-widget button img {
+    height: max(min(3.1em, 4.8vw), 30px);
+  }
+  .rating-widget button img:hover {
+    height: max(min(3.2em, 5vw), 45px);
+  }
+  .rating-widget img.active {
+    height: max(min(3.1em, 4.8vw), 30px);
+  }
+}
+
+@media (max-width: 800px) {
+  .rating-widget h4{
+    font-size: 13px;
+  }
+  .rating-widget button img {
+    height: max(min(3em, 4.8vw), 30px);
+  }
+  .rating-widget button img:hover {
+    height: max(min(3.2em, 5vw), 45px);
+  }
+  .rating-widget img.active {
+    height: max(min(3em, 4.8vw), 30px);
+  }
+}
+
+@media (max-width: 600px) {
+  .rating-widget h4{
+    font-size: 12px;
+  }
+}
+
 /* End of rating */
 
 

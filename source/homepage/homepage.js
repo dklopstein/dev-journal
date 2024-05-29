@@ -1,12 +1,7 @@
-const DEBUG = true;
-
-function _log(msg) {
-    if (DEBUG) {
-        console.log(msg);
-    }
-}
-
 window.addEventListener('DOMContentLoaded', init);
+
+// Counter for iding tasks
+let task_counter = 1;
 
 // Get current date globals
 var currDate = new Date();
@@ -26,17 +21,18 @@ function init() {
 /**
  * Initializes functionality of buttons
  */
-function initButtons() {
+ function initButtons() {
     const nextBtn = document.querySelector(".next-date-btn");
     nextBtn.addEventListener("click", nextDate);
     const prevBtn = document.querySelector(".prev-date-btn");
     prevBtn.addEventListener("click", prevDate);
-    const addTaskBtn = document.querySelector("#addbutton");
+    const addTaskBtn = document.querySelector(".add-task-btn");
     addTaskBtn.addEventListener("click", addTask);
     const ratingSelBtn = document.querySelectorAll(".rating-select-btn");
-    ratingSelBtn.forEach((btn, index) => {
-        btn.addEventListener("click", function () {
-            selectWidget(index + 1);
+    ratingSelBtn.forEach(btn => {
+        btn.addEventListener("click", () => {
+            var id = btn.getAttribute("id");
+            selectWidget(id);
         });
     });
 }
@@ -110,14 +106,27 @@ function selectWidget(buttonIndex) {
     }
 }
 
+// Add event listener to remove active and blur task when you click outside of task
+document.addEventListener('click', function(event) {
+    const currTask = document.querySelector('#taskContainer .active');
+
+    if (currTask && !currTask.contains(event.target)) {
+        currTask.classList.remove('active');
+        const textarea = currTask.querySelector('.task-name');
+        textarea.blur();
+        autoResize(textarea)
+    }
+});
+
 /**
  * Unselects all widgets by removing the active property from their classnames
  */
-function unselectAllWidgets() {
+ function unselectAllWidgets() {
     const buttons = document.querySelectorAll('.feelings img');
     buttons.forEach(button => {
         button.classList.remove('active');
     });
+
     const buttons2 = document.querySelectorAll('.productiveness img');
     buttons2.forEach(button => {
         button.classList.remove('active');
@@ -131,27 +140,73 @@ function addTask() {
     // Create the new list item element
     const li = document.createElement('li');
 
-    // Create and append the checkbox input
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
+    // Create a div to hold checkbox and input
+    const input_wrap = document.createElement('div');
+    input_wrap.className = 'input-wrap';
+
+    // Create the checkbox input to input_wrap
+    const checkbox = document.createElement('button');
     checkbox.className = 'task-checkbox';
-    checkbox.id = 'task' + (document.querySelectorAll('.task-checkbox').length + 1);
-    li.appendChild(checkbox);
+    checkbox.id = 'task' + task_counter;
+    task_counter++;
 
-    // Create and append the strong element with the task name
-    const strong = document.createElement('strong');
-    strong.contentEditable = true;
-    li.appendChild(strong);
-    strong.textContent = 'Add Task Name...';
+    // Create img element for checkbox
+    const check = document.createElement('img');
+    check.src = '../icons/check-icon.svg';
+    check.alt = 'Check';
+    // Append img to checkbox
+    // checkbox.appendChild(check);
 
-    // Add event listener to hide default text when user starts typing
-    strong.addEventListener('click', function () {
-        if (strong.textContent === 'Add Task Name...') {
-            strong.textContent = ''; // Clear default text when user starts typing
+    // Append checkbox to input wrap
+    input_wrap.appendChild(checkbox);
+
+    // Event listener to move task to completed when it is selected
+    checkbox.addEventListener('click', function() {
+        // Add or remove completed from class name
+        // Find closest li item (task)
+        const task = checkbox.closest('li');
+
+        if (task.className.includes('complete')) {
+            task.classList.remove('complete');
+            const taskContainer = document.getElementById('taskContainer');
+            taskContainer.appendChild(task);
+        }
+        else {
+            task.classList.add('complete');
+            const completedTaskContainer = document.getElementById('completedTaskContainer');
+            completedTaskContainer.appendChild(task);
         }
     });
 
-    strong.addEventListener("blur", saveTasks);
+    // Create and append the input element with the task name
+    const task_name = document.createElement('textarea');
+    task_name.placeholder = 'Input Task Name...';
+    task_name.className = 'task-name';
+    task_name.maxLength = 100;
+    input_wrap.appendChild(task_name);
+
+    // Append input-wrap to li
+    li.appendChild(input_wrap);
+
+    // Add event listener to add active to class name when editing
+    task_name.addEventListener('focus', function() {
+        li.classList.add('active');
+    });
+
+    // Add event listener to stop editing when user presses enter
+    task_name.addEventListener('keydown', function(event) {
+        if (event.key == 'Enter') {
+            if (!event.shiftKey) {
+                // Shift+Enter pressed, insert a line break
+                // Enter pressed, end editing
+                event.preventDefault(); // Prevent default behavior of Enter key
+                task_name.blur(); // Remove focus from the element
+                li.classList.remove('active');
+                const textarea = li.querySelector('.task-name');
+                autoResize(textarea);
+            }
+        }
+    });
 
     // Create and append the color-buttons div
     const colorButtons = document.createElement('div');
@@ -159,12 +214,22 @@ function addTask() {
     li.appendChild(colorButtons);
 
     // List of colors
-    const colors = ['red', 'orange', 'yellow', 'green', 'blue'];
+    const colors = ['red', 'orange', 'yellow', 'green', 'blue', '#e0e0e0'];
 
     // Create and append each color button
     colors.forEach(color => {
         const button = document.createElement('button');
         button.className = 'color-button ' + color;
+        button.style.background = color;
+        button.addEventListener('click', function() {
+            li.style.background = color;
+            if ( color == 'blue' || color == 'green' || color == 'red') {
+                task_name.style.color = '#e0e0e0';
+            }
+            else {
+                task_name.style.color = 'black';
+            }
+        });
         colorButtons.appendChild(button);
     });
 
@@ -174,13 +239,13 @@ function addTask() {
     trashIcon.alt = 'Remove';
     trashIcon.className = 'fas fa-trash-alt';
 
-    trashIcon.addEventListener('click', function () {
+    trashIcon.addEventListener('click', function() {
         // Find the parent <li> element of the clicked trash icon
-        const listItem = trashIcon.closest('li');
-
+        const task = trashIcon.closest('li');
+            
         // Remove the <li> element from the DOM
-        if (listItem) {
-            listItem.remove();
+        if (task) {
+            task.remove();
         }
     });
 
@@ -189,9 +254,29 @@ function addTask() {
     // Append the new list item to the task list
     const taskContainer = document.getElementById('taskContainer');
     taskContainer.appendChild(li);
+    
+    // Auto click into the task name text box
+    setTimeout(() => {
+        task_name.focus();
+        document.getSelection().collapseToEnd();
+    }, 0);
+
     saveTasks();
 
     return li;
+}
+
+/**
+ * Resizes the textarea holding the task name for an element
+ * 
+ * @param {textarea} textarea to resize in task
+ */
+function autoResize(textarea) {
+    textarea.style.height = 'auto'; // Reset the height
+    textarea.style.height = textarea.scrollHeight + 'px'; // Set the height to the scroll height
+    if (textarea.value == '') {
+        textarea.style.height = '24px';
+    }
 }
 
 /**
@@ -200,7 +285,7 @@ function addTask() {
 function displayWeek() {
 
     // initialize days of the week
-    let allDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    let allDays = ["Sun", "Mon", "Tue", "Wed","Thu", "Fri", "Sat"];
 
     // Get and clear the table
     let table = document.getElementById("week-calendar");
@@ -220,24 +305,24 @@ function displayWeek() {
         let cellData = document.createElement("td");
 
         // Calculate dates
-        if (i === 0) {
-            currWeekDay.setDate(currWeekDay.getDate() + (i - 8));
+        if (i === 0){
+            currWeekDay.setDate(currWeekDay.getDate() + (i-8));
         }
         else {
             currWeekDay.setDate(currWeekDay.getDate() + 1);
         }
 
         // current cell Date
-        let cellNum = document.createElement('span');
-        cellNum.textContent = allDays[currWeekDay.getDay()] + " " + (currWeekDay.getMonth() + 1) + "/" + currWeekDay.getDate();
+        let cellNum = document.createElement('span'); 
+        cellNum.textContent = allDays[currWeekDay.getDay()] + " " + (currWeekDay.getMonth()+1) + "/" + currWeekDay.getDate();
         cellNum.className = "cell-date";
-
+        
         // Append cell number to new cell
         cellData.appendChild(cellNum);
 
         // Add sentiment icon
         let sentimentIcon = document.createElement("img");
-        sentimentIcon.src = "../icons/5overjoyed.png";
+        sentimentIcon.src = "../icons/5overjoyed.png"; 
         sentimentIcon.alt = "sentiment icon";
         sentimentIcon.className = "sentiment-icon";
         // Append sentiment icon to new cell
@@ -245,7 +330,7 @@ function displayWeek() {
 
         // Add productivity icon
         let productivityIcon = document.createElement("img");
-        productivityIcon.src = "../icons/5overjoyed.png";
+        productivityIcon.src = "../icons/5overjoyed.png"; 
         productivityIcon.alt = "productivity icon";
         productivityIcon.className = "productivity-icon";
         // Append sentiment icon to new cell
