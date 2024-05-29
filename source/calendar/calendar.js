@@ -40,9 +40,11 @@ function initButtons(){
 
     // TOGGLE JUMP LIST
     let monthToggle = document.getElementById("month");
-    monthToggle.addEventListener('click', monthDropdown);
+    monthToggle.addEventListener('mouseover', monthDropdown);
+    monthToggle.addEventListener('mouseout', monthDropdown);
     let yearToggle = document.getElementById("year");
-    yearToggle.addEventListener('click', yearDropdown);
+    yearToggle.addEventListener('mouseover', yearDropdown);
+    yearToggle.addEventListener('mouseout', yearDropdown);
 
     // JUMP BUTTON
     let monthJumpBtn = document.querySelectorAll(".month-btn");
@@ -141,6 +143,7 @@ function displayCalendar(){
             // Add number and class to cellNum
             cellNum.textContent = currDay;
             cellNum.className = "cell-date";
+            let cellDate = new Date(currCalendarMonth);
 
             // If current month
             if (currCalendarMonth.getMonth() === currDate.getMonth()) {
@@ -167,51 +170,54 @@ function displayCalendar(){
             // Add cell number to calendar cell
             cellData.appendChild(cellNum);
 
+            if (cellDate <= today) {
 
-            // Add sentiment icon
-            let sentimentIcon = document.createElement("img");
-            sentimentIcon.src = "./icons/5overjoyed.png"; 
-            sentimentIcon.alt = "sentiment icon";
-            sentimentIcon.className = "sentiment-icon";
-            // Append sentiment icon to new cell
-            cellData.appendChild(sentimentIcon);
+                // Add sentiment icon
+                let sentimentIcon = document.createElement("img");
+                sentimentIcon.src = "./icons/5overjoyed.png"; 
+                sentimentIcon.alt = "sentiment icon";
+                sentimentIcon.className = "sentiment-icon";
+                // Append sentiment icon to new cell
+                cellData.appendChild(sentimentIcon);
 
-            // Add productivity icon
-            let productivityIcon = document.createElement("img");
-            productivityIcon.src = "./icons/5overjoyed.png"; 
-            productivityIcon.alt = "productivity icon";
-            productivityIcon.className = "productivity-icon";
-            // Append sentiment icon to new cell
-            cellData.appendChild(productivityIcon);
+                // Add productivity icon
+                let productivityIcon = document.createElement("img");
+                productivityIcon.src = "./icons/5overjoyed.png"; 
+                productivityIcon.alt = "productivity icon";
+                productivityIcon.className = "productivity-icon";
+                // Append sentiment icon to new cell
+                cellData.appendChild(productivityIcon);
 
-            // Add tasklist in calendar cell
-            // Create tasklist div
-            let taskDiv = document.createElement("div");
-            taskDiv.className = "task-div";
-            // Create unordered list
-            let taskList = document.createElement("ul");
-            taskList.className = "task-ul";
-            // first task
-            let task1 = document.createElement("li");
-            task1.textContent = "I am the first task";
-            task1.className = "task-item";
-            taskList.appendChild(task1);
-            // second task
-            let task2 = document.createElement("li");
-            task2.textContent = "I am the second task";
-            task2.className = "task-item";
-            taskList.appendChild(task2);
-            
-            // extra tasks
-            let taskExtra = document.createElement("li");
-            taskExtra.textContent = "5+";               // Change with #Tasks-2
-            taskExtra.className = "task-indicator";
-            taskList.appendChild(taskExtra);
+                // Add tasklist in calendar cell
+                // Create tasklist div
+                let taskDiv = document.createElement("div");
+                taskDiv.className = "task-div";
+                // Create unordered list
+                let taskList = document.createElement("ul");
+                taskList.className = "task-ul";
+                // first task
+                let task1 = document.createElement("li");
+                task1.textContent = "I am the first task";
+                task1.className = "task-item";
+                taskList.appendChild(task1);
+                // second task
+                let task2 = document.createElement("li");
+                task2.textContent = "I am the second task";
+                task2.className = "task-item";
+                taskList.appendChild(task2);
+                
+                // extra tasks
+                let taskExtra = document.createElement("li");
+                taskExtra.textContent = "5+";               // Change with #Tasks-2
+                taskExtra.className = "task-indicator";
+                taskList.appendChild(taskExtra);
 
-            // Append taskList to task div;
-            taskDiv.appendChild(taskList);
-            // Append tasklist div to new cell
-            cellData.appendChild(taskDiv);
+                // Append taskList to task div;
+                taskDiv.appendChild(taskList);
+                // Append tasklist div to new cell
+                cellData.appendChild(taskDiv);
+                
+            }
             // Append new cell to row
             row.appendChild(cellData);
         }
