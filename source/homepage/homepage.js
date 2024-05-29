@@ -444,6 +444,45 @@ function saveJournal() {
     localStorage.setItem("journals", JSON.stringify(data))
 }
 
+function saveCompleted(){
+    let dateText = new Date(date.textContent).toLocaleDateString();
+    let completedTask = []
+    document.querySelectorAll('#completedTaskContainer li').forEach(completedTask => {
+        //let checkbox = task.querySelector('input[type="task-checkbox"]');
+        let taskName = completedTask.querySelector('textarea').value;
+        let taskColor = completedTask.style.background
+        let textColor = completedTask.querySelector('textarea').style.color
+        completedTask.push({
+            text: taskName,
+            color: taskColor,
+            color2: textColor
+            //checked: checkbox.checked
+        });
+    });
+    localStorage.setItem("completeTasks", JSON.stringify(completedTask));
+}
+
+function getCompleted() {
+    let storedTasks = localStorage.getItem("completeTasks");
+    return storedTasks ? JSON.parse(storedTasks) : [];
+}
+
+/**
+ * Load tasks from local storage
+ */
+function loadCompleted() {
+    let tasks = getCompleted();
+    if (tasks.length > 0) {
+        tasks.forEach(task => {
+            let curLi = addTask();
+            curLi.querySelector("textarea").value = task['text']
+            curLi.querySelector("textarea").style.color = task['color2']
+            curLi.style.background = task['color']
+            //curLi.querySelector('input[type="checkbox"]').checked = task['checked']
+        });
+    }
+}
+
 /**
  * Get journal entry from local storage
  * 
@@ -475,8 +514,12 @@ function saveTasks() {
     document.querySelectorAll('#taskContainer li').forEach(task => {
         //let checkbox = task.querySelector('input[type="task-checkbox"]');
         let taskName = task.querySelector('textarea').value;
+        let taskColor = task.style.background
+        let textColor = task.querySelector('textarea').style.color
         tasks.push({
             text: taskName,
+            color: taskColor,
+            color2: textColor
             //checked: checkbox.checked
         });
     });
@@ -502,6 +545,8 @@ function loadTasks() {
         tasks.forEach(task => {
             let curLi = addTask();
             curLi.querySelector("textarea").value = task['text']
+            curLi.querySelector("textarea").style.color = task['color2']
+            curLi.style.background = task['color']
             //curLi.querySelector('input[type="checkbox"]').checked = task['checked']
         });
     }
