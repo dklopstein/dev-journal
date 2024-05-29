@@ -295,6 +295,7 @@ const tasks = document.getElementById("taskContainer");
 // Load journal entry and tasks from local storage on page load
 window.onload = function() {
     loadAll();
+    loadTasks();
 }
 
 // Save journal entry and tasks to local storage on page unload
@@ -380,16 +381,16 @@ function loadJournal() {
  * Save tasks to local storage
  */
 function saveTasks() {
-    // let tasks = [];
-    // document.querySelectorAll('#taskContainer li').forEach(task => {
-    //     let checkbox = task.querySelector('input[type="checkbox"]');
-    //     let taskName = task.querySelector('strong').textContent;
-    //     tasks.push({
-    //         text: taskName,
-    //         checked: checkbox.checked  
-    //     });
-    // });
-    // localStorage.setItem("tasks", JSON.stringify(tasks));
+    let tasks = [];
+    document.querySelectorAll('#taskContainer li').forEach(task => {
+        let checkbox = task.querySelector('input[type="checkbox"]');
+         let taskName = task.querySelector('strong').textContent;
+         tasks.push({
+             text: taskName,
+             checked: checkbox.checked  
+         });
+     });
+     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 /**
@@ -406,14 +407,14 @@ function getTasks() {
  * Load tasks from local storage
  */
 function loadTasks() {
-    // let tasks = getTasks();
-    // if (tasks.length > 0) {
-    //     tasks.forEach(task => {
-    //         let curLi = addTask();
-    //         curLi.querySelector("strong").textContent = task['text']
-    //         curLi.querySelector('input[type="checkbox"]').checked = task['checked']
-    //     });
-    // }
+    let tasks = getTasks();
+    if (tasks.length > 0) {
+        tasks.forEach(task => {
+            let curLi = addTask();
+            curLi.querySelector("strong").textContent = task['text']
+            curLi.querySelector('input[type="checkbox"]').checked = task['checked']
+        });
+    }
 }
 
 /**
@@ -455,7 +456,6 @@ function loadWidgets() {
  */
 function loadAll() {
     loadJournal();
-    loadTasks();
     loadWidgets();
 }
 // Save journal entry and tasks to local storage on events
