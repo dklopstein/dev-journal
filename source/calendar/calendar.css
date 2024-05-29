@@ -223,23 +223,20 @@ button:hover {
 }
 
 .jump-btn {
-  /* padding-top: 20px; */
-  /* padding: 10px; */
   color: black; 
   transition: background-color 0.3s, color 0.3s;
-  /* line-height: 0; */
+  border-radius: 5px;
 }
 
 .jump-btn:hover {
   background-color: var(--accent-color); 
   color: white;
-  border-radius: 5px;
 }
 
 /* Hide the month and year dropdown */
 .month-drop, .year-drop{
   display: none;
-  position: absolute;
+  
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
@@ -356,7 +353,7 @@ table td {
 
 /* Rows of table head */
 thead tr {
-  color: blue;
+  color: black;
 }
 
 /* Rows of table body */
