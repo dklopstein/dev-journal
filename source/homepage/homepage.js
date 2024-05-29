@@ -35,7 +35,7 @@ function initButtons() {
     addTaskBtn.addEventListener("click", addTask);
     const ratingSelBtn = document.querySelectorAll(".rating-select-btn");
     ratingSelBtn.forEach((btn, index) => {
-        btn.addEventListener("click", function() {
+        btn.addEventListener("click", function () {
             selectWidget(index + 1);
         });
     });
@@ -145,7 +145,7 @@ function addTask() {
     strong.textContent = 'Add Task Name...';
 
     // Add event listener to hide default text when user starts typing
-    strong.addEventListener('click', function() {
+    strong.addEventListener('click', function () {
         if (strong.textContent === 'Add Task Name...') {
             strong.textContent = ''; // Clear default text when user starts typing
         }
@@ -174,10 +174,10 @@ function addTask() {
     trashIcon.alt = 'Remove';
     trashIcon.className = 'fas fa-trash-alt';
 
-    trashIcon.addEventListener('click', function() {
+    trashIcon.addEventListener('click', function () {
         // Find the parent <li> element of the clicked trash icon
         const listItem = trashIcon.closest('li');
-            
+
         // Remove the <li> element from the DOM
         if (listItem) {
             listItem.remove();
@@ -200,7 +200,7 @@ function addTask() {
 function displayWeek() {
 
     // initialize days of the week
-    let allDays = ["Sun", "Mon", "Tue", "Wed","Thu", "Fri", "Sat"];
+    let allDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     // Get and clear the table
     let table = document.getElementById("week-calendar");
@@ -220,24 +220,24 @@ function displayWeek() {
         let cellData = document.createElement("td");
 
         // Calculate dates
-        if (i === 0){
-            currWeekDay.setDate(currWeekDay.getDate() + (i-8));
+        if (i === 0) {
+            currWeekDay.setDate(currWeekDay.getDate() + (i - 8));
         }
         else {
             currWeekDay.setDate(currWeekDay.getDate() + 1);
         }
 
         // current cell Date
-        let cellNum = document.createElement('span'); 
-        cellNum.textContent = allDays[currWeekDay.getDay()] + " " + (currWeekDay.getMonth()+1) + "/" + currWeekDay.getDate();
+        let cellNum = document.createElement('span');
+        cellNum.textContent = allDays[currWeekDay.getDay()] + " " + (currWeekDay.getMonth() + 1) + "/" + currWeekDay.getDate();
         cellNum.className = "cell-date";
-        
+
         // Append cell number to new cell
         cellData.appendChild(cellNum);
 
         // Add sentiment icon
         let sentimentIcon = document.createElement("img");
-        sentimentIcon.src = "../icons/5overjoyed.png"; 
+        sentimentIcon.src = "../icons/5overjoyed.png";
         sentimentIcon.alt = "sentiment icon";
         sentimentIcon.className = "sentiment-icon";
         // Append sentiment icon to new cell
@@ -245,7 +245,7 @@ function displayWeek() {
 
         // Add productivity icon
         let productivityIcon = document.createElement("img");
-        productivityIcon.src = "../icons/5overjoyed.png"; 
+        productivityIcon.src = "../icons/5overjoyed.png";
         productivityIcon.alt = "productivity icon";
         productivityIcon.className = "productivity-icon";
         // Append sentiment icon to new cell
@@ -293,13 +293,13 @@ const date = document.getElementById("current-date");
 const tasks = document.getElementById("taskContainer");
 
 // Load journal entry and tasks from local storage on page load
-window.onload = function() {
+window.onload = function () {
     loadAll();
     loadTasks();
 }
 
 // Save journal entry and tasks to local storage on page unload
-window.onbeforeunload = function() {
+window.onbeforeunload = function () {
     saveJournal()
     saveTasks()
 }
@@ -322,8 +322,8 @@ window.onbeforeunload = function() {
  * @param {string} value - value to store
  * 
  */
-function saveToStorage(data, dateText, key, value){
-    if (!(dateText in data)){
+function saveToStorage(data, dateText, key, value) {
+    if (!(dateText in data)) {
         data[dateText] = {}
     }
     data[dateText][key] = value;
@@ -336,8 +336,8 @@ function saveToStorage(data, dateText, key, value){
  * @param {string} dateText - date of the journal entry in locale date string format
  * @param {string} key - key to get the value from
  */
-function loadFromStorage(data, dateText, key){
-    if (!(dateText in data)){
+function loadFromStorage(data, dateText, key) {
+    if (!(dateText in data)) {
         return;
     }
     return data[dateText][key];
@@ -346,7 +346,7 @@ function loadFromStorage(data, dateText, key){
 /**
  * Save journal entry to local storage
  */
-function saveJournal() { 
+function saveJournal() {
     let data = getJournal()
     let dateText = new Date(date.textContent).toLocaleDateString();
     saveToStorage(data, dateText, "contents", journal.value)
@@ -384,13 +384,13 @@ function saveTasks() {
     let tasks = [];
     document.querySelectorAll('#taskContainer li').forEach(task => {
         let checkbox = task.querySelector('input[type="checkbox"]');
-         let taskName = task.querySelector('strong').textContent;
-         tasks.push({
-             text: taskName,
-             checked: checkbox.checked  
-         });
-     });
-     localStorage.setItem("tasks", JSON.stringify(tasks));
+        let taskName = task.querySelector('strong').textContent;
+        tasks.push({
+            text: taskName,
+            checked: checkbox.checked
+        });
+    });
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 /**
@@ -423,10 +423,10 @@ function loadTasks() {
  * @param {int} value - value of the widget selected:
  * 1-5 for mental health, 6-10 for productivity
  */
-function saveWidgets(value){
+function saveWidgets(value) {
     let data = getJournal();
     let dateText = new Date(date.textContent).toLocaleDateString();
-    if (value < 6){
+    if (value < 6) {
         saveToStorage(data, dateText, "rating", value);
     }
     else {
@@ -443,10 +443,10 @@ function loadWidgets() {
     let dateText = new Date(date.textContent).toLocaleDateString();
     let rating = loadFromStorage(data, dateText, "rating");
     let productivity = loadFromStorage(data, dateText, "productivity");
-    if (rating != null){
+    if (rating != null) {
         selectWidget(rating);
     }
-    if (productivity != null){
+    if (productivity != null) {
         selectWidget(productivity);
     }
 }
