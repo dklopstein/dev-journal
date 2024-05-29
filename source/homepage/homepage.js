@@ -1,5 +1,10 @@
 window.addEventListener('DOMContentLoaded', init);
-
+const DEBUG = true;
+function _log(msg) {
+    if (DEBUG) {
+        console.log(msg);
+    }
+}
 // Counter for iding tasks
 let task_counter = 1;
 
@@ -468,11 +473,11 @@ function loadJournal() {
 function saveTasks() {
     let tasks = [];
     document.querySelectorAll('#taskContainer li').forEach(task => {
-        let checkbox = task.querySelector('input[type="checkbox"]');
-        let taskName = task.querySelector('strong').textContent;
+        //let checkbox = task.querySelector('input[type="task-checkbox"]');
+        let taskName = task.querySelector('textarea').value;
         tasks.push({
             text: taskName,
-            checked: checkbox.checked
+            //checked: checkbox.checked
         });
     });
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -496,8 +501,8 @@ function loadTasks() {
     if (tasks.length > 0) {
         tasks.forEach(task => {
             let curLi = addTask();
-            curLi.querySelector("strong").textContent = task['text']
-            curLi.querySelector('input[type="checkbox"]').checked = task['checked']
+            curLi.querySelector("textarea").value = task['text']
+            //curLi.querySelector('input[type="checkbox"]').checked = task['checked']
         });
     }
 }
