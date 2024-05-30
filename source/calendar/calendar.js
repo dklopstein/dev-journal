@@ -210,9 +210,14 @@ function displayCalendar(){
                 cellData.appendChild(taskDiv);
 
                 
-                // Create buttons that link to speciic homepage
+                // Create buttons that link to speciic homepage and extract selected date
                 let aLink = document.createElement("a");
-                aLink.href = "../homepage/homepage.html";
+                let dayLink = currCalendarMonth.getDate();
+                let monthLink = currCalendarMonth.getMonth();
+                let yearLink = currCalendarMonth.getFullYear()
+
+                // Query is in format ?date=month-day-year
+                aLink.href = `../homepage/homepage.html?date=${monthLink}-${dayLink}-${yearLink}`;
                 aLink.className = "a-link";
                 cellData.appendChild(aLink);
                 

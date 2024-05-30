@@ -9,10 +9,14 @@ var currDate = new Date();
  * @returns {undefined} Nothing
  */
 function init() {
+    dateQuery();
     // Display the current date
     displayDate(formatDate(currDate));
+
     displayWeek();
     initButtons();
+
+
 }
 
 /**
@@ -43,6 +47,9 @@ function displayDate(date) {
     // Display the date in the designated container
     const dateContainer = document.getElementById('current-date');
     dateContainer.textContent = date;
+
+    // Maybe need to call dateQuery() again depending on the type of functionality
+    // dateQuery();
 }
 
 /**
@@ -251,4 +258,19 @@ function displayWeek() {
     }
     // Append row to table
     table.appendChild(row);
+}
+
+/**
+ * Implements date query to link to certain date
+ */
+function dateQuery() {
+    // Extract query from the page
+    let params = new URLSearchParams(window.location.search);
+    let date = params.get("date");
+
+    // If a date query exists
+    if (date) {
+        let components = date.split('-');
+        currDate = new Date(components[2], components[0], components[1]);
+    }
 }
