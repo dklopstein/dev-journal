@@ -2,7 +2,7 @@ window.addEventListener('DOMContentLoaded', init);
 const DEBUG = true;
 function _log(msg) {
     if (DEBUG) {
-        console.log(msg);
+        //console.log(msg);
     }
 }
 // Counter for iding tasks
@@ -60,6 +60,7 @@ function nextDate() {
     currDate.setDate(currDate.getDate() + 1);
     displayDate(formatDate(currDate));
     unselectAllWidgets();
+    unselectAllCompleted();
     loadAll();
 }
 
@@ -70,6 +71,7 @@ function prevDate() {
     currDate.setDate(currDate.getDate() - 1);
     displayDate(formatDate(currDate));
     unselectAllWidgets();
+    unselectAllCompleted();
     loadAll();
 }
 /**
@@ -157,7 +159,7 @@ function addTask() {
 
     // Create img element for checkbox
     const check = document.createElement('img');
-    check.src = '../icons/check-icon.svg';
+    //check.src = '../icons/check-icon.svg';
     check.alt = 'Check';
     // Append img to checkbox
     // checkbox.appendChild(check);
@@ -265,8 +267,6 @@ function addTask() {
         task_name.focus();
         document.getSelection().collapseToEnd();
     }, 0);
-
-    saveTasks();
 
     return li;
 }
@@ -381,6 +381,7 @@ function displayWeek() {
 const journal = document.getElementById("textarea");
 const date = document.getElementById("current-date");
 const tasks = document.getElementById("taskContainer");
+const completedTasks = document.getElementById("completedTaskContainer");
 
 // Load journal entry and tasks from local storage on page load
 window.onload = function () {
@@ -392,6 +393,7 @@ window.onload = function () {
 window.onbeforeunload = function () {
     saveJournal()
     saveTasks()
+    saveCompleted()
 }
 
 // const AUTO_SAVE_INTERVAL = 30000;
@@ -444,45 +446,6 @@ function saveJournal() {
     localStorage.setItem("journals", JSON.stringify(data))
 }
 
-function saveCompleted(){
-    let dateText = new Date(date.textContent).toLocaleDateString();
-    let completedTask = []
-    document.querySelectorAll('#completedTaskContainer li').forEach(completedTask => {
-        //let checkbox = task.querySelector('input[type="task-checkbox"]');
-        let taskName = completedTask.querySelector('textarea').value;
-        let taskColor = completedTask.style.background
-        let textColor = completedTask.querySelector('textarea').style.color
-        completedTask.push({
-            text: taskName,
-            color: taskColor,
-            color2: textColor
-            //checked: checkbox.checked
-        });
-    });
-    localStorage.setItem("completeTasks", JSON.stringify(completedTask));
-}
-
-function getCompleted() {
-    let storedTasks = localStorage.getItem("completeTasks");
-    return storedTasks ? JSON.parse(storedTasks) : [];
-}
-
-/**
- * Load tasks from local storage
- */
-function loadCompleted() {
-    let tasks = getCompleted();
-    if (tasks.length > 0) {
-        tasks.forEach(task => {
-            let curLi = addTask();
-            curLi.querySelector("textarea").value = task['text']
-            curLi.querySelector("textarea").style.color = task['color2']
-            curLi.style.background = task['color']
-            //curLi.querySelector('input[type="checkbox"]').checked = task['checked']
-        });
-    }
-}
-
 /**
  * Get journal entry from local storage
  * 
@@ -519,10 +482,12 @@ function saveTasks() {
         tasks.push({
             text: taskName,
             color: taskColor,
-            color2: textColor
+            color2: textColor,
+            list: task.className.includes('complete')
             //checked: checkbox.checked
         });
     });
+    console.log('hi');
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
@@ -550,6 +515,69 @@ function loadTasks() {
             //curLi.querySelector('input[type="checkbox"]').checked = task['checked']
         });
     }
+
+}
+
+/*
+function saveJournal() {
+    let data = getJournal()
+    let dateText = new Date(date.textContent).toLocaleDateString();
+    saveToStorage(data, dateText, "contents", journal.value)
+    _log(data)
+    localStorage.setItem("journals", JSON.stringify(data))
+}
+ */
+
+function saveCompleted(){
+    data = getJournal();
+    let completedTask = [];
+    dateText = new Date(date.textContent).toLocaleDateString();
+    document.querySelectorAll('#completedTaskContainer li').forEach(completedTaskElement => {
+        let taskName = completedTaskElement.querySelector('textarea').value;
+        let taskColor = completedTaskElement.style.background
+        let textColor = completedTaskElement.querySelector('textarea').style.color
+        completedTask.push({
+            text: taskName,
+            color: taskColor,
+            color2: textColor,
+        });
+    });
+    saveToStorage(data, dateText, "completedTasks", completedTask);
+    localStorage.setItem("journals", JSON.stringify(data));
+}
+
+function getCompleted() {
+    data = getJournal();
+    let dateText = new Date(date.textContent).toLocaleDateString();
+    let storedTasks = loadFromStorage(data, dateText, "completedTasks");
+    return storedTasks ? storedTasks : [];
+}
+
+/**
+ * Load tasks from local storage
+ */
+function loadCompleted() {
+    let tasks2 = getCompleted();
+    if (tasks2.length > 0) {
+        tasks2.forEach(task => {
+            let curLi = addTask();
+            completedTasks.appendChild(curLi);
+            curLi.querySelector("textarea").value = task['text']
+            curLi.querySelector("textarea").style.color = task['color2']
+            curLi.style.background = task['color']
+            curLi.classList.add('complete')
+            console.log('task added');
+            //curLi.querySelector('input[type="checkbox"]').checked = task['checked']
+        });
+    }
+}
+
+function unselectAllCompleted() {
+    let tasks = [];
+    document.querySelectorAll('#completedTaskContainer li').forEach(task => {
+        //let checkbox = task.querySelector('input[type="task-checkbox"]');
+        task.remove();
+    });
 }
 
 /**
@@ -592,8 +620,15 @@ function loadWidgets() {
 function loadAll() {
     loadJournal();
     loadWidgets();
+    loadCompleted();
 }
 // Save journal entry and tasks to local storage on events
 journal.addEventListener("blur", saveJournal)
 tasks.addEventListener("blur", saveTasks)
 tasks.addEventListener("change", saveTasks)
+tasks.addEventListener("blur", saveCompleted)
+tasks.addEventListener("change", saveCompleted)
+completedTasks.addEventListener("blur", saveCompleted)
+completedTasks.addEventListener("change", saveCompleted)
+completedTasks.addEventListener("blur", saveTasks)
+completedTasks.addEventListener("change", saveTasks)
