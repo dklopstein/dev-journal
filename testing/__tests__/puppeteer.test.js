@@ -1,16 +1,42 @@
-describe('Basic user flow for Website', () => {
-    beforeAll(async () => {
-      await page.goto('https://elaine-ch.github.io/Lab6_Part1_Starter/');
-    });
+// Initialize puppeteer
+import puppeteer from 'puppeteer';
+
+// Launch browser
+const browser = await puppeteer.launch({headless: false,slowMo:10});
+const page = await browser.newPage();
+
+('Basic user path', async () => {
+
+  // First visit dev journal website with github pages
+  // await page.goto('https://cse110-sp24-group25.github.io/cse110-sp24-group25/source/homepage/homepage.html');
+
+  // Visit dev journal using live server
+  await page.goto('http://127.0.0.1:5500/source/homepage/homepage.html');
+
+  console.log('Typing into journal');
+        
+  // Click into text area
+  await page.click('#textarea');
+
+  // Type into text area
+  await page.type('#textarea', 'Example journal entry: I was so productive today!!');
+
+  // Click out of the text area
+  await page.click('#current-date');
+
+  // Click into journal, type, and click out
+  (function () {
+    console.log('Test');
+
+  });
+
+  // 
+  (async () => {
+    console.log('');
+
+  });
+
+  // Close out of the browser
+  await browser.close();
   
-    // Next, check to make sure that all 20 <product-item> elements have loaded
-    it('Initial Home Page - Check for 20 product items', async () => {
-      console.log('Checking for 20 product items...');
-      // Query select all of the <product-item> elements and return the length of that array
-      const numProducts = await page.$$eval('product-item', (prodItems) => {
-        return prodItems.length;
-      });
-      // Expect there that array from earlier to be of length 20, meaning 20 <product-item> elements where found
-      expect(numProducts).toBe(20);
-    });
-});
+})();
