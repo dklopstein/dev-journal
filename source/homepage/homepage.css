@@ -81,9 +81,9 @@ button {
   width: max(10em, 12vw);
   resize: none; /* Prevents user from resizing */
   overflow: hidden; /* Hides scrollbar */
-  margin-top: -4px;
-  height: 24px;
-  max-height: 108px;
+  margin-top: -4px; /* Moves it up slightly */
+  height: 24px; /* Starting height */
+  max-height: 1000px;
   /* Hide background and border */
   background-color: rgba(0, 0, 0, 0);
   border: rgba(0, 0, 0, 0);

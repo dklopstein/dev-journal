@@ -249,9 +249,10 @@ function addTask() {
 function autoResize(textarea) {
     textarea.style.height = 'auto'; // Reset the height
     textarea.style.height = textarea.scrollHeight + 'px'; // Set the height to the scroll height
-    if (textarea.value == '') {
+    if (textarea.value == '' || textarea.value.length < 15) {
         textarea.style.height = '24px';
     }
+    alert(textarea.value.clientHeight);
 }
 
 /**
