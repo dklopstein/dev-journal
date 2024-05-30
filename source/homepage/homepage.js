@@ -252,7 +252,6 @@ function autoResize(textarea) {
     if (textarea.value == '' || textarea.value.length < 15) {
         textarea.style.height = '24px';
     }
-    alert(textarea.value.clientHeight);
 }
 
 /**
