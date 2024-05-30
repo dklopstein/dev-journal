@@ -30,15 +30,15 @@ function init(){
 
 function initButtons(){
 
-    // PREVIOUS BUTTON
+    // PREVIOUS MONTH BUTTON
     let prevBtn = document.querySelector(".prev-date-btn");
     prevBtn.addEventListener('click', prev);
 
-    // NEXT BUTTON
+    // NEXT MONTH BUTTON
     let nextBtn = document.querySelector(".next-date-btn");
     nextBtn.addEventListener('click', next);
 
-    // JUMP BUTTON
+    // JUMP HEADER BUTTONS
     let monthJumpBtn = document.querySelectorAll(".month-btn");
     monthJumpBtn.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -260,10 +260,7 @@ function displayJump(startYear, endYear) {
 
 // Function to jump to a specific month and year
 function jump(mnth, yr) {
-    // console.log(mnth);
-    // console.log(yr);
     currDate = new Date(yr, mnth)
-    // console.log(currDate);
     updateDateGlobals();
     displayCalendar();
 }
