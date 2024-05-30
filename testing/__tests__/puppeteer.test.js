@@ -1,3 +1,4 @@
+// E2E Testing with Puppeteer
 describe('Basic user path in homepage', () => {
   // Visit dev journal using live server
   beforeAll(async () => {
@@ -6,32 +7,27 @@ describe('Basic user path in homepage', () => {
 
   // Edit Journal
   it('Click into journal, type, click out', async () => {
-    console.log('...');
+  
+    // Click into text area
+    await page.click('#textarea');
 
-  // Visit dev journal using live server
+    // Type into text area
+    await page.type('#textarea', 'Example journal entry: I was so productive today!!');
 
-  console.log('Typing into journal');
-        
-  // Click into text area
-  await page.click('#textarea');
+    // Click out of the text area
+    await page.click('#current-date');
 
-  // Type into text area
-  await page.type('#textarea', 'Example journal entry: I was so productive today!!');
-
-  // Click out of the text area
-  await page.click('#current-date');
-
-
-    // Expect 
-    expect(4).toBe(2);
+    // Expect
+    expect().toBe();
   });
   
-  // 
+  // TODO: FIll in blank test
   it('', async () => {
-    console.log('...');
     
     // Expect 
     expect().toBe();
   });
+
+  // TODO: Add more tests
   
 });
