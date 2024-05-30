@@ -17,7 +17,7 @@ jobs:
       run: npm install -g live-server
 
     - name: Start Live Server
-      run: live-server --port=5500 --no-browser
+      run: live-server --port=5500 --no-browser &
       
     - name: Run Puppeteer tests
       run: npm test ./testing/__tests__/puppeteer.test.js --config config/jest-puppetteer.config.js
