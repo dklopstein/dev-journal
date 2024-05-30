@@ -140,7 +140,7 @@ select {
 /* Start of top bar */
 .top-bar {
   position: relative;
-  height: 10%;
+  height: 65px;
 
 }
 
@@ -222,53 +222,89 @@ button:hover {
   cursor: pointer;
 }
 
+/* Jump header that contains the month and year */
+.jump-header {
+  display: flex;
+  position: relative;
+  margin-top: -2.5px;
+}
+
+/* Fully extend 1st month and year buttons */
 .jump-btn {
-  color: black; 
+  width: 100%;
+  padding-bottom: 1px;
+}
+
+/* Orient the month button */
+#month {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Highlight a certain month button when hovering over it */
+.month-drop:hover .month-btn:hover {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+/* Highlight a certain year button when hovering over it */
+.year-drop:hover .year-btn:hover {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+
+/* When hovering on month header button */
+#month:hover{
+  width: 100%;
+  background-color: var(--accent-color); 
+  color: white;
   transition: background-color 0.3s, color 0.3s;
   border-radius: 5px;
 }
 
-.jump-btn:hover {
+/* When hovering on year header button */
+#year:hover{
+  width: 100%;
   background-color: var(--accent-color); 
   color: white;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 5px;
 }
 
-/* Hide the month and year dropdown */
-.month-drop, .year-drop{
-  display: none;
-  
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: white;
-  border: 1px solid #ccc;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+/* When hovering over month buttons */
+.month-drop:hover .month-btn {
+  width: 100%;
+  display: block;
+  background-color: var(--main-color);
+  border: 2px solid black;
+}
+
+/* When hovering over year buttons */
+.year-drop:hover .year-btn {
+  width: 100%;
+  display: block;
+  background-color: var(--main-color);
+  border: 2px solid black;
+}
+
+/* Position all month buttons */
+.month-drop {
+  position: absolute;
+  margin-top: -10px;
   z-index: 100;
-  width: auto;
 }
 
-/* Shown month dropdown */
-.month-drop.show-dropdown{
-  display: block;
-
+/* Position all year buttons */
+.year-drop {
   position: absolute;
-  width: 85px;
-  left: 70px;
-  background-color: var(--main-color);
-  border: 2px solid black;
-  z-index: 9999;
+  margin-top: -10px;
+  z-index: 100;
 }
 
-/* Shown year dropdown */
-.year-drop.show-dropdown{
-  display: block;
-
-  position: absolute;
-  width: 50px;
-  left: 200px;
-  background-color: var(--main-color);
-  border: 2px solid black;
-  z-index: 9999;
+/* Initially hide extended month and year buttons */
+.month-btn, .year-btn {
+  display: none;
 }
 
 /* Set font size of header */

@@ -38,12 +38,6 @@ function initButtons(){
     let nextBtn = document.querySelector(".next-date-btn");
     nextBtn.addEventListener('click', next);
 
-    // TOGGLE JUMP LIST
-    let monthToggle = document.getElementById("month");
-    monthToggle.addEventListener('click', monthDropdown);
-    let yearToggle = document.getElementById("year");
-    yearToggle.addEventListener('click', yearDropdown);
-
     // JUMP BUTTON
     let monthJumpBtn = document.querySelectorAll(".month-btn");
     monthJumpBtn.forEach(btn => {
@@ -223,6 +217,10 @@ function displayCalendar(){
     taskColor();
     // Change the header if the window size is too small
     windowWidth();
+
+    // Get the width of month and align the year 
+    let monthWidth = document.getElementById('month-dropdown').offsetWidth;
+    document.getElementById('year-dropdown').style.left = monthWidth + 5 + 'px';
 }
 
 // Generate dropdown year range
@@ -297,20 +295,8 @@ function taskColor(){
     });
 }
 
-// Open month dropdown
-function monthDropdown() {
-    let monthDrop = document.getElementById("month-dropdown");
-    monthDrop.classList.toggle("show-dropdown");
-}
-
-function yearDropdown() {
-    let yearDrop = document.getElementById("year-dropdown");
-    yearDrop.classList.toggle("show-dropdown");
-}
-
 // Resize header if width of window decreases
 function windowWidth() {
-    console.log(window.innerWidth);
     if (window.innerWidth < 920) {
         // Initialize list of abbreviated months
         let allMonths = [
@@ -330,4 +316,8 @@ function windowWidth() {
         let monthHeader = document.getElementById("month");
         monthHeader.textContent = allMonths[parseInt(month, 10)];
     }
+
+    // Get the width of month and align the year 
+    let monthWidth = document.getElementById('month-dropdown').offsetWidth;
+    document.getElementById('year-dropdown').style.left = monthWidth + 5 + 'px';
   }
