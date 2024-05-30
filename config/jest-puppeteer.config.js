@@ -1,6 +1,7 @@
 module.exports = {
+    testEnvironment: 'jest-environment-puppeteer',
     launch: {
-      headless: true,
-      slowMo: 25
+      headless: false,
+      slowMo: 15
     }
   }
