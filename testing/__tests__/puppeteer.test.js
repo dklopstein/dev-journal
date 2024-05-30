@@ -23,7 +23,7 @@ describe('Basic user path in homepage', () => {
 
 
     // Expect 
-    expect().toBe();
+    expect(4).toBe(2);
   });
   
   // 
