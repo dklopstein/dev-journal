@@ -1,3 +1,4 @@
+// E2E Testing with Puppeteer
 describe('Basic user path in homepage', () => {
 
   // Open the webpage
@@ -124,10 +125,11 @@ describe('Basic user path in homepage', () => {
 
   // 
   it('', async () => {
-    console.log('...');
     
     // Expect 
     expect().toBe();
   });
+
+  // TODO: Add more tests
   
 });
