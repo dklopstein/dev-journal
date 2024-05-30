@@ -29,7 +29,7 @@ function initButtons() {
     ratingSelBtn.forEach(btn => {
         btn.addEventListener("click", () => {
             var id = btn.getAttribute("id");
-            selectWidget(id);
+            selectWidget(id.substring(3,5));
         });
     });
 }
