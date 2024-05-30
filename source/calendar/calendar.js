@@ -38,12 +38,6 @@ function initButtons(){
     let nextBtn = document.querySelector(".next-date-btn");
     nextBtn.addEventListener('click', next);
 
-    // TOGGLE JUMP LIST
-    let monthToggle = document.getElementById("month");
-    monthToggle.addEventListener('click', monthDropdown);
-    let yearToggle = document.getElementById("year");
-    yearToggle.addEventListener('click', yearDropdown);
-
     // JUMP BUTTON
     let monthJumpBtn = document.querySelectorAll(".month-btn");
     monthJumpBtn.forEach(btn => {
