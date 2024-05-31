@@ -14,9 +14,9 @@
 - Derek
 - Kevin
 - Sonya
+- Andrew
   
 ### Absent
-- Andrew
 
 ## Agenda
 1. Puppeteer Tests
@@ -36,4 +36,6 @@ Future dates blocked from accessing homepage. Minheight set for the top bar.
 Problems with unit tests interacting with the dom. Reached out to TA waiting on response.
 
 ### To Do
-Put all of the updates pushed into main. Finish writing tests. Local storage.
+Put all of the updates pushed into main. Finish writing tests. Local storage.\
+Homepage & Calendar teams work on finishing frontend, very slight changes. Also writing puppeteer and unit tests.\
+JS team continue adding storage functionality.
