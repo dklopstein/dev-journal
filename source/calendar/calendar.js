@@ -78,13 +78,6 @@ function prev(){
     displayCalendar();
 }
 
-
-// Function to go back to today's month when clicking the calendar button
-function calendarButton() {
-    currDate = new Date();
-    updateDateGlobals();
-    displayCalendar();
-}
  
 // Function to display the calendar
 function displayCalendar(){
