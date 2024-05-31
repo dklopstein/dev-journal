@@ -45,12 +45,15 @@ button {
   overflow-y: scroll;
 }
 
-/* Hides task list when page reaches certain size */
 @media (max-width: 800px) {
   .task-list {
-      display: none;
+      transform: translateX(-90px);
   }
-  .journal-past-wrap .task-list {
+
+  .main-wrap {
+    transform: translateX(-90px);
+  }
+  .journal-past-wrap {
     display: block;
   }
 }
@@ -256,7 +259,7 @@ button {
 .top-bar {
   position: relative;
   height: 10%;
-
+  min-height: 65px;
 }
 
 .date-header-wrap {
