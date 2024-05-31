@@ -43,6 +43,15 @@ button {
   box-shadow: 1px 1px lightgrey;
 
   overflow-y: scroll;
+
+  /* Hide scroll-bars for Firefox, Edge */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scroll-bar for Chrome, Safari, Opera*/
+.task-list::-webkit-scrollbar {
+  display: none;
 }
 
 @media (max-width: 800px) {
@@ -53,6 +62,7 @@ button {
   .main-wrap {
     transform: translateX(-90px);
   }
+  
   .journal-past-wrap {
     display: block;
   }
@@ -110,6 +120,7 @@ button {
   overflow: hidden;
   word-wrap: break-word;
   text-align: left;
+  list-style-type: none; /* Get rid of li bullet points */
   /* Set max height */
   transition: max-height 0.5s ease-in;
   max-height: 4em;
@@ -501,7 +512,7 @@ button:hover {
 
 
 @media (max-width: 800px) {
-  .rating-widget h4{
+  /* .rating-widget h4{
     font-size: 13px;
   }
   .rating-widget button img {
@@ -512,7 +523,7 @@ button:hover {
   }
   .rating-widget img.active {
     height: max(min(3em, 4.8vw), 30px);
-  }
+  } */
 
   .main-wrap {
     border: red solid 2px;
@@ -540,6 +551,8 @@ button:hover {
   background-color: var(--secondary-color);
 
   border-radius: 1em;
+
+  transform: none;
 
 }
 

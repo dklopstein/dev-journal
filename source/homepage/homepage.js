@@ -108,13 +108,15 @@ function selectWidget(buttonIndex) {
  * Adds task to task list upon "Add Task" button click.
  */
 function addTask() {
-    const taskList = document.querySelector(".task-list");
+    const taskList = document.querySelector(".task-container");
     const task = document.createElement("li");
     task.setAttribute("class", "task");
+
+    /* WORKS ON CHROME, NOT FIREFOX */
     task.insertAdjacentHTML("beforeend", `
         <div class="check-input-wrap">
             <button id="task1" class="task-checkbox"></button>
-            <div contenteditable="true" class="task-input" placeholder="Add a task..." onkeypress="return this.innerText.length <= 180;"></div>
+            <div contenteditable="plaintext-only" class="task-input" placeholder="Add a task..." onkeypress="return this.innerText.length <= 180;"></div>
         </div>
         <div class="color-buttons">
             <button id="purple" class="color-button"></button>
@@ -149,6 +151,7 @@ function addTask() {
 
     // add functionality to task buttons
     taskButtonsFunctionality(task);
+    forceStyle(task);
 }
 
 /**
@@ -208,6 +211,20 @@ function taskButtonsFunctionality(task) {
     });
 }
 
+/**
+ * Force the styling of text on a task if styling is different, ie copy and pasting
+ * @param {Node} task 
+ */
+function forceStyle(task) {
+    const taskInput = document.querySelector(".task-input")
+    taskInput.addEventListener("paste", () => {
+        const taskInput = task.querySelector(".task-input");
+        taskInput.style.fontSize = "revert";
+        taskInput.style.font = "revert";
+        taskInput.style.color = "revert";
+        console.log("yea");
+    });
+}
 /**
  * Updates interface with Past Week view
  */
