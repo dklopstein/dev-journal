@@ -16,7 +16,7 @@ function init() {
     displayWeek();
     initButtons();
 
-
+    clickTaskList();
 }
 
 /**
@@ -108,7 +108,7 @@ function selectWidget(buttonIndex) {
  * Adds task to task list upon "Add Task" button click.
  */
 function addTask() {
-    const taskList = document.querySelector(".task-list");
+    const taskList = document.querySelector(".task-container");
     const task = document.createElement("li");
     task.setAttribute("class", "task");
     task.insertAdjacentHTML("beforeend", `
@@ -326,6 +326,17 @@ function dateQuery() {
         let components = date.split('-');
         currDate = new Date(components[2], components[0], components[1]);
     }
+}
+
+function clickTaskList() {
+    const taskList = document.querySelector('.task-list');
+    const mainWrap = document.querySelector('.main-wrap');
+
+    taskList.addEventListener('click', function() {
+        if (window.innerWidth <= 800) { 
+        this.classList.toggle('active');
+        mainWrap.classList.toggle('active');
+    }})
 }
 
 function taskColor(){
