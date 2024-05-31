@@ -105,68 +105,107 @@ function selectWidget(buttonIndex) {
 }
 
 /**
- * A function to create a new task and place it in the sidebar
+ * Adds task to task list upon "Add Task" button click.
  */
 function addTask() {
-    // Create the new list item element
-    const li = document.createElement('li');
+    const taskList = document.querySelector(".task-list");
+    const task = document.createElement("li");
+    task.setAttribute("class", "task");
+    task.insertAdjacentHTML("beforeend", `
+        <div class="check-input-wrap">
+            <button id="task1" class="task-checkbox"></button>
+            <div contenteditable="true" class="task-input" placeholder="Add a task..." onkeypress="return this.innerText.length <= 180;"></div>
+        </div>
+        <div class="color-buttons">
+            <button id="purple" class="color-button"></button>
+            <button id="green" class="color-button"></button>
+            <button id="blue" class="color-button"></button>
+            <button id="pink" class="color-button"></button>
+            <button id="grey" class="color-button"></button>
+        </div>
+        <img class="fas fa-trash-alt" src="../icons/trash-icon.svg" alt="Remove">
+    `);
+    taskList.append(task);
 
-    // Create and append the checkbox input
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.className = 'task-checkbox';
-    checkbox.id = 'task' + (document.querySelectorAll('.task-checkbox').length + 1);
-    li.appendChild(checkbox);
-
-    // Create and append the strong element with the task name
-    const strong = document.createElement('strong');
-    strong.contentEditable = true;
-    li.appendChild(strong);
-    strong.textContent = 'Add Task Name...';
-
-    // Add event listener to hide default text when user starts typing
-    strong.addEventListener('click', function() {
-        if (strong.textContent === 'Add Task Name...') {
-            strong.textContent = ''; // Clear default text when user starts typing
+    // listener to stop editing when user presses enter
+    const task_name = task.querySelector(".task-input");
+    task_name.addEventListener('keydown', function(event) {
+        if (event.key == 'Enter') {
+            if (!event.shiftKey) {
+                // Shift+Enter pressed, insert a line break
+                // Enter pressed, end editing
+                event.preventDefault(); // Prevent default behavior of Enter key
+                task_name.blur(); // Remove focus from the element
+                //li.classList.remove('active');
+            }
         }
     });
 
-    // Create and append the color-buttons div
-    const colorButtons = document.createElement('div');
-    colorButtons.className = 'color-buttons';
-    li.appendChild(colorButtons);
+    // Auto click into the task name text box
+    setTimeout(() => {
+        task_name.focus();
+        document.getSelection().collapseToEnd();
+    }, 0);
 
-    // List of colors
-    const colors = ['red', 'orange', 'yellow', 'green', 'blue'];
+    // add functionality to task buttons
+    taskButtonsFunctionality(task);
+}
 
-    // Create and append each color button
-    colors.forEach(color => {
-        const button = document.createElement('button');
-        button.className = 'color-button ' + color;
-        colorButtons.appendChild(button);
+/**
+ * Adds button functionality to task upon creation
+ * @param {Task Node} task - the task to have functionality
+ */
+function taskButtonsFunctionality(task) {
+
+    /* Implement color changing functionality */
+    const colorBtns = task.querySelectorAll(".color-button");
+    console.log(colorBtns);
+    colorBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            let color;
+            switch (btn.id) {
+                case "purple":
+                    color = "#C380CC";
+                    break;
+                case "green":
+                    color = "#91DC79";
+                    break;
+                case "blue":
+                    color = "#6BB1D9";
+                    break;
+                case "pink":
+                    color = "#EEBAE9";
+                    break;
+                default:
+                    color = "var(--main-color)";
+            }
+            task.style['background-color'] = color;
+        });
     });
 
-    // Create and append the trash icon
-    const trashIcon = document.createElement('img');
-    trashIcon.src = '../icons/trash-icon.svg';
-    trashIcon.alt = 'Remove';
-    trashIcon.className = 'fas fa-trash-alt';
+    /* Trash icon delete functionality */
+    const deleteIcon = task.querySelector(".fas");
+    deleteIcon.addEventListener("click", () => {
+        task.remove();
+    });
 
-    trashIcon.addEventListener('click', function() {
-        // Find the parent <li> element of the clicked trash icon
-        const listItem = trashIcon.closest('li');
-            
-        // Remove the <li> element from the DOM
-        if (listItem) {
-            listItem.remove();
+    /* Checkbox move to Completed Tasks functionality */
+    const checkbox = task.querySelector(".task-checkbox");
+    checkbox.addEventListener('click', function() {
+        // Add or remove completed from class name
+        // Find closest li item (task)
+
+        if (task.className.includes('complete')) {
+            task.classList.remove('complete');
+            const taskContainer = document.querySelector('.task-list');
+            taskContainer.appendChild(task);
+        }
+        else {
+            task.classList.add('complete');
+            const completedTaskContainer = document.querySelector('.completed-task-container');
+            completedTaskContainer.appendChild(task);
         }
     });
-
-    li.appendChild(trashIcon);
-
-    // Append the new list item to the task list
-    const taskContainer = document.getElementById('taskContainer');
-    taskContainer.appendChild(li);
 }
 
 /**
