@@ -112,8 +112,6 @@ select {
   padding: 0;
 }
 
-/* ************ CHRIS NEW CODE ************** */
-
 /* Sizing for each individual task */
 .task {
   background: var(--main-color);
@@ -168,8 +166,6 @@ select {
 
   color: rgb(97, 97, 97)
 }
-
-/* ********************** END CHRIS NEW CODE ************ */
 
 /* Positioning for trash icon */
 .fas.fa-trash-alt {
@@ -250,16 +246,15 @@ select {
   }
 }
 
-/* End of task list */
+/* ********** End of task list ********** */
 
-/* Start of top bar */
+/* ********** Start of top bar ********** */
 .top-bar {
   position: relative;
   height: 65px;
 
 }
 
-/* Full top bar */
 .date-header-wrap {
   position: absolute;
   height: max(30%, 5rem);
@@ -473,9 +468,9 @@ button:hover {
   
 }
 
-/* End of Top Header Bar */
+/* ********** End of Top Bar ********** */
 
-/* Start of Calendar Table */
+/* ********** Start of Calendar Table ********** */
 
 /* Main calendar */
 .full-calendar {
@@ -616,5 +611,5 @@ td .productivity-icon {
   left: 0;
 }
 
-
+/* ********** End of Calendar ********** */
 
