@@ -16,7 +16,7 @@ function init() {
     displayWeek();
     initButtons();
 
-
+    clickTaskList();
 }
 
 /**
@@ -326,6 +326,16 @@ function dateQuery() {
         let components = date.split('-');
         currDate = new Date(components[2], components[0], components[1]);
     }
+}
+
+function clickTaskList() {
+    const taskList = document.querySelector('.task-list');
+    const mainWrap = document.querySelector('.main-wrap');
+
+    taskList.addEventListener('click', function() {
+        this.classList.toggle('active');
+        mainWrap.classList.toggle('active');
+    })
 }
 
 function taskColor(){

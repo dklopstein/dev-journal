@@ -41,17 +41,19 @@ button {
   border-radius: 15px;
   background-color: white;
   box-shadow: 1px 1px lightgrey;
-
   overflow-y: scroll;
 }
 
 @media (max-width: 800px) {
   .task-list {
-      transform: translateX(-90px);
+    transform: translateX(-90px);
   }
 
   .main-wrap {
     transform: translateX(-90px);
+  }
+  .task-list.active, .main-wrap.active {
+    transform: translateX(0);
   }
   .journal-past-wrap {
     display: block;
@@ -230,16 +232,6 @@ button {
 
   &#grey {
     background-color: var(--main-color);
-  }
-
-  @media (max-width: 800px) {
-    .task-list {
-      transform: translateX(-230px);
-    }
-
-    .main-wrap {
-      transform: translateX(-220px);
-    }
   }
 }
 
