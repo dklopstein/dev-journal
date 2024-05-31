@@ -163,7 +163,10 @@ function addTask() {
     // Auto click into the task name text box
     setTimeout(() => {
         task_name.focus();
-        document.getSelection().collapseToEnd();
+        const selection = document.getSelection();
+        if (selection.rangeCount > 0) {
+            selection.collapseToEnd();
+        }
     }, 0);
 
     // add functionality to task buttons
