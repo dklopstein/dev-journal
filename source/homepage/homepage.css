@@ -44,7 +44,6 @@ button {
   overflow-y: scroll;
 }
 
-/* Hides task list when page reaches certain size */
 @media (max-width: 800px) {
   .task-list {
     transform: translateX(-90px);
@@ -252,7 +251,7 @@ button {
 .top-bar {
   position: relative;
   height: 10%;
-
+  min-height: 65px;
 }
 
 .date-header-wrap {
@@ -622,11 +621,11 @@ td .task-div {
 
 /* Unordered list in calendar cell */
 .task-ul{
-  margin: 0px;
+  margin: 0;
   padding-left: 6px;
-  padding-bottom: 0;
   color: black;
   font-size: 12px;
+  line-height: 1;
 }
 
 /* Individual tasks in calendar cell */
@@ -636,19 +635,29 @@ td .task-div {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-/* ********** End of past week ********** */
 
-
-/* @media (max-width: 615px) {
-  html {
-    display: none;
-    border: blue solid 2px;
-  }
+/* Extra tasks in calendar cell */
+.task-indicator{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-top: 7px;
+  font-weight: bolder;
 }
 
-@media (max-height: 540px) {
-  html {
-    display: none;
-    border: solid red 2px;
-  }
-} */
+/* Individual tasks in calendar cell */
+.task-item::marker{
+  color: var(--task-color, "black");
+  font-size: 1.5em; 
+}
+
+/* Button links to specific homepage in calendar cell */
+.a-link {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+/* End of past week */
