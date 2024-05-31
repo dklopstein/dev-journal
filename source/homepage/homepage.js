@@ -125,11 +125,8 @@ function selectWidget(buttonIndex) {
  */
 function addTask() {
     const taskList = document.querySelector(".task-container");
-    // const completedTaskList = document.querySelector(".completed-task-container")
     const task = document.createElement("li");
     task.setAttribute("class", "task");
-    task.addEventListener("blur", saveCompleted)
-    // completedTaskList.addEventListener("blur", saveCompleted)
     task.insertAdjacentHTML("beforeend", `
         <div class="check-input-wrap">
             <button id="task1" class="task-checkbox"></button>
@@ -144,6 +141,8 @@ function addTask() {
         </div>
         <img class="fas fa-trash-alt" src="../icons/trash-icon.svg" alt="Remove">
     `);
+    task.querySelector(".task-input").addEventListener("input", saveCompleted)
+
     taskList.append(task);
 
     // listener to stop editing when user presses enter
@@ -478,6 +477,7 @@ function loadJournal() {
  * Save tasks to local storage
  */
 function saveTasks() {
+    console.log("saving tasks")
     let tasks = [];
     document.querySelectorAll('.task-container li').forEach(task => {
         //let checkbox = task.querySelector('input[type="task-checkbox"]');
@@ -532,6 +532,7 @@ function saveJournal() {
  * Saves the completed tasks per day
  */
 function saveCompleted(){
+    console.log("saving completed tasks");
     let data = getJournal();
     let completedTask = [];
     dateText = new Date(date.textContent).toLocaleDateString();
