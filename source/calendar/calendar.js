@@ -44,7 +44,6 @@ function initButtons(){
         btn.addEventListener("click", () => {
             let monthValue = btn.getAttribute("value");
             jump(monthValue, year);
-            monthDropdown();
         });
     });
     let yearJumpBtn = document.querySelectorAll(".year-btn");
@@ -52,7 +51,6 @@ function initButtons(){
         btn.addEventListener("click", () => {
             let yearValue = btn.getAttribute("value");
             jump(month, yearValue);
-            yearDropdown();
         });
     });
 
