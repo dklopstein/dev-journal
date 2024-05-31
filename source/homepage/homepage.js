@@ -15,7 +15,7 @@ function init() {
 
     displayWeek();
     initButtons();
-
+    clickTaskList();
 
 }
 
@@ -343,6 +343,24 @@ function dateQuery() {
         let components = date.split('-');
         currDate = new Date(components[2], components[0], components[1]);
     }
+}
+
+
+function clickTaskList() {
+    const taskList = document.querySelector('.task-list');
+    const outSide = document.querySelector('.main-wrap');
+    taskList.addEventListener('click', function(event) {
+        if (event.target === taskList) {
+            if (window.innerWidth <= 800) { 
+                taskList.classList.toggle('active');
+            }
+        }
+    });
+    outSide.addEventListener('click', function(event){
+        if (window.innerWidth <= 800) { 
+            taskList.classList.remove('active');
+        }
+    });
 }
 
 function taskColor(){
