@@ -386,7 +386,7 @@ function taskColor(){
 const journal = document.getElementById("textarea");
 const date = document.getElementById("current-date");
 const tasks = document.querySelector(".task-container");
-const completedTasks = document.querySelectorAll(".completed-task-container");
+const completedTasks = document.querySelector(".completed-task-container");
 
 // Load journal entry and tasks from local storage on page load
 window.onload = function () {
