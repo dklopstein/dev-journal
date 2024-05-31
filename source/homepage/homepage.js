@@ -40,6 +40,16 @@ function init() {
             selectWidget(id);
         });
     });
+    // Save journal entry and tasks to local storage on events
+    journal.addEventListener("blur", saveJournal)
+    tasks.addEventListener("blur", saveTasks)
+    tasks.addEventListener("change", saveTasks)
+    tasks.addEventListener("blur", saveCompleted)
+    tasks.addEventListener("change", saveCompleted)
+    completedTasks.addEventListener("blur", saveCompleted)
+    completedTasks.addEventListener("change", saveCompleted)
+    completedTasks.addEventListener("blur", saveTasks)
+    completedTasks.addEventListener("change", saveTasks)
 }
 
 /**
@@ -414,7 +424,7 @@ window.onbeforeunload = function () {
  * @param {string} value - value to store
  * 
  */
-function saveToStorage(data, dateText, key, value) {
+export function saveToStorage(data, dateText, key, value) {
     if (!(dateText in data)) {
         data[dateText] = {}
     }
@@ -428,7 +438,7 @@ function saveToStorage(data, dateText, key, value) {
  * @param {string} dateText - date of the journal entry in locale date string format
  * @param {string} key - key to get the value from
  */
-function loadFromStorage(data, dateText, key) {
+export function loadFromStorage(data, dateText, key) {
     if (!(dateText in data)) {
         return;
     }
@@ -451,7 +461,7 @@ function saveJournal() {
  * 
  * @returns {string} journal entry text in parsed json format
  */
-function getJournal() {
+export function getJournal() {
     let data = JSON.parse(localStorage.getItem("journals"))
     if (data == null) {
         data = {}
@@ -625,13 +635,3 @@ function loadAll() {
     loadWidgets();
     loadCompleted();
 }
-// Save journal entry and tasks to local storage on events
-journal.addEventListener("blur", saveJournal)
-tasks.addEventListener("blur", saveTasks)
-tasks.addEventListener("change", saveTasks)
-tasks.addEventListener("blur", saveCompleted)
-tasks.addEventListener("change", saveCompleted)
-completedTasks.addEventListener("blur", saveCompleted)
-completedTasks.addEventListener("change", saveCompleted)
-completedTasks.addEventListener("blur", saveTasks)
-completedTasks.addEventListener("change", saveTasks)

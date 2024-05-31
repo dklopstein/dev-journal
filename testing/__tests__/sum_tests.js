@@ -1,11 +1,39 @@
-// sum.test.js
+// storage.test.js
 
-import { sum } from '../code_to_test/sum';
+import { 
+  saveToStorage,
+  loadFromStorage,
+  // saveJournal,
+  getJournal,
+  // loadJournal,
+  // saveTasks,
+  // getTasks,
+  // loadTasks,
+  // saveCompleted,
+  // getCompleted,
+  // loadCompleted,
+  // saveWidgets,
+  // loadWidgets
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(1 + 2).toBe(3);
+} from '../../source/homepage/homepage.js';
+
+beforeEach(() => {
 });
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(2,2)).toBe(4);
+test('save and load', () => {
+  let journal = [];
+  let dateText = "5/30/2024";
+  saveToStorage(journal, dateText, "rating", 5)
+  saveToStorage(journal, dateText, "productivity", 8)
+  expect(loadFromStorage(journal, dateText, "rating")).toBe(5);
+  expect(loadFromStorage(journal, dateText, "productivity")).toBe(8);
+  localStorage.setItem("journals", JSON.stringify(journal));
+  
 });
+
+test('getJournal', () => {
+  let journal = JSON.parse(localStorage.getItem("journals"));
+  let dateText = "5/30/2024";
+  expect(getJournal(journal, dateText)).toStrictEqual({rating: 5, productivity: 8});
+});
+
