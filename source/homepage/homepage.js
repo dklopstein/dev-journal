@@ -528,6 +528,9 @@ function saveJournal() {
 }
  */
 
+/**
+ * Saves the completed tasks per day
+ */
 function saveCompleted(){
     data = getJournal();
     let completedTask = [];
