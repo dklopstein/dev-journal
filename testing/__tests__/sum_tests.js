@@ -3,9 +3,7 @@
 import { 
   saveToStorage,
   loadFromStorage,
-  // saveJournal,
   getJournal,
-  // loadJournal,
   // saveTasks,
   // getTasks,
   // loadTasks,
@@ -21,19 +19,23 @@ beforeEach(() => {
 });
 
 test('save and load', () => {
-  let journal = [];
+  let journals = [];
   let dateText = "5/30/2024";
-  saveToStorage(journal, dateText, "rating", 5)
-  saveToStorage(journal, dateText, "productivity", 8)
-  expect(loadFromStorage(journal, dateText, "rating")).toBe(5);
-  expect(loadFromStorage(journal, dateText, "productivity")).toBe(8);
-  localStorage.setItem("journals", JSON.stringify(journal));
-  
+  saveToStorage(journals, dateText, "rating", 5)
+  saveToStorage(journals, dateText, "productivity", 8)
+  expect(loadFromStorage(journals, dateText, "rating")).toBe(5);
+  expect(loadFromStorage(journals, dateText, "productivity")).toBe(8);
 });
 
 test('getJournal', () => {
-  let journal = JSON.parse(localStorage.getItem("journals"));
+  let journals = {
+    "5/30/2024": {
+      rating: 5,
+      productivity: 8
+    }
+  };
   let dateText = "5/30/2024";
-  expect(getJournal(journal, dateText)).toStrictEqual({rating: 5, productivity: 8});
+  localStorage.setItem("journals", JSON.stringify(journals));
+  expect(getJournal()).toStrictEqual(journals);
 });
 

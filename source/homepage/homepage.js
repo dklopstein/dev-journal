@@ -542,9 +542,9 @@ function saveJournal() {
  * Saves the completed tasks per day
  */
 function saveCompleted(){
-    data = getJournal();
+    let data = getJournal();
     let completedTask = [];
-    dateText = new Date(date.textContent).toLocaleDateString();
+    let dateText = new Date(date.textContent).toLocaleDateString();
     document.querySelectorAll('#completedTaskContainer li').forEach(completedTaskElement => {
         let taskName = completedTaskElement.querySelector('textarea').value;
         let taskColor = completedTaskElement.style.background
@@ -560,7 +560,7 @@ function saveCompleted(){
 }
 
 function getCompleted() {
-    data = getJournal();
+    let data = getJournal();
     let dateText = new Date(date.textContent).toLocaleDateString();
     let storedTasks = loadFromStorage(data, dateText, "completedTasks");
     return storedTasks ? storedTasks : [];
