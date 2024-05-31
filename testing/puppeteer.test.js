@@ -1,42 +1,47 @@
 // All of the commented out code in the beginning is there to display the browser when running tests locally
 
-//const puppeteer = require('puppeteer');
+// const puppeteer = require('puppeteer');
+// let browser;
+// let page;
 
 // E2E Testing with Puppeteer
 describe('Basic user path in homepage', () => {
-  // let browser;
-  // let page;
 
-  // Open the webpage
-  beforeAll(async () => {
-    // // Launch a browser
-    // browser = await puppeteer.launch({
-    //   headless: false, // Set to true for headless mode
-    //   defaultViewport: null, // Use full screen
-    //   args: ['--start-maximized'], // Start maximized
-    //   slowMo: 15 // Slow down the actions taken
-    // });
+  // // Open the webpage
+  // beforeAll(async () => {
+  //   // Launch a browser
+  //   browser = await puppeteer.launch({
+  //     headless: false, // Set to true for headless mode
+  //     defaultViewport: null, // Use full screen
+  //     args: ['--start-maximized'], // Start maximized
+  //     slowMo: 15 // Slow down the actions taken
+  //   });
 
-    // // Close the initial blank page
-    // const initialPages = await browser.pages();
-    // if (initialPages.length > 0) {
-    //   await initialPages[0].close();
-    // }
+  //   // Close the initial blank page
+  //   const initialPages = await browser.pages();
+  //   if (initialPages.length > 0) {
+  //     await initialPages[0].close();
+  //   }
 
-    // // Open a new page
-    // page = await browser.newPage();
+  //   // Open a new page
+  //   page = await browser.newPage();
 
-    // Visit dev journal website with github pages
-    // await page.goto('https://cse110-sp24-group25.github.io/cse110-sp24-group25/source/homepage/homepage.html');
+  //   // Visit dev journal website with github pages
+  //   // await page.goto('https://cse110-sp24-group25.github.io/cse110-sp24-group25/source/homepage/homepage.html');
 
-    // Visit dev journal using live server
-    await page.goto('http://127.0.0.1:5500/source/homepage/homepage.html');
-  });
+  //   // Visit dev journal using live server
+  //   await page.goto('http://127.0.0.1:5500/source/homepage/homepage.html');
+  // });
 
-  // Close the browser after every test executes
+  // // Close the browser after every test executes
   // afterAll(async () => {
   //   await browser.close();
   // });
+
+  beforeAll(async () => {
+    // Visit dev journal using live server
+    await page.goto('http://127.0.0.1:5500/source/homepage/homepage.html');
+  });
 
   // Edit Journal
   it('Click into journal, type, click out', async () => {
@@ -69,16 +74,18 @@ describe('Basic user path in homepage', () => {
     console.log('Testing feelings widget first click...');
 
     // Click happiest rating button
-    const happy = await page.$('#btn5');
+    const happy = await page.$('#btn2');
     await happy.click();
 
     // Get img element
-    const img = await page.$('#btn5 img');
+    const img = await page.$('#btn2 img');
 
     // Check class name to include active
-    const class_name = await page.evaluate(img => {
-      return img.getAttribute('class');
+    const class_name = await page.evaluate(image => {
+      return image.getAttribute('class');
     }, img);
+
+     console.log(class_name);
 
     // Expect active got added to happy class name
     expect(class_name).toBe("active");
@@ -93,7 +100,7 @@ describe('Basic user path in homepage', () => {
     await mad.click();
 
     // Get img element for happy and mad
-    const img_happy = await page.$('#btn5 img');
+    const img_happy = await page.$('#btn2 img');
     const img_mad = await page.$('#btn1 img');
 
     // Store class name of both happy and mad
@@ -103,6 +110,8 @@ describe('Basic user path in homepage', () => {
     const class_name_mad = await page.evaluate(img_mad => {
       return img_mad.getAttribute('class');
     }, img_mad);
+
+    console.log(class_name_mad);
 
     // Expect active removed from happy and added to mad
     expect(class_name_mad).toBe("active");
@@ -114,11 +123,11 @@ describe('Basic user path in homepage', () => {
     console.log('Testing productivity widget first click...');
 
     // Click 5 productivity rating button
-    const pro5 = await page.$('#btn10');
+    const pro5 = await page.$('#btn9');
     await pro5.click();
 
     // Get img element
-    const img = await page.$('#btn10 img');
+    const img = await page.$('#btn9 img');
     // Get class name of 1 productivity
 
     const class_name = await page.evaluate(img => {
@@ -139,7 +148,7 @@ describe('Basic user path in homepage', () => {
 
     // Get img elements
     const img_1 = await page.$('#btn6 img');
-    const img_5 = await page.$('#btn10 img');
+    const img_5 = await page.$('#btn9 img');
 
     // Get class name of 1 and 5 productivity imgs
     const class_name_1 = await page.evaluate(img_1 => {
@@ -162,5 +171,5 @@ describe('Basic user path in homepage', () => {
   });
 
   // TODO: Add more tests
-  
+
 });
