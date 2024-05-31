@@ -333,9 +333,10 @@ function clickTaskList() {
     const mainWrap = document.querySelector('.main-wrap');
 
     taskList.addEventListener('click', function() {
+        if (window.innerWidth <= 800) { 
         this.classList.toggle('active');
         mainWrap.classList.toggle('active');
-    })
+    }})
 }
 
 function taskColor(){
