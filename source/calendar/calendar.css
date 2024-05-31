@@ -41,101 +41,216 @@ select {
 }
  
 /* TASK LIST */
-/* Task list sidebar */
+/* Start of task list */
 .task-list { 
-  flex: 0 0 max(18%,16em);
+  flex: 0 0 18%;
+  max-width: 17rem; /* Prevents task list expanding with long task names */
   height:100%;
   margin: 5px;
   padding: 1%;
   border-radius: 15px;
   background-color: white;
   box-shadow: 1px 1px lightgrey;
+
+  overflow-y: scroll;
 }
 
-@media (max-width: 880px) {
+/* Hides task list when page reaches certain size */
+@media (max-width: 800px) {
   .task-list {
       display: none;
   }
-}
-
-@media (max-width: 700px) {
-  .task-ul {
-    display: none;
+  .journal-past-wrap .task-list {
+    display: block;
   }
 }
 
+/* Formatting for the task list header */
+.task-header {
+  display: flex;
+}
+
+/* Aligns add button to right */
+#addbutton {
+  margin-left: auto;
+}
+
+/* Formatting for the add button */
+#addbutton img {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+/* Wrap for task name and checkbox */
+/* .task-list .input-wrap {
+  display: flex;
+  justify-content: flex-start;
+} */
+
+/* Styling for task name */
+.task-list .task-name {
+  width: max(10em, 12vw);
+  resize: none; /* Prevents user from resizing */
+  overflow: hidden; /* Hides scrollbar */
+  margin-top: -4px;
+  height: 24px;
+  max-height: 108px;
+  /* Hide background and border */
+  background-color: rgba(0, 0, 0, 0);
+  border: rgba(0, 0, 0, 0);
+}
+
+/* New width when in completed task list */
+.complete .task-name {
+  width: max(14em, calc(10em + 13vw));
+}
+
+/* Hides bullets for list */
 .task-list ul {
   list-style: none;
   padding: 0;
 }
 
-.task-list li {
-  background: #e0e0e0;
-  margin-top: 5px;
+/* ************ CHRIS NEW CODE ************** */
+
+/* Sizing for each individual task */
+.task {
+  background: var(--main-color);
   padding: 10px;
+  margin-top: 0.5em;
+  margin-bottom: 0.5;
   border-radius: 5px;
-  position: relative; /* Sets context for absolute positioning of children */
-  overflow: hidden; /* Ensures description expands within the li */
-  cursor: pointer; /* Indicates you can interact with the item */
-  text-align: left; /* Keeps text left-aligned */
+  position: relative;
+  overflow: hidden;
+  word-wrap: break-word;
+  text-align: left;
+  /* Set max height */
+  transition: max-height 0.5s ease-in;
+  max-height: 4em;
 }
 
+.task:hover {
+  max-height: fit-content;
+}
+
+/* Input box for task name */
+.task-input {
+  margin-left: 1.4em;
+  margin-right: 0.6em;
+  min-width: 80%;
+  border: none;
+  padding: 4px;
+}
+
+/* Styling when editing a task */
+.task:has(.task-input:focus) {
+  max-height: fit-content;
+
+  /* Make buttons appear */
+  .color-buttons {
+    opacity: 1;
+  }
+
+  .task-input {
+    outline: 0px solid transparent;
+    border: var(--accent-color) solid 1px;
+    border-radius: 0.6em;
+    box-shadow: 0 0 5px #719ECE;
+  }
+}
+
+/* Set task placeholder */
+.task-input:empty:before {
+  content: attr(placeholder);
+  pointer-events: none;
+  display: block;
+
+  color: rgb(97, 97, 97)
+}
+
+/* ********************** END CHRIS NEW CODE ************ */
+
+/* Positioning for trash icon */
 .fas.fa-trash-alt {
   position: absolute; /* Positioning relative to the nearest positioned ancestor */
-  top: 10px; /* Distance from the top edge of the li */
-  right: 10px; /* Distance from the right edge of the li */
+  top: 2px; /* Distance from the top edge of the li */
+  right: 2px; /* Distance from the right edge of the li */
   width: 18px;
   height: 18px;
   cursor: pointer;
 }
 
-.due-date {
-  font-size: 80%;
-  color: grey;
-  text-align: right;
+/* Display buttons when hovering or actively editing */
+.task:hover .color-buttons {
+  opacity: 1; /* Brings the buttons back into view */
 }
 
-.task-desc {
-  max-height: 0; /* Start with max-height 0 to keep it hidden */
-  overflow: hidden; /* Prevents any content from spilling out */
-  overflow-wrap: break-word; /* Force words to break and wrap inside the box */
-  word-break: break-word;
-  transition: max-height 0.3s ease-in-out, padding 0.2s ease-in-out; /* Smooth transition for max-height and padding */
-}
-
-.task-list li:hover .task-desc {
-  max-height: 200px; /* Enough max-height to show the content */
-}
-
+/* Checkbox appearance */
 .task-checkbox {
+  position: absolute;
+  top: 1.4em;
   appearance: none;
   margin: 0 10px 0 0;
   width: 16px;
   height: 16px;
-  border: 2px solid #555;
+  border: 2px solid black;
   border-radius: 50%;
   vertical-align: middle;
   cursor: pointer;
-  position: relative;
-  display: inline-block;
 }
 
-.task-checkbox:checked {
-  background-color: #537692;
-  border-color: #537692;
+/* Formatting for check in checkbox */
+.task-checkbox img {
+  height: 15px;
+  margin-left: -6px;
 }
 
-.task-checkbox:checked::after {
-  content: "";
-  position: absolute;
-  left: 3px;
-  top: 1px;
-  width: 5px;
-  height: 8px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
+/* Change to indicate task was completed */
+.complete .task-checkbox {
+  background: black;
 }
+
+/* Default set up for color buttons */
+.color-buttons {
+  opacity: 0; /* Hide buttons */
+  transition: opacity 0.3s ease; /* Transition for buttons reappearing */
+  max-height: 5em; /* Enough max-height to show the content */
+  display: flex; /* Lays out the buttons in a row */
+  justify-content: space-around; /* Spaces buttons evenly */
+  margin-top: 5px; /* Space from the description */
+}
+
+/* Size of each color button */
+.color-button {
+  width: 15px; /* Uniform button size */
+  height: 15px; /* Uniform button size */
+  border-radius: 100%; /* Makes the buttons circular */
+
+  border: solid grey 1px;
+
+  &#purple {
+    background-color: #C380CC;
+  }
+
+  &#green {
+    background-color: #91DC79;
+  }
+
+  &#blue {
+    background-color: #6BB1D9;
+  }
+
+  &#pink {
+    background-color: #EEBAE9;
+  }
+
+  &#grey {
+    background-color: var(--main-color);
+  }
+}
+
+/* End of task list */
 
 /* Start of top bar */
 .top-bar {

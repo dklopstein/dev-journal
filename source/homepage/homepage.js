@@ -104,12 +104,14 @@ function selectWidget(buttonIndex) {
     }
 }
 
-/* My new addTask function, early stages feel free to edit */
-async function addTask() {
+/**
+ * Adds task to task list upon "Add Task" button click.
+ */
+function addTask() {
     const taskList = document.querySelector(".task-list");
     const task = document.createElement("li");
     task.setAttribute("class", "task");
-    await task.insertAdjacentHTML("beforeend", `
+    task.insertAdjacentHTML("beforeend", `
         <div class="check-input-wrap">
             <button id="task1" class="task-checkbox"></button>
             <div contenteditable="true" class="task-input" placeholder="Add a task..." onkeypress="return this.innerText.length <= 180;"></div>
@@ -150,8 +152,8 @@ async function addTask() {
 }
 
 /**
- * Adds color changing functionality to task; called within addTask
- * @param {Task Node} task 
+ * Adds button functionality to task upon creation
+ * @param {Task Node} task - the task to have functionality
  */
 function taskButtonsFunctionality(task) {
 

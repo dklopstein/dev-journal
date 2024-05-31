@@ -54,6 +54,10 @@ function initButtons(){
         });
     });
 
+    // TASK LIST BUTTONS
+    const addTaskBtn = document.querySelector(".add-task-btn");
+    addTaskBtn.addEventListener("click", addTask);
+
     // RESIZE WINDOW FOR RESPONSIVENESS
     window.addEventListener('resize', windowWidth);
 }
@@ -332,3 +336,106 @@ function windowWidth() {
     let monthWidth = document.getElementById('month-dropdown').offsetWidth;
     document.getElementById('year-dropdown').style.left = monthWidth + 5 + 'px';
   }
+
+
+  /* My new addTask function, early stages feel free to edit */
+async function addTask() {
+    const taskList = document.querySelector(".task-list");
+    const task = document.createElement("li");
+    task.setAttribute("class", "task");
+    await task.insertAdjacentHTML("beforeend", `
+        <div class="check-input-wrap">
+            <button id="task1" class="task-checkbox"></button>
+            <div contenteditable="true" class="task-input" placeholder="Add a task..." onkeypress="return this.innerText.length <= 180;"></div>
+        </div>
+        <div class="color-buttons">
+            <button id="purple" class="color-button"></button>
+            <button id="green" class="color-button"></button>
+            <button id="blue" class="color-button"></button>
+            <button id="pink" class="color-button"></button>
+            <button id="grey" class="color-button"></button>
+        </div>
+        <img class="fas fa-trash-alt" src="../icons/trash-icon.svg" alt="Remove">
+    `);
+    taskList.append(task);
+
+    // listener to stop editing when user presses enter
+    const task_name = task.querySelector(".task-input");
+    task_name.addEventListener('keydown', function(event) {
+        if (event.key == 'Enter') {
+            if (!event.shiftKey) {
+                // Shift+Enter pressed, insert a line break
+                // Enter pressed, end editing
+                event.preventDefault(); // Prevent default behavior of Enter key
+                task_name.blur(); // Remove focus from the element
+                //li.classList.remove('active');
+            }
+        }
+    });
+
+    // Auto click into the task name text box
+    setTimeout(() => {
+        task_name.focus();
+        document.getSelection().collapseToEnd();
+    }, 0);
+
+    // add functionality to task buttons
+    taskButtonsFunctionality(task);
+}
+
+/**
+ * Adds color changing functionality to task; called within addTask
+ * @param {Task Node} task 
+ */
+function taskButtonsFunctionality(task) {
+
+    /* Implement color changing functionality */
+    const colorBtns = task.querySelectorAll(".color-button");
+    console.log(colorBtns);
+    colorBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            let color;
+            switch (btn.id) {
+                case "purple":
+                    color = "#C380CC";
+                    break;
+                case "green":
+                    color = "#91DC79";
+                    break;
+                case "blue":
+                    color = "#6BB1D9";
+                    break;
+                case "pink":
+                    color = "#EEBAE9";
+                    break;
+                default:
+                    color = "var(--main-color)";
+            }
+            task.style['background-color'] = color;
+        });
+    });
+
+    /* Trash icon delete functionality */
+    const deleteIcon = task.querySelector(".fas");
+    deleteIcon.addEventListener("click", () => {
+        task.remove();
+    });
+
+    /* Checkbox move to Completed Tasks functionality */
+    const checkbox = task.querySelector(".task-checkbox");
+    checkbox.addEventListener('click', function() {
+        // Add or remove completed from class name
+        // Find closest li item (task)
+
+        if (task.className.includes('complete')) {
+            task.classList.remove('complete');
+            const taskContainer = document.querySelector('.task-list');
+            taskContainer.appendChild(task);
+        }
+        else {
+            task.classList.add('complete');
+            const completedTaskContainer = document.querySelector('.completed-task-container');
+            completedTaskContainer.appendChild(task);
+        }
+    });
+}
