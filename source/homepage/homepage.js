@@ -143,6 +143,7 @@ function addTask() {
     `);
     task.querySelector(".task-input").addEventListener("input", saveCompleted)
 
+
     taskList.append(task);
 
     // listener to stop editing when user presses enter
@@ -200,6 +201,8 @@ function addTask() {
                     color = "var(--main-color)";
             }
             task.style['background-color'] = color;
+            saveCompleted();
+            saveTasks();
         });
     });
 
@@ -218,13 +221,17 @@ deleteIcon.addEventListener("click", () => {
         if (task.className.includes('complete')) {
             task.classList.remove('complete');
             const taskContainer = document.querySelector('.task-container');
-            taskContainer.appendChild(task);
+            taskContainer.appendChild(task);    
             task.addEventListener("blur", saveTasks);
+            saveCompleted();
+            saveTasks();
         }
         else {
             task.classList.add('complete');
             const completedTaskContainer = document.querySelector('.completed-task-container');
             completedTaskContainer.appendChild(task);
+            saveCompleted();
+            saveTasks();
         }
     });
 }
