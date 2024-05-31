@@ -1,0 +1,23 @@
+name: Puppeteer Testing
+
+on: pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Install Live Server globally
+      run: npm install -g live-server
+
+    - name: Start Live Server
+      run: live-server --port=5500 --no-browser &
+
+    - name: Run Puppeteer tests
+      run: npm test ./testing/puppeteer.test.js

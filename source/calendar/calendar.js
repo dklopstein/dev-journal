@@ -14,10 +14,10 @@ function updateDateGlobals() {
 
 // When page loads
 function init(){
-    // Initially display the jump button
-    displayJump(year-5,year+5);
+    // Initiaze the jump buttons
+    displayJump(year-6,year+5);
 
-    // Initially display the calendar and calendar header
+    // Initially display the calendar, calendar header, and task colors
     calendarHeader();
     displayCalendar();
 
@@ -30,24 +30,36 @@ function init(){
 
 function initButtons(){
 
-    // PREVIOUS BUTTON
-    let prevBtn = document.getElementById("previous");
+    // PREVIOUS MONTH BUTTON
+    let prevBtn = document.querySelector(".prev-date-btn");
     prevBtn.addEventListener('click', prev);
 
-    // NEXT BUTTON
-    let nextBtn = document.getElementById("next");
+    // NEXT MONTH BUTTON
+    let nextBtn = document.querySelector(".next-date-btn");
     nextBtn.addEventListener('click', next);
 
-    // CALENDAR BUTTON
-    let calendarBtn = document.getElementById("calendarpage");
-    console.log(calendarBtn);
-    calendarBtn.addEventListener('click', calendarButton);
+    // JUMP HEADER BUTTONS
+    let monthJumpBtn = document.querySelectorAll(".month-btn");
+    monthJumpBtn.forEach(btn => {
+        btn.addEventListener("click", () => {
+            let monthValue = btn.getAttribute("value");
+            jump(monthValue, year);
+        });
+    });
+    let yearJumpBtn = document.querySelectorAll(".year-btn");
+    yearJumpBtn.forEach(btn => {
+        btn.addEventListener("click", () => {
+            let yearValue = btn.getAttribute("value");
+            jump(month, yearValue);
+        });
+    });
 
-    // JUMP BUTTON
-    let monthBtn = document.getElementById("month");
-    monthBtn.addEventListener('change', jump);
-    let yearBtn = document.getElementById("year");
-    yearBtn.addEventListener('change', jump);
+    // TASK LIST BUTTONS
+    const addTaskBtn = document.querySelector(".add-task-btn");
+    addTaskBtn.addEventListener("click", addTask);
+
+    // RESIZE WINDOW FOR RESPONSIVENESS
+    window.addEventListener('resize', windowWidth);
 }
 
 // Function to goto next month
@@ -66,13 +78,6 @@ function prev(){
     displayCalendar();
 }
 
-
-// Function to go back to today's month when clicking the calendar button
-function calendarButton() {
-    currDate = new Date();
-    updateDateGlobals();
-    displayCalendar();
-}
  
 // Function to display the calendar
 function displayCalendar(){
@@ -92,14 +97,10 @@ function displayCalendar(){
     let dayOffset = -(currCalendarMonth.getDay());
 
     // Get month and year header
-    let monthYearHeader = document.getElementById("monthYearHeader");
-    monthYearHeader.textContent = allMonths[parseInt(month, 10)] + " " + year;
-
-    // Get and update jump with current month and year
-    let selectYear = document.getElementById("year");
-    let selectMonth = document.getElementById("month");
-    selectMonth.value = month;
-    selectYear.value = year;
+    let monthHeader = document.getElementById("month");
+    let yearHeader = document.getElementById("year");
+    monthHeader.textContent = allMonths[parseInt(month, 10)];
+    yearHeader.textContent = year;
 
     let currDay;
     // BUILD CALENDAR
@@ -129,6 +130,7 @@ function displayCalendar(){
             // Add number and class to cellNum
             cellNum.textContent = currDay;
             cellNum.className = "cell-date";
+            let cellDate = new Date(currCalendarMonth);
 
             // If current month
             if (currCalendarMonth.getMonth() === currDate.getMonth()) {
@@ -155,69 +157,96 @@ function displayCalendar(){
             // Add cell number to calendar cell
             cellData.appendChild(cellNum);
 
+            if (cellDate <= today) {
 
-            // Add sentiment icon
-            let sentimentIcon = document.createElement("img");
-            sentimentIcon.src = "./icons/5overjoyed.png"; 
-            sentimentIcon.alt = "sentiment icon";
-            sentimentIcon.className = "sentiment-icon";
-            // Append sentiment icon to new cell
-            cellData.appendChild(sentimentIcon);
+                // Add sentiment icon
+                let sentimentIcon = document.createElement("img");
+                sentimentIcon.src = "./icons/5overjoyed.png"; 
+                sentimentIcon.alt = "sentiment icon";
+                sentimentIcon.className = "sentiment-icon";
+                // Append sentiment icon to new cell
+                cellData.appendChild(sentimentIcon);
 
-            // Add productivity icon
-            let productivityIcon = document.createElement("img");
-            productivityIcon.src = "./icons/5overjoyed.png"; 
-            productivityIcon.alt = "productivity icon";
-            productivityIcon.className = "productivity-icon";
-            // Append sentiment icon to new cell
-            cellData.appendChild(productivityIcon);
+                // Add productivity icon
+                let productivityIcon = document.createElement("img");
+                productivityIcon.src = "./icons/5overjoyed.png"; 
+                productivityIcon.alt = "productivity icon";
+                productivityIcon.className = "productivity-icon";
+                // Append sentiment icon to new cell
+                cellData.appendChild(productivityIcon);
 
-            // Add tasklist in calendar cell
-            // Create tasklist div
-            let taskDiv = document.createElement("div");
-            taskDiv.className = "task-div";
-            // Create unordered list
-            let taskList = document.createElement("ul");
-            taskList.className = "task-ul";
-            // first task
-            let task1 = document.createElement("li");
-            task1.textContent = "I am the first task";
-            task1.className = "task-item";
-            taskList.appendChild(task1);
-            // second task
-            let task2 = document.createElement("li");
-            task2.textContent = "I am the second task";
-            task2.className = "task-item";
-            taskList.appendChild(task2);
-            // third task
-            let task3 = document.createElement("li");
-            task3.textContent = "I am the third task";
-            task3.className = "task-item";
-            taskList.appendChild(task3);
-            // Append taskList to task div;
-            taskDiv.appendChild(taskList);
-            // Append tasklist div to new cell
-            cellData.appendChild(taskDiv);
+                // Add tasklist in calendar cell
+                // Create tasklist div
+                let taskDiv = document.createElement("div");
+                taskDiv.className = "task-div";
+                // Create unordered list
+                let taskList = document.createElement("ul");
+                taskList.className = "task-ul";
+                // first task
+                let task1 = document.createElement("li");
+                task1.textContent = "I am the first task";
+                task1.className = "task-item";
+                taskList.appendChild(task1);
+                // second task
+                let task2 = document.createElement("li");
+                task2.textContent = "I am the second task";
+                task2.className = "task-item";
+                taskList.appendChild(task2);
+                
+                // extra tasks
+                let taskExtra = document.createElement("li");
+                taskExtra.textContent = "5+";               // Change with #Tasks-2
+                taskExtra.className = "task-indicator";
+                taskList.appendChild(taskExtra);
 
+                // Append taskList to task div;
+                taskDiv.appendChild(taskList);
+                // Append tasklist div to new cell
+                cellData.appendChild(taskDiv);
+
+                
+                // Create buttons that link to speciic homepage and extract selected date
+                let aLink = document.createElement("a");
+                let dayLink = currCalendarMonth.getDate();
+                let monthLink = currCalendarMonth.getMonth();
+                let yearLink = currCalendarMonth.getFullYear()
+
+                // Query is in format ?date=month-day-year
+                aLink.href = `../homepage/homepage.html?date=${monthLink}-${dayLink}-${yearLink}`;
+                aLink.className = "a-link";
+                cellData.appendChild(aLink);
+                
+            }
             // Append new cell to row
             row.appendChild(cellData);
         }
         // Append row to table
         tbody.appendChild(row);
     }
+    
+    // Add taskcolor to calendar cells
+    taskColor();
+    // Change the header if the window size is too small
+    windowWidth();
+
+    // Get the width of month and align the year 
+    let monthWidth = document.getElementById('month-dropdown').offsetWidth;
+    document.getElementById('year-dropdown').style.left = monthWidth + 5 + 'px';
 }
 
 // Generate dropdown year range
 function displayJump(startYear, endYear) {
-
     // YEARS
-    let yearDropdown = document.getElementById("year")
+    let yearDropdown = document.getElementById("year-dropdown")
+
     // Loop through year range and append to list
     for (let yr = startYear; yr < endYear+1; yr++) {
-        let yearJump = document.createElement("option");
+        let yearJump = document.createElement("button");
         yearJump.value = yr;
         yearJump.textContent = yr;
+        yearJump.className = "year-btn";
         yearDropdown.appendChild(yearJump);
+        
     }
 
     // MONTHS
@@ -225,23 +254,20 @@ function displayJump(startYear, endYear) {
         "January","February","March","April","May","June",
         "July","August","September","October","November","December"
     ];
-    let monthDropdown = document.getElementById("month")
+    let monthDropdown = document.getElementById("month-dropdown")
     // Loop through months and append to list
     for (let mnth = 0; mnth < 12; mnth++) {
-        let monthJump = document.createElement("option");
+        let monthJump = document.createElement("button");
         monthJump.value = mnth;
         monthJump.textContent = allMonths[parseInt(mnth,10)];
+        monthJump.className = "month-btn";
         monthDropdown.appendChild(monthJump);
     }
 }
 
 // Function to jump to a specific month and year
-function jump() {
-    let selectYear = document.getElementById("year");
-    let selectMonth = document.getElementById("month");
-    let jumpMonth = parseInt(selectMonth.value, 10);
-    let jumpYear = parseInt(selectYear.value, 10);
-    currDate = new Date(jumpYear, jumpMonth)
+function jump(mnth, yr) {
+    currDate = new Date(yr, mnth)
     updateDateGlobals();
     displayCalendar();
 }
@@ -261,4 +287,148 @@ function calendarHeader(){
         headerRow.appendChild(headerData);
     }
     thead.appendChild(headerRow);
+}
+
+
+function taskColor(){
+    // Get all elements with class .task-item
+    const taskItems = document.querySelectorAll('.task-item');
+    // Loop through each task item and assign a random color
+    taskItems.forEach(taskItem => {
+        // Generate a random color
+        const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+        
+        // Set the color as the value of --task-color for this task item
+        taskItem.style.setProperty('--task-color', randomColor);
+    });
+}
+
+// Resize header if width of window decreases
+function windowWidth() {
+    if (window.innerWidth < 920) {
+        // Initialize list of abbreviated months
+        let allMonths = [
+            "Jan","Feb","Mar","Apr","May","Jun",
+            "Jul","Aug","Sept","Oct","Nov","Dec"
+        ];
+
+        let monthHeader = document.getElementById("month");
+        monthHeader.textContent = allMonths[parseInt(month, 10)];
+    }
+    else{
+        // Initialize list of months
+        let allMonths = [
+        "January","February","March","April","May","June",
+        "July","August","September","October","November","December"
+        ];
+        let monthHeader = document.getElementById("month");
+        monthHeader.textContent = allMonths[parseInt(month, 10)];
+    }
+
+    // Get the width of month and align the year 
+    let monthWidth = document.getElementById('month-dropdown').offsetWidth;
+    document.getElementById('year-dropdown').style.left = monthWidth + 5 + 'px';
+  }
+
+
+  /* My new addTask function, early stages feel free to edit */
+async function addTask() {
+    const taskList = document.querySelector(".task-list");
+    const task = document.createElement("li");
+    task.setAttribute("class", "task");
+    await task.insertAdjacentHTML("beforeend", `
+        <div class="check-input-wrap">
+            <button id="task1" class="task-checkbox"></button>
+            <div contenteditable="true" class="task-input" placeholder="Add a task..." onkeypress="return this.innerText.length <= 180;"></div>
+        </div>
+        <div class="color-buttons">
+            <button id="purple" class="color-button"></button>
+            <button id="green" class="color-button"></button>
+            <button id="blue" class="color-button"></button>
+            <button id="pink" class="color-button"></button>
+            <button id="grey" class="color-button"></button>
+        </div>
+        <img class="fas fa-trash-alt" src="../icons/trash-icon.svg" alt="Remove">
+    `);
+    taskList.append(task);
+
+    // listener to stop editing when user presses enter
+    const task_name = task.querySelector(".task-input");
+    task_name.addEventListener('keydown', function(event) {
+        if (event.key == 'Enter') {
+            if (!event.shiftKey) {
+                // Shift+Enter pressed, insert a line break
+                // Enter pressed, end editing
+                event.preventDefault(); // Prevent default behavior of Enter key
+                task_name.blur(); // Remove focus from the element
+                //li.classList.remove('active');
+            }
+        }
+    });
+
+    // Auto click into the task name text box
+    setTimeout(() => {
+        task_name.focus();
+        document.getSelection().collapseToEnd();
+    }, 0);
+
+    // add functionality to task buttons
+    taskButtonsFunctionality(task);
+}
+
+/**
+ * Adds color changing functionality to task; called within addTask
+ * @param {Task Node} task 
+ */
+function taskButtonsFunctionality(task) {
+
+    /* Implement color changing functionality */
+    const colorBtns = task.querySelectorAll(".color-button");
+    console.log(colorBtns);
+    colorBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            let color;
+            switch (btn.id) {
+                case "purple":
+                    color = "#C380CC";
+                    break;
+                case "green":
+                    color = "#91DC79";
+                    break;
+                case "blue":
+                    color = "#6BB1D9";
+                    break;
+                case "pink":
+                    color = "#EEBAE9";
+                    break;
+                default:
+                    color = "var(--main-color)";
+            }
+            task.style['background-color'] = color;
+        });
+    });
+
+    /* Trash icon delete functionality */
+    const deleteIcon = task.querySelector(".fas");
+    deleteIcon.addEventListener("click", () => {
+        task.remove();
+    });
+
+    /* Checkbox move to Completed Tasks functionality */
+    const checkbox = task.querySelector(".task-checkbox");
+    checkbox.addEventListener('click', function() {
+        // Add or remove completed from class name
+        // Find closest li item (task)
+
+        if (task.className.includes('complete')) {
+            task.classList.remove('complete');
+            const taskContainer = document.querySelector('.task-list');
+            taskContainer.appendChild(task);
+        }
+        else {
+            task.classList.add('complete');
+            const completedTaskContainer = document.querySelector('.completed-task-container');
+            completedTaskContainer.appendChild(task);
+        }
+    });
 }
