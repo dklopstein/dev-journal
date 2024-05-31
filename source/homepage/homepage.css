@@ -498,20 +498,7 @@ button:hover {
 }
 
 /* Add media queries for smaller screens */
-@media (max-width: 900px) {
-  .rating-widget h4{
-    font-size: 14px;
-  }
-  .rating-widget button img {
-    height: max(min(3.1em, 4.8vw), 30px);
-  }
-  .rating-widget button img:hover {
-    height: max(min(3.2em, 5vw), 45px);
-  }
-  .rating-widget img.active {
-    height: max(min(3.1em, 4.8vw), 30px);
-  }
-}
+
 
 @media (max-width: 800px) {
   .rating-widget h4{
@@ -525,6 +512,10 @@ button:hover {
   }
   .rating-widget img.active {
     height: max(min(3em, 4.8vw), 30px);
+  }
+
+  .main-wrap {
+    border: red solid 2px;
   }
 }
 
