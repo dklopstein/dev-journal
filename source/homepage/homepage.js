@@ -116,7 +116,7 @@ function addTask() {
     task.insertAdjacentHTML("beforeend", `
         <div class="check-input-wrap">
             <button id="task1" class="task-checkbox"></button>
-            <div contenteditable="plaintext-only" class="task-input" placeholder="Add a task..." onkeypress="return this.innerText.length <= 180;"></div>
+            <div contenteditable="true" class="task-input" placeholder="Add a task..." onkeypress="return this.innerText.length <= 180;"></div>
         </div>
         <div class="color-buttons">
             <button id="purple" class="color-button"></button>
@@ -200,7 +200,7 @@ function taskButtonsFunctionality(task) {
 
         if (task.className.includes('complete')) {
             task.classList.remove('complete');
-            const taskContainer = document.querySelector('.task-list');
+            const taskContainer = document.querySelector('.task-container');
             taskContainer.appendChild(task);
         }
         else {
