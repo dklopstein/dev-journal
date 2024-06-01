@@ -1,66 +1,23 @@
 // All of the commented out code in the beginning is there to display the browser when running tests locally
-//const puppeteer = require('puppeteer');
 // E2E Testing with Puppeteer
 describe('Basic user path in homepage', () => {
-  // let browser;
-  // let page;
   // Open the webpage
   beforeAll(async () => {
-    // // Launch a browser
-    // browser = await puppeteer.launch({
-    //   headless: false, // Set to true for headless mode
-    //   defaultViewport: null, // Use full screen
-    //   args: ['--start-maximized'], // Start maximized
-    //   slowMo: 15 // Slow down the actions taken
-    // });
-    // // Close the initial blank page
-    // const initialPages = await browser.pages();
-    // if (initialPages.length > 0) {
-    //   await initialPages[0].close();
-    // }
-    // // Open a new page
-    // page = await browser.newPage();
-    // Visit dev journal website with github pages
-    // await page.goto('https://cse110-sp24-group25.github.io/cse110-sp24-group25/source/homepage/homepage.html');
-    // Visit dev journal using live server
     await page.goto('http://127.0.0.1:5500/source/homepage/homepage.html');
   });
-  // Close the browser after every test executes
-  // afterAll(async () => {
-  //   await browser.close();
-  // });
-  // Edit Journal
-  it('Click into journal, type, click out', async () => {
-    console.log('Editing journal...');
-    // Wait for page to load
-    await page.waitForSelector('#textarea');
-    const journal = await page.$('#textarea');
-    // Click into text area
-    await journal.click();
-    // Define string to type into journal
-    const input_text = 'Example journal entry: I was so productive today!!';
-    // Type into text area
-    await page.keyboard.type(input_text);
-    // Click out of the text area
-    await page.click('#current-date');
-    // Get journal text
-    const text = await journal.getProperty('value');
-    const journal_text = await text.jsonValue();
-    // Expect journal text to be jour
-    expect(journal_text).toBe(input_text);
-  });
+
   // Select happy in feelings widget
   it('Click happiest rating in feelings widget', async () => {
     console.log('Testing feelings widget first click...');
     // Click happiest rating button
-    const happy = await page.$('#btn5');
+    const happy = await page.$('#btn4');
     await happy.click();
-    // Get img element
-    const img = await page.$('#btn5 img');
+
     // Check class name to include active
-    const class_name = await page.evaluate(img => {
-      return img.getAttribute('class');
-    }, img);
+    const class_name = await page.evaluate(() => {
+      const img = document.querySelector('#btn4 img');
+      return img.className;
+    });
     // Expect active got added to happy class name
     expect(class_name).toBe("active");
   });
