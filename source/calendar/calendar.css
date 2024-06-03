@@ -52,6 +52,10 @@ select {
   background-color: white;
   box-shadow: 1px 1px lightgrey;
 
+  /* Hide scroll-bars for Firefox, Edge */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
   overflow-y: scroll;
 }
 
