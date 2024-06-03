@@ -56,8 +56,12 @@ function displayDate(date) {
  * Updates the global currDate to the next date and updates interface
  */
 function nextDate() {
-    currDate.setDate(currDate.getDate() + 1);
-    displayDate(formatDate(currDate));
+    let today = new Date();
+    if (currDate.getDate() != today.getDate()) {
+        currDate.setDate(currDate.getDate() + 1);
+        displayDate(formatDate(currDate));
+    }
+    
 }
 
 /**
