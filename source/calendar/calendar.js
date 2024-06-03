@@ -85,14 +85,6 @@ function prev() {
     displayCalendar();
 }
 
-
-// Function to go back to today's month when clicking the calendar button
-function calendarButton() {
-    currDate = new Date();
-    updateDateGlobals();
-    displayCalendar();
-}
-
 /**
  * Adds task to task list upon "Add Task" button click.
  */
@@ -215,7 +207,7 @@ function taskButtonsFunctionality(task) {
  */
 function saveCompleted(completedTaskElement) {
     let data = getJournal();
-    dateText = new Date().toLocaleDateString();
+    let dateText = new Date().toLocaleDateString();
     let completedTask = loadFromStorage(data, dateText, "completedTasks") || [];
     let taskName = completedTaskElement.querySelector('.task-input').textContent;
     let taskColor = completedTaskElement.style['background-color']
@@ -534,14 +526,14 @@ function loadFromStorage(data, dateText, key) {
 /**
  * Get journal entry from local storage
  * 
- * @returns {string} journal entry text in parsed json format
+ * @returns {Object} journal entry text in parsed json format
  */
 function getJournal() {
     let data = JSON.parse(localStorage.getItem("journals"))
     if (data == null) {
         data = {}
     }
-    return data
+    return data;
 }
 
 /**
@@ -585,76 +577,6 @@ function loadTasks() {
         });
     }
 
-}
-
-function loadCellDataTest(cellData, currWeekDay) {
-    let journals = getJournal();
-    let dateText = currWeekDay.toLocaleDateString();
-
-    let rating = loadFromStorage(journals, dateText, "rating");
-    let productivity = loadFromStorage(journals, dateText, "productivity");
-    let tasks = loadFromStorage(journals, dateText, "completedTasks");
-
-    if (rating != null) {
-        // Add sentiment icon
-        let sentimentIcon = document.createElement("img");
-        sentimentIcon.src = `../icons/${RATING_FILES_NAMES[rating - 1]}`;
-        sentimentIcon.alt = "sentiment icon";
-        sentimentIcon.className = "sentiment-icon";
-        // Append sentiment icon to new cell
-        cellData.appendChild(sentimentIcon);
-    }
-
-    if (productivity != null) {
-        // Add productivity icon
-        let productivityIcon = document.createElement("img");
-        productivityIcon.src = `../icons/${PRODUCTIVITY_FILES_NAMES[productivity - 1 - 5]}`;
-        productivityIcon.alt = "productivity icon";
-        productivityIcon.className = "productivity-icon";
-        // Append sentiment icon to new cell
-        cellData.appendChild(productivityIcon);
-    }
-
-    // Add tasklist in calendar cell
-    // Create tasklist div
-    let taskDiv = document.createElement("div");
-    taskDiv.className = "task-div";
-    // Create unordered list
-    let taskList = document.createElement("ul");
-    taskList.className = "task-ul";
-
-    if (tasks != null) {
-        for (let i = 0; i < tasks.length && i < DISPLAY_TASK_COUNT; i++) {
-            let taskItem = document.createElement("li");
-            taskItem.textContent = tasks[i]["text"];
-            taskItem.className = "task-item";
-            taskItem.style.setProperty('--task-color', tasks[i]["color"]);
-            taskList.appendChild(taskItem);
-        }
-
-        if (tasks.length > DISPLAY_TASK_COUNT) {
-            // extra tasks
-            let taskExtra = document.createElement("li");
-            taskExtra.textContent = `${tasks.length - DISPLAY_TASK_COUNT} more tasks`;
-            taskExtra.className = "task-indicator";
-            taskList.appendChild(taskExtra);
-        }
-    }
-
-    // Create buttons that link to speciic homepage and extract selected date
-    let aLink = document.createElement("a");
-    let dayLink = currWeekDay.getDate();
-    let monthLink = currWeekDay.getMonth();
-    let yearLink = currWeekDay.getFullYear()
-
-    // Query is in format ?date=month-day-year
-    aLink.href = `../homepage/homepage.html?date=${monthLink}-${dayLink}-${yearLink}`;
-    aLink.className = "a-link";
-    cellData.appendChild(aLink);
-    // Append taskList to task div;
-    taskDiv.appendChild(taskList);
-    // Append tasklist div to new cell
-    cellData.appendChild(taskDiv);
 }
 
 // Save journal entry and tasks to local storage on events
