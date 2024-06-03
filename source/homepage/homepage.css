@@ -57,6 +57,7 @@ button {
 /* Formatting for the task list header */
 .task-header {
   display: flex;
+
 }
 
 /* Aligns add button to right */
