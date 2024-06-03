@@ -447,8 +447,6 @@ button:hover {
   padding-right: min(0.8em, 5%);
   padding-left: min(0.8em, 5%);
   padding-top: min(1em, 5%);
-
-  overflow: auto;
 }
 
 .feelings {
@@ -631,6 +629,11 @@ td .task-div {
 }
 /* End of past week */
 
+@media (max-height: 650px) {
+  .rating-widget {
+    overflow: auto;
+  }
+}
 
 @media (max-width: 740px) {
   main {
