@@ -52,6 +52,10 @@ select {
   background-color: white;
   box-shadow: 1px 1px lightgrey;
 
+  /* Hide scroll-bars for Firefox, Edge */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
   overflow-y: scroll;
 }
 
@@ -123,6 +127,7 @@ select {
   overflow: hidden;
   word-wrap: break-word;
   text-align: left;
+  list-style-type: none; /* Get rid of li bullet points */
   /* Set max height */
   transition: max-height 0.5s ease-in;
   max-height: 4em;
@@ -609,6 +614,19 @@ td .productivity-icon {
   width: 100%;
   top: 0;
   left: 0;
+}
+
+/* Media query to handle window resizing */
+@media (max-height: 500px) {
+  .task-ul {
+      display: none;
+  }
+}
+
+@media (max-height: 625px) {
+  .task-indicator {
+      display: none;
+  }
 }
 
 /* ********** End of Calendar ********** */
