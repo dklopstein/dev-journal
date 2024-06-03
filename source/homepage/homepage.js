@@ -483,6 +483,7 @@ function saveTasks() {
         });
     });
     localStorage.setItem("tasks", JSON.stringify(tasks));
+    displayWeek();
 }
 
 /**
@@ -538,6 +539,7 @@ function saveCompleted() {
     });
     saveToStorage(data, dateText, "completedTasks", completedTask);
     localStorage.setItem("journals", JSON.stringify(data));
+    displayWeek();
 }
 
 function getCompleted() {
@@ -588,6 +590,7 @@ function saveWidgets(value) {
         saveToStorage(data, dateText, "productivity", value);
     }
     localStorage.setItem("journals", JSON.stringify(data));
+    displayWeek();
 }
 
 /**
