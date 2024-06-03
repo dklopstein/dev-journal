@@ -108,7 +108,7 @@ function selectWidget(buttonIndex) {
  * Adds task to task list upon "Add Task" button click.
  */
 function addTask() {
-    const taskList = document.querySelector(".task-list");
+    const taskList = document.querySelector(".task-container");
     const task = document.createElement("li");
     task.setAttribute("class", "task");
     task.insertAdjacentHTML("beforeend", `
