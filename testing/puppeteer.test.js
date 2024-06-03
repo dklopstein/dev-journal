@@ -126,6 +126,8 @@ describe('Basic user path in homepage', () => {
   it('Add a task, set its title, and choose a color', async () => {
     console.log('Testing task addition, title setting, and color selection...');
   
+    await page.setViewport({ width: 1200, height: 800 });
+
     await page.click('.add-task-btn');
   
     const taskInputSelector = '.task-container .task:last-child .task-input';
