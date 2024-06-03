@@ -37,7 +37,9 @@ function init() {
 function initButtons() {
 
     const addTaskBtn = document.querySelector(".add-task-btn");
-    addTaskBtn.addEventListener("click", addTask);
+    addTaskBtn.addEventListener("click", () => {
+        addTask();
+    });
 
     // PREVIOUS MONTH BUTTON
     let prevBtn = document.querySelector(".prev-date-btn");
@@ -112,7 +114,7 @@ function addTask() {
         </div>
         <img class="fas fa-trash-alt" src="../icons/trash-icon.svg" alt="Remove">
     `);
-    task.querySelector(".task-input").addEventListener("input", saveCompleted)
+    task.querySelector(".task-input").addEventListener("input", saveTasks);
 
 
     taskList.append(task);
@@ -175,7 +177,6 @@ function taskButtonsFunctionality(task) {
                     color = "var(--main-color)";
             }
             task.style['background-color'] = color;
-            saveCompleted();
             saveTasks();
         });
     });
@@ -198,30 +199,33 @@ function taskButtonsFunctionality(task) {
             const taskContainer = document.querySelector('.task-container');
             taskContainer.appendChild(task);
             task.addEventListener("blur", saveTasks);
-            saveCompleted();
             saveTasks();
         }
         else {
             task.classList.add('complete');
-            const completedTaskContainer = document.querySelector('.completed-task-container');
-            completedTaskContainer.appendChild(task);
-            saveCompleted();
+            saveCompleted(task);
+            task.remove()
             saveTasks();
         }
     });
 }
 
-function taskColor() {
-    // Get all elements with class .task-item
-    const taskItems = document.querySelectorAll('.task-item');
-    // Loop through each task item and assign a random color
-    taskItems.forEach(taskItem => {
-        // Generate a random color
-        const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-
-        // Set the color as the value of --task-color for this task item
-        taskItem.style.setProperty('--task-color', randomColor);
+/**
+ * Saves the completed tasks per day
+ */
+function saveCompleted(completedTaskElement) {
+    let data = getJournal();
+    let completedTask = [];
+    dateText = new Date().toLocaleDateString();
+    let taskName = completedTaskElement.querySelector('.task-input').textContent;
+    let taskColor = completedTaskElement.style['background-color']
+    completedTask.push({
+        text: taskName,
+        color: taskColor,
     });
+    saveToStorage(data, dateText, "completedTasks", completedTask);
+    localStorage.setItem("journals", JSON.stringify(data));
+    displayCalendar();
 }
 
 // Function to display the calendar
@@ -313,8 +317,6 @@ function displayCalendar() {
         tbody.appendChild(row);
     }
 
-    // Add taskcolor to calendar cells
-    taskColor();
     // Change the header if the window size is too small
     windowWidth();
 
@@ -550,21 +552,37 @@ function windowWidth() {
     document.getElementById('year-dropdown').style.left = monthWidth + 5 + 'px';
 }
 
-// /**
-//  * Save journal entry to local storage
-//  * 
-//  * @param {string} data - journal entry text in parsed json format
-//  * @param {string} dateText - date of the journal entry in locale date string format
-//  * @param {string} key - key to store the value under
-//  * @param {string} value - value to store
-//  * 
-//  */
-// function saveToStorage(data, dateText, key, value) {
-//     if (!(dateText in data)) {
-//         data[dateText] = {}
-//     }
-//     data[dateText][key] = value;
-// }
+//------------------------------------------
+// Save journal entry
+
+// Get the all relevent elements from page
+const tasks = document.querySelector(".task-container");
+
+// Load journal entry and tasks from local storage on page load
+window.onload = function () {
+    // loadTasks();
+}
+
+// Save journal entry and tasks to local storage on page unload
+window.onbeforeunload = function () {
+    saveTasks()
+}
+
+/**
+ * Save journal entry to local storage
+ * 
+ * @param {string} data - journal entry text in parsed json format
+ * @param {string} dateText - date of the journal entry in locale date string format
+ * @param {string} key - key to store the value under
+ * @param {string} value - value to store
+ * 
+ */
+function saveToStorage(data, dateText, key, value) {
+    if (!(dateText in data)) {
+        data[dateText] = {}
+    }
+    data[dateText][key] = value;
+}
 
 /**
  * Load journal entry from local storage
@@ -591,50 +609,12 @@ function getJournal() {
         data = {}
     }
     return data
-    // let returnVal = {
-    //     "5/30/2024": {
-    //         "rating": 5,
-    //         "productivity": 6,
-    //         "completedTasks": [
-    //             {
-    //                 "text": "Eat Food",
-    //                 "color": "#FF0000"
-    //             },
-    //             {
-    //                 "text": "Sleep",
-    //                 "color": "#00FF00"
-    //             },
-    //             {
-    //                 "text": "Code",
-    //                 "color": "#0000FF"
-    //             }
-    //         ]
-    //     },
-    //     "5/31/2024": {
-    //         "rating": 4,
-    //         "productivity": 8,
-    //         "completedTasks": [
-    //             {
-    //                 "text": "Fish",
-    //                 "color": "#000000"
-    //             },
-    //             {
-    //                 "text": "Blub",
-    //                 "color": "#0000FF"
-    //             }
-    //         ]
-    //     }
-    // };
-    // return returnVal;
 }
-
-
 
 /**
  * Save tasks to local storage
  */
 function saveTasks() {
-    console.log("saving tasks")
     let tasks = [];
     document.querySelectorAll('.task-container li').forEach(task => {
         //let checkbox = task.querySelector('input[type="task-checkbox"]');
@@ -645,7 +625,6 @@ function saveTasks() {
             color: taskColor,
         });
     });
-    console.log(tasks);
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
@@ -666,7 +645,7 @@ function loadTasks() {
     let tasks = getTasks();
     if (tasks.length > 0) {
         tasks.forEach(task => {
-            let curLi = addTask();
+            let curLi = addTask(true);
             curLi.querySelector(".task-input").textContent = task['text']
             curLi.style['background-color'] = task['color']
             //curLi.querySelector('input[type="checkbox"]').checked = task['checked']
@@ -675,60 +654,76 @@ function loadTasks() {
 
 }
 
-/**
- * Saves the completed tasks per day
- */
-function saveCompleted() {
-    console.log("saving completed tasks");
-    let data = getJournal();
-    let completedTask = [];
-    dateText = new Date(date.textContent).toLocaleDateString();
-    document.querySelectorAll('.completed-task-container li').forEach(completedTaskElement => {
-        let taskName = completedTaskElement.querySelector('.task-input').textContent;
-        let taskColor = completedTaskElement.style['background-color']
-        completedTask.push({
-            text: taskName,
-            color: taskColor,
-        });
-    });
-    saveToStorage(data, dateText, "completedTasks", completedTask);
-    localStorage.setItem("journals", JSON.stringify(data));
-}
+function loadCellDataTest(cellData, currWeekDay) {
+    let journals = getJournal();
+    let dateText = currWeekDay.toLocaleDateString();
 
-function getCompleted() {
-    let data = getJournal();
-    let dateText = new Date(date.textContent).toLocaleDateString();
-    let storedTasks = loadFromStorage(data, dateText, "completedTasks");
-    return storedTasks ? storedTasks : [];
-}
+    let rating = loadFromStorage(journals, dateText, "rating");
+    let productivity = loadFromStorage(journals, dateText, "productivity");
+    let tasks = loadFromStorage(journals, dateText, "completedTasks");
 
-/**
- * Load tasks from local storage
- */
-function loadCompleted() {
-    let tasks2 = getCompleted();
-    if (tasks2.length > 0) {
-        tasks2.forEach(task => {
-            let curLi = addTask();
-            completedTasks.appendChild(curLi);
-            curLi.querySelector(".task-input").textContent = task['text']
-            curLi.style['background-color'] = task['color']
-            curLi.classList.add('complete')
-            //curLi.querySelector('input[type="checkbox"]').checked = task['checked']
-        });
+    if (rating != null) {
+        // Add sentiment icon
+        let sentimentIcon = document.createElement("img");
+        sentimentIcon.src = `../icons/${RATING_FILES_NAMES[rating - 1]}`;
+        sentimentIcon.alt = "sentiment icon";
+        sentimentIcon.className = "sentiment-icon";
+        // Append sentiment icon to new cell
+        cellData.appendChild(sentimentIcon);
     }
+
+    if (productivity != null) {
+        // Add productivity icon
+        let productivityIcon = document.createElement("img");
+        productivityIcon.src = `../icons/${PRODUCTIVITY_FILES_NAMES[productivity - 1 - 5]}`;
+        productivityIcon.alt = "productivity icon";
+        productivityIcon.className = "productivity-icon";
+        // Append sentiment icon to new cell
+        cellData.appendChild(productivityIcon);
+    }
+
+    // Add tasklist in calendar cell
+    // Create tasklist div
+    let taskDiv = document.createElement("div");
+    taskDiv.className = "task-div";
+    // Create unordered list
+    let taskList = document.createElement("ul");
+    taskList.className = "task-ul";
+
+    if (tasks != null) {
+        for (let i = 0; i < tasks.length && i < DISPLAY_TASK_COUNT; i++) {
+            let taskItem = document.createElement("li");
+            taskItem.textContent = tasks[i]["text"];
+            taskItem.className = "task-item";
+            taskItem.style.setProperty('--task-color', tasks[i]["color"]);
+            taskList.appendChild(taskItem);
+        }
+
+        if (tasks.length > DISPLAY_TASK_COUNT) {
+            // extra tasks
+            let taskExtra = document.createElement("li");
+            taskExtra.textContent = `${tasks.length - DISPLAY_TASK_COUNT} more tasks`;
+            taskExtra.className = "task-indicator";
+            taskList.appendChild(taskExtra);
+        }
+    }
+
+    // Create buttons that link to speciic homepage and extract selected date
+    let aLink = document.createElement("a");
+    let dayLink = currWeekDay.getDate();
+    let monthLink = currWeekDay.getMonth();
+    let yearLink = currWeekDay.getFullYear()
+
+    // Query is in format ?date=month-day-year
+    aLink.href = `../homepage/homepage.html?date=${monthLink}-${dayLink}-${yearLink}`;
+    aLink.className = "a-link";
+    cellData.appendChild(aLink);
+    // Append taskList to task div;
+    taskDiv.appendChild(taskList);
+    // Append tasklist div to new cell
+    cellData.appendChild(taskDiv);
 }
 
-function unselectAllCompleted() {
-    let tasks = [];
-    document.querySelectorAll('.completed-task-container li').forEach(task => {
-        //let checkbox = task.querySelector('input[type="task-checkbox"]');
-        task.remove();
-    });
-}
-
-const tasks = document.querySelector(".task-container");
+// Save journal entry and tasks to local storage on events
 tasks.addEventListener("blur", saveTasks)
 tasks.addEventListener("change", saveTasks)
-tasks.addEventListener("blur", saveCompleted)
-tasks.addEventListener("change", saveCompleted)
