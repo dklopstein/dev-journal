@@ -629,7 +629,7 @@ td .task-div {
 }
 /* End of past week */
 
-@media (max-height: 650px) {
+@media (max-height: 740px) {
   .rating-widget {
     overflow: auto;
   }
