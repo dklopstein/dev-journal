@@ -1,3 +1,7 @@
+const DISPLAY_TASK_COUNT = 2;
+const RATING_FILES_NAMES = ["1angry.png", "2upset.png", "3neutral.png", "4happy.png", "5overjoyed.png"];
+const PRODUCTIVITY_FILES_NAMES = ["1-icon.svg", "2-icon.svg", "3-icon.svg", "4-icon.svg", "5-icon.svg"];
+
 window.addEventListener('DOMContentLoaded', init);
 const DEBUG = true;
 function _log(msg) {
@@ -30,7 +34,7 @@ function init() {
 /**
  * Initializes functionality of buttons
  */
- function initButtons() {
+function initButtons() {
     const nextBtn = document.querySelector(".next-date-btn");
     nextBtn.addEventListener("click", nextDate);
     const prevBtn = document.querySelector(".prev-date-btn");
@@ -41,7 +45,7 @@ function init() {
     ratingSelBtn.forEach(btn => {
         btn.addEventListener("click", () => {
             var id = btn.getAttribute("id");
-            selectWidget(id.substring(3,5));
+            selectWidget(id.substring(3, 5));
         });
     });
 }
@@ -148,7 +152,7 @@ function addTask() {
 
     // listener to stop editing when user presses enter
     const task_name = task.querySelector(".task-input");
-    task_name.addEventListener('keydown', function(event) {
+    task_name.addEventListener('keydown', function (event) {
         if (event.key == 'Enter') {
             if (!event.shiftKey) {
                 // Shift+Enter pressed, insert a line break
@@ -179,13 +183,13 @@ function addTask() {
  * Adds button functionality to task upon creation
  * @param {Task Node} task - the task to have functionality
  */
- function taskButtonsFunctionality(task) {
+function taskButtonsFunctionality(task) {
 
     /* Implement color changing functionality */
     const colorBtns = task.querySelectorAll(".color-button");
     console.log(colorBtns);
     colorBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             let color;
             switch (btn.id) {
                 case "purple":
@@ -209,22 +213,22 @@ function addTask() {
         });
     });
 
-/* Trash icon delete functionality */
-const deleteIcon = task.querySelector(".fas");
-deleteIcon.addEventListener("click", () => {
-    task.remove();
-});
+    /* Trash icon delete functionality */
+    const deleteIcon = task.querySelector(".fas");
+    deleteIcon.addEventListener("click", () => {
+        task.remove();
+    });
 
-/* Checkbox move to Completed Tasks functionality */
+    /* Checkbox move to Completed Tasks functionality */
     const checkbox = task.querySelector(".task-checkbox");
-    checkbox.addEventListener('click', function() {
+    checkbox.addEventListener('click', function () {
         // Add or remove completed from class name
         // Find closest li item (task)
 
         if (task.className.includes('complete')) {
             task.classList.remove('complete');
             const taskContainer = document.querySelector('.task-container');
-            taskContainer.appendChild(task);    
+            taskContainer.appendChild(task);
             task.addEventListener("blur", saveTasks);
             saveCompleted();
             saveTasks();
@@ -242,7 +246,7 @@ deleteIcon.addEventListener("click", () => {
 /**
  * Unselects all widgets by removing the active property from their classnames
  */
- function unselectAllWidgets() {
+function unselectAllWidgets() {
     const buttons = document.querySelectorAll('.feelings img');
     buttons.forEach(button => {
         button.classList.remove('active');
@@ -262,7 +266,7 @@ deleteIcon.addEventListener("click", () => {
 function displayWeek() {
 
     // initialize days of the week
-    let allDays = ["Sun", "Mon", "Tue", "Wed","Thu", "Fri", "Sat"];
+    let allDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     // Get and clear the table
     let table = document.getElementById("week-calendar");
@@ -282,74 +286,61 @@ function displayWeek() {
         let cellData = document.createElement("td");
 
         // Calculate dates
-        if (i === 0){
-            currWeekDay.setDate(currWeekDay.getDate() + (i-8));
+        if (i === 0) {
+            currWeekDay.setDate(currWeekDay.getDate() + (i - 8));
         }
         else {
             currWeekDay.setDate(currWeekDay.getDate() + 1);
         }
 
         // current cell Date
-        let cellNum = document.createElement('span'); 
-        cellNum.textContent = allDays[currWeekDay.getDay()] + " " + (currWeekDay.getMonth()+1) + "/" + currWeekDay.getDate();
+        let cellNum = document.createElement('span');
+        cellNum.textContent = allDays[currWeekDay.getDay()] + " " + (currWeekDay.getMonth() + 1) + "/" + currWeekDay.getDate();
         cellNum.className = "cell-date";
-        
+
         // Append cell number to new cell
         cellData.appendChild(cellNum);
 
-        // Add sentiment icon
-        let sentimentIcon = document.createElement("img");
-        sentimentIcon.src = "../icons/5overjoyed.png"; 
-        sentimentIcon.alt = "sentiment icon";
-        sentimentIcon.className = "sentiment-icon";
-        // Append sentiment icon to new cell
-        cellData.appendChild(sentimentIcon);
+        // // Add sentiment icon
+        // let sentimentIcon = document.createElement("img");
+        // sentimentIcon.src = "../icons/5overjoyed.png"; 
+        // sentimentIcon.alt = "sentiment icon";
+        // sentimentIcon.className = "sentiment-icon";
+        // // Append sentiment icon to new cell
+        // cellData.appendChild(sentimentIcon);
 
-        // Add productivity icon
-        let productivityIcon = document.createElement("img");
-        productivityIcon.src = "../icons/5overjoyed.png"; 
-        productivityIcon.alt = "productivity icon";
-        productivityIcon.className = "productivity-icon";
-        // Append sentiment icon to new cell
-        cellData.appendChild(productivityIcon);
+        // // Add productivity icon
+        // let productivityIcon = document.createElement("img");
+        // productivityIcon.src = "../icons/5overjoyed.png"; 
+        // productivityIcon.alt = "productivity icon";
+        // productivityIcon.className = "productivity-icon";
+        // // Append sentiment icon to new cell
+        // cellData.appendChild(productivityIcon);
 
-        // Add tasklist in calendar cell
-        // Create tasklist div
-        let taskDiv = document.createElement("div");
-        taskDiv.className = "task-div";
-        // Create unordered list
-        let taskList = document.createElement("ul");
-        taskList.className = "task-ul";
-        // first task
-        let task1 = document.createElement("li");
-        task1.textContent = "I am the first task";
-        task1.className = "task-item";
-        taskList.appendChild(task1);
-        // second task
-        let task2 = document.createElement("li");
-        task2.textContent = "I am the second task";
-        task2.className = "task-item";
-        taskList.appendChild(task2);
-        // extra tasks
-        let taskExtra = document.createElement("li");
-        taskExtra.textContent = "5+";               // Change with #Tasks-2
-        taskExtra.className = "task-indicator";
-        taskList.appendChild(taskExtra);
-        
-        // Create buttons that link to speciic homepage and extract selected date
-        let aLink = document.createElement("a");
-        let dayLink = currWeekDay.getDate();
-        let monthLink = currWeekDay.getMonth();
-        let yearLink = currWeekDay.getFullYear()
+        // // Add tasklist in calendar cell
+        // // Create tasklist div
+        // let taskDiv = document.createElement("div");
+        // taskDiv.className = "task-div";
+        // // Create unordered list
+        // let taskList = document.createElement("ul");
+        // taskList.className = "task-ul";
+        // // first task
+        // let task1 = document.createElement("li");
+        // task1.textContent = "I am the first task";
+        // task1.className = "task-item";
+        // taskList.appendChild(task1);
+        // // second task
+        // let task2 = document.createElement("li");
+        // task2.textContent = "I am the second task";
+        // task2.className = "task-item";
+        // taskList.appendChild(task2);
+        // // extra tasks
+        // let taskExtra = document.createElement("li");
+        // taskExtra.textContent = "5+";               // Change with #Tasks-2
+        // taskExtra.className = "task-indicator";
+        // taskList.appendChild(taskExtra);
 
-        // Query is in format ?date=month-day-year
-        aLink.href = `../homepage/homepage.html?date=${monthLink}-${dayLink}-${yearLink}`;
-        aLink.className = "a-link";
-        cellData.appendChild(aLink);
-        // Append taskList to task div;
-        taskDiv.appendChild(taskList);
-        // Append tasklist div to new cell
-        cellData.appendChild(taskDiv);
+        loadCellDataTest(cellData, currWeekDay);
 
         // Append new cell to row
         row.appendChild(cellData);
@@ -376,14 +367,14 @@ function dateQuery() {
     }
 }
 
-function taskColor(){
+function taskColor() {
     // Get all elements with class .task-item
     const taskItems = document.querySelectorAll('.task-item');
     // Loop through each task item and assign a random color
     taskItems.forEach(taskItem => {
         // Generate a random color
-        const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-        
+        const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+
         // Set the color as the value of --task-color for this task item
         taskItem.style.setProperty('--task-color', randomColor);
     });
@@ -541,7 +532,7 @@ function saveJournal() {
 /**
  * Saves the completed tasks per day
  */
-function saveCompleted(){
+function saveCompleted() {
     console.log("saving completed tasks");
     let data = getJournal();
     let completedTask = [];
@@ -632,6 +623,77 @@ function loadAll() {
     loadWidgets();
     loadCompleted();
 }
+
+function loadCellDataTest(cellData, currWeekDay) {
+    let journals = getJournal();
+    let dateText = currWeekDay.toLocaleDateString();
+
+    let rating = loadFromStorage(journals, dateText, "rating");
+    let productivity = loadFromStorage(journals, dateText, "productivity");
+    let tasks = loadFromStorage(journals, dateText, "completedTasks");
+
+    if (rating != null) {
+        // Add sentiment icon
+        let sentimentIcon = document.createElement("img");
+        sentimentIcon.src = `../icons/${RATING_FILES_NAMES[rating - 1]}`;
+        sentimentIcon.alt = "sentiment icon";
+        sentimentIcon.className = "sentiment-icon";
+        // Append sentiment icon to new cell
+        cellData.appendChild(sentimentIcon);
+    }
+
+    if (productivity != null) {
+        // Add productivity icon
+        let productivityIcon = document.createElement("img");
+        productivityIcon.src = `../icons/${PRODUCTIVITY_FILES_NAMES[productivity - 1 - 5]}`;
+        productivityIcon.alt = "productivity icon";
+        productivityIcon.className = "productivity-icon";
+        // Append sentiment icon to new cell
+        cellData.appendChild(productivityIcon);
+    }
+
+    // Add tasklist in calendar cell
+    // Create tasklist div
+    let taskDiv = document.createElement("div");
+    taskDiv.className = "task-div";
+    // Create unordered list
+    let taskList = document.createElement("ul");
+    taskList.className = "task-ul";
+
+    if (tasks != null) {
+        for (let i = 0; i < tasks.length && i < DISPLAY_TASK_COUNT; i++) {
+            let taskItem = document.createElement("li");
+            taskItem.textContent = tasks[i]["text"];
+            taskItem.className = "task-item";
+            taskItem.style.setProperty('--task-color', tasks[i]["color"]);
+            taskList.appendChild(taskItem);
+        }
+
+        if (tasks.length > DISPLAY_TASK_COUNT) {
+            // extra tasks
+            let taskExtra = document.createElement("li");
+            taskExtra.textContent = `${tasks.length - DISPLAY_TASK_COUNT} more tasks`;
+            taskExtra.className = "task-indicator";
+            taskList.appendChild(taskExtra);
+        }
+    }
+
+    // Create buttons that link to speciic homepage and extract selected date
+    let aLink = document.createElement("a");
+    let dayLink = currWeekDay.getDate();
+    let monthLink = currWeekDay.getMonth();
+    let yearLink = currWeekDay.getFullYear()
+
+    // Query is in format ?date=month-day-year
+    aLink.href = `../homepage/homepage.html?date=${monthLink}-${dayLink}-${yearLink}`;
+    aLink.className = "a-link";
+    cellData.appendChild(aLink);
+    // Append taskList to task div;
+    taskDiv.appendChild(taskList);
+    // Append tasklist div to new cell
+    cellData.appendChild(taskDiv);
+}
+
 // Save journal entry and tasks to local storage on events
 journal.addEventListener("blur", saveJournal)
 console.log(tasks);
