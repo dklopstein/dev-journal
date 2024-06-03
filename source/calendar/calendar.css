@@ -616,5 +616,18 @@ td .productivity-icon {
   left: 0;
 }
 
+/* Media query to handle window resizing */
+@media (max-height: 500px) {
+  .task-ul {
+      display: none;
+  }
+}
+
+@media (max-height: 625px) {
+  .task-indicator {
+      display: none;
+  }
+}
+
 /* ********** End of Calendar ********** */
 
