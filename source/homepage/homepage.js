@@ -465,7 +465,7 @@ function saveJournal() {
 function saveCompleted() {
     let data = getJournal();
     let completedTask = [];
-    dateText = new Date(date.textContent).toLocaleDateString();
+    let dateText = new Date(date.textContent).toLocaleDateString();
     document.querySelectorAll('.completed-task-container li').forEach(completedTaskElement => {
         let taskName = completedTaskElement.querySelector('.task-input').textContent;
         let taskColor = completedTaskElement.style['background-color']

@@ -515,10 +515,12 @@ function saveToStorage(data, dateText, key, value) {
  * @param {string} data - journal entry text in parsed json format
  * @param {string} dateText - date of the journal entry in locale date string format
  * @param {string} key - key to get the value from
+ * 
+ * @returns {string} value of the key in the data
  */
 function loadFromStorage(data, dateText, key) {
     if (!(dateText in data)) {
-        return;
+        return "";
     }
     return data[dateText][key];
 }
