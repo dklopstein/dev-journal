@@ -4,7 +4,7 @@
 # Weekly Meeting
 ### Meeting held in 1st floor Geisel West
 
-### Attendance (8/10)
+### Attendance (10/10)
 - Chris
 - Bobby
 - Kai
