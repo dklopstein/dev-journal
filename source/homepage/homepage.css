@@ -31,7 +31,7 @@ button {
   border: rgba(0,0,0,1);
 }
 
-/* Start of task list */
+/* ********** Start of task list ********** */
 .task-list { 
   flex: 0 0 18%;
   max-width: 17rem; /* Prevents task list expanding with long task names */
@@ -41,16 +41,17 @@ button {
   border-radius: 15px;
   background-color: white;
   box-shadow: 1px 1px lightgrey;
+
+  overflow-y: scroll;
+
+  /* Hide scroll-bars for Firefox, Edge */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
-/* Hides task list when page reaches certain size */
-@media (max-width: 800px) {
-  .task-list {
-      display: none;
-  }
-  .journal-past-wrap .task-list {
-    display: block;
-  }
+/* Hide scroll-bar for Chrome, Safari, Opera*/
+.task-list::-webkit-scrollbar {
+  display: none;
 }
 
 /* Formatting for the task list header */
@@ -70,20 +71,14 @@ button {
   cursor: pointer;
 }
 
-/* Wrap for task name and checkbox */
-.task-list .input-wrap {
-  display: flex;
-  justify-content: flex-start;
-}
-
 /* Styling for task name */
 .task-list .task-name {
   width: max(10em, 12vw);
   resize: none; /* Prevents user from resizing */
   overflow: hidden; /* Hides scrollbar */
-  margin-top: -4px; /* Moves it up slightly */
-  height: 24px; /* Starting height */
-  max-height: 1000px;
+  margin-top: -4px;
+  height: 24px;
+  max-height: 108px;
   /* Hide background and border */
   background-color: rgba(0, 0, 0, 0);
   border: rgba(0, 0, 0, 0);
@@ -101,17 +96,59 @@ button {
 }
 
 /* Sizing for each individual task */
-.task-list li {
-  background: #e0e0e0;
-  margin-top: 5px;
+.task {
+  background: var(--main-color);
   padding: 10px;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
   border-radius: 5px;
-  position: relative; /* Sets context for absolute positioning of children */
-  overflow: hidden; /* Ensures description expands within the li */
+  position: relative;
+  overflow: hidden;
   word-wrap: break-word;
-  text-align: left; /* Keeps text left-aligned */
-  transition: max-height 1s ease-in;
-  max-height: 2.25em;
+  text-align: left;
+  list-style-type: none; /* Get rid of li bullet points */
+  /* Set max height */
+  transition: max-height 0.5s ease-in;
+  max-height: 4em;
+}
+
+.task:hover {
+  max-height: fit-content;
+}
+
+/* Input box for task name */
+.task-input {
+  margin-left: 1.4em;
+  margin-right: 0.6em;
+  min-width: 80%;
+  border: none;
+  padding: 4px;
+}
+
+/* Styling when editing a task */
+.task:has(.task-input:focus) {
+  max-height: fit-content;
+
+  /* Make buttons appear */
+  .color-buttons {
+    opacity: 1;
+  }
+
+  .task-input {
+    outline: 0px solid transparent;
+    border: var(--accent-color) solid 1px;
+    border-radius: 0.6em;
+    box-shadow: 0 0 5px #719ECE;
+  }
+}
+
+/* Set task placeholder */
+.task-input:empty:before {
+  content: attr(placeholder);
+  pointer-events: none;
+  display: block;
+
+  color: rgb(97, 97, 97)
 }
 
 /* Positioning for trash icon */
@@ -124,18 +161,15 @@ button {
   cursor: pointer;
 }
 
-/* Resize when hover or actively editing */
-.task-list li:hover, .task-list .active {
-  max-height: 1000px; /* Set max height tall enough to hold all content */
-}
-
 /* Display buttons when hovering or actively editing */
-.task-list li:hover .color-buttons, .task-list .active .color-buttons {
+.task:hover .color-buttons {
   opacity: 1; /* Brings the buttons back into view */
 }
 
 /* Checkbox appearance */
 .task-checkbox {
+  position: absolute;
+  top: 1.4em;
   appearance: none;
   margin: 0 10px 0 0;
   width: 16px;
@@ -144,7 +178,6 @@ button {
   border-radius: 50%;
   vertical-align: middle;
   cursor: pointer;
-  position: relative;
 }
 
 /* Formatting for check in checkbox */
@@ -161,7 +194,7 @@ button {
 /* Default set up for color buttons */
 .color-buttons {
   opacity: 0; /* Hide buttons */
-  transition: opacity 0.5s ease; /* Transition for buttons reappearing */
+  transition: opacity 0.3s ease; /* Transition for buttons reappearing */
   max-height: 5em; /* Enough max-height to show the content */
   display: flex; /* Lays out the buttons in a row */
   justify-content: space-around; /* Spaces buttons evenly */
@@ -173,9 +206,33 @@ button {
   width: 15px; /* Uniform button size */
   height: 15px; /* Uniform button size */
   border-radius: 100%; /* Makes the buttons circular */
-  border: none; /* Removes default button border */
+
+  border: solid grey 1px;
+
+  &#purple {
+    background-color: #C380CC;
+  }
+
+  &#green {
+    background-color: #91DC79;
+  }
+
+  &#blue {
+    background-color: #6BB1D9;
+  }
+
+  &#pink {
+    background-color: #EEBAE9;
+  }
+
+  &#grey {
+    background-color: var(--main-color);
+  }
 }
-/* End of task list */
+
+
+
+/* ********** End of task list ********** */
 
 .main-wrap { 
   flex: 1;
@@ -185,11 +242,11 @@ button {
   height: 100%;
 }
 
-/* Start of top bar */
+/* ********** Start of top bar ********** */
 .top-bar {
   position: relative;
   height: 10%;
-
+  min-height: 65px;
 }
 
 .date-header-wrap {
@@ -272,14 +329,10 @@ button {
   font-size: calc(1.4em + .7vw);
 }
 
-
-
-
 .date-header button img {
   height: 18px;
   padding: 4px;
 }
-
 
 .nav-buttons {
   position: absolute;
@@ -308,10 +361,10 @@ button {
 button:hover {
   cursor: pointer;
 }
-/* End of top bar */
+/* ********** End of top bar ********** */
 
 
-/* Begin Entry Content */
+/* ********** Begin Entry Content ********** */
 .journal-past-wrap {
   width: 100%;
   min-width: 40rem;
@@ -326,7 +379,7 @@ button:hover {
   padding-left: min(2.1rem, 3%);
 }
 
-/* Start of journal */
+/* ********** Start of journal ********** */
 .journal {
   height: 60%;
 }
@@ -362,12 +415,12 @@ button:hover {
 
 .journal-entry #textarea:focus {
   outline: none !important;
-  border:1px solid --accent-color;
+  border:1px solid var(--accent-color);
   box-shadow: 0 0 10px #719ECE;
 }
-/* End of journal */
+/* ********** End of journal ********** */
 
-/* Start of rating */
+/* ********** Start of rating ********** */
 .rating-completed-wrap {
   position: relative;
   height: 40%;
@@ -389,30 +442,39 @@ button:hover {
   height: 100%;
   background-color: var(--secondary-color);
   border-radius: 1em;
-  padding: 1.5em;
+  padding: min(1.5em, 5%);
+  padding-right: min(0.8em, 5%);
+  padding-left: min(0.8em, 5%);
+  padding-top: min(1em, 5%);
+
+  overflow: auto;
 }
 
 .feelings {
   display: flex;
   justify-content: center;
-  gap: 0.2em;
-  padding-top: calc(1em - 1vw);
+  gap: 0em;
+  padding-top: calc(0.4em - 1.2vw);
   padding-bottom: min(calc(2.2em - 1.8vw), 1.3em);
+  padding-bottom: calc(0.4em - 1.2vw);
+
+  padding: 0;
 }
 
 .rating-widget button img {
-  height: max(min(3.5em, 5.8vw), 40px);
+  height: max(min(3em, 6vw), 50px);
+  height: min(50px, 8vw);
+  transition: 0.5s ease;
 }
 
 .rating-widget button img:hover {
-  height: max(min(4em, 6vw), 65px);
+  height: max(min(6em, 6vw), 65px);
   background: radial-gradient(circle, rgb(3, 128, 237) 0%, rgba(0, 0, 0, 0) 100%);
   border-radius: 50%;
   transition: 0.5s ease-in-out;
 }
 
 .rating-widget img.active {
-  height: max(min(3.5em, 5.8vw), 40px);
   background: radial-gradient(circle, rgba(8, 135, 31, 0.75) 50%, rgb(60, 245, 28) 100%);
   border-radius: 100%;
   transition: 0.5s ease;
@@ -425,48 +487,11 @@ button:hover {
   padding-top: calc(1em - 1vw);
 }
 
-/* Add media queries for smaller screens */
-@media (max-width: 900px) {
-  .rating-widget h4{
-    font-size: 14px;
-  }
-  .rating-widget button img {
-    height: max(min(3.1em, 4.8vw), 30px);
-  }
-  .rating-widget button img:hover {
-    height: max(min(3.2em, 5vw), 45px);
-  }
-  .rating-widget img.active {
-    height: max(min(3.1em, 4.8vw), 30px);
-  }
-}
-
-@media (max-width: 800px) {
-  .rating-widget h4{
-    font-size: 13px;
-  }
-  .rating-widget button img {
-    height: max(min(3em, 4.8vw), 30px);
-  }
-  .rating-widget button img:hover {
-    height: max(min(3.2em, 5vw), 45px);
-  }
-  .rating-widget img.active {
-    height: max(min(3em, 4.8vw), 30px);
-  }
-}
-
-@media (max-width: 600px) {
-  .rating-widget h4{
-    font-size: 12px;
-  }
-}
-
-/* End of rating */
+/* ********** End of rating ********** */
 
 
 
-/* Start of completed list */
+/* Completed List */
 .journal-past-wrap .task-list {
   position: absolute;
   right: 2em;
@@ -478,17 +503,19 @@ button:hover {
 
   border-radius: 1em;
 
+  transform: none;
+
 }
-/* End of completed list */
 
-/* End Entry Content */
+/* ********** End Entry Content ********** */
 
-/* Start of past week */
+/* ********** Start of past week ********** */
 .past-week-wrap {
   margin-top: 2%;
   margin-right: 5%;
   margin-left: 2%;
   height: 19%;
+  font-size: min(14px, 4vw);
 }
 
 .past-week-grid {
@@ -514,6 +541,10 @@ button:hover {
   table-layout: fixed;
   margin: 0;
   height: 100%;
+
+  min-width: 40rem;
+
+  font-size: min(16px, 1vw);
 }
 
 /* Calendar Data Cell Styling */
@@ -558,11 +589,11 @@ td .task-div {
 
 /* Unordered list in calendar cell */
 .task-ul{
-  margin: 0px;
+  margin: 0;
   padding-left: 6px;
-  padding-bottom: 0;
   color: black;
   font-size: 12px;
+  line-height: 1;
 }
 
 /* Individual tasks in calendar cell */
@@ -572,4 +603,68 @@ td .task-div {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+/* Extra tasks in calendar cell */
+.task-indicator{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-top: 7px;
+  font-weight: bolder;
+}
+
+/* Individual tasks in calendar cell */
+.task-item::marker{
+  color: var(--task-color, "black");
+  font-size: 1.5em; 
+}
+
+/* Button links to specific homepage in calendar cell */
+.a-link {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
 /* End of past week */
+
+
+@media (max-width: 740px) {
+  main {
+    overflow-x: scroll;
+  }
+  .task-list {
+    flex: 0 0 25%;
+    z-index: 100000;
+    transition: transform 0.3s ease;
+    transform: translateX(-88%);
+  }
+
+  .main-wrap {
+    transform: translateX(-160px);
+
+    padding-left: max(2%, 0.5em);
+  }
+
+  .task-list.active {
+    transform: translateX(0%);
+  }
+  
+  .journal-past-wrap {
+    display: block;
+  }
+
+  .rating-widget h4{
+    font-size: 12px;
+  }
+  
+  .rating-widget {
+    overflow: auto;
+  }
+
+  .table-week {
+    font-size: 10px;
+  }
+}

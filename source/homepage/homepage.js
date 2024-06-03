@@ -1,8 +1,5 @@
 window.addEventListener('DOMContentLoaded', init);
 
-// Counter for iding tasks
-let task_counter = 1;
-
 // Get current date globals
 var currDate = new Date();
 
@@ -12,10 +9,14 @@ var currDate = new Date();
  * @returns {undefined} Nothing
  */
 function init() {
+    dateQuery();
     // Display the current date
     displayDate(formatDate(currDate));
+
     displayWeek();
     initButtons();
+    clickTaskList();
+
 }
 
 /**
@@ -32,7 +33,7 @@ function initButtons() {
     ratingSelBtn.forEach(btn => {
         btn.addEventListener("click", () => {
             var id = btn.getAttribute("id");
-            selectWidget(id);
+            selectWidget(id.substring(3,5));
         });
     });
 }
@@ -46,14 +47,21 @@ function displayDate(date) {
     // Display the date in the designated container
     const dateContainer = document.getElementById('current-date');
     dateContainer.textContent = date;
+
+    // Maybe need to call dateQuery() again depending on the type of functionality
+    // dateQuery();
 }
 
 /**
  * Updates the global currDate to the next date and updates interface
  */
 function nextDate() {
-    currDate.setDate(currDate.getDate() + 1);
-    displayDate(formatDate(currDate));
+    let today = new Date();
+    if (currDate.getDate() != today.getDate()) {
+        currDate.setDate(currDate.getDate() + 1);
+        displayDate(formatDate(currDate));
+    }
+    
 }
 
 /**
@@ -100,79 +108,33 @@ function selectWidget(buttonIndex) {
     }
 }
 
-// Add event listener to remove active and blur task when you click outside of task
-document.addEventListener('click', function(event) {
-    const currTask = document.querySelector('#taskContainer .active');
-
-    if (currTask && !currTask.contains(event.target)) {
-        currTask.classList.remove('active');
-        const textarea = currTask.querySelector('.task-name');
-        textarea.blur();
-        autoResize(textarea)
-    }
-});
-
 /**
- * A function to create a new task and place it in the sidebar
+ * Adds task to task list upon "Add Task" button click.
  */
 function addTask() {
-    // Create the new list item element
-    const li = document.createElement('li');
+    const taskList = document.querySelector(".task-container");
+    const task = document.createElement("li");
+    task.setAttribute("class", "task");
 
-    // Create a div to hold checkbox and input
-    const input_wrap = document.createElement('div');
-    input_wrap.className = 'input-wrap';
+    /* WORKS ON CHROME, NOT FIREFOX */
+    task.insertAdjacentHTML("beforeend", `
+        <div class="check-input-wrap">
+            <button id="task1" class="task-checkbox"></button>
+            <div contenteditable="true" class="task-input" placeholder="Add a task..." onkeypress="return this.innerText.length <= 180;"></div>
+        </div>
+        <div class="color-buttons">
+            <button id="purple" class="color-button"></button>
+            <button id="green" class="color-button"></button>
+            <button id="blue" class="color-button"></button>
+            <button id="pink" class="color-button"></button>
+            <button id="grey" class="color-button"></button>
+        </div>
+        <img class="fas fa-trash-alt" src="../icons/trash-icon.svg" alt="Remove">
+    `);
+    taskList.append(task);
 
-    // Create the checkbox input to input_wrap
-    const checkbox = document.createElement('button');
-    checkbox.className = 'task-checkbox';
-    checkbox.id = 'task' + task_counter;
-    task_counter++;
-
-    // Create img element for checkbox
-    const check = document.createElement('img');
-    check.src = '../icons/check-icon.svg';
-    check.alt = 'Check';
-    // Append img to checkbox
-    // checkbox.appendChild(check);
-
-    // Append checkbox to input wrap
-    input_wrap.appendChild(checkbox);
-
-    // Event listener to move task to completed when it is selected
-    checkbox.addEventListener('click', function() {
-        // Add or remove completed from class name
-        // Find closest li item (task)
-        const task = checkbox.closest('li');
-
-        if (task.className.includes('complete')) {
-            task.classList.remove('complete');
-            const taskContainer = document.getElementById('taskContainer');
-            taskContainer.appendChild(task);
-        }
-        else {
-            task.classList.add('complete');
-            const completedTaskContainer = document.getElementById('completedTaskContainer');
-            completedTaskContainer.appendChild(task);
-        }
-    });
-
-    // Create and append the input element with the task name
-    const task_name = document.createElement('textarea');
-    task_name.placeholder = 'Input Task Name...';
-    task_name.className = 'task-name';
-    task_name.maxLength = 100;
-    input_wrap.appendChild(task_name);
-
-    // Append input-wrap to li
-    li.appendChild(input_wrap);
-
-    // Add event listener to add active to class name when editing
-    task_name.addEventListener('focus', function() {
-        li.classList.add('active');
-    });
-
-    // Add event listener to stop editing when user presses enter
+    // listener to stop editing when user presses enter
+    const task_name = task.querySelector(".task-input");
     task_name.addEventListener('keydown', function(event) {
         if (event.key == 'Enter') {
             if (!event.shiftKey) {
@@ -180,80 +142,93 @@ function addTask() {
                 // Enter pressed, end editing
                 event.preventDefault(); // Prevent default behavior of Enter key
                 task_name.blur(); // Remove focus from the element
-                li.classList.remove('active');
-                const textarea = li.querySelector('.task-name');
-                autoResize(textarea);
+                //li.classList.remove('active');
             }
         }
     });
 
-    // Create and append the color-buttons div
-    const colorButtons = document.createElement('div');
-    colorButtons.className = 'color-buttons';
-    li.appendChild(colorButtons);
-
-    // List of colors
-    const colors = ['red', 'orange', 'yellow', 'green', 'blue', '#e0e0e0'];
-
-    // Create and append each color button
-    colors.forEach(color => {
-        const button = document.createElement('button');
-        button.className = 'color-button ' + color;
-        button.style.background = color;
-        button.addEventListener('click', function() {
-            li.style.background = color;
-            if ( color == 'blue' || color == 'green' || color == 'red') {
-                task_name.style.color = '#e0e0e0';
-            }
-            else {
-                task_name.style.color = 'black';
-            }
-        });
-        colorButtons.appendChild(button);
-    });
-
-    // Create and append the trash icon
-    const trashIcon = document.createElement('img');
-    trashIcon.src = '../icons/trash-icon.svg';
-    trashIcon.alt = 'Remove';
-    trashIcon.className = 'fas fa-trash-alt';
-
-    trashIcon.addEventListener('click', function() {
-        // Find the parent <li> element of the clicked trash icon
-        const task = trashIcon.closest('li');
-            
-        // Remove the <li> element from the DOM
-        if (task) {
-            task.remove();
-        }
-    });
-
-    li.appendChild(trashIcon);
-
-    // Append the new list item to the task list
-    const taskContainer = document.getElementById('taskContainer');
-    taskContainer.appendChild(li);
-    
     // Auto click into the task name text box
     setTimeout(() => {
         task_name.focus();
         document.getSelection().collapseToEnd();
     }, 0);
+
+    // add functionality to task buttons
+    taskButtonsFunctionality(task);
+    forceStyle(task);
 }
 
 /**
- * Resizes the textarea holding the task name for an element
- * 
- * @param {textarea} textarea to resize in task
+ * Adds button functionality to task upon creation
+ * @param {Task Node} task - the task to have functionality
  */
-function autoResize(textarea) {
-    textarea.style.height = 'auto'; // Reset the height
-    textarea.style.height = textarea.scrollHeight + 'px'; // Set the height to the scroll height
-    if (textarea.value == '' || textarea.value.length < 15) {
-        textarea.style.height = '24px';
-    }
+function taskButtonsFunctionality(task) {
+
+    /* Implement color changing functionality */
+    const colorBtns = task.querySelectorAll(".color-button");
+    console.log(colorBtns);
+    colorBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            let color;
+            switch (btn.id) {
+                case "purple":
+                    color = "#C380CC";
+                    break;
+                case "green":
+                    color = "#91DC79";
+                    break;
+                case "blue":
+                    color = "#6BB1D9";
+                    break;
+                case "pink":
+                    color = "#EEBAE9";
+                    break;
+                default:
+                    color = "var(--main-color)";
+            }
+            task.style['background-color'] = color;
+        });
+    });
+
+    /* Trash icon delete functionality */
+    const deleteIcon = task.querySelector(".fas");
+    deleteIcon.addEventListener("click", () => {
+        task.remove();
+    });
+
+    /* Checkbox move to Completed Tasks functionality */
+    const checkbox = task.querySelector(".task-checkbox");
+    checkbox.addEventListener('click', function() {
+        // Add or remove completed from class name
+        // Find closest li item (task)
+
+        if (task.className.includes('complete')) {
+            task.classList.remove('complete');
+            const taskContainer = document.querySelector('.task-container');
+            taskContainer.appendChild(task);
+        }
+        else {
+            task.classList.add('complete');
+            const completedTaskContainer = document.querySelector('.completed-task-container');
+            completedTaskContainer.appendChild(task);
+        }
+    });
 }
 
+/**
+ * Force the styling of text on a task if styling is different, ie copy and pasting
+ * @param {Node} task 
+ */
+function forceStyle(task) {
+    const taskInput = document.querySelector(".task-input")
+    taskInput.addEventListener("paste", () => {
+        const taskInput = task.querySelector(".task-input");
+        taskInput.style.fontSize = "revert";
+        taskInput.style.font = "revert";
+        taskInput.style.color = "revert";
+        console.log("yea");
+    });
+}
 /**
  * Updates interface with Past Week view
  */
@@ -328,11 +303,22 @@ function displayWeek() {
         task2.textContent = "I am the second task";
         task2.className = "task-item";
         taskList.appendChild(task2);
-        // third task
-        let task3 = document.createElement("li");
-        task3.textContent = "I am the third task";
-        task3.className = "task-item";
-        taskList.appendChild(task3);
+        // extra tasks
+        let taskExtra = document.createElement("li");
+        taskExtra.textContent = "5+";               // Change with #Tasks-2
+        taskExtra.className = "task-indicator";
+        taskList.appendChild(taskExtra);
+        
+        // Create buttons that link to speciic homepage and extract selected date
+        let aLink = document.createElement("a");
+        let dayLink = currWeekDay.getDate();
+        let monthLink = currWeekDay.getMonth();
+        let yearLink = currWeekDay.getFullYear()
+
+        // Query is in format ?date=month-day-year
+        aLink.href = `../homepage/homepage.html?date=${monthLink}-${dayLink}-${yearLink}`;
+        aLink.className = "a-link";
+        cellData.appendChild(aLink);
         // Append taskList to task div;
         taskDiv.appendChild(taskList);
         // Append tasklist div to new cell
@@ -343,4 +329,53 @@ function displayWeek() {
     }
     // Append row to table
     table.appendChild(row);
+
+    // Add taskcolor to calendar cells
+    taskColor();
+}
+
+/**
+ * Implements date query to link to certain date
+ */
+function dateQuery() {
+    // Extract query from the page
+    let params = new URLSearchParams(window.location.search);
+    let date = params.get("date");
+
+    // If a date query exists
+    if (date) {
+        let components = date.split('-');
+        currDate = new Date(components[2], components[0], components[1]);
+    }
+}
+
+
+function clickTaskList() {
+    const taskList = document.querySelector('.task-list');
+    const outSide = document.querySelector('.main-wrap');
+    taskList.addEventListener('click', function(event) {
+        if (event.target === taskList) {
+            if (window.innerWidth <= 800) { 
+                taskList.classList.toggle('active');
+            }
+        }
+    });
+    outSide.addEventListener('click', function(event){
+        if (window.innerWidth <= 800) { 
+            taskList.classList.remove('active');
+        }
+    });
+}
+
+function taskColor(){
+    // Get all elements with class .task-item
+    const taskItems = document.querySelectorAll('.task-item');
+    // Loop through each task item and assign a random color
+    taskItems.forEach(taskItem => {
+        // Generate a random color
+        const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+        
+        // Set the color as the value of --task-color for this task item
+        taskItem.style.setProperty('--task-color', randomColor);
+    });
 }
