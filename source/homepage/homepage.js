@@ -308,45 +308,6 @@ function displayWeek() {
         // Append cell number to new cell
         cellData.appendChild(cellNum);
 
-        // // Add sentiment icon
-        // let sentimentIcon = document.createElement("img");
-        // sentimentIcon.src = "../icons/5overjoyed.png"; 
-        // sentimentIcon.alt = "sentiment icon";
-        // sentimentIcon.className = "sentiment-icon";
-        // // Append sentiment icon to new cell
-        // cellData.appendChild(sentimentIcon);
-
-        // // Add productivity icon
-        // let productivityIcon = document.createElement("img");
-        // productivityIcon.src = "../icons/5overjoyed.png"; 
-        // productivityIcon.alt = "productivity icon";
-        // productivityIcon.className = "productivity-icon";
-        // // Append sentiment icon to new cell
-        // cellData.appendChild(productivityIcon);
-
-        // // Add tasklist in calendar cell
-        // // Create tasklist div
-        // let taskDiv = document.createElement("div");
-        // taskDiv.className = "task-div";
-        // // Create unordered list
-        // let taskList = document.createElement("ul");
-        // taskList.className = "task-ul";
-        // // first task
-        // let task1 = document.createElement("li");
-        // task1.textContent = "I am the first task";
-        // task1.className = "task-item";
-        // taskList.appendChild(task1);
-        // // second task
-        // let task2 = document.createElement("li");
-        // task2.textContent = "I am the second task";
-        // task2.className = "task-item";
-        // taskList.appendChild(task2);
-        // // extra tasks
-        // let taskExtra = document.createElement("li");
-        // taskExtra.textContent = "5+";               // Change with #Tasks-2
-        // taskExtra.className = "task-indicator";
-        // taskList.appendChild(taskExtra);
-
         loadCellDataTest(cellData, currWeekDay);
 
         // Append new cell to row
