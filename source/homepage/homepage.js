@@ -342,7 +342,7 @@ function clickTaskList() {
             }
         }
     });
-    outSide.addEventListener('click', function(event){
+    outSide.addEventListener('click', function(){
         if (window.innerWidth <= 800) { 
             taskList.classList.remove('active');
         }
