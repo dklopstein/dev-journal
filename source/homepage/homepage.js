@@ -155,7 +155,6 @@ function addTask() {
 
     // add functionality to task buttons
     taskButtonsFunctionality(task);
-    forceStyle(task);
 }
 
 /**
@@ -215,20 +214,6 @@ function taskButtonsFunctionality(task) {
     });
 }
 
-/**
- * Force the styling of text on a task if styling is different, ie copy and pasting
- * @param {Node} task 
- */
-function forceStyle(task) {
-    const taskInput = document.querySelector(".task-input")
-    taskInput.addEventListener("paste", () => {
-        const taskInput = task.querySelector(".task-input");
-        taskInput.style.fontSize = "revert";
-        taskInput.style.font = "revert";
-        taskInput.style.color = "revert";
-        console.log("yea");
-    });
-}
 /**
  * Updates interface with Past Week view
  */
