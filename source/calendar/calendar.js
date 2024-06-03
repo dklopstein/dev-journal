@@ -1,4 +1,3 @@
-// Wait for window to load
 window.addEventListener('DOMContentLoaded', init);
 
 // Get current date globals
@@ -6,13 +5,17 @@ var currDate = new Date();
 var month = currDate.getMonth();
 var year = currDate.getFullYear();
 
-// Update the global date variables
+/**
+ * Updates the global date variables
+ */
 function updateDateGlobals() {
     month = currDate.getMonth();
     year = currDate.getFullYear();
 }
 
-// When page loads
+/**
+ * Initializes and displays calendar when page loads
+ */
 function init(){
     // Initiaze the jump buttons
     displayJump(year-6,year+5);
@@ -25,9 +28,9 @@ function init(){
     initButtons();
 }
 
-
-// FUNCTIONS
-
+/**
+ * Initializes functionality of buttons
+ */
 function initButtons(){
 
     // PREVIOUS MONTH BUTTON
@@ -62,7 +65,9 @@ function initButtons(){
     window.addEventListener('resize', windowWidth);
 }
 
-// Function to goto next month
+/**
+ * Updates the global currDate to the next date and displays the next month
+ */
 function next(){
     // Increment the month
     currDate.setMonth(currDate.getMonth() + 1);
@@ -70,7 +75,9 @@ function next(){
     displayCalendar();
 }
 
-// Function to goto previous month
+/**
+ * Updates the global currDate to the previous date and displays the previous month
+ */
 function prev(){
     // Decrement the month
     currDate.setMonth(currDate.getMonth() - 1);
@@ -78,8 +85,9 @@ function prev(){
     displayCalendar();
 }
 
- 
-// Function to display the calendar
+/**
+ * Displays the calendar and its data
+ */
 function displayCalendar(){
     // Get body and clear current calendar
     let tbody = document.getElementById("tbody-calendar");
@@ -234,7 +242,11 @@ function displayCalendar(){
     document.getElementById('year-dropdown').style.left = monthWidth + 5 + 'px';
 }
 
-// Generate dropdown year range
+/**
+ * Generates dropdown menu year range
+ * @param {number} startYear - year for the range to start
+ * @param {number} endYear - year for the range to end
+ */
 function displayJump(startYear, endYear) {
     // YEARS
     let yearDropdown = document.getElementById("year-dropdown")
@@ -248,7 +260,6 @@ function displayJump(startYear, endYear) {
         yearDropdown.appendChild(yearJump);
         
     }
-
     // MONTHS
     let allMonths = [
         "January","February","March","April","May","June",
@@ -265,13 +276,20 @@ function displayJump(startYear, endYear) {
     }
 }
 
-// Function to jump to a specific month and year
+/**
+ * Function to jump to a specific month and year
+ * @param {number} mnth - month to jump to
+ * @param {number} yr - year to jump to
+ */
 function jump(mnth, yr) {
     currDate = new Date(yr, mnth)
     updateDateGlobals();
     displayCalendar();
 }
 
+/**
+ * Creates header of the calendar
+ */
 function calendarHeader(){
     // Initialize list of days of the week
     let allDays = ["Sun", "Mon", "Tue", "Wed","Thu", "Fri", "Sat"];
@@ -289,7 +307,9 @@ function calendarHeader(){
     thead.appendChild(headerRow);
 }
 
-
+/**
+ * Assigns different colors to tasks
+ */
 function taskColor(){
     // Get all elements with class .task-item
     const taskItems = document.querySelectorAll('.task-item');
@@ -297,13 +317,14 @@ function taskColor(){
     taskItems.forEach(taskItem => {
         // Generate a random color
         const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-        
         // Set the color as the value of --task-color for this task item
         taskItem.style.setProperty('--task-color', randomColor);
     });
 }
 
-// Resize header if width of window decreases
+/**
+ * Resizes windows and changes display based on window size
+ */
 function windowWidth() {
     if (window.innerWidth < 920) {
         // Initialize list of abbreviated months
@@ -331,7 +352,9 @@ function windowWidth() {
   }
 
 
-  /* My new addTask function, early stages feel free to edit */
+/**
+ * Adds task to task list upon "Add Task" button click.
+ */
 async function addTask() {
     const taskList = document.querySelector(".task-list");
     const task = document.createElement("li");
