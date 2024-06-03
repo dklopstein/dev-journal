@@ -27,12 +27,17 @@ function init() {
 
     // Initialize the buttons 
     initButtons();
+
+    loadTasks();
 }
 
 
 // FUNCTIONS
 
 function initButtons() {
+
+    const addTaskBtn = document.querySelector(".add-task-btn");
+    addTaskBtn.addEventListener("click", addTask);
 
     // PREVIOUS MONTH BUTTON
     let prevBtn = document.querySelector(".prev-date-btn");
@@ -84,6 +89,138 @@ function calendarButton() {
     currDate = new Date();
     updateDateGlobals();
     displayCalendar();
+}
+
+/**
+ * Adds task to task list upon "Add Task" button click.
+ */
+function addTask() {
+    const taskList = document.querySelector(".task-container");
+    const task = document.createElement("li");
+    task.setAttribute("class", "task");
+    task.insertAdjacentHTML("beforeend", `
+        <div class="check-input-wrap">
+            <button id="task1" class="task-checkbox"></button>
+            <div contenteditable="true" class="task-input" placeholder="Add a task..." onkeypress="return this.innerText.length <= 180;"></div>
+        </div>
+        <div class="color-buttons">
+            <button id="purple" class="color-button"></button>
+            <button id="green" class="color-button"></button>
+            <button id="blue" class="color-button"></button>
+            <button id="pink" class="color-button"></button>
+            <button id="grey" class="color-button"></button>
+        </div>
+        <img class="fas fa-trash-alt" src="../icons/trash-icon.svg" alt="Remove">
+    `);
+    task.querySelector(".task-input").addEventListener("input", saveCompleted)
+
+
+    taskList.append(task);
+
+    // listener to stop editing when user presses enter
+    const task_name = task.querySelector(".task-input");
+    task_name.addEventListener('keydown', function (event) {
+        if (event.key == 'Enter') {
+            if (!event.shiftKey) {
+                // Shift+Enter pressed, insert a line break
+                // Enter pressed, end editing
+                event.preventDefault(); // Prevent default behavior of Enter key
+                task_name.blur(); // Remove focus from the element
+                //li.classList.remove('active');
+            }
+        }
+    });
+
+    // Auto click into the task name text box
+    setTimeout(() => {
+        task_name.focus();
+        const selection = document.getSelection();
+        if (selection.rangeCount > 0) {
+            selection.collapseToEnd();
+        }
+    }, 0);
+
+    // add functionality to task buttons
+    taskButtonsFunctionality(task);
+
+    return task;
+}
+
+/**
+ * Adds button functionality to task upon creation
+ * @param {Task Node} task - the task to have functionality
+ */
+function taskButtonsFunctionality(task) {
+
+    /* Implement color changing functionality */
+    const colorBtns = task.querySelectorAll(".color-button");
+    console.log(colorBtns);
+    colorBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+            let color;
+            switch (btn.id) {
+                case "purple":
+                    color = "#C380CC";
+                    break;
+                case "green":
+                    color = "#91DC79";
+                    break;
+                case "blue":
+                    color = "#6BB1D9";
+                    break;
+                case "pink":
+                    color = "#EEBAE9";
+                    break;
+                default:
+                    color = "var(--main-color)";
+            }
+            task.style['background-color'] = color;
+            saveCompleted();
+            saveTasks();
+        });
+    });
+
+    /* Trash icon delete functionality */
+    const deleteIcon = task.querySelector(".fas");
+    deleteIcon.addEventListener("click", () => {
+        task.remove();
+    });
+
+    /* Checkbox move to Completed Tasks functionality */
+    const checkbox = task.querySelector(".task-checkbox");
+    checkbox.addEventListener('click', function () {
+        // Add or remove completed from class name
+        // Find closest li item (task)
+
+        if (task.className.includes('complete')) {
+            task.classList.remove('complete');
+            const taskContainer = document.querySelector('.task-container');
+            taskContainer.appendChild(task);
+            task.addEventListener("blur", saveTasks);
+            saveCompleted();
+            saveTasks();
+        }
+        else {
+            task.classList.add('complete');
+            const completedTaskContainer = document.querySelector('.completed-task-container');
+            completedTaskContainer.appendChild(task);
+            saveCompleted();
+            saveTasks();
+        }
+    });
+}
+
+function taskColor() {
+    // Get all elements with class .task-item
+    const taskItems = document.querySelectorAll('.task-item');
+    // Loop through each task item and assign a random color
+    taskItems.forEach(taskItem => {
+        // Generate a random color
+        const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+
+        // Set the color as the value of --task-color for this task item
+        taskItem.style.setProperty('--task-color', randomColor);
+    });
 }
 
 // Function to display the calendar
@@ -489,3 +626,108 @@ function getJournal() {
     // };
     // return returnVal;
 }
+
+
+
+/**
+ * Save tasks to local storage
+ */
+function saveTasks() {
+    console.log("saving tasks")
+    let tasks = [];
+    document.querySelectorAll('.task-container li').forEach(task => {
+        //let checkbox = task.querySelector('input[type="task-checkbox"]');
+        let taskName = task.querySelector('.task-input').textContent;
+        let taskColor = task.style['background-color']
+        tasks.push({
+            text: taskName,
+            color: taskColor,
+        });
+    });
+    console.log(tasks);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+/**
+ * Get tasks from local storage
+ *
+ * @returns {string} tasks in parsed json format or empty array if no tasks
+ */
+function getTasks() {
+    let storedTasks = localStorage.getItem("tasks");
+    return storedTasks ? JSON.parse(storedTasks) : [];
+}
+
+/**
+ * Load tasks from local storage
+ */
+function loadTasks() {
+    let tasks = getTasks();
+    if (tasks.length > 0) {
+        tasks.forEach(task => {
+            let curLi = addTask();
+            curLi.querySelector(".task-input").textContent = task['text']
+            curLi.style['background-color'] = task['color']
+            //curLi.querySelector('input[type="checkbox"]').checked = task['checked']
+        });
+    }
+
+}
+
+/**
+ * Saves the completed tasks per day
+ */
+function saveCompleted() {
+    console.log("saving completed tasks");
+    let data = getJournal();
+    let completedTask = [];
+    dateText = new Date(date.textContent).toLocaleDateString();
+    document.querySelectorAll('.completed-task-container li').forEach(completedTaskElement => {
+        let taskName = completedTaskElement.querySelector('.task-input').textContent;
+        let taskColor = completedTaskElement.style['background-color']
+        completedTask.push({
+            text: taskName,
+            color: taskColor,
+        });
+    });
+    saveToStorage(data, dateText, "completedTasks", completedTask);
+    localStorage.setItem("journals", JSON.stringify(data));
+}
+
+function getCompleted() {
+    let data = getJournal();
+    let dateText = new Date(date.textContent).toLocaleDateString();
+    let storedTasks = loadFromStorage(data, dateText, "completedTasks");
+    return storedTasks ? storedTasks : [];
+}
+
+/**
+ * Load tasks from local storage
+ */
+function loadCompleted() {
+    let tasks2 = getCompleted();
+    if (tasks2.length > 0) {
+        tasks2.forEach(task => {
+            let curLi = addTask();
+            completedTasks.appendChild(curLi);
+            curLi.querySelector(".task-input").textContent = task['text']
+            curLi.style['background-color'] = task['color']
+            curLi.classList.add('complete')
+            //curLi.querySelector('input[type="checkbox"]').checked = task['checked']
+        });
+    }
+}
+
+function unselectAllCompleted() {
+    let tasks = [];
+    document.querySelectorAll('.completed-task-container li').forEach(task => {
+        //let checkbox = task.querySelector('input[type="task-checkbox"]');
+        task.remove();
+    });
+}
+
+const tasks = document.querySelector(".task-container");
+tasks.addEventListener("blur", saveTasks)
+tasks.addEventListener("change", saveTasks)
+tasks.addEventListener("blur", saveCompleted)
+tasks.addEventListener("change", saveCompleted)

@@ -9,15 +9,18 @@
   --accent-color: #9eb6c9;
 
 }
+
 html {
   height: 100%;
   background-color: yellow;
   overflow: hidden;
 }
+
 body {
   height: 100%;
   background-color: var(--main-color);
 }
+
 main {
   display: flex;
   overflow: hidden;
@@ -27,15 +30,16 @@ main {
 
 /* Universal background color for buttons to clear */
 button {
-  background-color: rgba(0,0,0,0);
-  border: rgba(0,0,0,1);
+  background-color: rgba(0, 0, 0, 0);
+  border: rgba(0, 0, 0, 1);
 }
 
 /* ********** Start of task list ********** */
-.task-list { 
+.task-list {
   flex: 0 0 18%;
-  max-width: 17rem; /* Prevents task list expanding with long task names */
-  height:100%;
+  max-width: 17rem;
+  /* Prevents task list expanding with long task names */
+  height: 100%;
   margin: 5px;
   padding: 1%;
   border-radius: 15px;
@@ -47,12 +51,13 @@ button {
 
 @media (max-width: 800px) {
   .task-list {
-      transform: translateX(-90px);
+    transform: translateX(-90px);
   }
 
   .main-wrap {
     transform: translateX(-90px);
   }
+
   .journal-past-wrap {
     display: block;
   }
@@ -78,8 +83,10 @@ button {
 /* Styling for task name */
 .task-list .task-name {
   width: max(10em, 12vw);
-  resize: none; /* Prevents user from resizing */
-  overflow: hidden; /* Hides scrollbar */
+  resize: none;
+  /* Prevents user from resizing */
+  overflow: hidden;
+  /* Hides scrollbar */
   margin-top: -4px;
   height: 24px;
   max-height: 108px;
@@ -157,9 +164,12 @@ button {
 
 /* Positioning for trash icon */
 .fas.fa-trash-alt {
-  position: absolute; /* Positioning relative to the nearest positioned ancestor */
-  top: 2px; /* Distance from the top edge of the li */
-  right: 2px; /* Distance from the right edge of the li */
+  position: absolute;
+  /* Positioning relative to the nearest positioned ancestor */
+  top: 2px;
+  /* Distance from the top edge of the li */
+  right: 2px;
+  /* Distance from the right edge of the li */
   width: 18px;
   height: 18px;
   cursor: pointer;
@@ -167,7 +177,8 @@ button {
 
 /* Display buttons when hovering or actively editing */
 .task:hover .color-buttons {
-  opacity: 1; /* Brings the buttons back into view */
+  opacity: 1;
+  /* Brings the buttons back into view */
 }
 
 /* Checkbox appearance */
@@ -197,19 +208,28 @@ button {
 
 /* Default set up for color buttons */
 .color-buttons {
-  opacity: 0; /* Hide buttons */
-  transition: opacity 0.3s ease; /* Transition for buttons reappearing */
-  max-height: 5em; /* Enough max-height to show the content */
-  display: flex; /* Lays out the buttons in a row */
-  justify-content: space-around; /* Spaces buttons evenly */
-  margin-top: 5px; /* Space from the description */
+  opacity: 0;
+  /* Hide buttons */
+  transition: opacity 0.3s ease;
+  /* Transition for buttons reappearing */
+  max-height: 5em;
+  /* Enough max-height to show the content */
+  display: flex;
+  /* Lays out the buttons in a row */
+  justify-content: space-around;
+  /* Spaces buttons evenly */
+  margin-top: 5px;
+  /* Space from the description */
 }
 
 /* Size of each color button */
 .color-button {
-  width: 15px; /* Uniform button size */
-  height: 15px; /* Uniform button size */
-  border-radius: 100%; /* Makes the buttons circular */
+  width: 15px;
+  /* Uniform button size */
+  height: 15px;
+  /* Uniform button size */
+  border-radius: 100%;
+  /* Makes the buttons circular */
 
   border: solid grey 1px;
 
@@ -248,7 +268,7 @@ button {
 
 /* ********** End of task list ********** */
 
-.main-wrap { 
+.main-wrap {
   flex: 1;
   position: relative;
   float: left;
@@ -327,7 +347,7 @@ button {
   background-repeat: no-repeat;
   background-position: center;
   background-position: 8px;
-  
+
 }
 
 .date-header-buttons button:hover {
@@ -375,6 +395,7 @@ button {
 button:hover {
   cursor: pointer;
 }
+
 /* ********** End of top bar ********** */
 
 
@@ -429,9 +450,10 @@ button:hover {
 
 .journal-entry #textarea:focus {
   outline: none !important;
-  border:1px solid var(--accent-color);
+  border: 1px solid var(--accent-color);
   box-shadow: 0 0 10px #719ECE;
 }
+
 /* ********** End of journal ********** */
 
 /* ********** Start of rating ********** */
@@ -439,6 +461,7 @@ button:hover {
   position: relative;
   height: 40%;
 }
+
 .rating-completed-wrap h4 {
   text-align: center;
   font-size: max(calc(0.7em + 0.4vw), 15px);
@@ -500,37 +523,43 @@ button:hover {
 
 /* Add media queries for smaller screens */
 @media (max-width: 900px) {
-  .rating-widget h4{
+  .rating-widget h4 {
     font-size: 14px;
   }
+
   .rating-widget button img {
     height: max(min(3.1em, 4.8vw), 30px);
   }
+
   .rating-widget button img:hover {
     height: max(min(3.2em, 5vw), 45px);
   }
+
   .rating-widget img.active {
     height: max(min(3.1em, 4.8vw), 30px);
   }
 }
 
 @media (max-width: 800px) {
-  .rating-widget h4{
+  .rating-widget h4 {
     font-size: 13px;
   }
+
   .rating-widget button img {
     height: max(min(3em, 4.8vw), 30px);
   }
+
   .rating-widget button img:hover {
     height: max(min(3.2em, 5vw), 45px);
   }
+
   .rating-widget img.active {
     height: max(min(3em, 4.8vw), 30px);
   }
 }
 
 @media (max-width: 600px) {
-  .rating-widget h4{
+  .rating-widget h4 {
     font-size: 12px;
   }
 }
@@ -545,7 +574,8 @@ button:hover {
   right: 2em;
   width: min(44%, 30rem);
   height: 100%;
-  margin: 0; /* Overwrite inherited margin from task-list */
+  margin: 0;
+  /* Overwrite inherited margin from task-list */
   max-width: none;
   background-color: var(--secondary-color);
 
@@ -569,7 +599,8 @@ button:hover {
   width: min(78rem, 100%);
   height: min(12em, 80%);
   padding-top: max(1.5rem, 3.5vh);
-  padding-bottom: max(1.5rem, 3.5vh);;
+  padding-bottom: max(1.5rem, 3.5vh);
+  ;
   padding-left: 1em;
   padding-right: 3em;
 }
@@ -629,7 +660,7 @@ td .task-div {
 }
 
 /* Unordered list in calendar cell */
-.task-ul{
+.task-ul {
   margin: 0;
   padding-left: 6px;
   color: black;
@@ -638,7 +669,7 @@ td .task-div {
 }
 
 /* Individual tasks in calendar cell */
-.task-item{
+.task-item {
   list-style-position: inside;
   overflow: hidden;
   white-space: nowrap;
@@ -646,7 +677,7 @@ td .task-div {
 }
 
 /* Extra tasks in calendar cell */
-.task-indicator{
+.task-indicator {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -655,9 +686,9 @@ td .task-div {
 }
 
 /* Individual tasks in calendar cell */
-.task-item::marker{
+.task-item::marker {
   color: var(--task-color, "black");
-  font-size: 1.5em; 
+  font-size: 1.5em;
 }
 
 /* Button links to specific homepage in calendar cell */
@@ -669,4 +700,5 @@ td .task-div {
   left: 0;
   z-index: 10;
 }
+
 /* End of past week */

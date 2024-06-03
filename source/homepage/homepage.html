@@ -1,152 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8" />
-    <title>Homepage</title>
+<head>
+  <meta charset="UTF-8" />
+  <title>Homepage</title>
 
-    <link rel="stylesheet" href="homepage.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-  </head>
+  <link rel="stylesheet" href="homepage.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+</head>
 
-  <body>
-    <main>
-      <div class="task-list">
-        <div class="task-header">
-          <h3>Tasks</h3>
-          <button class="add-task-btn" id="addbutton">
-            <img src="../icons/add-task-icon.png" alt="Add">
-          </button>
-          
-        </div>
-        <!-- Container for tasks in sidebar -->
-        <ul class="task-container">
-          <!-- Individual tasks -->
-        </ul>
+<body>
+  <main>
+    <div class="task-list">
+      <div class="task-header">
+        <h3>Tasks</h3>
+        <button class="add-task-btn" id="addbutton">
+          <img src="../icons/add-task-icon.png" alt="Add">
+        </button>
+
       </div>
-      <!--Everything but the task list-->
-      <div class="main-wrap">
-          <!--Contain header bar-->
-          <section class="top-bar">
-            <div class="date-header-wrap">
-              <div class="date-header">
-                <div class="date-header-buttons">
-                  <button class="prev-date-btn"></button>
-                  <button class="next-date-btn"></button>
-                </div>
-                
-                <div class="date-header-text" id="current-date"></div>
-                <!-- <div class="date-header-text" >Wednesday, September 28, 2024</div> -->
-                <!-- <div class="date-header-text" >Friday, May 2, 2024</div> -->
-                
-              </div>
-  
-              <div class="nav-buttons">
-  
-                <!-- Button to go to Home Page-->
-                <a href="./homepage.html">
-                  <button class="nav-homepage-btn">
-                    <img src="../icons/home-icon.png" alt="Home">
-                  </button>
-                </a>
-  
-                <!--Button to go to Calendar-->
-                <a href="../calendar/calendar.html">
-                  <button class="nav-calendar-btn">
-                    <img src="../icons/calendar-icon.webp" alt="Calendar">
-                  </button>
-                </a>
-  
-                <!--Button to go to Settings-->
-                <button class="nav-settings-btn" href="">
-                  <img src="../icons/settings-icon.png" alt="Settings">
-                </button>
-  
-              </div>
+      <!-- Container for tasks in sidebar -->
+      <ul class="task-container">
+        <!-- Individual tasks -->
+      </ul>
+    </div>
+    <!--Everything but the task list-->
+    <div class="main-wrap">
+      <!--Contain header bar-->
+      <section class="top-bar">
+        <div class="date-header-wrap">
+          <div class="date-header">
+            <div class="date-header-buttons">
+              <button class="prev-date-btn"></button>
+              <button class="next-date-btn"></button>
             </div>
-            
-              
-          </section>
-          <!--Below header bar-->
-          <div class="journal-past-wrap">
-            <!--Today's Entry, includes journal, ratings, tasks completed-->
-            <section class="today-entry">
-                <div class="journal">
-                  <div class="journal-entry">
-                    <h4>Journal</h4>
-                    <textarea id="textarea" placeholder="Type your journal here..."></textarea>
-                  </div>
-                </div>
-                <!--Wraps Sentiment Rating and Tasks Completed-->
-                <div class="rating-completed-wrap">
 
-                  <div class="rating-widget">
-                    <h4>How's your mental health today?</h4>
-                    <div class="feelings">
-                      <!-- 1st Angry button  -->
-                      <button class="rating-select-btn" id="btn1">
-                        <img src="../icons/1angry.png" alt="Angry Button 1">
-                      </button>
-                      <!-- 2nd Upset button -->
-                      <button class="rating-select-btn" id="btn2">
-                          <img src="../icons/2upset.png" alt="Upset Button 2">
-                      </button>
-                      <!-- 3rd Neutral button -->
-                      <button class="rating-select-btn" id="btn3">
-                        <img src="../icons/3neutral.png" alt="Neutral Button 3">
-                      </button>
-                      <!-- 4th Happy button -->
-                      <button class="rating-select-btn" id="btn4">
-                        <img src="../icons/4happy.png" alt="Happy Button 4" class="">
-                      </button>
-                      <!-- 5th Overjoyed button -->
-                      <button class="rating-select-btn" id="btn5">
-                        <img src="../icons/5overjoyed.png" alt="Overjoyed Button 5">
-                      </button>
-                    </div>
+            <div class="date-header-text" id="current-date"></div>
+            <!-- <div class="date-header-text" >Wednesday, September 28, 2024</div> -->
+            <!-- <div class="date-header-text" >Friday, May 2, 2024</div> -->
 
-                    <h4>How productive are you feeling today?</h4>
-                    <div class="productiveness">
-                      <button class="rating-select-btn" id="btn6">
-                        <img src="../icons/1-icon.svg" alt="1">
-                      </button>
-                      <button class="rating-select-btn" id="btn7">
-                        <img src="../icons/2-icon.svg" alt="1">
-                      </button>
-                      <button class="rating-select-btn" id="btn8">
-                        <img src="../icons/3-icon.svg" alt="1">
-                      </button>
-                      <button class="rating-select-btn" id="btn9">
-                        <img src="../icons/4-icon.svg" alt="1">
-                      </button>
-                      <button class="rating-select-btn" id="btn10">
-                        <img src="../icons/5-icon.svg" alt="1">
-                      </button>
-                    </div>
-
-                  </div>
-                  <div class="task-list">
-                    <h4>Tasks Completed Today</h4>
-                    <ul class="completed-task-container">
-                    </ul>
-                  </div>
-                </div>
-            </section>
-
-            <!--Holds the past week view-->
-            <section class="past-week-wrap">
-              <table class="table-week" id="week-calendar" data-lang="en"></table>
-            </section>
           </div>
-          
+
+          <div class="nav-buttons">
+
+            <!-- Button to go to Home Page-->
+            <a href="./homepage.html">
+              <button class="nav-homepage-btn">
+                <img src="../icons/home-icon.png" alt="Home">
+              </button>
+            </a>
+
+            <!--Button to go to Calendar-->
+            <a href="../calendar/calendar.html">
+              <button class="nav-calendar-btn">
+                <img src="../icons/calendar-icon.webp" alt="Calendar">
+              </button>
+            </a>
+
+            <!--Button to go to Settings-->
+            <button class="nav-settings-btn" href="">
+              <img src="../icons/settings-icon.png" alt="Settings">
+            </button>
+
+          </div>
+        </div>
+
+
+      </section>
+      <!--Below header bar-->
+      <div class="journal-past-wrap">
+        <!--Today's Entry, includes journal, ratings, tasks completed-->
+        <section class="today-entry">
+          <div class="journal">
+            <div class="journal-entry">
+              <h4>Journal</h4>
+              <textarea id="textarea" placeholder="Type your journal here..."></textarea>
+            </div>
+          </div>
+          <!--Wraps Sentiment Rating and Tasks Completed-->
+          <div class="rating-completed-wrap">
+
+            <div class="rating-widget">
+              <h4>How's your mental health today?</h4>
+              <div class="feelings">
+                <!-- 1st Angry button  -->
+                <button class="rating-select-btn" id="btn1">
+                  <img src="../icons/1angry.png" alt="Angry Button 1">
+                </button>
+                <!-- 2nd Upset button -->
+                <button class="rating-select-btn" id="btn2">
+                  <img src="../icons/2upset.png" alt="Upset Button 2">
+                </button>
+                <!-- 3rd Neutral button -->
+                <button class="rating-select-btn" id="btn3">
+                  <img src="../icons/3neutral.png" alt="Neutral Button 3">
+                </button>
+                <!-- 4th Happy button -->
+                <button class="rating-select-btn" id="btn4">
+                  <img src="../icons/4happy.png" alt="Happy Button 4" class="">
+                </button>
+                <!-- 5th Overjoyed button -->
+                <button class="rating-select-btn" id="btn5">
+                  <img src="../icons/5overjoyed.png" alt="Overjoyed Button 5">
+                </button>
+              </div>
+
+              <h4>How productive are you feeling today?</h4>
+              <div class="productiveness">
+                <button class="rating-select-btn" id="btn6">
+                  <img src="../icons/1-icon.svg" alt="1">
+                </button>
+                <button class="rating-select-btn" id="btn7">
+                  <img src="../icons/2-icon.svg" alt="1">
+                </button>
+                <button class="rating-select-btn" id="btn8">
+                  <img src="../icons/3-icon.svg" alt="1">
+                </button>
+                <button class="rating-select-btn" id="btn9">
+                  <img src="../icons/4-icon.svg" alt="1">
+                </button>
+                <button class="rating-select-btn" id="btn10">
+                  <img src="../icons/5-icon.svg" alt="1">
+                </button>
+              </div>
+
+            </div>
+            <div class="task-list">
+              <h4>Tasks Completed Today</h4>
+              <ul class="completed-task-container">
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!--Holds the past week view-->
+        <section class="past-week-wrap">
+          <table class="table-week" id="week-calendar" data-lang="en"></table>
+        </section>
       </div>
-    </main>
-    <footer>
-      sfes
-    </footer>
-    <script src="homepage.js"></script>
-  </body>
+
+    </div>
+  </main>
+  <footer>
+    sfes
+  </footer>
+  <script src="homepage.js"></script>
+</body>
 
 </html>
