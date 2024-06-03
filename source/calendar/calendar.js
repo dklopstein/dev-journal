@@ -215,8 +215,8 @@ function taskButtonsFunctionality(task) {
  */
 function saveCompleted(completedTaskElement) {
     let data = getJournal();
-    let completedTask = [];
     dateText = new Date().toLocaleDateString();
+    let completedTask = loadFromStorage(data, dateText, "completedTasks") || [];
     let taskName = completedTaskElement.querySelector('.task-input').textContent;
     let taskColor = completedTaskElement.style['background-color']
     completedTask.push({
