@@ -184,6 +184,7 @@ function taskButtonsFunctionality(task) {
     const deleteIcon = task.querySelector(".fas");
     deleteIcon.addEventListener("click", () => {
         task.remove();
+        saveTasks();
     });
 
     /* Checkbox move to Completed Tasks functionality */

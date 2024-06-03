@@ -40,7 +40,9 @@ function initButtons() {
     const prevBtn = document.querySelector(".prev-date-btn");
     prevBtn.addEventListener("click", prevDate);
     const addTaskBtn = document.querySelector(".add-task-btn");
-    addTaskBtn.addEventListener("click", addTask);
+    addTaskBtn.addEventListener("click", () => {
+        addTask();
+    });
     const ratingSelBtn = document.querySelectorAll(".rating-select-btn");
     ratingSelBtn.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -127,7 +129,7 @@ function selectWidget(buttonIndex) {
 /**
  * Adds task to task list upon "Add Task" button click.
  */
-function addTask() {
+function addTask(loadTask = false) {
     const taskList = document.querySelector(".task-container");
     const task = document.createElement("li");
     task.setAttribute("class", "task");
@@ -176,6 +178,10 @@ function addTask() {
     // add functionality to task buttons
     taskButtonsFunctionality(task);
 
+    if (loadTask == false){
+        saveTasks();
+    }
+
     return task;
 }
 
@@ -187,7 +193,6 @@ function taskButtonsFunctionality(task) {
 
     /* Implement color changing functionality */
     const colorBtns = task.querySelectorAll(".color-button");
-    console.log(colorBtns);
     colorBtns.forEach(btn => {
         btn.addEventListener('click', function () {
             let color;
@@ -217,6 +222,8 @@ function taskButtonsFunctionality(task) {
     const deleteIcon = task.querySelector(".fas");
     deleteIcon.addEventListener("click", () => {
         task.remove();
+        saveCompleted();
+        saveTasks();
     });
 
     /* Checkbox move to Completed Tasks functionality */
@@ -348,8 +355,6 @@ function displayWeek() {
     // Append row to table
     table.appendChild(row);
 
-    // Add taskcolor to calendar cells
-    taskColor();
 }
 
 /**
@@ -367,18 +372,7 @@ function dateQuery() {
     }
 }
 
-function taskColor() {
-    // Get all elements with class .task-item
-    const taskItems = document.querySelectorAll('.task-item');
-    // Loop through each task item and assign a random color
-    taskItems.forEach(taskItem => {
-        // Generate a random color
-        const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
 
-        // Set the color as the value of --task-color for this task item
-        taskItem.style.setProperty('--task-color', randomColor);
-    });
-}
 //------------------------------------------
 // Save journal entry
 
@@ -478,7 +472,6 @@ function loadJournal() {
  * Save tasks to local storage
  */
 function saveTasks() {
-    console.log("saving tasks")
     let tasks = [];
     document.querySelectorAll('.task-container li').forEach(task => {
         //let checkbox = task.querySelector('input[type="task-checkbox"]');
@@ -489,7 +482,6 @@ function saveTasks() {
             color: taskColor,
         });
     });
-    console.log(tasks);
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
@@ -510,7 +502,7 @@ function loadTasks() {
     let tasks = getTasks();
     if (tasks.length > 0) {
         tasks.forEach(task => {
-            let curLi = addTask();
+            let curLi = addTask(true);
             curLi.querySelector(".task-input").textContent = task['text']
             curLi.style['background-color'] = task['color']
             //curLi.querySelector('input[type="checkbox"]').checked = task['checked']
@@ -533,7 +525,6 @@ function saveJournal() {
  * Saves the completed tasks per day
  */
 function saveCompleted() {
-    console.log("saving completed tasks");
     let data = getJournal();
     let completedTask = [];
     dateText = new Date(date.textContent).toLocaleDateString();
@@ -563,7 +554,7 @@ function loadCompleted() {
     let tasks2 = getCompleted();
     if (tasks2.length > 0) {
         tasks2.forEach(task => {
-            let curLi = addTask();
+            let curLi = addTask(true);
             completedTasks.appendChild(curLi);
             curLi.querySelector(".task-input").textContent = task['text']
             curLi.style['background-color'] = task['color']
@@ -696,7 +687,6 @@ function loadCellDataTest(cellData, currWeekDay) {
 
 // Save journal entry and tasks to local storage on events
 journal.addEventListener("blur", saveJournal)
-console.log(tasks);
 tasks.addEventListener("blur", saveTasks)
 tasks.addEventListener("change", saveTasks)
 tasks.addEventListener("blur", saveCompleted)
