@@ -123,6 +123,7 @@ select {
   overflow: hidden;
   word-wrap: break-word;
   text-align: left;
+  list-style-type: none; /* Get rid of li bullet points */
   /* Set max height */
   transition: max-height 0.5s ease-in;
   max-height: 4em;
