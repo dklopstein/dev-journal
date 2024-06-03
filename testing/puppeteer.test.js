@@ -123,6 +123,108 @@ describe('Basic user path in homepage', () => {
     expect(class_name_5).toBe("");
   });
 
+  it('Add a task, set its title, and choose a color', async () => {
+    console.log('Testing task addition, title setting, and color selection...');
+  
+    await page.click('.add-task-btn');
+  
+    const taskInputSelector = '.task-container .task:last-child .task-input';
+    await page.waitForSelector(taskInputSelector);
+    const taskInput = await page.$(taskInputSelector);
+  
+    const taskTitle = 'New Task Title for Testing';
+    await taskInput.type(taskTitle);
+  
+    const colorButton = '.task-container .task:last-child .color-buttons';
+    const colorButtonSelector = '.task-container .task:last-child .color-button';
+    await page.hover(colorButton);
+    await page.click(colorButtonSelector);
+  
+    const enteredTitle = await page.evaluate(selector => {
+      return document.querySelector(selector).textContent;
+    }, taskInputSelector);
+  
+    const backgroundColor = await page.evaluate(selector => {
+      const task = document.querySelector(selector);
+      return window.getComputedStyle(task).backgroundColor;
+    }, '.task-container .task:last-child');
+  
+    expect(enteredTitle).toBe(taskTitle);
+    expect(backgroundColor).toBe('rgb(195, 128, 204)'); 
+
+    await page.click('.task-container .task .fas.fa-trash-alt');
+    const taskCountAfterDelete = await page.evaluate(() => {
+      return document.querySelectorAll('.task-container .task').length;
+    });
+    expect(taskCountAfterDelete).toBe(0);
+  });
+  
+  // Resize the window to make the task-list slide out
+  it('Resize window and check task-list position', async () => {
+    console.log('Testing window resize and task-list sliding...');
+    // Resize the window to a smaller size
+    await page.setViewport({ width: 700, height: 800 });
+    // Check the class name for the task-list to see if it has moved
+    const taskListClass = await page.evaluate(() => {
+      return document.querySelector('.task-list').className;
+    });
+    expect(taskListClass.includes('active')).toBe(false);
+  });
+
+  // Click the task-list to bring it forward
+  it('Click task-list to bring it forward', async () => {
+    console.log('Testing task-list click to bring forward...');
+    // Click on the task-list
+    await page.evaluate(() => {
+      document.querySelector('.task-list').click();
+    });    
+    // Check the task-list to see if it has active class
+    const mainWrapClass = await page.evaluate(() => {
+      return document.querySelector('.task-list').className;
+    });
+    // Expect the task-list to have 'active' class after clicking the task-list
+    expect(mainWrapClass.includes('active')).toBe(true);
+  });
+
+  // Add a task using the "Add Task" button
+  it('Add a task and check addition', async () => {
+    console.log('Testing task addition...');
+    const isActive = await page.evaluate(() => {
+      return document.querySelector('.task-list').classList.contains('active');
+    });
+    if (!isActive) {
+      await page.evaluate(() => {
+        document.querySelector('.task-list').click();
+      });
+    }
+    // Click the "Add Task" button
+    await page.click('.add-task-btn');
+    // Check the number of tasks in the task-container
+    const taskCount = await page.evaluate(() => {
+      return document.querySelectorAll('.task-container .task').length;
+    });
+    // Expect the task count to increase by 1 after clicking the add button
+    expect(taskCount).toBe(1); // Modify the expected value based on initial number of tasks
+    await page.click('.task-container .task .fas.fa-trash-alt');
+    const taskCountAfterDelete = await page.evaluate(() => {
+      return document.querySelectorAll('.task-container .task').length;
+    });
+    expect(taskCountAfterDelete).toBe(0);
+  });
+
+  // Click the main-wrap to hide the task-list
+  it('Click main-wrap to hide task-list', async () => {
+    console.log('Testing main-wrap click to hide task-list...');
+    // Click on the main-wrap
+    await page.click('.main-wrap');
+    // Check the class name for the task-list to see if it has moved back
+    const taskListClass = await page.evaluate(() => {
+      return document.querySelector('.task-list').className;
+    });
+    // Expect the task-list to not have 'active' class after clicking the main-wrap
+    expect(taskListClass.includes('active')).toBe(false);
+  });
+
   // Template
   it('', async () => {
     
@@ -131,5 +233,133 @@ describe('Basic user path in homepage', () => {
   });
 
   // TODO: Add more tests
+
+});
+
+
+/**
+* Testing all functionality contained within the Top-Bar on Homepage
+*/
+describe('Homepage Top-Bar functionality', () => {
+
+  // Open the webpage
+  beforeAll(async () => {
+    await page.goto('http://127.0.0.1:5500/source/homepage/homepage.html');
+  });
+
+  /**
+   * Test going to yesterday with previous date button
+   */
+  it('Click the previous date button 1 time', async () => {
+    console.log('Testing going back multiple days');
+
+    // Click prev date button 5 times
+    const prevDateBtn = await page.$('.prev-date-btn');
+    await prevDateBtn.click();
+
+    // set the expected date
+    let expectedDate = new Date();
+    expectedDate.setDate(expectedDate.getDate() - 1);
+
+    // get displayed date at the top
+    const displayedDateText = await page.$eval(".date-header-text", (el) => {
+      return el.textContent;
+    });
+
+    // get prevDate as a formatted string
+    let expectedDateText = expectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    expect(displayedDateText).toBe(expectedDateText);
+  });
+
+  /**
+   * Test the forward date from past day with next date button
+   */
+  it('Click the next date button 1 time', async () => {
+    console.log('Testing going forward once from yesterday');
+
+    // Click prev date button 5 times
+    const nextDateBtn = await page.$('.next-date-btn');
+    await nextDateBtn.click();
+    
+    // set the expected date: today
+    let expectedDate = new Date();
+    // get displayed date at the top
+    const displayedDateText = await page.$eval(".date-header-text", (el) => {
+      return el.textContent;
+    });
+
+    // get prevDate as a formatted string
+    let expectedDateText = expectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    expect(displayedDateText).toBe(expectedDateText);
+  });
+
+  /**
+   * Test going into the past 5 days
+   */
+  it('Click the previous date button 5 times', async () => {
+    console.log('Testing going back multiple days');
+
+    // Click prev date button 5 times
+    const prevDateBtn = await page.$('.prev-date-btn');
+    for (let i = 0; i < 5; i++) { await prevDateBtn.click(); }
+
+    // set the expected date
+    let expectedDate = new Date();
+    expectedDate.setDate(expectedDate.getDate() - 5);
+    // get displayed date at the top
+    const displayedDateText = await page.$eval(".date-header-text", (el) => {
+      return el.textContent;
+    });
+
+    // get prevDate as a formatted string
+    let expectedDateText = expectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    expect(displayedDateText).toBe(expectedDateText);
+  });
+
+  /**
+   * Test going forward 5 days from 5 days in the past
+   */
+  it('Click the next date button 5 times', async () => {
+    console.log('Testing going from past days into multiple future days');
+
+    // Click prev date button 5 times
+    const nextDateBtn = await page.$('.next-date-btn');
+    for (let i = 0; i < 5; i++) { await nextDateBtn.click(); }
+
+    // set the expected date
+    let expectedDate = new Date();
+    // get displayed date at the top
+    const displayedDateText = await page.$eval(".date-header-text", (el) => {
+      return el.textContent;
+    });
+
+    // get prevDate as a formatted string
+    let expectedDateText = expectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    expect(displayedDateText).toBe(expectedDateText);
+  });
+
+  /**
+   * Test the inability to go into future days
+   */
+  it('Click next date button 3 times', async () => {
+    console.log('Testing inability to go into future days');
+
+    // Click prev date button 5 times
+    const nextDateBtn = await page.$('.next-date-btn');
+    await nextDateBtn.click();
+    await nextDateBtn.click();
+    await nextDateBtn.click();
+
+    // set the expected date
+    let expectedDate = new Date();
+    // get displayed date at the top
+    const displayedDateText = await page.$eval(".date-header-text", (el) => {
+      return el.textContent;
+    });
+
+    // get prevDate as a formatted string
+    let expectedDateText = expectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    expect(displayedDateText).toBe(expectedDateText);
+  });
 
 });
