@@ -156,24 +156,29 @@ describe('Basic user path in homepage', () => {
     const taskCountAfterDelete = await page.evaluate(() => {
       return document.querySelectorAll('.task-container .task').length;
     });
+
     expect(taskCountAfterDelete).toBe(0);
   });
   
   // Resize the window to make the task-list slide out
   it('Resize window and check task-list position', async () => {
     console.log('Testing window resize and task-list sliding...');
+
     // Resize the window to a smaller size
     await page.setViewport({ width: 700, height: 800 });
+
     // Check the class name for the task-list to see if it has moved
     const taskListClass = await page.evaluate(() => {
       return document.querySelector('.task-list').className;
     });
+
     expect(taskListClass.includes('active')).toBe(false);
   });
 
   // Click the task-list to bring it forward
   it('Click task-list to bring it forward', async () => {
     console.log('Testing task-list click to bring forward...');
+
     // Click on the task-list
     await page.evaluate(() => {
       document.querySelector('.task-list').click();
@@ -182,6 +187,7 @@ describe('Basic user path in homepage', () => {
     const mainWrapClass = await page.evaluate(() => {
       return document.querySelector('.task-list').className;
     });
+
     // Expect the task-list to have 'active' class after clicking the task-list
     expect(mainWrapClass.includes('active')).toBe(true);
   });
@@ -189,6 +195,7 @@ describe('Basic user path in homepage', () => {
   // Add a task using the "Add Task" button
   it('Add a task and check addition', async () => {
     console.log('Testing task addition...');
+
     const isActive = await page.evaluate(() => {
       return document.querySelector('.task-list').classList.contains('active');
     });
@@ -197,30 +204,36 @@ describe('Basic user path in homepage', () => {
         document.querySelector('.task-list').click();
       });
     }
+
     // Click the "Add Task" button
     await page.click('.add-task-btn');
     // Check the number of tasks in the task-container
     const taskCount = await page.evaluate(() => {
       return document.querySelectorAll('.task-container .task').length;
     });
+
     // Expect the task count to increase by 1 after clicking the add button
     expect(taskCount).toBe(1); // Modify the expected value based on initial number of tasks
+
     await page.click('.task-container .task .fas.fa-trash-alt');
     const taskCountAfterDelete = await page.evaluate(() => {
       return document.querySelectorAll('.task-container .task').length;
     });
+
     expect(taskCountAfterDelete).toBe(0);
   });
 
   // Click the main-wrap to hide the task-list
   it('Click main-wrap to hide task-list', async () => {
     console.log('Testing main-wrap click to hide task-list...');
+
     // Click on the main-wrap
     await page.click('.main-wrap');
     // Check the class name for the task-list to see if it has moved back
     const taskListClass = await page.evaluate(() => {
       return document.querySelector('.task-list').className;
     });
+    
     // Expect the task-list to not have 'active' class after clicking the main-wrap
     expect(taskListClass.includes('active')).toBe(false);
   });
