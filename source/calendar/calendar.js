@@ -520,7 +520,7 @@ function saveToStorage(data, dateText, key, value) {
  */
 function loadFromStorage(data, dateText, key) {
     if (!(dateText in data)) {
-        return "";
+        return null;
     }
     return data[dateText][key];
 }
