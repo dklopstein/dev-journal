@@ -42,11 +42,8 @@ button {
   background-color: white;
   box-shadow: 1px 1px lightgrey;
 
-  overflow-y: scroll;
-
-  /* Hide scroll-bars for Firefox, Edge */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  /* Set size of task area to be relative to list */
+  position: relative;
 }
 
 /* Hide scroll-bar for Chrome, Safari, Opera*/
@@ -58,6 +55,32 @@ button {
 .task-header {
   display: flex;
 
+}
+
+/* Wrapper for overflow of current tasks */
+.task-wrapper {
+  position: absolute;
+  top: 44px;
+  bottom: 0;
+  width: 88%;
+  overflow: auto;
+
+  /* Hide scroll-bars for Firefox, Edge */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Wrapper for overflow of completed tasks */
+.completed-task-wrapper {
+  position: absolute;
+  bottom: 0;
+  height: 82%;
+  width: 96%;
+  overflow: auto;
+
+  /* Hide scroll-bars for Firefox, Edge */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 /* Aligns add button to right */
@@ -76,7 +99,6 @@ button {
 .task-list .task-name {
   width: max(10em, 12vw);
   resize: none; /* Prevents user from resizing */
-  overflow: hidden; /* Hides scrollbar */
   margin-top: -4px;
   height: 24px;
   max-height: 108px;
@@ -104,7 +126,6 @@ button {
   margin-bottom: 0.5em;
   border-radius: 5px;
   position: relative;
-  overflow: hidden;
   word-wrap: break-word;
   text-align: left;
   list-style-type: none; /* Get rid of li bullet points */
