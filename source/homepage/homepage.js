@@ -3,14 +3,7 @@ const RATING_FILES_NAMES = ["1angry.png", "2upset.png", "3neutral.png", "4happy.
 const PRODUCTIVITY_FILES_NAMES = ["1-icon.svg", "2-icon.svg", "3-icon.svg", "4-icon.svg", "5-icon.svg"];
 
 window.addEventListener('DOMContentLoaded', init);
-const DEBUG = true;
-function _log(msg) {
-    if (DEBUG) {
-        //console.log(msg);
-    }
-}
-// Counter for iding tasks
-let task_counter = 1;
+
 // Get current date globals
 var currDate = new Date();
 
@@ -321,22 +314,6 @@ function displayWeek() {
 
 }
 
-/**
- * Implements date query to link to certain date
-  */
-function dateQuery() {
-    // Extract query from the page
-    let params = new URLSearchParams(window.location.search);
-    let date = params.get("date");
-
-    // If a date query exists
-    if (date) {
-        let components = date.split('-');
-        currDate = new Date(components[2], components[0], components[1]);
-    }
-}
-
-
 //------------------------------------------
 // Save journal entry
 
@@ -365,7 +342,6 @@ window.onbeforeunload = function () {
 // var saveInterval = setInterval(function(){
 //     saveJournal()
 //     saveTasks()
-//     _log("Saved")
 // }, AUTO_SAVE_INTERVAL)
 
 /**
@@ -405,7 +381,6 @@ function saveJournal() {
     let data = getJournal()
     let dateText = new Date(date.textContent).toLocaleDateString();
     saveToStorage(data, dateText, "contents", journal.value)
-    _log(data)
     localStorage.setItem("journals", JSON.stringify(data))
 }
 
@@ -429,7 +404,6 @@ function loadJournal() {
     let data = getJournal()
     let dateText = new Date(date.textContent).toLocaleDateString();
     journal.value = loadFromStorage(data, dateText, "contents") || "";
-    _log(data)
 }
 
 /**
@@ -481,7 +455,6 @@ function saveJournal() {
     let data = getJournal()
     let dateText = new Date(date.textContent).toLocaleDateString();
     saveToStorage(data, dateText, "contents", journal.value)
-    _log(data)
     localStorage.setItem("journals", JSON.stringify(data))
 }
  */
@@ -492,7 +465,7 @@ function saveJournal() {
 function saveCompleted() {
     let data = getJournal();
     let completedTask = [];
-    dateText = new Date(date.textContent).toLocaleDateString();
+    let dateText = new Date(date.textContent).toLocaleDateString();
     document.querySelectorAll('.completed-task-container li').forEach(completedTaskElement => {
         let taskName = completedTaskElement.querySelector('.task-input').textContent;
         let taskColor = completedTaskElement.style['background-color']
@@ -531,7 +504,6 @@ function loadCompleted() {
 }
 
 function unselectAllCompleted() {
-    let tasks = [];
     document.querySelectorAll('.completed-task-container li').forEach(task => {
         //let checkbox = task.querySelector('input[type="task-checkbox"]');
         task.remove();
@@ -651,8 +623,6 @@ function loadCellDataTest(cellData, currWeekDay) {
     // Append tasklist div to new cell
     cellData.appendChild(taskDiv);
 }
-    // Add taskcolor to calendar cells
-
 
 /**
  * Implements date query to link to certain date
@@ -683,22 +653,6 @@ function clickTaskList() {
         if (window.innerWidth <= 800) { 
             taskList.classList.remove('active');
         }
-    });
-}
-
-/**
- * Set task bullet point color on past week view
- */
-function taskColor(){
-    // Get all elements with class .task-item
-    const taskItems = document.querySelectorAll('.task-item');
-    // Loop through each task item and assign a random color
-    taskItems.forEach(taskItem => {
-        // Generate a random color
-        const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-        
-        // Set the color as the value of --task-color for this task item
-        taskItem.style.setProperty('--task-color', randomColor);
     });
 }
 
