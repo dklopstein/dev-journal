@@ -667,6 +667,14 @@ td .task-div {
     transform: translateX(-88%);
   }
 
+  .task-wrapper {
+    display: none;
+  }
+
+  .task-wrapper.active {
+    display: block;
+  }
+
   .main-wrap {
     transform: translateX(-160px);
 
