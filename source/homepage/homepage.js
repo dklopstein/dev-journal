@@ -49,6 +49,13 @@ function initButtons() {
             selectWidget(id.substring(3,5));
         });
     });
+    window.addEventListener('keydown', function(event) {
+        if (event.key === "ArrowLeft") {
+            prevDate();
+        } else if (event.key === "ArrowRight") {
+            nextDate();
+        }
+    });
 }
 
 /**

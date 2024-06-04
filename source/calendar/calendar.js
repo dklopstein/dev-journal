@@ -63,6 +63,15 @@ function initButtons(){
 
     // RESIZE WINDOW FOR RESPONSIVENESS
     window.addEventListener('resize', windowWidth);
+
+    // ARROW KEY EVENT LISTENERS
+    window.addEventListener('keydown', function(event) {
+        if (event.key === "ArrowLeft") {
+            prev();
+        } else if (event.key === "ArrowRight") {
+            next();
+        }
+    });
 }
 
 /**
