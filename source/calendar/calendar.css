@@ -52,11 +52,21 @@ select {
   background-color: white;
   box-shadow: 1px 1px lightgrey;
 
+  /* Set size of task area to be relative to list */
+  position: relative;
+}
+
+/* Wrapper for overflow of current tasks */
+.task-wrapper {
+  position: absolute;
+  top: 44px;
+  bottom: 0;
+  width: 88%;
+  overflow: auto;
+
   /* Hide scroll-bars for Firefox, Edge */
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
-
-  overflow-y: scroll;
 }
 
 /* Hides task list when page reaches certain size */

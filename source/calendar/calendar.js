@@ -365,7 +365,7 @@ function windowWidth() {
  * Adds task to task list upon "Add Task" button click.
  */
 async function addTask() {
-    const taskList = document.querySelector(".task-list");
+    const taskList = document.querySelector(".task-container");
     const task = document.createElement("li");
     task.setAttribute("class", "task");
     await task.insertAdjacentHTML("beforeend", `
