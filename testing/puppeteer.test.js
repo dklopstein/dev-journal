@@ -1,10 +1,15 @@
 // E2E Testing with Puppeteer
-describe('Basic user path in homepage', () => {
+
+/**
+ * Testing for the main parts of the home page, journal and rating widget
+ * 
+ * JOURNAL AND RATING WIDGET TESTS
+ */
+describe('Usage of journal and rating widget', () => {
   // Open the webpage
   beforeAll(async () => {
     await page.goto('http://127.0.0.1:5500/source/homepage/homepage.html');
   });
-
 
   // Edit Journal
   it('Click into journal, type, click out', async () => {
@@ -71,8 +76,6 @@ describe('Basic user path in homepage', () => {
       return img_mad.getAttribute('class');
     }, img_mad);
 
-    console.log(class_name_mad);
-
     // Expect active removed from happy and added to mad
     expect(class_name_mad).toBe("active");
     expect(class_name_happy).toBe('');
@@ -123,6 +126,50 @@ describe('Basic user path in homepage', () => {
     expect(class_name_5).toBe("");
   });
 
+  // Ensure data is saved on reload
+  it('Reload page and check repopulated', async () => {
+    console.log('Reloading page...');
+
+    // Reload page
+    await page.reload();
+
+    // Define string that is in journal
+    const input_text = 'Example journal entry: I was so productive today!!';
+    
+    // Get journal text
+    const text = await journal.getProperty('value');
+    const journal_text = await text.jsonValue();
+
+    // Expect journal text to be jour
+    expect(journal_text).toBe(input_text);
+    
+    // Check rating widget
+    // Get img elements
+    const img_1 = await page.$('#btn6 img');
+    const img_mad = await page.$('#btn1 img');
+    
+    // Get class name of 1 and mad imgs
+    const class_name_1 = await page.evaluate(img_1 => {
+      return img_1.getAttribute('class');
+    }, img_1);
+    const class_name_mad = await page.evaluate(img_mad => {
+      return img_mad.getAttribute('class');
+    }, img_mad);
+
+    // Expect active to be on mad and 1 productivity
+    expect(class_name_1).toBe("active");
+    expect(class_name_mad).toBe("active");
+  });
+});
+
+
+
+/**
+ * Testing the task list resize, add task, recolor
+ * 
+ * TASK LIST TESTS
+ */
+describe('Homepage task list tests', () => {
   it('Add a task, set its title, and choose a color', async () => {
     console.log('Testing task addition, title setting, and color selection...');
   
@@ -238,24 +285,30 @@ describe('Basic user path in homepage', () => {
     
     // Expect the task-list to not have 'active' class after clicking the main-wrap
     expect(taskListClass.includes('active')).toBe(false);
-  });
 
-  // Template
-  it('', async () => {
-    
-    // Expect
-    expect().toBe();
+    // Resize window back to original
+    await page.setViewport({ width: 1200, height: 800 });
   });
+});
 
-  // TODO: Add more tests
+
+
+/**
+ * User marking a task as completed
+ * 
+ * COMPLETED TASK TESTS
+ */
+describe('Completing tasks', () => {
 
 });
 
 
 /**
 * Testing all functionality contained within the Top-Bar on Homepage
+* 
+* TOP BAR TESTS
 */
-describe('Homepage Top-Bar functionality', () => {
+describe('Homepage Top-Bar tests', () => {
 
   // Open the webpage
   beforeAll(async () => {
@@ -307,7 +360,7 @@ describe('Homepage Top-Bar functionality', () => {
     let expectedDateText = expectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     expect(displayedDateText).toBe(expectedDateText);
   });
-
+  
   /**
    * Test going into the past 5 days
    */
@@ -376,5 +429,4 @@ describe('Homepage Top-Bar functionality', () => {
     let expectedDateText = expectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     expect(displayedDateText).toBe(expectedDateText);
   });
-
 });
