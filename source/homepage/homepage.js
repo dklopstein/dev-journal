@@ -668,12 +668,12 @@ function taskListViewHandler() {
 }
 
 // Save journal entry and tasks to local storage on events
-journal.addEventListener("blur", saveJournal)
-tasks.addEventListener("blur", saveTasks)
-tasks.addEventListener("change", saveTasks)
-tasks.addEventListener("blur", saveCompleted)
-tasks.addEventListener("change", saveCompleted)
-completedTasks.addEventListener("blur", saveCompleted)
-completedTasks.addEventListener("change", saveCompleted)
-completedTasks.addEventListener("blur", saveTasks)
-completedTasks.addEventListener("change", saveTasks)
+journal.addEventListener("blur", saveJournal);
+tasks.addEventListener("blur", saveTasks);
+tasks.addEventListener("change", saveTasks);
+tasks.addEventListener("blur", saveCompleted);
+tasks.addEventListener("change", saveCompleted);
+completedTasks.addEventListener("blur", saveCompleted);
+completedTasks.addEventListener("change", saveCompleted);
+completedTasks.addEventListener("blur", saveTasks);
+completedTasks.addEventListener("change", saveTasks);
