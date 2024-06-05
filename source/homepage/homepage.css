@@ -4,9 +4,9 @@
 
   font-family: "Poppins", sans-serif;
 
-  --main-color: #ddd;
-  --secondary-color: #c1c1c1;
-  --accent-color: #9eb6c9;
+  --main-color: #f2f2f2;
+  --secondary-color: #d1d8e3;
+  --accent-color: #a8ceec;
 
 }
 html {
@@ -40,7 +40,7 @@ button {
   padding: 1%;
   border-radius: 15px;
   background-color: white;
-  box-shadow: 1px 1px lightgrey;
+  box-shadow: 3px 3px 3px lightgrey;
 
   /* Set size of task area to be relative to list */
   position: relative;
@@ -567,7 +567,7 @@ button:hover {
 /* Calendar Data Cell Styling */
 .table-week td {
   position: relative;
-  border: 3px solid black;
+  border: 3px solid #a3aaad;
   padding: 0;
 }
 
