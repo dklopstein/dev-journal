@@ -73,7 +73,7 @@ function nextDate() {
     let today = new Date();
     if (currDate.getDate() != today.getDate()) {
         currDate.setDate(currDate.getDate() + 1);
-        displayDate(formatDate(currDate));
+        displayDate(formatDate(currDate));  
     }
     unselectAllWidgets();
     unselectAllCompleted();
