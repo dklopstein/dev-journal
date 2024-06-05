@@ -174,66 +174,85 @@ describe('Homepage task list tests', () => {
   it('Add a task, set its title, and choose a color', async () => {
     console.log('Testing task addition, title setting, and color selection...');
   
+    // Setting the viewport size for the page
     await page.setViewport({ width: 1200, height: 800 });
-
+  
+    // Clicking the button to add a new task
     await page.click('.add-task-btn');
   
+    // Selector for the input field of the newly added task
     const taskInputSelector = '.task-container .task:last-child .task-input';
     await page.waitForSelector(taskInputSelector);
     const taskInput = await page.$(taskInputSelector);
   
+    // Typing the title for the new task
     const taskTitle = 'New Task Title for Testing';
     await taskInput.type(taskTitle);
   
+    // Selector for the color button and choosing a color
     const colorButton = '.task-container .task:last-child .color-buttons';
     const colorButtonSelector = '.task-container .task:last-child .color-button';
     await page.hover(colorButton);
     await page.click(colorButtonSelector);
   
+    // Evaluating and retrieving the entered title from the DOM
     const enteredTitle = await page.evaluate(selector => {
       return document.querySelector(selector).textContent;
     }, taskInputSelector);
   
+    // Evaluating and retrieving the background color of the new task
     const backgroundColor = await page.evaluate(selector => {
       const task = document.querySelector(selector);
       return window.getComputedStyle(task).backgroundColor;
     }, '.task-container .task:last-child');
   
+    // Asserting that the entered title matches the expected title
     expect(enteredTitle).toBe(taskTitle);
-    expect(backgroundColor).toBe('rgb(195, 128, 204)'); 
+  
+    // Asserting that the background color matches the expected color
+    expect(backgroundColor).toBe('rgb(195, 128, 204)');
   });
-
-  it('Edit the task and delete it', async() => {
+  
+  it('Edit the task and delete it', async () => {
+    // Selector for the input field of the last task
     const taskInputSelector = '.task-container .task:last-child .task-input';
     await page.waitForSelector(taskInputSelector);
     const taskInput = await page.$(taskInputSelector);
-
+  
+    // Clearing the current task title by pressing 'Backspace' multiple times
     for (let i = 0; i < 27; i++) {
-        await taskInput.press('Backspace');
+      await taskInput.press('Backspace');
     }
-      
+  
+    // Typing the new title for the task
     const taskTitle = 'Editing Task Title';
     await taskInput.type(taskTitle);
   
+    // Hovering over the color button and selecting a new color
     const colorButton = '.task-container .task:last-child .color-buttons';
     await page.hover(colorButton);
-
+  
     await page.evaluate(() => {
       const colorButtonSelector = '.task-container .task:last-child .color-buttons #blue';
       document.querySelector(colorButtonSelector).click();
-    });    
+    });
   
+    // Evaluating and retrieving the entered title from the DOM
     const enteredTitle = await page.evaluate(selector => {
       return document.querySelector(selector).textContent;
     }, taskInputSelector);
   
+    // Evaluating and retrieving the background color of the edited task
     const backgroundColor = await page.evaluate(selector => {
       const task = document.querySelector(selector);
       return window.getComputedStyle(task).backgroundColor;
     }, '.task-container .task:last-child');
   
+    // Asserting that the entered title matches the expected title
     expect(enteredTitle).toBe(taskTitle);
-    expect(backgroundColor).toBe('rgb(107, 177, 217)'); 
+  
+    // Asserting that the background color matches the expected color
+    expect(backgroundColor).toBe('rgb(107, 177, 217)');
   });
   
   // Resize the window to make the task-list slide out
