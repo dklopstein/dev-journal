@@ -485,18 +485,16 @@ button:hover {
   height: max(min(3em, 6vw), 50px);
   height: min(50px, 8vw);
   transition: 0.5s ease;
+  border-radius: 50%;
 }
 
 .rating-widget button img:hover {
-  height: max(min(6em, 6vw), 65px);
   background: radial-gradient(circle, rgb(3, 128, 237) 0%, rgba(0, 0, 0, 0) 100%);
-  border-radius: 50%;
   transition: 0.5s ease-in-out;
 }
 
-.rating-widget img.active {
-  background: radial-gradient(circle, rgba(8, 135, 31, 0.75) 50%, rgb(60, 245, 28) 100%);
-  border-radius: 100%;
+.rating-widget img.active, .rating-widget img.active:hover {
+  background-color: #008FC6;
   transition: 0.5s ease;
 }
 
