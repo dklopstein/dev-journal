@@ -300,8 +300,48 @@ describe('Homepage task list tests', () => {
  * COMPLETED TASK TESTS
  */
 describe('Completing tasks', () => {
+  it('Add task and mark complete', async () => {
+    console.log('Adding tasks and moving to completed...');
 
+    // Click the "Add Task" button
+    await page.click('.add-task-btn');
+
+    // Type into title
+    await page.keyboard.type('Completed Task');
+    // Change the color
+    const colorButton = '.task-container .task:last-child .color-buttons';
+    const colorButtonSelector = '.task-container .task:last-child .color-button';
+    await page.hover(colorButton);
+    await page.click(colorButtonSelector);
+    // Move to completed task list
+    await page.click('#task3 #complete3');
+
+    //Check there are no tasks in task list
+    const taskCountAfterComplete = await page.evaluate(() => {
+      return document.querySelectorAll('.task-container .task').length;
+    });
+    expect(taskCountAfterComplete).toBe(0);
+
+    // Check there is the correct task in completed tasks
+    const completeTaskCountAfterComplete = await page.evaluate(() => {
+      return document.querySelectorAll('.completed-task-container .task').length;
+    });
+    expect(completeTaskCountAfterComplete).toBe(1);
+
+    // Check the title and color of task in completed list
+    const taskTitle = await page.evaluate(selector => {
+      return document.querySelector(selector).textContent;
+    }, '#task3 .task-input');
+    const backgroundColor = await page.evaluate(selector => {
+      const task = document.querySelector(selector);
+      return window.getComputedStyle(task).backgroundColor;
+    }, '.completed-task-container .task:last-child');
+
+    expect(backgroundColor).toBe('rgb(195, 128, 204)');
+    expect(taskTitle).toBe('Completed Task');
+  });
 });
+
 
 
 /**
