@@ -360,12 +360,10 @@ button {
   position: absolute;
   top: 0.6em;
   right: 2em;
-  padding: 0;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: min(1em, 0.7vw);
-  height: 40%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1em;
 }
 
 .nav-buttons button {
@@ -484,13 +482,14 @@ button:hover {
 .rating-widget button img {
   height: max(min(3em, 6vw), 50px);
   height: min(50px, 8vw);
-  transition: 0.5s ease;
+  transition: 0.3s ease;
   border-radius: 50%;
 }
 
 .rating-widget button img:hover {
+  height: max(min(1em, 1vw), 65px);
   background: radial-gradient(circle, rgb(3, 128, 237) 0%, rgba(0, 0, 0, 0) 100%);
-  transition: 0.5s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 .rating-widget img.active, .rating-widget img.active:hover {

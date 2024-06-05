@@ -5,7 +5,7 @@
 
   --main-color: #ddd;
   --secondary-color: #c1c1c1;
-  --accent-color: #9eb6c9;
+  --accent-color: #a8ceec;
 }
 
 html {
@@ -320,12 +320,10 @@ select {
   position: absolute;
   top: 0.6em;
   right: 2em;
-  padding: 0;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: min(1em, 0.7vw);
-  height: 40%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1em;
 }
 
 /* Navigation buttons */

@@ -19,7 +19,7 @@ function init() {
 
     displayWeek();
     initButtons();
-    clickTaskList();
+    taskListViewHandler();
 
 }
 
@@ -43,6 +43,11 @@ function initButtons() {
         });
     });
     window.addEventListener('keydown', function(event) {
+        if ((event.target.tagName.toLowerCase() === "textarea") ||
+           (event.target.tagName.toLowerCase() === "div")) {
+            return;
+        }
+
         if (event.key === "ArrowLeft") {
             prevDate();
         } else if (event.key === "ArrowRight") {
@@ -91,6 +96,7 @@ function prevDate() {
     unselectAllCompleted();
     loadAll();
 }
+
 /**
  * Formats the currDate global variable into proper string display
  * @returns {string} - properly formatted string representing the date as "Weekday, Month Day, Year"
@@ -131,7 +137,8 @@ function selectWidget(buttonIndex) {
 }
 
 /**
- * Adds task to task list upon "Add Task" button click.
+ * Adds task to task list upon "Add Task" button click. Initializes buttons within each task
+ * @param {boolean} [loadTask=false] 
  */
  function addTask(loadTask = false) {
     const taskList = document.querySelector(".task-container");
@@ -156,7 +163,7 @@ function selectWidget(buttonIndex) {
 
     taskList.append(task);
 
-    // listener to stop editing when user presses enter
+    // Listener to stop editing when user presses enter
     const task_name = task.querySelector(".task-input");
     task_name.addEventListener('keydown', function (event) {
         if (event.key == 'Enter') {
@@ -165,19 +172,20 @@ function selectWidget(buttonIndex) {
                 // Enter pressed, end editing
                 event.preventDefault(); // Prevent default behavior of Enter key
                 task_name.blur(); // Remove focus from the element
-                //li.classList.remove('active');
             }
         }
     });
 
     // Auto click into the task name text box
-    setTimeout(() => {
-        task_name.focus();
-        const selection = document.getSelection();
-        if (selection.rangeCount > 0) {
-            selection.collapseToEnd();
-        }
-    }, 0);
+    if (loadTask == false){
+        setTimeout(() => {
+            task_name.focus();
+            const selection = document.getSelection();
+            if (selection.rangeCount > 0) {
+                selection.collapseToEnd();
+            }
+        }, 0);
+    }   
 
     // add functionality to task buttons
     taskButtonsFunctionality(task);
@@ -191,13 +199,12 @@ function selectWidget(buttonIndex) {
 
 /**
  * Adds button functionality to task upon creation
- * @param {Task Node} task - the task to have functionality
+ * @param {HTMLElement} task - the task to have functionality
  */
 function taskButtonsFunctionality(task) {
 
     /* Implement color changing functionality */
     const colorBtns = task.querySelectorAll(".color-button");
-    console.log(colorBtns);
     colorBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             let color;
@@ -312,19 +319,16 @@ function displayWeek() {
         
         // Append cell number to new cell
         cellData.appendChild(cellNum);
-
-        loadCellDataTest(cellData, currWeekDay);
+        loadCellData(cellData, currWeekDay);
 
         // Append new cell to row
         row.appendChild(cellData);
     }
     // Append row to table
     table.appendChild(row);
-
 }
 
-//------------------------------------------
-// Save journal entry
+/* ******** Storage and Population ********** */
 
 // Get the all relevent elements from page
 const journal = document.getElementById("textarea");
@@ -345,16 +349,8 @@ window.onbeforeunload = function () {
     saveCompleted()
 }
 
-// const AUTO_SAVE_INTERVAL = 30000;
-// Save journal entry and tasks to local storage on timer
-// Save every 30 seconds
-// var saveInterval = setInterval(function(){
-//     saveJournal()
-//     saveTasks()
-// }, AUTO_SAVE_INTERVAL)
-
 /**
- * Save journal entry to local storage
+ * Format journal input to be stored
  * 
  * @param {string} data - journal entry text in parsed json format
  * @param {string} dateText - date of the journal entry in locale date string format
@@ -453,20 +449,10 @@ function loadTasks() {
             let curLi = addTask(true);
             curLi.querySelector(".task-input").textContent = task['text']
             curLi.style['background-color'] = task['color']
-            //curLi.querySelector('input[type="checkbox"]').checked = task['checked']
         });
     }
 
 }
-
-/*
-function saveJournal() {
-    let data = getJournal()
-    let dateText = new Date(date.textContent).toLocaleDateString();
-    saveToStorage(data, dateText, "contents", journal.value)
-    localStorage.setItem("journals", JSON.stringify(data))
-}
- */
 
 /**
  * Saves the completed tasks per day
@@ -488,6 +474,11 @@ function saveCompleted() {
     displayWeek();
 }
 
+/**
+ * Fetch completed tasks from storage in proper format
+ * 
+ * @returns {string} tasks data in proper format
+ */
 function getCompleted() {
     let data = getJournal();
     let dateText = new Date(date.textContent).toLocaleDateString();
@@ -496,7 +487,7 @@ function getCompleted() {
 }
 
 /**
- * Load tasks from local storage
+ * Load and populate completed tasks from local storage
  */
 function loadCompleted() {
     let tasks2 = getCompleted();
@@ -512,9 +503,11 @@ function loadCompleted() {
     }
 }
 
+/**
+ * Remove completed tasks from interface upon changing dates
+ */
 function unselectAllCompleted() {
     document.querySelectorAll('.completed-task-container li').forEach(task => {
-        //let checkbox = task.querySelector('input[type="task-checkbox"]');
         task.remove();
     });
 }
@@ -522,8 +515,7 @@ function unselectAllCompleted() {
 /**
  * Save widgets to local storage
  * 
- * @param {int} value - value of the widget selected:
- * 1-5 for mental health, 6-10 for productivity
+ * @param {int} value - ID value of the widget selected
  */
 function saveWidgets(value) {
     let data = getJournal();
@@ -539,7 +531,7 @@ function saveWidgets(value) {
 }
 
 /**
- * Load widgets from local storage
+ * Load widget ratings from local storage
  */
 function loadWidgets() {
     let data = getJournal();
@@ -563,7 +555,12 @@ function loadAll() {
     loadCompleted();
 }
 
-function loadCellDataTest(cellData, currWeekDay) {
+/**
+ * 
+ * @param {HTMLElement} cellData - Data for specified day
+ * @param {Date} currWeekDay - Date to populate data within
+ */
+function loadCellData(cellData, currWeekDay) {
     let journals = getJournal();
     let dateText = currWeekDay.toLocaleDateString();
 
@@ -648,7 +645,10 @@ function dateQuery() {
     }
 }
 
-function clickTaskList() {
+/**
+ * 
+ */
+function taskListViewHandler() {
     const taskList = document.querySelector('.task-list');
     const taskWrap = document.querySelector('.task-wrapper');
     const outSide = document.querySelector('.main-wrap');
@@ -669,12 +669,12 @@ function clickTaskList() {
 }
 
 // Save journal entry and tasks to local storage on events
-journal.addEventListener("blur", saveJournal)
-tasks.addEventListener("blur", saveTasks)
-tasks.addEventListener("change", saveTasks)
-tasks.addEventListener("blur", saveCompleted)
-tasks.addEventListener("change", saveCompleted)
-completedTasks.addEventListener("blur", saveCompleted)
-completedTasks.addEventListener("change", saveCompleted)
-completedTasks.addEventListener("blur", saveTasks)
-completedTasks.addEventListener("change", saveTasks)
+journal.addEventListener("blur", saveJournal);
+tasks.addEventListener("blur", saveTasks);
+tasks.addEventListener("change", saveTasks);
+tasks.addEventListener("blur", saveCompleted);
+tasks.addEventListener("change", saveCompleted);
+completedTasks.addEventListener("blur", saveCompleted);
+completedTasks.addEventListener("change", saveCompleted);
+completedTasks.addEventListener("blur", saveTasks);
+completedTasks.addEventListener("change", saveTasks);
