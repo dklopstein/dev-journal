@@ -10,13 +10,17 @@ var currDate = new Date();
 var month = currDate.getMonth();
 var year = currDate.getFullYear();
 
-// Update the global date variables
+/**
+ * Updates the global date variables to the current date.
+ */
 function updateDateGlobals() {
     month = currDate.getMonth();
     year = currDate.getFullYear();
 }
 
-// When page loads
+/**
+ * Initializes the page when the DOM content is fully loaded.
+ */
 function init() {
     // Initiaze the jump buttons
     displayJump(year - 6, year + 5);
@@ -33,7 +37,9 @@ function init() {
 
 
 // FUNCTIONS
-
+/**
+ * Initializes the buttons for adding tasks, navigating months, and other functionalities.
+ */
 function initButtons() {
 
     const addTaskBtn = document.querySelector(".add-task-btn");
@@ -50,6 +56,7 @@ function initButtons() {
     nextBtn.addEventListener('click', next);
 
     // JUMP HEADER BUTTONS
+    // LIST OF MONTHS
     let monthJumpBtn = document.querySelectorAll(".month-btn");
     monthJumpBtn.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -57,6 +64,7 @@ function initButtons() {
             jump(monthValue, year);
         });
     });
+    // LIST OF YEARS
     let yearJumpBtn = document.querySelectorAll(".year-btn");
     yearJumpBtn.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -88,7 +96,9 @@ function next(){
     displayCalendar();
 }
 
-// Function to goto previous month
+/**
+ * Updates the global currDate to the previous month and displays the previous month's calendar.
+ */
 function prev() {
     // Decrement the month
     currDate.setMonth(currDate.getMonth() - 1);
@@ -97,12 +107,16 @@ function prev() {
 }
 
 /**
- * Adds task to task list upon "Add Task" button click.
+ * Adds a task to the task list upon "Add Task" button click.
+ * @param {boolean} [loadTask=false] - Indicates whether the task is being loaded from storage.
+ * @returns {HTMLElement} - The newly created task element.
  */
 function addTask(loadTask = false) {
+    // add a task to an element of task container
     const taskList = document.querySelector(".task-container");
     const task = document.createElement("li");
     task.setAttribute("class", "task");
+    // add it at the first row
     task.insertAdjacentHTML("beforeend", `
         <div class="check-input-wrap">
             <button id="task1" class="task-checkbox"></button>
@@ -216,7 +230,8 @@ function taskButtonsFunctionality(task) {
 }
 
 /**
- * Saves the completed tasks per day
+ * Saves the completed tasks for a specific day.
+ * @param {HTMLElement} completedTaskElement - The task element that was completed.
  */
 function saveCompleted(completedTaskElement) {
     let data = getJournal();
@@ -233,7 +248,9 @@ function saveCompleted(completedTaskElement) {
     displayCalendar();
 }
 
-// Function to display the calendar
+/**
+ * Displays the calendar for the current month.
+ */
 function displayCalendar() {
     // Get body and clear current calendar
     let tbody = document.getElementById("tbody-calendar");
@@ -329,6 +346,11 @@ function displayCalendar() {
     document.getElementById('year-dropdown').style.left = monthWidth + 5 + 'px';
 }
 
+/**
+ * Loads cell data such as rating, productivity, and tasks for a specific date in the calendar.
+ * @param {HTMLElement} cellData - The table cell element to populate with data.
+ * @param {Date} currCalendarMonth - The current month being displayed in the calendar.
+ */
 function loadCellDataTest(cellData, currCalendarMonth) {
     let journals = getJournal();
     let dateText = currCalendarMonth.toLocaleDateString();
@@ -401,7 +423,11 @@ function loadCellDataTest(cellData, currCalendarMonth) {
     cellData.appendChild(aLink);
 }
 
-// Generate dropdown year range
+/**
+ * Generates a dropdown for year and month selection.
+ * @param {number} startYear - The start year for the dropdown range.
+ * @param {number} endYear - The end year for the dropdown range.
+ */
 function displayJump(startYear, endYear) {
     // YEARS
     let yearDropdown = document.getElementById("year-dropdown")
@@ -463,7 +489,9 @@ function calendarHeader(){
     thead.appendChild(headerRow);
 }
 
-// Resize header if width of window decreases
+/**
+ * Adjusts the month header text based on the window width.
+ */
 function windowWidth() {
     if (window.innerWidth < 920) {
         // Initialize list of abbreviated months
@@ -523,13 +551,12 @@ function saveToStorage(data, dateText, key, value) {
 }
 
 /**
- * Load journal entry from local storage
+ * Load journal entry from local storage.
  * 
- * @param {string} data - journal entry text in parsed json format
- * @param {string} dateText - date of the journal entry in locale date string format
- * @param {string} key - key to get the value from
- * 
- * @returns {string} value of the key in the data
+ * @param {Object} data - Journal entry text in parsed JSON format.
+ * @param {string} dateText - Date of the journal entry in locale date string format.
+ * @param {string} key - Key to get the value from.
+ * @returns {string|null} - Value of the key in the data or null if not found.
  */
 function loadFromStorage(data, dateText, key) {
     if (!(dateText in data)) {
