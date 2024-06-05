@@ -21,6 +21,9 @@ function init() {
     initButtons();
     taskListViewHandler();
 
+    window.history.replaceState("stateObj", 
+    "new page", "../homepage/homepage.html");
+
 }
 
 /**
