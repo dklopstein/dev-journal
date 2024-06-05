@@ -17,7 +17,7 @@ jobs:
           node-version: 18
 
       - name: Install Node.js dependencies
-        run: npm ci
+        run: npm install
 
       - name: Run linters
         run: npx eslint . --config config/eslint.config.js
