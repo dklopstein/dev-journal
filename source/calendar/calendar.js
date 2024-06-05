@@ -69,8 +69,10 @@ function initButtons() {
     window.addEventListener('resize', windowWidth);
 }
 
-// Function to goto next month
-function next() {
+/**
+ * Updates the global currDate to the next date and displays the next month
+ */
+function next(){
     // Increment the month
     currDate.setMonth(currDate.getMonth() + 1);
     updateDateGlobals();

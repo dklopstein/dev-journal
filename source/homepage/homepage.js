@@ -42,6 +42,13 @@ function initButtons() {
             selectWidget(id.substring(3,5));
         });
     });
+    window.addEventListener('keydown', function(event) {
+        if (event.key === "ArrowLeft") {
+            prevDate();
+        } else if (event.key === "ArrowRight") {
+            nextDate();
+        }
+    });
 }
 
 /**
@@ -641,17 +648,20 @@ function dateQuery() {
 
 function clickTaskList() {
     const taskList = document.querySelector('.task-list');
+    const taskWrap = document.querySelector('.task-wrapper');
     const outSide = document.querySelector('.main-wrap');
     taskList.addEventListener('click', function(event) {
         if (event.target === taskList) {
             if (window.innerWidth <= 800) { 
                 taskList.classList.toggle('active');
+                taskWrap.classList.toggle('active');
             }
         }
     });
     outSide.addEventListener('click', function(){
         if (window.innerWidth <= 800) { 
             taskList.classList.remove('active');
+            taskWrap.classList.remove('active');
         }
     });
 }
