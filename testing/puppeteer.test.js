@@ -137,12 +137,13 @@ describe('Usage of journal and rating widget', () => {
     const input_text = 'Example journal entry: I was so productive today!!';
     
     // Get journal text
+    const journal = await page.$('#textarea');
     const text = await journal.getProperty('value');
     const journal_text = await text.jsonValue();
 
     // Expect journal text to be jour
     expect(journal_text).toBe(input_text);
-    
+
     // Check rating widget
     // Get img elements
     const img_1 = await page.$('#btn6 img');
