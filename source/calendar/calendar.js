@@ -99,7 +99,7 @@ function prev() {
 /**
  * Adds task to task list upon "Add Task" button click.
  */
-function addTask() {
+function addTask(loadTask = false) {
     const taskList = document.querySelector(".task-container");
     const task = document.createElement("li");
     task.setAttribute("class", "task");
@@ -137,13 +137,15 @@ function addTask() {
     });
 
     // Auto click into the task name text box
-    setTimeout(() => {
-        task_name.focus();
-        const selection = document.getSelection();
-        if (selection.rangeCount > 0) {
-            selection.collapseToEnd();
-        }
-    }, 0);
+    if (loadTask == false){
+        setTimeout(() => {
+            task_name.focus();
+            const selection = document.getSelection();
+            if (selection.rangeCount > 0) {
+                selection.collapseToEnd();
+            }
+        }, 0);
+    }  
 
     // add functionality to task buttons
     taskButtonsFunctionality(task);

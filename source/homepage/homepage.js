@@ -43,6 +43,11 @@ function initButtons() {
         });
     });
     window.addEventListener('keydown', function(event) {
+        if ((event.target.tagName.toLowerCase() === "textarea") ||
+           (event.target.tagName.toLowerCase() === "div")) {
+            return;
+        }
+
         if (event.key === "ArrowLeft") {
             prevDate();
         } else if (event.key === "ArrowRight") {
@@ -171,13 +176,15 @@ function selectWidget(buttonIndex) {
     });
 
     // Auto click into the task name text box
-    setTimeout(() => {
-        task_name.focus();
-        const selection = document.getSelection();
-        if (selection.rangeCount > 0) {
-            selection.collapseToEnd();
-        }
-    }, 0);
+    if (loadTask == false){
+        setTimeout(() => {
+            task_name.focus();
+            const selection = document.getSelection();
+            if (selection.rangeCount > 0) {
+                selection.collapseToEnd();
+            }
+        }, 0);
+    }   
 
     // add functionality to task buttons
     taskButtonsFunctionality(task);
@@ -197,7 +204,6 @@ function taskButtonsFunctionality(task) {
 
     /* Implement color changing functionality */
     const colorBtns = task.querySelectorAll(".color-button");
-    console.log(colorBtns);
     colorBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             let color;
