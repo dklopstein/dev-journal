@@ -171,13 +171,15 @@ function selectWidget(buttonIndex) {
     });
 
     // Auto click into the task name text box
-    setTimeout(() => {
-        task_name.focus();
-        const selection = document.getSelection();
-        if (selection.rangeCount > 0) {
-            selection.collapseToEnd();
-        }
-    }, 0);
+    if (loadTask == false){
+        setTimeout(() => {
+            task_name.focus();
+            const selection = document.getSelection();
+            if (selection.rangeCount > 0) {
+                selection.collapseToEnd();
+            }
+        }, 0);
+    }   
 
     // add functionality to task buttons
     taskButtonsFunctionality(task);
