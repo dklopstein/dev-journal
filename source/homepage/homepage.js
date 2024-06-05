@@ -69,6 +69,7 @@ function displayDate(date) {
  * Updates the global currDate to the next date and updates interface
  */
 function nextDate() {
+    saveJournal();
     let today = new Date();
     if (currDate.getDate() != today.getDate()) {
         currDate.setDate(currDate.getDate() + 1);
@@ -83,6 +84,7 @@ function nextDate() {
  * Updates global currDate to the previous date and updates interface
  */
 function prevDate() {
+    saveJournal();
     currDate.setDate(currDate.getDate() - 1);
     displayDate(formatDate(currDate));
     unselectAllWidgets();
