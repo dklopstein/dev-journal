@@ -7,11 +7,13 @@
   --secondary-color: #c1c1c1;
   --accent-color: #9eb6c9;
 }
+
 html {
   height: 100%;
   background-color: yellow;
   overflow: hidden;
 }
+
 body {
   height: 100%;
   background-color: var(--main-color);
@@ -24,99 +26,456 @@ main {
   position: relative;
 
 }
+
+/* Remove background for all buttons */
+button {
+  background-color: rgba(0,0,0,0);
+  border: rgba(0,0,0,1);
+}
+
+/* Remove background for all select boxes */
+select {
+  background-color: rgba(0,0,0,0);
+  border: rgba(0,0,0,1);
+  appearance: none;
+}
  
 /* TASK LIST */
-/* Task list sidebar */
+/* Start of task list */
 .task-list { 
-  flex: 0 0 max(18%,16em);
+  flex: 0 0 18%;
+  max-width: 17rem; /* Prevents task list expanding with long task names */
   height:100%;
   margin: 5px;
   padding: 1%;
   border-radius: 15px;
   background-color: white;
   box-shadow: 1px 1px lightgrey;
+
+  /* Hide scroll-bars for Firefox, Edge */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+  overflow-y: scroll;
 }
 
-@media (max-width: 880px) {
+/* Hides task list when page reaches certain size */
+@media (max-width: 800px) {
   .task-list {
       display: none;
   }
+  .journal-past-wrap .task-list {
+    display: block;
+  }
 }
 
+/* Formatting for the task list header */
+.task-header {
+  display: flex;
+}
+
+/* Aligns add button to right */
+#addbutton {
+  margin-left: auto;
+}
+
+/* Formatting for the add button */
+#addbutton img {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+/* Wrap for task name and checkbox */
+/* .task-list .input-wrap {
+  display: flex;
+  justify-content: flex-start;
+} */
+
+/* Styling for task name */
+.task-list .task-name {
+  width: max(10em, 12vw);
+  resize: none; /* Prevents user from resizing */
+  overflow: hidden; /* Hides scrollbar */
+  margin-top: -4px;
+  height: 24px;
+  max-height: 108px;
+  /* Hide background and border */
+  background-color: rgba(0, 0, 0, 0);
+  border: rgba(0, 0, 0, 0);
+}
+
+/* New width when in completed task list */
+.complete .task-name {
+  width: max(14em, calc(10em + 13vw));
+}
+
+/* Hides bullets for list */
 .task-list ul {
   list-style: none;
   padding: 0;
 }
 
-.task-list li {
-  background: #e0e0e0;
-  margin-top: 5px;
+/* Sizing for each individual task */
+.task {
+  background: var(--main-color);
   padding: 10px;
+  margin-top: 0.5em;
+  margin-bottom: 0.5;
   border-radius: 5px;
-  position: relative; /* Sets context for absolute positioning of children */
-  overflow: hidden; /* Ensures description expands within the li */
-  cursor: pointer; /* Indicates you can interact with the item */
-  text-align: left; /* Keeps text left-aligned */
+  position: relative;
+  overflow: hidden;
+  word-wrap: break-word;
+  text-align: left;
+  list-style-type: none; /* Get rid of li bullet points */
+  /* Set max height */
+  transition: max-height 0.5s ease-in;
+  max-height: 4em;
 }
 
+.task:hover {
+  max-height: fit-content;
+}
+
+/* Input box for task name */
+.task-input {
+  margin-left: 1.4em;
+  margin-right: 0.6em;
+  min-width: 80%;
+  border: none;
+  padding: 4px;
+}
+
+/* Styling when editing a task */
+.task:has(.task-input:focus) {
+  max-height: fit-content;
+
+  /* Make buttons appear */
+  .color-buttons {
+    opacity: 1;
+  }
+
+  .task-input {
+    outline: 0px solid transparent;
+    border: var(--accent-color) solid 1px;
+    border-radius: 0.6em;
+    box-shadow: 0 0 5px #719ECE;
+  }
+}
+
+/* Set task placeholder */
+.task-input:empty:before {
+  content: attr(placeholder);
+  pointer-events: none;
+  display: block;
+
+  color: rgb(97, 97, 97)
+}
+
+/* Positioning for trash icon */
 .fas.fa-trash-alt {
   position: absolute; /* Positioning relative to the nearest positioned ancestor */
-  top: 10px; /* Distance from the top edge of the li */
-  right: 10px; /* Distance from the right edge of the li */
+  top: 2px; /* Distance from the top edge of the li */
+  right: 2px; /* Distance from the right edge of the li */
   width: 18px;
   height: 18px;
   cursor: pointer;
 }
 
-.due-date {
-  font-size: 80%;
-  color: grey;
-  text-align: right;
+/* Display buttons when hovering or actively editing */
+.task:hover .color-buttons {
+  opacity: 1; /* Brings the buttons back into view */
 }
 
-.task-desc {
-  max-height: 0; /* Start with max-height 0 to keep it hidden */
-  overflow: hidden; /* Prevents any content from spilling out */
-  overflow-wrap: break-word; /* Force words to break and wrap inside the box */
-  word-break: break-word;
-  transition: max-height 0.3s ease-in-out, padding 0.2s ease-in-out; /* Smooth transition for max-height and padding */
-}
-
-.task-list li:hover .task-desc {
-  max-height: 200px; /* Enough max-height to show the content */
-}
-
+/* Checkbox appearance */
 .task-checkbox {
+  position: absolute;
+  top: 1.4em;
   appearance: none;
   margin: 0 10px 0 0;
   width: 16px;
   height: 16px;
-  border: 2px solid #555;
+  border: 2px solid black;
   border-radius: 50%;
   vertical-align: middle;
   cursor: pointer;
+}
+
+/* Formatting for check in checkbox */
+.task-checkbox img {
+  height: 15px;
+  margin-left: -6px;
+}
+
+/* Change to indicate task was completed */
+.complete .task-checkbox {
+  background: black;
+}
+
+/* Default set up for color buttons */
+.color-buttons {
+  opacity: 0; /* Hide buttons */
+  transition: opacity 0.3s ease; /* Transition for buttons reappearing */
+  max-height: 5em; /* Enough max-height to show the content */
+  display: flex; /* Lays out the buttons in a row */
+  justify-content: space-around; /* Spaces buttons evenly */
+  margin-top: 5px; /* Space from the description */
+}
+
+/* Size of each color button */
+.color-button {
+  width: 15px; /* Uniform button size */
+  height: 15px; /* Uniform button size */
+  border-radius: 100%; /* Makes the buttons circular */
+
+  border: solid grey 1px;
+
+  &#purple {
+    background-color: #C380CC;
+  }
+
+  &#green {
+    background-color: #91DC79;
+  }
+
+  &#blue {
+    background-color: #6BB1D9;
+  }
+
+  &#pink {
+    background-color: #EEBAE9;
+  }
+
+  &#grey {
+    background-color: var(--main-color);
+  }
+}
+
+/* ********** End of task list ********** */
+
+/* ********** Start of top bar ********** */
+.top-bar {
   position: relative;
-  display: inline-block;
+  height: 65px;
+
 }
 
-.task-checkbox:checked {
-  background-color: #537692;
-  border-color: #537692;
-}
-
-.task-checkbox:checked::after {
-  content: "";
+.date-header-wrap {
   position: absolute;
-  left: 3px;
-  top: 1px;
-  width: 5px;
-  height: 8px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
+  height: max(30%, 5rem);
+  height: 100%;
+  width: min(70em, 100%);
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
-/* CALENDAR */
+/* Next, Prev, and Header organization */
+.date-header {
+  display: grid;
+  grid-template-columns: 1fr 8fr;
+  margin-left: 1.1em;
+
+  position: absolute;
+  bottom: 0;
+
+  width: 50%;
+  max-width: 40em;
+}
+
+/* Next and Prev button hover */
+.date-header-buttons button:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Calendar date header */
+.date-header-text {
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: 0em;
+  margin-left: 0.2em;
+  white-space: nowrap;
+  font-size: calc(1.4em + .7vw);
+}
+
+/* Next and Prev button images */
+.date-header button img {
+  height: 18px;
+  padding: 4px;
+}
+
+/* Navigation buttons */
+.nav-buttons {
+  position: absolute;
+  top: 0.6em;
+  right: 2em;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: min(1em, 0.7vw);
+  height: 40%;
+}
+
+/* Navigation buttons */
+.nav-buttons button {
+  background-color: transparent;
+  border: none;
+}
+
+/* Navigation button images */
+.nav-buttons button img {
+  width: min(3.4em, 4vw);
+  min-width: 2.6em;
+  padding-left: 0em;
+  padding-right: 0em;
+}
+
+/* Add cursor when hovering over buttons */
+button:hover {
+  cursor: pointer;
+}
+
+/* Jump header that contains the month and year */
+.jump-header {
+  display: flex;
+  position: relative;
+  margin-top: -2.5px;
+}
+
+/* Fully extend 1st month and year buttons */
+.jump-btn {
+  width: 100%;
+  padding-bottom: 1px;
+}
+
+/* Orient the month button */
+#month {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Highlight a certain month button when hovering over it */
+.month-drop:hover .month-btn:hover {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+/* Highlight a certain year button when hovering over it */
+.year-drop:hover .year-btn:hover {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+
+/* When hovering on month header button */
+#month:hover{
+  width: 100%;
+  background-color: var(--accent-color); 
+  color: white;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 5px;
+}
+
+/* When hovering on year header button */
+#year:hover{
+  width: 100%;
+  background-color: var(--accent-color); 
+  color: white;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 5px;
+}
+
+/* When hovering over month buttons */
+.month-drop:hover .month-btn {
+  width: 100%;
+  display: block;
+  background-color: var(--main-color);
+  border: 2px solid black;
+}
+
+/* When hovering over year buttons */
+.year-drop:hover .year-btn {
+  width: 100%;
+  display: block;
+  background-color: var(--main-color);
+  border: 2px solid black;
+}
+
+/* Position all month buttons */
+.month-drop {
+  position: absolute;
+  margin-top: -10px;
+  z-index: 100;
+}
+
+/* Position all year buttons */
+.year-drop {
+  position: absolute;
+  margin-top: -10px;
+  z-index: 100;
+}
+
+/* Initially hide extended month and year buttons */
+.month-btn, .year-btn {
+  display: none;
+}
+
+/* Set font size of header */
+#month, #year {
+  font-size: 30px;
+}
+
+/* Wrap the previous and next day buttons*/
+.date-header-buttons {
+  display: grid;
+  grid-template-columns: 1.2em 1fr;
+
+  margin-top: auto;
+  margin-bottom: min(0.6em, 14%);
+  margin-left: 0.4em;
+
+}
+
+/* Goto previous month button */
+.prev-date-btn {
+  width: 2em;
+  height: 2em;
+
+  border-radius: 4em;
+
+  /* Add button image */
+  background-image: url('../icons/left-icon.png');
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: 4px;
+}
+
+/* Goto next month button */
+.next-date-btn {
+  float: left;
+
+  width: 2em;
+  height: 2em;
+
+  margin-left: 0.4em;
+
+  border-radius: 4em;
+
+  /* Add button image */
+  background-image: url('../icons/right-icon.png');
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: 8px;
+  
+}
+
+/* ********** End of Top Bar ********** */
+
+/* ********** Start of Calendar Table ********** */
 
 /* Main calendar */
 .full-calendar {
@@ -131,9 +490,9 @@ main {
 
 /* Calendar Table Styling */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
 }
 
 /* Header and data of table */
@@ -145,88 +504,18 @@ table td {
 
 /* Rows of table head */
 thead tr {
-    color: blue;
-    height: 5vh;
-  }
+  color: black;
+}
 
 /* Rows of table body */
 tbody tr {
-    height: 12vh;
-  }
+  height: 13vh;
+}
 
 /* Data of table */
 tbody td {
   position: relative;
   padding: 10px;
-}
-/* Month and Year header */
-h3 {
-  text-align: center;
-  font-size: 5vh;
-}
-
-/* Header of calendar with buttons */
-.top-bar {
-  display: flex;
-  justify-content: space-between; 
-  align-items: center; 
-  padding: 10px 20px;
-}
-
-/* Calendar buttons */
-.button-container-calendar {
-  display: flex;
-  justify-content: center;
-  padding-top: 0.5vh;
-  padding-bottom: 3vh;
-  padding-right: 200px;
-  gap: 10px;
-}
-
-.button-container-calendar button {
-  padding-top: 5px;
-}
-.button-container-calendar button img {
-  height: 4vh;
-}
-
-/* Jump button */
-.jump {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 10px;
-}
-
-.jump select {
-  padding: 5px 10px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  background-color: white;
-  font-family: Poppins, sans-serif;
-  border-radius: 4px;
-}
-
-.jump label {
-  white-space: nowrap;
-  margin-right: 5px;
-}
-
-/* Calendar icons */
-.button-icons {
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 0.5vh;
-  padding-bottom: 3vh;
-  padding-right: 25px;
-  gap: 10px;
-}
-
-.button-icons button {
-  padding-top: 5px;
-}
-.button-icons button img {
-  height: 6vh;
 }
 
 /* Change color of numbers in future and past months */
@@ -282,18 +571,17 @@ td .productivity-icon {
   flex-direction: column;
   justify-content: space-between;
   top: 25px;
-  /* CAN UNCOMMENT BGCOLOR TO VISUALIZE TASK-DIV  */
-  /* background-color: pink; */
   width: 96%;
   height: 65%;
 }
 
 /* Unordered list in calendar cell */
 .task-ul{
-  margin: 0px;
+  margin: 0;
   padding-left: 6px;
   color: black;
   font-size: 12px;
+  line-height: 1;
 }
 
 /* Individual tasks in calendar cell */
@@ -304,5 +592,42 @@ td .productivity-icon {
   text-overflow: ellipsis;
 }
 
+/* Individual tasks in calendar cell */
+.task-item::marker{
+  color: var(--task-color, "black");
+  font-size: 1.5em; 
+}
 
+/* Extra tasks in calendar cell */
+.task-indicator{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-top: 7px;
+  font-weight: bolder;
+}
+
+/* Button links to specific homepage in calendar cell */
+.a-link {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+/* Media query to handle window resizing */
+@media (max-height: 500px) {
+  .task-ul {
+      display: none;
+  }
+}
+
+@media (max-height: 625px) {
+  .task-indicator {
+      display: none;
+  }
+}
+
+/* ********** End of Calendar ********** */
 
