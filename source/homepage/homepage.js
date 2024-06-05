@@ -43,11 +43,6 @@ function initButtons() {
         });
     });
     window.addEventListener('keydown', function(event) {
-        if ((event.target.tagName.toLowerCase() === "textarea") ||
-           (event.target.tagName.toLowerCase() === "div")) {
-            return;
-        }
-
         if (event.key === "ArrowLeft") {
             prevDate();
         } else if (event.key === "ArrowRight") {
@@ -202,6 +197,7 @@ function taskButtonsFunctionality(task) {
 
     /* Implement color changing functionality */
     const colorBtns = task.querySelectorAll(".color-button");
+    console.log(colorBtns);
     colorBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             let color;

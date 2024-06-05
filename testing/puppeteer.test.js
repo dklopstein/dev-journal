@@ -413,7 +413,7 @@ describe('Homepage Top-Bar tests', () => {
   it('Click next date button 3 times', async () => {
     console.log('Testing inability to go into future days');
 
-    // Click prev date button 3 times
+    // Click prev date button 5 times
     const nextDateBtn = await page.$('.next-date-btn');
     await nextDateBtn.click();
     await nextDateBtn.click();
