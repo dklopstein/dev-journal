@@ -3,9 +3,9 @@
   box-sizing: border-box;
   font-family: Poppins, sans-serif;
 
-  --main-color: #ddd;
+  --main-color: #f2f2f2;
   --secondary-color: #c1c1c1;
-  --accent-color: #9eb6c9;
+  --accent-color: #a8ceec;
 }
 
 html {
@@ -50,13 +50,23 @@ select {
   padding: 1%;
   border-radius: 15px;
   background-color: white;
-  box-shadow: 1px 1px lightgrey;
+  box-shadow: 3px 3px 3px lightgrey;
+
+  /* Set size of task area to be relative to list */
+  position: relative;
+}
+
+/* Wrapper for overflow of current tasks */
+.task-wrapper {
+  position: absolute;
+  top: 44px;
+  bottom: 0;
+  width: 88%;
+  overflow: auto;
 
   /* Hide scroll-bars for Firefox, Edge */
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
-
-  overflow-y: scroll;
 }
 
 /* Hides task list when page reaches certain size */
@@ -310,12 +320,10 @@ select {
   position: absolute;
   top: 0.6em;
   right: 2em;
-  padding: 0;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: min(1em, 0.7vw);
-  height: 40%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1em;
 }
 
 /* Navigation buttons */

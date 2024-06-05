@@ -1,10 +1,15 @@
 // E2E Testing with Puppeteer
-describe('Basic user path in homepage', () => {
+
+/**
+ * Testing for the main parts of the home page, journal and rating widget
+ * 
+ * JOURNAL AND RATING WIDGET TESTS
+ */
+describe('Usage of journal and rating widget', () => {
   // Open the webpage
   beforeAll(async () => {
     await page.goto('http://127.0.0.1:5500/source/homepage/homepage.html');
   });
-
 
   // Edit Journal
   it('Click into journal, type, click out', async () => {
@@ -71,8 +76,6 @@ describe('Basic user path in homepage', () => {
       return img_mad.getAttribute('class');
     }, img_mad);
 
-    console.log(class_name_mad);
-
     // Expect active removed from happy and added to mad
     expect(class_name_mad).toBe("active");
     expect(class_name_happy).toBe('');
@@ -123,43 +126,133 @@ describe('Basic user path in homepage', () => {
     expect(class_name_5).toBe("");
   });
 
+  // Ensure data is saved on reload
+  it('Reload page and check repopulated', async () => {
+    console.log('Reloading page...');
+
+    // Reload page
+    await page.reload();
+
+    // Define string that is in journal
+    const input_text = 'Example journal entry: I was so productive today!!';
+    
+    // Get journal text
+    const journal = await page.$('#textarea');
+    const text = await journal.getProperty('value');
+    const journal_text = await text.jsonValue();
+
+    // Expect journal text to be jour
+    expect(journal_text).toBe(input_text);
+
+    // Check rating widget
+    // Get img elements
+    const img_1 = await page.$('#btn6 img');
+    const img_mad = await page.$('#btn1 img');
+    
+    // Get class name of 1 and mad imgs
+    const class_name_1 = await page.evaluate(img_1 => {
+      return img_1.getAttribute('class');
+    }, img_1);
+    const class_name_mad = await page.evaluate(img_mad => {
+      return img_mad.getAttribute('class');
+    }, img_mad);
+
+    // Expect active to be on mad and 1 productivity
+    expect(class_name_1).toBe("active");
+    expect(class_name_mad).toBe("active");
+  });
+});
+
+
+
+/**
+ * Testing the task list resize, add task, recolor
+ * 
+ * TASK LIST TESTS
+ */
+describe('Homepage task list tests', () => {
   it('Add a task, set its title, and choose a color', async () => {
     console.log('Testing task addition, title setting, and color selection...');
   
+    // Setting the viewport size for the page
     await page.setViewport({ width: 1200, height: 800 });
-
+  
+    // Clicking the button to add a new task
     await page.click('.add-task-btn');
   
+    // Selector for the input field of the newly added task
     const taskInputSelector = '.task-container .task:last-child .task-input';
     await page.waitForSelector(taskInputSelector);
     const taskInput = await page.$(taskInputSelector);
   
+    // Typing the title for the new task
     const taskTitle = 'New Task Title for Testing';
     await taskInput.type(taskTitle);
   
+    // Selector for the color button and choosing a color
     const colorButton = '.task-container .task:last-child .color-buttons';
     const colorButtonSelector = '.task-container .task:last-child .color-button';
     await page.hover(colorButton);
     await page.click(colorButtonSelector);
   
+    // Evaluating and retrieving the entered title from the DOM
     const enteredTitle = await page.evaluate(selector => {
       return document.querySelector(selector).textContent;
     }, taskInputSelector);
   
+    // Evaluating and retrieving the background color of the new task
     const backgroundColor = await page.evaluate(selector => {
       const task = document.querySelector(selector);
       return window.getComputedStyle(task).backgroundColor;
     }, '.task-container .task:last-child');
   
+    // Asserting that the entered title matches the expected title
     expect(enteredTitle).toBe(taskTitle);
-    expect(backgroundColor).toBe('rgb(195, 128, 204)'); 
-
-    await page.click('.task-container .task .fas.fa-trash-alt');
-    const taskCountAfterDelete = await page.evaluate(() => {
-      return document.querySelectorAll('.task-container .task').length;
+  
+    // Asserting that the background color matches the expected color
+    expect(backgroundColor).toBe('rgb(195, 128, 204)');
+  });
+  
+  it('Edit the task and delete it', async () => {
+    // Selector for the input field of the last task
+    const taskInputSelector = '.task-container .task:last-child .task-input';
+    await page.waitForSelector(taskInputSelector);
+    const taskInput = await page.$(taskInputSelector);
+  
+    // Clearing the current task title by pressing 'Backspace' multiple times
+    for (let i = 0; i < 27; i++) {
+      await taskInput.press('Backspace');
+    }
+  
+    // Typing the new title for the task
+    const taskTitle = 'Editing Task Title';
+    await taskInput.type(taskTitle);
+  
+    // Hovering over the color button and selecting a new color
+    const colorButton = '.task-container .task:last-child .color-buttons';
+    await page.hover(colorButton);
+  
+    await page.evaluate(() => {
+      const colorButtonSelector = '.task-container .task:last-child .color-buttons #blue';
+      document.querySelector(colorButtonSelector).click();
     });
-
-    expect(taskCountAfterDelete).toBe(0);
+  
+    // Evaluating and retrieving the entered title from the DOM
+    const enteredTitle = await page.evaluate(selector => {
+      return document.querySelector(selector).textContent;
+    }, taskInputSelector);
+  
+    // Evaluating and retrieving the background color of the edited task
+    const backgroundColor = await page.evaluate(selector => {
+      const task = document.querySelector(selector);
+      return window.getComputedStyle(task).backgroundColor;
+    }, '.task-container .task:last-child');
+  
+    // Asserting that the entered title matches the expected title
+    expect(enteredTitle).toBe(taskTitle);
+  
+    // Asserting that the background color matches the expected color
+    expect(backgroundColor).toBe('rgb(107, 177, 217)');
   });
   
   // Resize the window to make the task-list slide out
@@ -168,7 +261,6 @@ describe('Basic user path in homepage', () => {
 
     // Resize the window to a smaller size
     await page.setViewport({ width: 700, height: 800 });
-
     // Check the class name for the task-list to see if it has moved
     const taskListClass = await page.evaluate(() => {
       return document.querySelector('.task-list').className;
@@ -197,7 +289,6 @@ describe('Basic user path in homepage', () => {
   // Add a task using the "Add Task" button
   it('Add a task and check addition', async () => {
     console.log('Testing task addition...');
-
     const isActive = await page.evaluate(() => {
       return document.querySelector('.task-list').classList.contains('active');
     });
@@ -206,7 +297,6 @@ describe('Basic user path in homepage', () => {
         document.querySelector('.task-list').click();
       });
     }
-
     // Click the "Add Task" button
     await page.click('.add-task-btn');
     // Check the number of tasks in the task-container
@@ -215,8 +305,8 @@ describe('Basic user path in homepage', () => {
     });
 
     // Expect the task count to increase by 1 after clicking the add button
-    expect(taskCount).toBe(1); // Modify the expected value based on initial number of tasks
-
+    expect(taskCount).toBe(2);
+    await page.click('.task-container .task .fas.fa-trash-alt');
     await page.click('.task-container .task .fas.fa-trash-alt');
     const taskCountAfterDelete = await page.evaluate(() => {
       return document.querySelectorAll('.task-container .task').length;
@@ -238,18 +328,55 @@ describe('Basic user path in homepage', () => {
     
     // Expect the task-list to not have 'active' class after clicking the main-wrap
     expect(taskListClass.includes('active')).toBe(false);
+
+    // Resize window back to original
+    await page.setViewport({ width: 1200, height: 800 });
   });
-
-  // Template
-  it('', async () => {
-    
-    // Expect
-    expect().toBe();
-  });
-
-  // TODO: Add more tests
-
 });
+
+
+
+/**
+ * User marking a task as completed
+ * 
+ * COMPLETED TASK TESTS
+ */
+// describe('Completing tasks', () => {
+//   it('Add task and mark complete', async () => {
+//     console.log('Adding tasks and moving to completed...');
+//     // Click the "Add Task" button
+//     await page.click('.add-task-btn');
+//     // Type into title
+//     await page.keyboard.type('Completed Task');
+//     // Change the color
+//     const colorButton = '.task-container .task:last-child .color-buttons';
+//     const colorButtonSelector = '.task-container .task:last-child .color-button';
+//     await page.hover(colorButton);
+//     await page.click(colorButtonSelector);
+//     // Move to completed task list
+//     await page.click('#task3 #complete3');
+//     //Check there are no tasks in task list
+//     const taskCountAfterComplete = await page.evaluate(() => {
+//       return document.querySelectorAll('.task-container .task').length;
+//     });
+//     expect(taskCountAfterComplete).toBe(0);
+//     // Check there is the correct task in completed tasks
+//     const completeTaskCountAfterComplete = await page.evaluate(() => {
+//       return document.querySelectorAll('.completed-task-container .task').length;
+//     });
+//     expect(completeTaskCountAfterComplete).toBe(1);
+//     // Check the title and color of task in completed list
+//     const taskTitle = await page.evaluate(selector => {
+//       return document.querySelector(selector).textContent;
+//     }, '#task3 .task-input');
+//     const backgroundColor = await page.evaluate(selector => {
+//       const task = document.querySelector(selector);
+//       return window.getComputedStyle(task).backgroundColor;
+//     }, '.completed-task-container .task:last-child');
+//     expect(backgroundColor).toBe('rgb(195, 128, 204)');
+//     expect(taskTitle).toBe('Completed Task');
+//   });
+// });
 
 
 /**
@@ -377,4 +504,237 @@ describe('Homepage Top-Bar functionality', () => {
     expect(displayedDateText).toBe(expectedDateText);
   });
 
+  /**
+   * Test clicking Home Page link
+   */
+  it('Click homepage icon', async () => {
+    const todaysDateText = page.$eval('.date-header-text', (el) => {
+      return el.textContent;
+    });
+
+    for (let i = 0; i < 4; i++) { await page.click('.prev-date-btn'); }
+    await page.click('.nav-homepage-btn');
+
+    const updatedTodaysDateText = await page.$eval('.date-header-text', (el) => {
+      return el.textContent;
+    });
+    console.log("updatedTodays: ", updatedTodaysDateText);
+    const currDate = new Date();
+    console.log("yuoooooo", currDate);
+    const currDateText = currDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    
+    expect(updatedTodaysDateText).toBe(currDateText);
+  });
+});
+
+/**
+ * Test Past Week task and rating population
+ */
+describe('Past Week View testing', () => {
+
+  beforeAll(async () => {
+    await page.goto('http://127.0.0.1:5500/source/homepage/homepage.html');
+  });
+
+  /**
+   * Create a task for yesterday and check it populates in past week view
+   */
+  it('Go back one day, add a task, set its title, and choose a color', async () => {
+    console.log('Testing task addition in past week view');
+    
+    await page.click('.prev-date-btn');
+    await page.click('.add-task-btn');
+  
+    // add text to task
+    const taskInputSelector = '.task-container .task:last-child .task-input';
+    await page.waitForSelector(taskInputSelector);
+    const taskInput = await page.$(taskInputSelector);
+    const taskTitle = 'Task for yesterday';
+    await taskInput.type(taskTitle);
+
+    const colorButton = '.task-container .task:last-child .color-buttons';
+    await page.hover(colorButton);
+    
+    await page.evaluate( () => {
+      const colorButtonSelector = '.task-container .task:last-child .color-buttons #purple';
+      document.querySelector(colorButtonSelector).click();
+    })
+
+    // click complete task
+    await page.click('.task-checkbox');
+
+    // get task bullet color
+    const taskBulletColor = await page.$eval('.table-week td:last-child .task-item', (el) => {
+      return el.style.getPropertyValue("--task-color");
+    });
+  
+    const yesterdayTaskText = await page.$eval('.table-week td:last-child .task-item', (el) => {
+      return el.textContent;
+    });
+    expect(yesterdayTaskText).toBe(taskTitle);
+    expect(taskBulletColor).toBe('rgb(195, 128, 204)'); 
+  });
+
+  /**
+   * Create a task for 4 days ago and check it populates in past week view
+   */
+  it('Go back 4 days, add a task, set its title, and choose a color', async () => {
+    console.log('Testing task addition 4 days back in past week view');
+    await page.click('.nav-homepage-btn');
+    for (let i = 0; i < 4; i++) {await page.click('.prev-date-btn');}
+    
+    await page.click('.add-task-btn');
+  
+    // add text to task
+    const taskInputSelector = '.task-container .task:last-child .task-input';
+    await page.waitForSelector(taskInputSelector);
+    const taskInput = await page.$(taskInputSelector);
+    const taskTitle = 'Task title';
+    await taskInput.type(taskTitle);
+  
+    // select color
+    const colorButton = '.task-container .task:last-child .color-buttons';
+    const colorButtonSelector = '.task-container .task:last-child .color-buttons #green';
+    await page.hover(colorButton);
+    await page.click(colorButtonSelector);
+
+    // click complete task
+    await page.click('.task-checkbox');
+
+    // get task bullet color
+    const taskBulletColor = await page.$eval('.table-week td:nth-child(4) .task-item', (el) => {
+      return el.style.getPropertyValue("--task-color");
+    });
+  
+    const pastTaskText = await page.$eval('.table-week td:nth-child(4) .task-item', (el) => {
+      return el.textContent;
+    });
+    expect(pastTaskText).toBe(taskTitle);
+    expect(taskBulletColor).toBe('rgb(145, 220, 121)');
+  });
+
+  /**
+   * Create 4 tasks for 5 days ago and check it indicates 2 more tasks than what's displayed
+   */
+  it('Go back 5 days, create 4 tasks', async () => {
+    console.log('Testing extra tasks indicator');
+    await page.click('.nav-homepage-btn');
+    for (let i = 0; i < 5; i++) {await page.click('.prev-date-btn');}
+    
+    // add 1st task and complete it
+    await page.click('.add-task-btn');
+    // add text to task
+    const taskInputSelector = '.task-list .task-container .task:last-child .task-input';
+    await page.waitForSelector(taskInputSelector);
+    const taskInput = await page.$(taskInputSelector);
+    const taskTitle = 'Task 1 title';
+    await taskInput.type(taskTitle);
+    await page.click('.task-checkbox');
+
+    // add second task and complete it
+    await page.click('.add-task-btn');
+    // add text to task
+    const taskInputSelector2 = '.task-list .task-container .task:last-child .task-input';
+    await page.waitForSelector(taskInputSelector2);
+    const taskInput2 = await page.$(taskInputSelector2);
+    const taskTitle2 = 'Task 2 title';
+    await taskInput2.type(taskTitle2);
+    await page.click('.task-checkbox');
+  
+    // 3rd & 4th tasks
+    await page.click('.add-task-btn');
+    await page.click('.task-list .task-checkbox');
+    await page.click('.add-task-btn');
+    await page.click('.task-list .task-checkbox');
+
+    // get additional tasks indicator
+    const numTasksAdditional = await page.$eval('.table-week td:nth-child(3) .task-indicator', (el) => {
+      return el.textContent;
+    });
+
+    const expectedText = "2 more tasks"
+
+    expect(numTasksAdditional).toBe(expectedText);
+  }, 50000);
+
+  /**
+   * Go to yesterday and select happy and 5 rating widgets
+   */
+  it('Go to yesterday and click happiest and 5 productivity ratings', async () => {
+    console.log('Testing best feelings and productivity in past week view');
+    await page.click('.nav-homepage-btn');
+    // go back to yesterday
+    await page.click('.prev-date-btn');
+    // Click happiest rating button
+    await page.click('#btn5');
+
+    // Click 5 productivity rating
+    await page.click('#btn10');
+
+    // Check class name to include active
+    const sentimentRating = await page.$eval('.table-week td:last-child .sentiment-icon', (el) => {
+      return el.getAttribute("src");
+    });
+
+    const productivityRating = await page.$eval('.table-week td:last-child .productivity-icon', (el) => {
+      return el.getAttribute("src");
+    });
+
+    // Expect active got added to happy class name
+    expect(sentimentRating).toBe("../icons/5overjoyed.png");
+    expect(productivityRating).toBe("../icons/5-icon.svg");
+  });
+
+  /**
+   * Go to 6 days ago and select mad and 1 rating widgets
+   */
+  it('Go to 6 days ago and click angriest and 1 productivity ratings', async () => {
+    console.log('Testing worst feelings and productivity in past week view');
+    await page.click('.nav-homepage-btn');
+    // go back to yesterday
+    for (let i = 0; i < 6; i++) { await page.click('.prev-date-btn'); }
+    // Click happiest rating button
+    await page.click('#btn1');
+
+    // Click 5 productivity rating
+    await page.click('#btn6');
+
+    // Check class name to include active
+    const sentimentRating = await page.$eval('.table-week td:nth-child(2) .sentiment-icon', (el) => {
+      return el.getAttribute("src");
+    });
+
+    const productivityRating = await page.$eval('.table-week td:nth-child(2) .productivity-icon', (el) => {
+      return el.getAttribute("src");
+    });
+
+    // Expect active got added to happy class name
+    expect(sentimentRating).toBe("../icons/1angry.png");
+    expect(productivityRating).toBe("../icons/1-icon.svg");
+  });
+
+  /**
+   * Change the ratings from 6 days ago and check update
+   */
+  it('Update feelings and productivity rating 6 days ago', async () => {
+    console.log('Testing update of productivity and feelings ratings');
+    // Click happiest rating button
+    await page.click('#btn3');
+
+    // Click 5 productivity rating
+    await page.click('#btn8');
+
+    // Check class name to include active
+    const sentimentRating = await page.$eval('.table-week td:nth-child(2) .sentiment-icon', (el) => {
+      return el.getAttribute("src");
+    });
+
+    const productivityRating = await page.$eval('.table-week td:nth-child(2) .productivity-icon', (el) => {
+      return el.getAttribute("src");
+    });
+
+    // Expect active got added to happy class name
+    expect(sentimentRating).toBe("../icons/3neutral.png");
+    expect(productivityRating).toBe("../icons/3-icon.svg");
+  });
 });

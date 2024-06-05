@@ -1,44 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+  
   <head>
     <meta charset="UTF-8" />
     <!-- Title -->
     <title>Calendar</title>
     <!-- CSS File -->
     <link rel="stylesheet" href="calendar.css" />
-    <!-- Font style -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <!-- Icon  -->
     <link rel="icon" type="image/x-icon" href="/source/icons/website-icon.ico">
-    <!-- <link rel="icon" href="source/icons/website-icon.png" type="image/png"> -->
+    <!-- Font style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   </head>
 
   <body>
-     <header>
-
-     </header>
-
      <main>
+
       <!-- Task list sidebar -->
       <div class="task-list">
+        <!-- HEader with title and add task button -->
         <div class="task-header">
           <h3>Tasks</h3>
+          <!-- Add Task Button -->
           <button class="add-task-btn" id="addbutton">
             <img src="../icons/add-task-icon.png" alt="Add">
           </button>
-          
         </div>
         <!-- Container for tasks in sidebar -->
-        <ul class="task-container">
-          <!-- Individual tasks -->
-        </ul>
+        <div class="task-wrapper">
+          <ul class="task-container">
+            <!-- Individual tasks -->
+          </ul>
+        </div>
       </div>
   
       <!-- Calendar -->
       <div class="full-calendar">
+
         <!--Contain header bar-->
         <section class="top-bar">
           <div class="date-header-wrap">
             <div class="date-header">
+              <!-- Buttons to change the date -->
               <div class="date-header-buttons">
                 <button class="prev-date-btn"></button>
                 <button class="next-date-btn"></button>
@@ -58,8 +62,8 @@
               
             </div>
 
+            <!-- Navigation buttons betwixt pages -->
             <div class="nav-buttons">
-
               <!-- Button to go to Home Page-->
               <a href="../homepage/homepage.html">
                 <button class="nav-homepage-btn">
@@ -75,14 +79,12 @@
               </a>
 
               <!--Button to go to Settings-->
-              <button class="nav-settings-btn" href="">
+              <!-- <button class="nav-settings-btn" href="">
                 <img src="../icons/settings-icon.png" alt="Settings">
-              </button>
+              </button> -->
 
             </div>
           </div>
-          
-            
         </section>
 
         <!-- Calendar Table -->
@@ -92,8 +94,7 @@
           </table>
       </div>
     </main>
-    <footer>
-    </footer>
+
     <!-- Javascript file -->
     <script src="./calendar.js"></script>
   </body>

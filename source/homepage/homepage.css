@@ -4,9 +4,9 @@
 
   font-family: "Poppins", sans-serif;
 
-  --main-color: #ddd;
-  --secondary-color: #c1c1c1;
-  --accent-color: #9eb6c9;
+  --main-color: #f2f2f2;
+  --secondary-color: #d1d8e3;
+  --accent-color: #a8ceec;
 
 }
 html {
@@ -40,7 +40,7 @@ button {
   padding: 1%;
   border-radius: 15px;
   background-color: white;
-  box-shadow: 1px 1px lightgrey;
+  box-shadow: 3px 3px 3px lightgrey;
 
   /* Set size of task area to be relative to list */
   position: relative;
@@ -360,12 +360,10 @@ button {
   position: absolute;
   top: 0.6em;
   right: 2em;
-  padding: 0;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: min(1em, 0.7vw);
-  height: 40%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1em;
 }
 
 .nav-buttons button {
@@ -484,19 +482,18 @@ button:hover {
 .rating-widget button img {
   height: max(min(3em, 6vw), 50px);
   height: min(50px, 8vw);
-  transition: 0.5s ease;
+  transition: 0.3s ease;
+  border-radius: 50%;
 }
 
 .rating-widget button img:hover {
-  height: max(min(6em, 6vw), 65px);
+  height: max(min(1em, 1vw), 60px);
   background: radial-gradient(circle, rgb(3, 128, 237) 0%, rgba(0, 0, 0, 0) 100%);
-  border-radius: 50%;
-  transition: 0.5s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
-.rating-widget img.active {
-  background: radial-gradient(circle, rgba(8, 135, 31, 0.75) 50%, rgb(60, 245, 28) 100%);
-  border-radius: 100%;
+.rating-widget img.active, .rating-widget img.active:hover {
+  background-color: #008FC6;
   transition: 0.5s ease;
 }
 
@@ -570,7 +567,7 @@ button:hover {
 /* Calendar Data Cell Styling */
 .table-week td {
   position: relative;
-  border: 3px solid black;
+  border: 3px solid #a3aaad;
   padding: 0;
 }
 
@@ -665,6 +662,14 @@ td .task-div {
     z-index: 100000;
     transition: transform 0.3s ease;
     transform: translateX(-88%);
+  }
+
+  .task-wrapper {
+    display: none;
+  }
+
+  .task-wrapper.active {
+    display: block;
   }
 
   .main-wrap {
