@@ -199,7 +199,7 @@ function selectWidget(buttonIndex) {
 
 /**
  * Adds button functionality to task upon creation
- * @param {Task Node} task - the task to have functionality
+ * @param {HTMLElement} task - the task to have functionality
  */
 function taskButtonsFunctionality(task) {
 
@@ -476,7 +476,8 @@ function saveCompleted() {
 
 /**
  * Fetch completed tasks from storage in proper format
- * @returns 
+ * 
+ * @returns {string} tasks data in proper format
  */
 function getCompleted() {
     let data = getJournal();
@@ -556,7 +557,7 @@ function loadAll() {
 
 /**
  * 
- * @param {Node} cellData - Data for specified day
+ * @param {HTMLElement} cellData - Data for specified day
  * @param {Date} currWeekDay - Date to populate data within
  */
 function loadCellData(cellData, currWeekDay) {
