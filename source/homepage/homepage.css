@@ -487,7 +487,7 @@ button:hover {
 }
 
 .rating-widget button img:hover {
-  height: max(min(1em, 1vw), 65px);
+  height: max(min(1em, 1vw), 60px);
   background: radial-gradient(circle, rgb(3, 128, 237) 0%, rgba(0, 0, 0, 0) 100%);
   transition: 0.3s ease-in-out;
 }
