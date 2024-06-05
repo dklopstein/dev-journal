@@ -168,8 +168,8 @@ function addTask(loadTask = false) {
 }
 
 /**
- * Adds button functionality to task upon creation
- * @param {Task Node} task - the task to have functionality
+ * Adds button functionality to a task upon creation.
+ * @param {HTMLElement} task - The task element to add functionality to.
  */
 function taskButtonsFunctionality(task) {
 
