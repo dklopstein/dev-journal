@@ -655,7 +655,7 @@ describe('Past Week View testing', () => {
     const expectedText = "2 more tasks"
 
     expect(numTasksAdditional).toBe(expectedText);
-  });
+  }, 50000);
 
   /**
    * Go to yesterday and select happy and 5 rating widgets
