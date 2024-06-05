@@ -67,6 +67,15 @@ function initButtons() {
 
     // RESIZE WINDOW FOR RESPONSIVENESS
     window.addEventListener('resize', windowWidth);
+
+    // ADD LEFT/RIGHT ARROWS TO GOTO PREV/NEXT MONTHS
+    window.addEventListener('keydown', function(event) {
+        if (event.key === "ArrowLeft") {
+            prev();
+        } else if (event.key === "ArrowRight") {
+            next();
+        }
+    });
 }
 
 /**
