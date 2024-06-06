@@ -341,42 +341,117 @@ describe('Homepage task list tests', () => {
  * 
  * COMPLETED TASK TESTS
  */
-// describe('Completing tasks', () => {
-//   it('Add task and mark complete', async () => {
-//     console.log('Adding tasks and moving to completed...');
-//     // Click the "Add Task" button
-//     await page.click('.add-task-btn');
-//     // Type into title
-//     await page.keyboard.type('Completed Task');
-//     // Change the color
-//     const colorButton = '.task-container .task:last-child .color-buttons';
-//     const colorButtonSelector = '.task-container .task:last-child .color-button';
-//     await page.hover(colorButton);
-//     await page.click(colorButtonSelector);
-//     // Move to completed task list
-//     await page.click('#task3 #complete3');
-//     //Check there are no tasks in task list
-//     const taskCountAfterComplete = await page.evaluate(() => {
-//       return document.querySelectorAll('.task-container .task').length;
-//     });
-//     expect(taskCountAfterComplete).toBe(0);
-//     // Check there is the correct task in completed tasks
-//     const completeTaskCountAfterComplete = await page.evaluate(() => {
-//       return document.querySelectorAll('.completed-task-container .task').length;
-//     });
-//     expect(completeTaskCountAfterComplete).toBe(1);
-//     // Check the title and color of task in completed list
-//     const taskTitle = await page.evaluate(selector => {
-//       return document.querySelector(selector).textContent;
-//     }, '#task3 .task-input');
-//     const backgroundColor = await page.evaluate(selector => {
-//       const task = document.querySelector(selector);
-//       return window.getComputedStyle(task).backgroundColor;
-//     }, '.completed-task-container .task:last-child');
-//     expect(backgroundColor).toBe('rgb(195, 128, 204)');
-//     expect(taskTitle).toBe('Completed Task');
-//   });
-// });
+describe('Completing tasks', () => {
+  it('Add task and mark complete', async () => {
+    console.log('Adding tasks and moving to completed...');
+
+    // Click the "Add Task" button
+    await page.click('.add-task-btn');
+    // Type into title
+    await page.keyboard.type('Completed Task');
+
+    // Change the color
+    const colorButton = '.task-container .task:last-child .color-buttons';
+    const colorButtonSelector = '.task-container .task:last-child .color-button';
+    await page.hover(colorButton);
+    await page.click(colorButtonSelector);
+
+    // Move to completed task list
+    await page.click('.task-checkbox');
+
+    //Check there are no tasks in task list
+    const taskCountAfterComplete = await page.evaluate(() => {
+      return document.querySelectorAll('.task-container .task').length;
+    });
+    expect(taskCountAfterComplete).toBe(0);
+
+    // Check there is the correct task in completed tasks
+    const completeTaskCountAfterComplete = await page.evaluate(() => {
+      return document.querySelectorAll('.completed-task-container .task').length;
+    });
+    expect(completeTaskCountAfterComplete).toBe(1);
+
+    // Check the title and color of task in completed list
+    const taskTitle = await page.evaluate(selector => {
+      return document.querySelector(selector).textContent;
+    }, '.completed-task-container .task .task-input');
+    const backgroundColor = await page.evaluate(selector => {
+      const task = document.querySelector(selector);
+      return window.getComputedStyle(task).backgroundColor;
+    }, '.completed-task-container .task:last-child');
+    expect(backgroundColor).toBe('rgb(195, 128, 204)');
+    expect(taskTitle).toBe('Completed Task');
+  });
+
+  // Change title and color of task
+  it('Editing task in completed container', async () => {
+    console.log('Editing task in completed task container...');
+
+    // Click into title and add more text then press enter to leave
+    await page.click('.completed-task-container .task .task-input');
+    await page.keyboard.type(' is now edited >:)');
+    // await page.keyboard.press('Enter');
+
+    // Hovering over the color button and selecting a new color
+    const colorButton = '.completed-task-container .task:last-child .color-buttons';
+    await page.hover(colorButton);
+  
+    await page.evaluate(() => {
+      const colorButtonSelector = '.completed-task-container .task:last-child .color-buttons #blue';
+      document.querySelector(colorButtonSelector).click();
+    });
+
+    // Check the title and color of task in completed list
+    const taskTitle = await page.evaluate(selector => {
+      return document.querySelector(selector).textContent;
+    }, '.completed-task-container .task .task-input');
+    const backgroundColor = await page.evaluate(selector => {
+      const task = document.querySelector(selector);
+      return window.getComputedStyle(task).backgroundColor;
+    }, '.completed-task-container .task:last-child');
+    expect(backgroundColor).toBe('rgb(107, 177, 217)');
+    expect(taskTitle).toBe('Completed Task is now edited >:)');
+  });
+
+  // Reload page and ensure task is saved
+  it('Reload and check task', async () => {
+    console.log('Reloading page...');
+
+    // Reload the page
+    await page.reload();
+
+    // Task count should still be 1
+    const completeTaskCountAfterComplete = await page.evaluate(() => {
+      return document.querySelectorAll('.completed-task-container .task').length;
+    });
+    expect(completeTaskCountAfterComplete).toBe(1);
+
+    // Check the title and color of task in completed list
+    const taskTitle = await page.evaluate(selector => {
+      return document.querySelector(selector).textContent;
+    }, '.completed-task-container .task .task-input');
+    const backgroundColor = await page.evaluate(selector => {
+      const task = document.querySelector(selector);
+      return window.getComputedStyle(task).backgroundColor;
+    }, '.completed-task-container .task:last-child');
+    expect(backgroundColor).toBe('rgb(107, 177, 217)');
+    expect(taskTitle).toBe('Completed Task is now edited >:)');
+  });
+
+  // Delete the task to not interfere with future tests
+  it('Delete task', async () => {
+    console.log('Deleting task...');
+
+    // Delete task from completed tasks
+    await page.click('.completed-task-container .task .fas.fa-trash-alt');
+
+    // Task count should be 0
+    const completeTaskCountAfterComplete = await page.evaluate(() => {
+      return document.querySelectorAll('.completed-task-container .task').length;
+    });
+    expect(completeTaskCountAfterComplete).toBe(0);
+  });
+});
 
 
 /**
