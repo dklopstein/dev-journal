@@ -79,7 +79,8 @@ function displayDate(date) {
 function nextDate() {
     saveJournal();
     let today = new Date();
-    if (currDate.getDate() != today.getDate()) {
+    today.setHours(0, 0, 0, 0);
+    if (currDate <= today) {
         currDate.setDate(currDate.getDate() + 1);
         displayDate(formatDate(currDate));  
     }
