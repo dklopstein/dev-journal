@@ -518,9 +518,7 @@ describe('Homepage Top-Bar functionality', () => {
     const updatedTodaysDateText = await page.$eval('.date-header-text', (el) => {
       return el.textContent;
     });
-    console.log("updatedTodays: ", updatedTodaysDateText);
     const currDate = new Date();
-    console.log("yuoooooo", currDate);
     const currDateText = currDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     
     expect(updatedTodaysDateText).toBe(currDateText);
