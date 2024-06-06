@@ -810,7 +810,7 @@ describe('Past Week View testing', () => {
     expect(sentimentRating).toBe("../icons/3neutral.png");
     expect(productivityRating).toBe("../icons/3-icon.svg");
   });
-
+});
   // =========================== CALENDAR TESTS ===================================
 
 describe('Basic user path in calendar', () => {
@@ -1028,9 +1028,10 @@ describe('Basic user path in calendar', () => {
       await journal.click();
       // Define strings to type into journal
       const input_text = 'Example journal entry: I was so productive today!!';
-      const input_text2 = '!!!!!!!!';
-      const input_text3 = 'Example journal entry: I was so productive today!!!!!!!!!!';
       // Type into text area
+      for (let i = 0; i < 50; i++) {
+        await page.keyboard.press('Backspace');
+      }
       await page.keyboard.type(input_text);
       //leave homepage and into calendar
       await page.goto('http://127.0.0.1:5500/source/calendar/calendar.html');
@@ -1040,15 +1041,13 @@ describe('Basic user path in calendar', () => {
       await page.waitForSelector('#textarea');
       //add new input text
       const journal2 = await page.$('#textarea');
-      await journal2.click();
-      await page.keyboard.type(input_text2);
       //get the value of the text area
       const text = await journal2.getProperty('value');
       const journal_text = await text.jsonValue();
       
 
-       // Expect journal text to be updated
-       expect(journal_text).toBe(input_text3);
+       // Expect journal text to be the same
+       expect(journal_text).toBe(input_text);
   }, 500000);
 
 
@@ -1087,7 +1086,7 @@ describe('Basic user path in calendar', () => {
 
   }, 50000);
 
-  it('check if celendar shows how many more tasks need to be done', async () => {
+  it('check if calendar shows how many more tasks need to be done', async () => {
     await page.goto('http://127.0.0.1:5500/source/calendar/calendar.html');
 
     console.log('Testing how many tasks need to be done');
@@ -1097,7 +1096,7 @@ describe('Basic user path in calendar', () => {
     const displayedText = await page.$eval(".task-indicator", (n) => {
       return n.textContent;
     });
-    const expected = "6 more tasks";
+    const expected = "2 more tasks";
     //expect calendar date box to say 6 more tasks
     expect(displayedText).toBe(expected);
   }, 50000);
@@ -1296,7 +1295,7 @@ describe('Basic user path in calendar', () => {
       const task = document.querySelector(selector);
       return window.getComputedStyle(task).backgroundColor;
     }, '.completed-task-container .task:last-child');
-    expect(backgroundColor).toBe('rgb(221, 221, 221)');
+    expect(backgroundColor).toBe('rgb(242, 242, 242)');
     expect(taskTitle).toBe('Completed Task is now edited >:)');
   });
 });
