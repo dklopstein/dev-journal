@@ -494,12 +494,12 @@ button:hover {
 .rating-widget button img:hover {
   transform: scale(1.2);
   background: radial-gradient(circle, rgb(3, 128, 237) 0%, rgba(0, 0, 0, 0) 100%);
-  transition: 0.3s ease-in-out;
+  transition: 0.1s ease-in-out;
 }
 
 .rating-widget img.active, .rating-widget img.active:hover {
   background-color: #008FC6;
-  transition: 0.5s ease;
+  transition: 0.1s ease;
 }
 
 .productiveness {
