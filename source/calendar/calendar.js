@@ -24,6 +24,7 @@ function updateDateGlobals() {
 function init() {
     // Initiaze the jump buttons
     displayJump(year - 6, year + 5);
+    taskListViewHandler();
 
     // Initially display the calendar, calendar header, and task colors
     calendarHeader();
@@ -175,7 +176,6 @@ function taskButtonsFunctionality(task) {
 
     /* Implement color changing functionality */
     const colorBtns = task.querySelectorAll(".color-button");
-    console.log(colorBtns);
     colorBtns.forEach(btn => {
         btn.addEventListener('click', function () {
             let color;
@@ -225,6 +225,29 @@ function taskButtonsFunctionality(task) {
             saveCompleted(task);
             task.remove()
             saveTasks();
+        }
+    });
+}
+
+/**
+ * 
+ */
+function taskListViewHandler() {
+    const taskList = document.querySelector('.task-list');
+    const taskWrap = document.querySelector('.task-wrapper');
+    const outSide = document.querySelector('.full-calendar');
+    taskList.addEventListener('click', function(event) {
+        if (event.target === taskList) {
+            if (window.innerWidth <= 800) { 
+                taskList.classList.toggle('active');
+                taskWrap.classList.toggle('active');
+            }
+        }
+    });
+    outSide.addEventListener('click', function(){
+        if (window.innerWidth <= 800) { 
+            taskList.classList.remove('active');
+            taskWrap.classList.remove('active');
         }
     });
 }

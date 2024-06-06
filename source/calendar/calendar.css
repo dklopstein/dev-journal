@@ -74,16 +74,6 @@ select {
   scrollbar-width: none;  /* Firefox */
 }
 
-/* Hides task list when page reaches certain size */
-@media (max-width: 800px) {
-  .task-list {
-      display: none;
-  }
-  .journal-past-wrap .task-list {
-    display: block;
-  }
-}
-
 /* Formatting for the task list header */
 .task-header {
   display: flex;
@@ -643,4 +633,39 @@ td .productivity-icon {
 }
 
 /* ********** End of Calendar ********** */
+
+/* ********** Start of Media Query Responsiveness ********** */
+
+@media (max-width: 740px) {
+  main {
+    overflow-x: scroll;
+  }
+
+  .task-list {
+    flex: 0 0 25%;
+    z-index: 100000;
+    transition: transform 0.3s ease;
+    transform: translateX(-88%);
+  }
+
+  .task-list.active {
+    transform: translateX(0%);
+  }
+
+  .task-wrapper {
+    display: none;
+  }
+
+  .task-wrapper.active {
+    display: block;
+  }
+
+  .full-calendar {
+    position: absolute;
+    left: 5%;
+    bottom: 0;
+    top: 0;
+    right: 0;
+  }
+}
 

@@ -662,6 +662,7 @@ td .task-div {
   main {
     overflow-x: scroll;
   }
+  
   .task-list {
     flex: 0 0 25%;
     z-index: 100000;
@@ -678,9 +679,11 @@ td .task-div {
   }
 
   .main-wrap {
-    transform: translateX(-160px);
-
-    padding-left: max(2%, 0.5em);
+    position: absolute;
+    left: 3%;
+    bottom: 0;
+    top: 0;
+    right: 0;
   }
 
   .task-list.active {
