@@ -31,6 +31,11 @@ button {
   border: rgba(0,0,0,1);
 }
 
+/* Remove outline around focused button */
+button:focus {
+  outline: none;
+}
+
 /* ********** Start of task list ********** */
 .task-list { 
   flex: 0 0 18%;

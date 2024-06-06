@@ -33,6 +33,11 @@ button {
   border: rgba(0,0,0,1);
 }
 
+/* Remove outline around focused button */
+button:focus {
+  outline: none;
+}
+
 /* Remove background for all select boxes */
 select {
   background-color: rgba(0,0,0,0);
