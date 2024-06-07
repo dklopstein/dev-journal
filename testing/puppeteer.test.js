@@ -341,42 +341,117 @@ describe('Homepage task list tests', () => {
  * 
  * COMPLETED TASK TESTS
  */
-// describe('Completing tasks', () => {
-//   it('Add task and mark complete', async () => {
-//     console.log('Adding tasks and moving to completed...');
-//     // Click the "Add Task" button
-//     await page.click('.add-task-btn');
-//     // Type into title
-//     await page.keyboard.type('Completed Task');
-//     // Change the color
-//     const colorButton = '.task-container .task:last-child .color-buttons';
-//     const colorButtonSelector = '.task-container .task:last-child .color-button';
-//     await page.hover(colorButton);
-//     await page.click(colorButtonSelector);
-//     // Move to completed task list
-//     await page.click('#task3 #complete3');
-//     //Check there are no tasks in task list
-//     const taskCountAfterComplete = await page.evaluate(() => {
-//       return document.querySelectorAll('.task-container .task').length;
-//     });
-//     expect(taskCountAfterComplete).toBe(0);
-//     // Check there is the correct task in completed tasks
-//     const completeTaskCountAfterComplete = await page.evaluate(() => {
-//       return document.querySelectorAll('.completed-task-container .task').length;
-//     });
-//     expect(completeTaskCountAfterComplete).toBe(1);
-//     // Check the title and color of task in completed list
-//     const taskTitle = await page.evaluate(selector => {
-//       return document.querySelector(selector).textContent;
-//     }, '#task3 .task-input');
-//     const backgroundColor = await page.evaluate(selector => {
-//       const task = document.querySelector(selector);
-//       return window.getComputedStyle(task).backgroundColor;
-//     }, '.completed-task-container .task:last-child');
-//     expect(backgroundColor).toBe('rgb(195, 128, 204)');
-//     expect(taskTitle).toBe('Completed Task');
-//   });
-// });
+describe('Completing tasks', () => {
+  it('Add task and mark complete', async () => {
+    console.log('Adding tasks and moving to completed...');
+
+    // Click the "Add Task" button
+    await page.click('.add-task-btn');
+    // Type into title
+    await page.keyboard.type('Completed Task');
+
+    // Change the color
+    const colorButton = '.task-container .task:last-child .color-buttons';
+    const colorButtonSelector = '.task-container .task:last-child .color-button';
+    await page.hover(colorButton);
+    await page.click(colorButtonSelector);
+
+    // Move to completed task list
+    await page.click('.task-checkbox');
+
+    //Check there are no tasks in task list
+    const taskCountAfterComplete = await page.evaluate(() => {
+      return document.querySelectorAll('.task-container .task').length;
+    });
+    expect(taskCountAfterComplete).toBe(0);
+
+    // Check there is the correct task in completed tasks
+    const completeTaskCountAfterComplete = await page.evaluate(() => {
+      return document.querySelectorAll('.completed-task-container .task').length;
+    });
+    expect(completeTaskCountAfterComplete).toBe(1);
+
+    // Check the title and color of task in completed list
+    const taskTitle = await page.evaluate(selector => {
+      return document.querySelector(selector).textContent;
+    }, '.completed-task-container .task .task-input');
+    const backgroundColor = await page.evaluate(selector => {
+      const task = document.querySelector(selector);
+      return window.getComputedStyle(task).backgroundColor;
+    }, '.completed-task-container .task:last-child');
+    expect(backgroundColor).toBe('rgb(195, 128, 204)');
+    expect(taskTitle).toBe('Completed Task');
+  });
+
+  // Change title and color of task
+  it('Editing task in completed container', async () => {
+    console.log('Editing task in completed task container...');
+
+    // Click into title and add more text then press enter to leave
+    await page.click('.completed-task-container .task .task-input');
+    await page.keyboard.type(' is now edited >:)');
+    // await page.keyboard.press('Enter');
+
+    // Hovering over the color button and selecting a new color
+    const colorButton = '.completed-task-container .task:last-child .color-buttons';
+    await page.hover(colorButton);
+  
+    await page.evaluate(() => {
+      const colorButtonSelector = '.completed-task-container .task:last-child .color-buttons #blue';
+      document.querySelector(colorButtonSelector).click();
+    });
+
+    // Check the title and color of task in completed list
+    const taskTitle = await page.evaluate(selector => {
+      return document.querySelector(selector).textContent;
+    }, '.completed-task-container .task .task-input');
+    const backgroundColor = await page.evaluate(selector => {
+      const task = document.querySelector(selector);
+      return window.getComputedStyle(task).backgroundColor;
+    }, '.completed-task-container .task:last-child');
+    expect(backgroundColor).toBe('rgb(107, 177, 217)');
+    expect(taskTitle).toBe('Completed Task is now edited >:)');
+  });
+
+  // Reload page and ensure task is saved
+  it('Reload and check task', async () => {
+    console.log('Reloading page...');
+
+    // Reload the page
+    await page.reload();
+
+    // Task count should still be 1
+    const completeTaskCountAfterComplete = await page.evaluate(() => {
+      return document.querySelectorAll('.completed-task-container .task').length;
+    });
+    expect(completeTaskCountAfterComplete).toBe(1);
+
+    // Check the title and color of task in completed list
+    const taskTitle = await page.evaluate(selector => {
+      return document.querySelector(selector).textContent;
+    }, '.completed-task-container .task .task-input');
+    const backgroundColor = await page.evaluate(selector => {
+      const task = document.querySelector(selector);
+      return window.getComputedStyle(task).backgroundColor;
+    }, '.completed-task-container .task:last-child');
+    expect(backgroundColor).toBe('rgb(107, 177, 217)');
+    expect(taskTitle).toBe('Completed Task is now edited >:)');
+  });
+
+  // Delete the task to not interfere with future tests
+  it('Delete task', async () => {
+    console.log('Deleting task...');
+
+    // Delete task from completed tasks
+    await page.click('.completed-task-container .task .fas.fa-trash-alt');
+
+    // Task count should be 0
+    const completeTaskCountAfterComplete = await page.evaluate(() => {
+      return document.querySelectorAll('.completed-task-container .task').length;
+    });
+    expect(completeTaskCountAfterComplete).toBe(0);
+  });
+});
 
 
 /**
@@ -518,9 +593,7 @@ describe('Homepage Top-Bar functionality', () => {
     const updatedTodaysDateText = await page.$eval('.date-header-text', (el) => {
       return el.textContent;
     });
-    console.log("updatedTodays: ", updatedTodaysDateText);
     const currDate = new Date();
-    console.log("yuoooooo", currDate);
     const currDateText = currDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     
     expect(updatedTodaysDateText).toBe(currDateText);
@@ -736,5 +809,493 @@ describe('Past Week View testing', () => {
     // Expect active got added to happy class name
     expect(sentimentRating).toBe("../icons/3neutral.png");
     expect(productivityRating).toBe("../icons/3-icon.svg");
+  });
+});
+  // =========================== CALENDAR TESTS ===================================
+
+describe('Basic user path in calendar', () => {
+  // Open the webpage
+  beforeAll(async () => {
+    await page.goto('http://127.0.0.1:5500/source/calendar/calendar.html');
+  });
+  // Edit Journal
+  it('Add a task and check addition', async () => {
+    console.log('Testing task addition...');
+    // Click the "Add Task" button
+    await page.click('.add-task-btn');
+    // Check the number of tasks in the task-container
+    const taskCount = await page.evaluate(() => {
+      return document.querySelectorAll('.task-list li').length;
+    });
+    // Expect the task count to increase by 1 after clicking the add button
+    expect(taskCount).toBe(1); // Modify the expected value based on initial number of tasks
+  });
+
+  it('Add a task, write the task, and choose a color', async () => {
+    console.log('Testing task addition, title setting, and color selection...');
+    //Clcik the "Add Task" button
+    await page.click('.add-task-btn');
+  
+    const taskInputSelector = '.task-list .task:last-child .task-input';
+    await page.waitForSelector(taskInputSelector);
+    const taskInput = await page.$(taskInputSelector);
+    //type in the tasklist 
+    const taskTitle = 'New Task Title for Testing';
+    await taskInput.type(taskTitle);
+    //click a color button
+    const colorButton = '.task-list .task:last-child .color-button';
+    const colorButtonSelector = '.task-list .task:last-child .color-button';
+    await page.hover(colorButton);
+    await page.click(colorButtonSelector);
+    //expect the text on the tasklist to be added
+    const enteredTitle = await page.evaluate(selector => {
+      return document.querySelector(selector).textContent;
+    }, taskInputSelector);
+    //expect the color on the tasklist to be changed
+    const backgroundColor = await page.evaluate(selector => {
+      const task = document.querySelector(selector);
+      return window.getComputedStyle(task).backgroundColor;
+    }, '.task-list .task:last-child');
+  
+    expect(enteredTitle).toBe(taskTitle);
+    expect(backgroundColor).toBe('rgb(195, 128, 204)'); 
+  }, 500000);
+  
+  it('Edit the task and delete it', async() => {
+    console.log('Edit task and delete it');
+    //select current tasklist recently made
+    const taskInputSelector = '.task-list .task:last-child .task-input';
+    await page.waitForSelector(taskInputSelector);
+    const taskInput = await page.$(taskInputSelector);
+    //delete the whole title of the tasklist
+    for (let i = 0; i < 27; i++) {
+        await taskInput.press('Backspace');
+    }
+    //add the title to tasklist
+    const taskTitle = 'Editing Task Title';
+    await taskInput.type(taskTitle);
+    //change the color of tasklist
+    const colorButton = '.task-list .task:last-child .color-buttons';
+    await page.hover(colorButton);
+
+    await page.evaluate(() => {
+      const colorButtonSelector = '.task-list .task:last-child .color-buttons #blue';
+      document.querySelector(colorButtonSelector).click();
+    }, 50000);    
+    //expect new title to be added in the tasklist
+    const enteredTitle = await page.evaluate(selector => {
+      return document.querySelector(selector).textContent;
+    }, taskInputSelector);
+    //expect new color to be added in the tasklist
+    const backgroundColor = await page.evaluate(selector => {
+      const task = document.querySelector(selector);
+      return window.getComputedStyle(task).backgroundColor;
+    }, '.task-list .task:last-child');
+  
+    expect(enteredTitle).toBe(taskTitle);
+    expect(backgroundColor).toBe('rgb(107, 177, 217)'); 
+  }, 50000);
+
+
+  it('Add a task a lot and then delete all after', async () => {
+    console.log('Testing task addition...');
+    //check to see if there is any tasklist added
+    const isActive = await page.evaluate(() => {
+      return document.querySelector('.task-list').classList.contains('active');
+    });
+    if (!isActive) {
+      await page.evaluate(() => {
+        document.querySelector('.task-list').click();
+      });
+    }
+
+    // Loop the click of the "Add Task" button
+    for(let i = 0; i < 25; i++) {
+      await page.click('.add-task-btn');
+
+    }
+    // Check the number of tasks in the task-container
+    const taskCount = await page.evaluate(() => {
+      return document.querySelectorAll('.task-list .task').length;
+    });
+
+    // Expect the task count to increase by 25 after the loop
+    expect(taskCount).toBe(27); // Modify the expected value based on initial number of tasks
+    //Loop the deletion of the tasklist by 27 after the loop
+    for(let i = 0; i < 27; i++) {
+      await page.click('.task-list .task .fas.fa-trash-alt');
+
+    }
+    //check to see if the tasklist length is zero
+    const taskCountAfterDelete = await page.evaluate(() => {
+      return document.querySelectorAll('.task-list .task').length;
+    });
+
+    expect(taskCountAfterDelete).toBe(0);
+  }, 50000);
+
+
+
+
+  it('Resize window', async () => {
+    console.log('Testing window resize');
+    // Resize the window to a smaller size
+    await page.setViewport({ width: 600, height: 800 });
+    // Check the class name for the task-list to see if it has moved
+    const fullCalendar = await page.evaluate(() => {
+      return document.querySelector('.task-list').className;
+    });
+    //expect window sized to be changed
+    expect(fullCalendar.includes('active')).toBe(false);
+  });
+
+  
+
+
+  it('Click the previous date button 1 time', async () => {
+    console.log('Testing going back multiple days');
+    await page.setViewport({ width: 1200, height: 1600 });
+  
+    // Click prev date button 
+    const prevDateBtn = await page.$('.prev-date-btn');
+    await prevDateBtn.click();
+  
+    
+  
+    // get displayed date at the top
+    const displayedDateText = await page.$eval("#month", (n) => {
+      return n.textContent;
+    });
+  
+    // expect prevDate to change
+    let expectedDateText = "May";
+    expect(displayedDateText).toBe(expectedDateText);
+  });
+  
+  it('Click the next date button 1 time', async () => {
+    console.log('Testing going forward once from yesterday');
+  
+      // Click next date button
+      const nextDateBtn = await page.$('.next-date-btn');
+      await nextDateBtn.click();
+      
+      
+      
+      // get displayed date at the top
+      const displayedDateText = await page.$eval("#month", (n) => {
+        return n.textContent;
+      });
+  
+      // expect next date to change
+      let expectedDateText = "June";
+      expect(displayedDateText).toBe(expectedDateText);
+  });
+
+  it('testing the dropdown menu for changing month', async () => {
+    console.log('Change to next month');
+    await page.setViewport({ width: 1200, height: 1600 });
+
+  
+      // Click January in the dropdown menu
+      const jumpBtn = await page.$('.jump-btn');
+
+      await jumpBtn.hover();
+      const monthButton = await page.$('.month-btn');
+
+      await monthButton.click();
+      
+      
+      
+      // get displayed date at the top
+      const displayedDateText = await page.$eval("#month", (n) => {
+        return n.textContent;
+      });
+  
+      // expect month header to be January
+      let expectedDateText = "January";
+      expect(displayedDateText).toBe(expectedDateText);
+  });
+
+  it('testing if day retains homepage info', async () => {
+    console.log('Change to next month');
+      //click on current day of the calendar
+      const dateButton = await page.$('a');
+      await dateButton.click();
+
+      await page.waitForSelector('#textarea');
+      const journal = await page.$('#textarea');
+      // Click into text area
+      await journal.click();
+      // Define strings to type into journal
+      const input_text = 'Example journal entry: I was so productive today!!';
+      // Type into text area
+      for (let i = 0; i < 50; i++) {
+        await page.keyboard.press('Backspace');
+      }
+      await page.keyboard.type(input_text);
+      //leave homepage and into calendar
+      await page.goto('http://127.0.0.1:5500/source/calendar/calendar.html');
+      const navHomepage = await page.$('.nav-homepage-btn');
+      //go back to the current day of the homepage
+      await navHomepage.click();
+      await page.waitForSelector('#textarea');
+      //add new input text
+      const journal2 = await page.$('#textarea');
+      //get the value of the text area
+      const text = await journal2.getProperty('value');
+      const journal_text = await text.jsonValue();
+      
+
+       // Expect journal text to be the same
+       expect(journal_text).toBe(input_text);
+  }, 500000);
+
+
+
+  it('Add a 8-10 task, complete them, and check storage of task', async () => {
+    console.log('Testing task completion');
+    await page.goto('http://127.0.0.1:5500/source/calendar/calendar.html');
+
+
+    // Loop the click of the "Add Task" button
+    for(let i = 0; i < 8; i++) {
+      await page.click('.add-task-btn');
+
+    }
+    // Check the number of tasks in the task-container
+    const taskCount = await page.evaluate(() => {
+      return document.querySelectorAll('.task-list .task').length;
+    });
+
+    //Loop checkmarking the task
+    for(let i = 0; i < 8; i++) {
+      await page.click('.task-list .task .task-checkbox');
+
+    }
+
+    await page.goto('http://127.0.0.1:5500/source/homepage/homepage.html');
+
+    await page.setViewport({ width: 1366, height: 768 });
+
+    //check to see if the tasklist completed is length 8
+    const taskCountHomepage = await page.evaluate(() => {
+      return document.querySelectorAll('.completed-task-container li').length;
+    });
+
+    expect(taskCountHomepage).toBe(taskCount);
+
+  }, 50000);
+
+  it('check if calendar shows how many more tasks need to be done', async () => {
+    await page.goto('http://127.0.0.1:5500/source/calendar/calendar.html');
+
+    console.log('Testing how many tasks need to be done');
+
+
+    //check to see if the Calendar tells how many more task done
+    const displayedText = await page.$eval(".task-indicator", (n) => {
+      return n.textContent;
+    });
+    const expected = "2 more tasks";
+    //expect calendar date box to say 6 more tasks
+    expect(displayedText).toBe(expected);
+  }, 50000);
+
+
+  it('check to see future days are unavailable to be clicked', async () => {
+
+    console.log('Testing future days are unavailable to be clicked');
+    //click future date
+    const dateButton = await page.$('.future-date');
+    await dateButton.click();
+
+    //check if we're still in the calendar page
+    const displayedDateText = await page.$eval("#month", (n) => {
+      return n.textContent;
+    });
+    const expected = "June";
+    //expect the display date text to still be june
+    expect(displayedDateText).toBe(expected);
+  }, 50000);
+
+  it('check to see past days are available to be clicked', async () => {
+
+    console.log('Testing past days are available to be clicked');
+    //click a past date
+    const dateButton = await page.$('.past-date');
+    await dateButton.click();
+    const input_text = "Past day";
+    //check if we're still in the homepage
+    await page.waitForSelector('#textarea');
+    //add new input text
+    const journal = await page.$('#textarea');
+    await journal.click();
+    await page.keyboard.type(input_text);
+    //get the value of the text area
+    const text = await journal.getProperty('value');
+    const journal_text = await text.jsonValue();
+    //expect journel text to be filled in
+    expect(journal_text).toBe(input_text);
+  }, 50000);
+
+  it('test sentiment and productive icon', async () => {
+
+    console.log('Testing feelings widget and productive');
+    await page.goto('http://127.0.0.1:5500/source/homepage/homepage.html');
+    
+    // Click happiest rating button
+    const happy = await page.$('#btn4');
+    await happy.click();
+    //clcik productive rating button
+    const four = await page.$('#btn9');
+    await four.click();
+    //check if class is active
+    const class_name = await page.evaluate(() => {
+      const img = document.querySelector('#btn4 img');
+      return img.className;
+    });
+
+    const class_name2 = await page.evaluate(() => {
+      const img = document.querySelector('#btn9 img');
+      return img.className;
+    });
+    
+    // Expect active got added to happy class name
+    expect(class_name).toBe("active");
+    expect(class_name2).toBe("active");
+        
+  }, 50000);
+
+  it('test sentiment and productive icon stays when leaving', async () => {
+
+    console.log('Testing feelings widget and productive');
+    //leave page to check if input is saved
+    await page.goto('http://127.0.0.1:5500/source/calendar/calendar.html');
+    await page.goto('http://127.0.0.1:5500/source/homepage/homepage.html');
+    //check if class is active
+    const class_name = await page.evaluate(() => {
+      const img = document.querySelector('#btn4 img');
+      return img.className;
+    });
+
+    const class_name2 = await page.evaluate(() => {
+      const img = document.querySelector('#btn9 img');
+      return img.className;
+    });
+    
+    // Expect active got added to happy class name
+    expect(class_name).toBe("active");
+    expect(class_name2).toBe("active");
+        
+
+  }, 50000);
+
+
+  it('Click homepage icon', async () => {
+    //get date header
+    const todaysDateText = page.$eval('.date-header-text', (el) => {
+      return el.textContent;
+    });
+    //click previous button 4 times
+    for (let i = 0; i < 4; i++) { await page.click('.prev-date-btn'); }
+    //go to homepage
+    await page.click('.nav-homepage-btn');
+    //get todays datetext
+    const updatedTodaysDateText = await page.$eval('.date-header-text', (el) => {
+      return el.textContent;
+    });
+    //format to get todays date
+    const currDate = new Date();
+    const currDateText = currDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    
+    expect(updatedTodaysDateText).toBe(currDateText);
+  });
+
+  it('Click calendar icon', async () => {
+    //get todays date text
+    const todaysDateText = page.$eval('.date-header-text', (el) => {
+      return el.textContent;
+    });
+    //click previous button and go to calendar page
+    for (let i = 0; i < 10; i++) { await page.click('.prev-date-btn'); }
+    await page.click('.nav-calendar-btn');
+    //get month in the page
+    const updatedTodaysDateText = await page.$eval('#month', (el) => {
+      return el.textContent;
+    });
+    //get todays month
+    const currDate = new Date();
+    const currDateText = currDate.toLocaleDateString('en-US', { month: 'long'});
+    //expect to get todays month
+    expect(updatedTodaysDateText).toBe(currDateText);
+  }, 50000);
+
+
+  it('Reload and check task', async () => {
+    console.log('Reloading page...');
+    //add a task
+    await page.click('.add-task-btn');
+    //get task title
+    const taskInputSelector = '.task-list .task:last-child .task-input';
+    await page.waitForSelector(taskInputSelector);
+    const taskInput = await page.$(taskInputSelector);
+    //type in the tasklist 
+    const title = 'Completed Task is now edited >:(';
+    await taskInput.type(title);
+    //click a color button
+    const colorButton = '.task-list .task:last-child .color-button';
+    const colorButtonSelector = '.task-list .task:last-child .color-button';
+    await page.hover(colorButton);
+    await page.click(colorButtonSelector);
+    
+    // Reload the page
+    await page.reload();
+
+    // Task count should still be 1
+    const taskcount = await page.evaluate(() => {
+      return document.querySelectorAll('.task-list .task').length;
+    });
+    expect(taskcount).toBe(1);
+
+    // Check the title and color of task in completed list
+    const taskTitle = await page.evaluate(selector => {
+      return document.querySelector(selector).textContent;
+    }, '.task-list .task .task-input');
+    const backgroundColor = await page.evaluate(selector => {
+      const task = document.querySelector(selector);
+      return window.getComputedStyle(task).backgroundColor;
+    }, '.task-list .task:last-child');
+    expect(backgroundColor).toBe('rgb(195, 128, 204)');
+    expect(taskTitle).toBe('Completed Task is now edited >:(');
+  }, 50000);
+
+  it('Reload and go to homepage and check task', async () => {
+    console.log('Reloading page...');
+    //reload page and go to homepage
+    await page.reload();
+    await page.goto('http://127.0.0.1:5500/source/homepage/homepage.html');
+    await page.click('.completed-task-container .task .task-input');
+    //type in tasklist
+    await page.keyboard.type('Completed Task is now edited >:)');
+    // Reload the page
+    await page.reload();
+
+
+    // Task count completed should be 8
+    const completeTaskCountAfterComplete = await page.evaluate(() => {
+      return document.querySelectorAll('.completed-task-container .task').length;
+    });
+    expect(completeTaskCountAfterComplete).toBe(8);
+
+    // Check the title and color of task in completed list
+    const taskTitle = await page.evaluate(selector => {
+      return document.querySelector(selector).textContent;
+    }, '.completed-task-container .task .task-input');
+    const backgroundColor = await page.evaluate(selector => {
+      const task = document.querySelector(selector);
+      return window.getComputedStyle(task).backgroundColor;
+    }, '.completed-task-container .task:last-child');
+    expect(backgroundColor).toBe('rgb(242, 242, 242)');
+    expect(taskTitle).toBe('Completed Task is now edited >:)');
   });
 });
