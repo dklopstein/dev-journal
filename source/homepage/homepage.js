@@ -32,6 +32,9 @@ function initButtons() {
     const prevBtn = document.querySelector(".prev-date-btn");
     prevBtn.addEventListener("click", prevDate);
 
+    const modeBtn = document.querySelector(".mode-btn");
+    modeBtn.addEventListener("click", switchMode);
+
     const addTaskBtn = document.querySelector(".add-task-btn");
     addTaskBtn.addEventListener("click", () => {
         addTask();
@@ -95,6 +98,20 @@ function prevDate() {
     unselectAllWidgets();
     unselectAllCompleted();
     loadAll();
+}
+
+/**
+ * Switch between light and dark mode
+ */
+function switchMode() {
+    const modeIcon = document.getElementById('mode-icon');
+    if (modeIcon.src.includes('darkmode.png')) {
+        modeIcon.src = '../icons/lightmode.png';
+        modeIcon.alt = 'Dark Mode On';
+    } else {
+        modeIcon.src = '../icons/darkmode.png';
+        modeIcon.alt = 'Light Mode On';
+    }
 }
 
 /**

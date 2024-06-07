@@ -54,6 +54,9 @@ function initButtons() {
     let nextBtn = document.querySelector(".next-date-btn");
     nextBtn.addEventListener('click', next);
 
+    const modeBtn = document.querySelector(".mode-btn");
+    modeBtn.addEventListener("click", switchMode);
+
     // Jump header buttons
     // List of months
     let monthJumpBtn = document.querySelectorAll(".month-btn");
@@ -103,6 +106,20 @@ function prev() {
     currDate.setMonth(currDate.getMonth() - 1);
     updateDateGlobals();
     displayCalendar();
+}
+
+/**
+ * Switch between light and dark mode
+ */
+function switchMode() {
+    const modeIcon = document.getElementById('mode-icon');
+    if (modeIcon.src.includes('darkmode.png')) {
+        modeIcon.src = '../icons/lightmode.png';
+        modeIcon.alt = 'Dark Mode On';
+    } else {
+        modeIcon.src = '../icons/darkmode.png';
+        modeIcon.alt = 'Light Mode On';
+    }
 }
 
 /**
