@@ -43,5 +43,6 @@
 - On slow, low-capability mobile phones, website slows down significantly
 
 # Retrospective
-![img](../misc/retrospective-final.png)
+![img](../misc/Retrospective-Final.png)
+
 
