@@ -7,10 +7,12 @@
     "globals": "^15.2.0",
     "jest": "^29.7.0",
     "jest-puppeteer": "^10.0.1",
-    "puppeteer": "^22.10.0"
+    "puppeteer": "^22.10.0",
+    "jest-environment-jsdom": "^29.7.0"
   },
   "scripts": {
-    "test": "jest  --maxWorkers=1"
+    "test": "jest --maxWorkers=1 testing/puppeteer.test.js",
+    "test-unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config=jsdom.config.json testing/sum.test.js"
   },
   "type": "module",
   "jest": {
@@ -21,7 +23,7 @@
   "jest-puppeteer": {
     "launch": {
       "headless": true,
-      "slowMo": 25,
+      "slowMo": 1,
       "defaultViewport": null
     }
   },

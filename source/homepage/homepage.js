@@ -155,7 +155,7 @@ function selectWidget(buttonIndex) {
             <button id="pink" class="color-button"></button>
             <button id="grey" class="color-button"></button>
         </div>
-        <img class="trash-icon" src="../icons/trash-icon.svg" alt="Remove">
+        <img class="fas fa-trash-alt" src="../icons/trash-icon.svg" alt="Remove">
     `);
     task.querySelector(".task-input").addEventListener("input", saveCompleted)
     taskList.append(task);
@@ -228,8 +228,8 @@ function taskButtonsFunctionality(task) {
         });
     });
 
-    /* Trash icon delete functionality */
-    const deleteIcon = task.querySelector(".trash-icon");
+    // Trash icon delete functionality
+    const deleteIcon = task.querySelector(".fas");
     deleteIcon.addEventListener("click", () => {
         task.remove();
         saveCompleted();
