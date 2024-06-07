@@ -626,6 +626,7 @@ function loadCellData(cellData, currWeekDay) {
     // Query is in format ?date=month-day-year
     aLink.href = `../homepage/homepage.html?date=${monthLink}-${dayLink}-${yearLink}`;
     aLink.className = "a-link";
+    aLink.setAttribute("aria-label", `Link to details for ${monthLink + 1}/${dayLink}/${yearLink}`);
     cellData.appendChild(aLink);
     // Append taskList to task div;
     taskDiv.appendChild(taskList);
