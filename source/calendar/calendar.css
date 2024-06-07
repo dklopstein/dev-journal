@@ -1,3 +1,5 @@
+/* ********** Start of Universal Styling ********** */
+
 * {
   margin: 0;
   box-sizing: border-box;
@@ -27,10 +29,20 @@ main {
 
 }
 
-/* Remove background for all buttons */
+/* Universal background color for buttons to clear */
 button {
   background-color: rgba(0,0,0,0);
   border: rgba(0,0,0,1);
+}
+
+/* Remove outline around focused button */
+button:focus {
+  outline: none;
+}
+
+/* Change mouse cursor when hovering over button */
+button:hover {
+  cursor: pointer;
 }
 
 /* Remove background for all select boxes */
@@ -39,20 +51,20 @@ select {
   border: rgba(0,0,0,1);
   appearance: none;
 }
- 
-/* TASK LIST */
-/* Start of task list */
+
+/* ********** End of Universal Styling **** */
+
+/* ********** Start of task list ********** */
+
 .task-list { 
   flex: 0 0 18%;
-  max-width: 17rem; /* Prevents task list expanding with long task names */
+  max-width: 17rem;
   height:100%;
   margin: 5px;
   padding: 1%;
   border-radius: 15px;
   background-color: white;
   box-shadow: 3px 3px 3px lightgrey;
-
-  /* Set size of task area to be relative to list */
   position: relative;
 }
 
@@ -63,20 +75,8 @@ select {
   bottom: 0;
   width: 88%;
   overflow: auto;
-
-  /* Hide scroll-bars for Firefox, Edge */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-/* Hides task list when page reaches certain size */
-@media (max-width: 800px) {
-  .task-list {
-      display: none;
-  }
-  .journal-past-wrap .task-list {
-    display: block;
-  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Formatting for the task list header */
@@ -96,21 +96,14 @@ select {
   cursor: pointer;
 }
 
-/* Wrap for task name and checkbox */
-/* .task-list .input-wrap {
-  display: flex;
-  justify-content: flex-start;
-} */
-
 /* Styling for task name */
 .task-list .task-name {
   width: max(10em, 12vw);
-  resize: none; /* Prevents user from resizing */
-  overflow: hidden; /* Hides scrollbar */
+  resize: none;
+  overflow: hidden;
   margin-top: -4px;
   height: 24px;
   max-height: 108px;
-  /* Hide background and border */
   background-color: rgba(0, 0, 0, 0);
   border: rgba(0, 0, 0, 0);
 }
@@ -137,8 +130,7 @@ select {
   overflow: hidden;
   word-wrap: break-word;
   text-align: left;
-  list-style-type: none; /* Get rid of li bullet points */
-  /* Set max height */
+  list-style-type: none;
   transition: max-height 0.5s ease-in;
   max-height: 4em;
 }
@@ -183,10 +175,10 @@ select {
 }
 
 /* Positioning for trash icon */
-.fas.fa-trash-alt {
-  position: absolute; /* Positioning relative to the nearest positioned ancestor */
-  top: 2px; /* Distance from the top edge of the li */
-  right: 2px; /* Distance from the right edge of the li */
+.trash-icon {
+  position: absolute;
+  top: 2px;
+  right: 2px;
   width: 18px;
   height: 18px;
   cursor: pointer;
@@ -194,7 +186,7 @@ select {
 
 /* Display buttons when hovering or actively editing */
 .task:hover .color-buttons {
-  opacity: 1; /* Brings the buttons back into view */
+  opacity: 1;
 }
 
 /* Checkbox appearance */
@@ -224,19 +216,19 @@ select {
 
 /* Default set up for color buttons */
 .color-buttons {
-  opacity: 0; /* Hide buttons */
-  transition: opacity 0.3s ease; /* Transition for buttons reappearing */
-  max-height: 5em; /* Enough max-height to show the content */
-  display: flex; /* Lays out the buttons in a row */
-  justify-content: space-around; /* Spaces buttons evenly */
-  margin-top: 5px; /* Space from the description */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  max-height: 5em;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 5px;
 }
 
 /* Size of each color button */
 .color-button {
-  width: 15px; /* Uniform button size */
-  height: 15px; /* Uniform button size */
-  border-radius: 100%; /* Makes the buttons circular */
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
 
   border: solid grey 1px;
 
@@ -264,6 +256,8 @@ select {
 /* ********** End of task list ********** */
 
 /* ********** Start of top bar ********** */
+
+/* Container of prev/next buttons, current date, and homepage-calendar buttons */
 .top-bar {
   position: relative;
   height: 65px;
@@ -281,7 +275,7 @@ select {
   grid-template-columns: 1fr 1fr;
 }
 
-/* Next, Prev, and Header organization */
+/* Container of prev/next buttons, current date */
 .date-header {
   display: grid;
   grid-template-columns: 1fr 8fr;
@@ -299,7 +293,7 @@ select {
   background-color: var(--secondary-color);
 }
 
-/* Calendar date header */
+/* Container of the previous and next day buttons*/
 .date-header-text {
   width: 100%;
   margin-top: auto;
@@ -338,11 +332,6 @@ select {
   min-width: 2.6em;
   padding-left: 0em;
   padding-right: 0em;
-}
-
-/* Add cursor when hovering over buttons */
-button:hover {
-  cursor: pointer;
 }
 
 /* Jump header that contains the month and year */
@@ -439,7 +428,6 @@ button:hover {
 .date-header-buttons {
   display: grid;
   grid-template-columns: 1.2em 1fr;
-
   margin-top: auto;
   margin-bottom: min(0.6em, 14%);
   margin-left: 0.4em;
@@ -450,10 +438,7 @@ button:hover {
 .prev-date-btn {
   width: 2em;
   height: 2em;
-
   border-radius: 4em;
-
-  /* Add button image */
   background-image: url('../icons/left-icon.png');
   background-size: 14px 14px;
   background-repeat: no-repeat;
@@ -464,15 +449,10 @@ button:hover {
 /* Goto next month button */
 .next-date-btn {
   float: left;
-
   width: 2em;
   height: 2em;
-
   margin-left: 0.4em;
-
   border-radius: 4em;
-
-  /* Add button image */
   background-image: url('../icons/right-icon.png');
   background-size: 14px 14px;
   background-repeat: no-repeat;
@@ -638,4 +618,39 @@ td .productivity-icon {
 }
 
 /* ********** End of Calendar ********** */
+
+/* ********** Start of Media Query Responsiveness ********** */
+
+@media (max-width: 740px) {
+  main {
+    overflow-x: scroll;
+  }
+
+  .task-list {
+    flex: 0 0 25%;
+    z-index: 100000;
+    transition: transform 0.3s ease;
+    transform: translateX(-88%);
+  }
+
+  .task-list.active {
+    transform: translateX(0%);
+  }
+
+  .task-wrapper {
+    display: none;
+  }
+
+  .task-wrapper.active {
+    display: block;
+  }
+
+  .full-calendar {
+    position: absolute;
+    left: 5%;
+    bottom: 0;
+    top: 0;
+    right: 0;
+  }
+}
 
