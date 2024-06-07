@@ -20,6 +20,13 @@
     "preset": "jest-puppeteer",
     "verbose": true
   },
+  "jest-puppeteer": {
+    "launch": {
+      "headless": true,
+      "slowMo": 1,
+      "defaultViewport": null
+    }
+  },
   "dependencies": {
     "jsdoc": "^4.0.3"
   }
