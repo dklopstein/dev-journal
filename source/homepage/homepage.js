@@ -7,6 +7,9 @@ window.addEventListener('DOMContentLoaded', init);
 // Get current date globals
 var currDate = new Date();
 
+// Defines confetti
+const confetti = window.confetti;
+
 /**
  * Initializes current date heading
  * 
@@ -261,6 +264,12 @@ function taskButtonsFunctionality(task) {
             completedTaskContainer.appendChild(task);
             saveCompleted();
             saveTasks();
+
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
         }
     });
 }

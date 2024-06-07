@@ -10,6 +10,9 @@ var currDate = new Date();
 var month = currDate.getMonth();
 var year = currDate.getFullYear();
 
+// Defines confetti
+const confetti = window.confetti;
+
 /**
  * Updates the global date variables to the current date.
  */
@@ -225,6 +228,12 @@ function taskButtonsFunctionality(task) {
             saveCompleted(task);
             task.remove()
             saveTasks();
+
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
         }
     });
 }
