@@ -12,7 +12,7 @@
   },
   "scripts": {
     "test": "jest --maxWorkers=1 testing/puppeteer.test.js",
-    "test-unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config=jsdom.config.json testing/unit.test.js"
+    "test-unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config=testing/jsdom.config.json unit.test.js"
   },
   "type": "module",
   "jest": {
