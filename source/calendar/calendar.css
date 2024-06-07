@@ -604,6 +604,12 @@ td .productivity-icon {
   left: 0;
 }
 
+/* Highlight boxes when hovering over specific calendar cell */
+.a-link:hover {
+  background-color: skyblue;
+  opacity: 0.3;
+}
+
 /* Media query to handle window resizing */
 @media (max-height: 500px) {
   .task-ul {

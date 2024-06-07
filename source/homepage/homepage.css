@@ -628,6 +628,12 @@ td .task-div {
   z-index: 10;
 }
 
+/* Highlight boxes when hovering over specific calendar cell */
+.a-link:hover {
+  background-color: skyblue;
+  opacity: 0.3;
+}
+
 /* ======== End of Past Week ========== */
 
 /* ******** End of Main Wrap ********** */
