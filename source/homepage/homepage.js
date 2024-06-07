@@ -349,7 +349,7 @@ function loadAll() {
  * @param {string} value - value to store
  * 
  */
-function saveToStorage(data, dateText, key, value) {
+export function saveToStorage(data, dateText, key, value) {
     if (!(dateText in data)) {
         data[dateText] = {}
     }
@@ -363,7 +363,7 @@ function saveToStorage(data, dateText, key, value) {
  * @param {string} dateText - date of the journal entry in locale date string format
  * @param {string} key - key to get the value from
  */
-function loadFromStorage(data, dateText, key) {
+export function loadFromStorage(data, dateText, key) {
     if (!(dateText in data)) {
         return;
     }
@@ -385,7 +385,7 @@ function saveJournal() {
  * 
  * @returns {string} journal entry text in parsed json format
  */
-function getJournal() {
+export function getJournal() {
     let data = JSON.parse(localStorage.getItem("journals"))
     if (data == null) {
         data = {}
