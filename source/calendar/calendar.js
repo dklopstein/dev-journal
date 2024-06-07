@@ -225,6 +225,12 @@ function taskButtonsFunctionality(task) {
             saveCompleted(task);
             task.remove()
             saveTasks();
+
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
         }
     });
 }
