@@ -26,7 +26,6 @@ main {
   overflow: hidden;
   height: 100%;
   position: relative;
-
 }
 
 /* Universal background color for buttons to clear */
@@ -54,7 +53,7 @@ select {
 
 /* ********** End of Universal Styling **** */
 
-/* ********** Start of task list ********** */
+/* ********** Start of Task List ********** */
 
 .task-list { 
   flex: 0 0 18%;
@@ -170,7 +169,6 @@ select {
   content: attr(placeholder);
   pointer-events: none;
   display: block;
-
   color: rgb(97, 97, 97)
 }
 
@@ -229,7 +227,6 @@ select {
   width: 15px;
   height: 15px;
   border-radius: 100%;
-
   border: solid grey 1px;
 
   &#purple {
@@ -253,15 +250,14 @@ select {
   }
 }
 
-/* ********** End of task list ********** */
+/* ********** End of Task List ********** */
 
-/* ********** Start of top bar ********** */
+/* ********** Start of Top Bar ********** */
 
 /* Container of prev/next buttons, current date, and homepage-calendar buttons */
 .top-bar {
   position: relative;
   height: 65px;
-
 }
 
 .date-header-wrap {
@@ -270,7 +266,6 @@ select {
   height: 100%;
   width: min(70em, 100%);
   width: 100%;
-
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
@@ -280,10 +275,8 @@ select {
   display: grid;
   grid-template-columns: 1fr 8fr;
   margin-left: 1.1em;
-
   position: absolute;
   bottom: 0;
-
   width: 50%;
   max-width: 40em;
 }
@@ -529,7 +522,6 @@ tbody td {
   padding-top: 1px;
 }
 
-/* Calendar date */
 td .cell-date {
   position: absolute;
   left: 5px;
@@ -623,9 +615,9 @@ td .productivity-icon {
   }
 }
 
-/* ********** End of Calendar ********** */
+/* ********** End of Calendar Table ********** */
 
-/* ********** Start of Media Query Responsiveness ********** */
+/* ********** Start of Responsiveness ********** */
 
 @media (max-width: 740px) {
   main {
@@ -659,4 +651,6 @@ td .productivity-icon {
     right: 0;
   }
 }
+
+/* ********** End of Responsiveness ********** */
 
