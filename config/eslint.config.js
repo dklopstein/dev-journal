@@ -8,6 +8,6 @@ export default [
     
   },
   {
-    ignores: ["testing/*", "out/*"]
+    ignores: ["testing/*", "out/*", "js-doc/*"]
   }
 ];
