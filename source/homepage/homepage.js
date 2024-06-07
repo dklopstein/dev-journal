@@ -57,6 +57,16 @@ function initButtons() {
             nextDate();
         }
     });
+    // Save user entry to local storage on any changes
+    journal.addEventListener("blur", saveJournal);
+    tasks.addEventListener("blur", saveTasks);
+    tasks.addEventListener("change", saveTasks);
+    tasks.addEventListener("blur", saveCompleted);
+    tasks.addEventListener("change", saveCompleted);
+    completedTasks.addEventListener("blur", saveCompleted);
+    completedTasks.addEventListener("change", saveCompleted);
+    completedTasks.addEventListener("blur", saveTasks);
+    completedTasks.addEventListener("change", saveTasks);
 }
 
 /**
@@ -365,7 +375,7 @@ export function saveToStorage(data, dateText, key, value) {
  */
 export function loadFromStorage(data, dateText, key) {
     if (!(dateText in data)) {
-        return;
+        return null;
     }
     return data[dateText][key];
 }
@@ -662,14 +672,3 @@ function taskListViewHandler() {
         }
     });
 }
-
-// Save user entry to local storage on any changes
-journal.addEventListener("blur", saveJournal);
-tasks.addEventListener("blur", saveTasks);
-tasks.addEventListener("change", saveTasks);
-tasks.addEventListener("blur", saveCompleted);
-tasks.addEventListener("change", saveCompleted);
-completedTasks.addEventListener("blur", saveCompleted);
-completedTasks.addEventListener("change", saveCompleted);
-completedTasks.addEventListener("blur", saveTasks);
-completedTasks.addEventListener("change", saveTasks);
