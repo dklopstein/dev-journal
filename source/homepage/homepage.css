@@ -179,7 +179,7 @@ button:focus {
 }
 
 /* Positioning for trash icon */
-.fas.fa-trash-alt {
+.trash-icon{
   position: absolute; /* Positioning relative to the nearest positioned ancestor */
   top: 2px; /* Distance from the top edge of the li */
   right: 2px; /* Distance from the right edge of the li */

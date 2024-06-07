@@ -130,7 +130,7 @@ function addTask(loadTask = false) {
             <button id="pink" class="color-button"></button>
             <button id="grey" class="color-button"></button>
         </div>
-        <img class="fas fa-trash-alt" src="../icons/trash-icon.svg" alt="Remove">
+        <img class="trash-icon" src="../icons/trash-icon.svg" alt="Remove">
     `);
     task.querySelector(".task-input").addEventListener("input", saveTasks);
 
@@ -201,7 +201,7 @@ function taskButtonsFunctionality(task) {
     });
 
     /* Trash icon delete functionality */
-    const deleteIcon = task.querySelector(".fas");
+    const deleteIcon = task.querySelector(".trash-icon");
     deleteIcon.addEventListener("click", () => {
         task.remove();
         saveTasks();

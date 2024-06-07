@@ -306,8 +306,8 @@ describe('Homepage task list tests', () => {
 
     // Expect the task count to increase by 1 after clicking the add button
     expect(taskCount).toBe(2);
-    await page.click('.task-container .task .fas.fa-trash-alt');
-    await page.click('.task-container .task .fas.fa-trash-alt');
+    await page.click('.task-container .task .trash-icon');
+    await page.click('.task-container .task .trash-icon');
     const taskCountAfterDelete = await page.evaluate(() => {
       return document.querySelectorAll('.task-container .task').length;
     });
