@@ -1,23 +1,26 @@
+/* ********** Start of Universal Styling ********** */
+
 * {
   margin: 0;
   box-sizing: border-box;
-
   font-family: "Poppins", sans-serif;
 
   --main-color: #f2f2f2;
   --secondary-color: #d1d8e3;
   --accent-color: #a8ceec;
-
 }
+
 html {
   height: 100%;
   background-color: yellow;
   overflow: hidden;
 }
+
 body {
   height: 100%;
   background-color: var(--main-color);
 }
+
 main {
   display: flex;
   overflow: hidden;
@@ -36,18 +39,24 @@ button:focus {
   outline: none;
 }
 
+/* Change mouse cursor when hovering over button */
+button:hover {
+  cursor: pointer;
+}
+
+/* ********** End of Universal Styling **** */
+
 /* ********** Start of task list ********** */
+
 .task-list { 
   flex: 0 0 18%;
-  max-width: 17rem; /* Prevents task list expanding with long task names */
+  max-width: 17rem;
   height:100%;
   margin: 5px;
   padding: 1%;
   border-radius: 15px;
   background-color: white;
   box-shadow: 3px 3px 3px lightgrey;
-
-  /* Set size of task area to be relative to list */
   position: relative;
 }
 
@@ -69,10 +78,8 @@ button:focus {
   bottom: 0;
   width: 88%;
   overflow: auto;
-
-  /* Hide scroll-bars for Firefox, Edge */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Wrapper for overflow of completed tasks */
@@ -82,10 +89,8 @@ button:focus {
   height: 82%;
   width: 96%;
   overflow: auto;
-
-  /* Hide scroll-bars for Firefox, Edge */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
 }
 
 /* Aligns add button to right */
@@ -103,11 +108,10 @@ button:focus {
 /* Styling for task name */
 .task-list .task-name {
   width: max(10em, 12vw);
-  resize: none; /* Prevents user from resizing */
+  resize: none;
   margin-top: -4px;
   height: 24px;
   max-height: 108px;
-  /* Hide background and border */
   background-color: rgba(0, 0, 0, 0);
   border: rgba(0, 0, 0, 0);
 }
@@ -133,12 +137,12 @@ button:focus {
   position: relative;
   word-wrap: break-word;
   text-align: left;
-  list-style-type: none; /* Get rid of li bullet points */
-  /* Set max height */
+  list-style-type: none;
   transition: max-height 0.5s ease-in;
   max-height: 4em;
 }
 
+/* Expands individual taskbox when hovered over */
 .task:hover {
   max-height: fit-content;
 }
@@ -179,10 +183,10 @@ button:focus {
 }
 
 /* Positioning for trash icon */
-.fas.fa-trash-alt {
-  position: absolute; /* Positioning relative to the nearest positioned ancestor */
-  top: 2px; /* Distance from the top edge of the li */
-  right: 2px; /* Distance from the right edge of the li */
+.trash-icon {
+  position: absolute;
+  top: 2px;
+  right: 2px; 
   width: 18px;
   height: 18px;
   cursor: pointer;
@@ -190,7 +194,7 @@ button:focus {
 
 /* Display buttons when hovering or actively editing */
 .task:hover .color-buttons {
-  opacity: 1; /* Brings the buttons back into view */
+  opacity: 1;
 }
 
 /* Checkbox appearance */
@@ -220,20 +224,19 @@ button:focus {
 
 /* Default set up for color buttons */
 .color-buttons {
-  opacity: 0; /* Hide buttons */
-  transition: opacity 0.3s ease; /* Transition for buttons reappearing */
-  max-height: 5em; /* Enough max-height to show the content */
-  display: flex; /* Lays out the buttons in a row */
-  justify-content: space-around; /* Spaces buttons evenly */
-  margin-top: 5px; /* Space from the description */
+  opacity: 0; 
+  transition: opacity 0.3s ease;
+  max-height: 5em;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 5px;
 }
 
-/* Size of each color button */
+/* Size, shape, and color of each color button */
 .color-button {
-  width: 15px; /* Uniform button size */
-  height: 15px; /* Uniform button size */
-  border-radius: 100%; /* Makes the buttons circular */
-
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
   border: solid grey 1px;
 
   &#purple {
@@ -257,19 +260,21 @@ button:focus {
   }
 }
 
-
-
 /* ********** End of task list ********** */
 
+/* ********** Start of Main Wrap ******** */
+
+/* Container of top bar, journal, feeling widgets, completed tasks, and past week */
 .main-wrap { 
   flex: 1;
   position: relative;
   float: left;
-
   height: 100%;
 }
 
-/* ********** Start of top bar ********** */
+/* ========== Start of top bar ========== */
+
+/* Container of prev/next buttons, current date, and homepage-calendar buttons */
 .top-bar {
   position: relative;
   height: 10%;
@@ -282,41 +287,34 @@ button:focus {
   height: 100%;
   width: min(70em, 100%);
   width: 100%;
-
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
+/* Container of prev/next buttons, current date */
 .date-header {
   display: grid;
   grid-template-columns: 1fr 8fr;
   margin-left: 1.1em;
-
   position: absolute;
   bottom: 0;
-
   width: 50%;
   max-width: 40em;
 }
 
-/* Wrap the previous and next day buttons*/
+/* Container of the previous and next day buttons*/
 .date-header-buttons {
   display: grid;
   grid-template-columns: 1.2em 1fr;
-
   margin-top: auto;
   margin-bottom: min(0.6em, 14%);
   margin-left: 0.4em;
-
 }
 
 .prev-date-btn {
   width: 2em;
   height: 2em;
-
   border-radius: 4em;
-
-  /* Add button image */
   background-image: url('../icons/left-icon.png');
   background-size: 14px 14px;
   background-repeat: no-repeat;
@@ -325,16 +323,10 @@ button:focus {
 }
 
 .next-date-btn {
-  float: left;
-
   width: 2em;
   height: 2em;
-
   margin-left: 0.4em;
-
   border-radius: 4em;
-
-  /* Add button image */
   background-image: url('../icons/right-icon.png');
   background-size: 14px 14px;
   background-repeat: no-repeat;
@@ -343,6 +335,7 @@ button:focus {
   
 }
 
+/* Change button background color when hovering over prev/next buttons */
 .date-header-buttons button:hover {
   background-color: var(--secondary-color);
 }
@@ -356,11 +349,6 @@ button:focus {
   font-size: calc(1.4em + .7vw);
 }
 
-.date-header button img {
-  height: 18px;
-  padding: 4px;
-}
-
 .nav-buttons {
   position: absolute;
   top: 0.6em;
@@ -371,11 +359,6 @@ button:focus {
   gap: 1em;
 }
 
-.nav-buttons button {
-  background-color: transparent;
-  border: none;
-}
-
 .nav-buttons button img {
   width: min(3.4em, 4vw);
   min-width: 2.6em;
@@ -383,13 +366,12 @@ button:focus {
   padding-right: 0em;
 }
 
-button:hover {
-  cursor: pointer;
-}
-/* ********** End of top bar ********** */
+/* ============== End of Top Bar =========== */
 
 
-/* ********** Begin Entry Content ********** */
+/* ============ Begin Entry Content ========= */
+
+/* Container of journal, feeling widgets, completed tasks, and past week */
 .journal-past-wrap {
   width: 100%;
   min-width: 40rem;
@@ -397,6 +379,7 @@ button:hover {
   max-width: 94.4rem;
 }
 
+/* Container of journal, feeling widgets, completed tasks, and past week */
 .today-entry {
   width: min(66rem, 100%);
   height: 78%;
@@ -404,7 +387,8 @@ button:hover {
   padding-left: min(2.1rem, 3%);
 }
 
-/* ********** Start of journal ********** */
+/* ============== Start of Journal ========== */
+
 .journal {
   height: 60%;
 }
@@ -414,11 +398,8 @@ button:hover {
   margin-top: 0.4%;
   margin-right: 2em;
   margin-bottom: 1rem;
-
   padding: 0.4em 1em 0.4em 1em;
-
   background-color: var(--secondary-color);
-
   border-radius: 1em;
 }
 
@@ -426,30 +407,31 @@ button:hover {
   width: 100%;
   height: 90%;
   margin-bottom: 1em;
-
   padding-top: 0.2em;
   padding-left: 0.4em;
-
   background: var(--secondary-color);
-
   border: none;
   border-radius: 1em;
-
   resize: none;
 }
 
+/* Highlight journal when clicked on */
 .journal-entry #textarea:focus {
   outline: none !important;
   border:1px solid var(--accent-color);
   box-shadow: 0 0 10px #719ECE;
 }
-/* ********** End of journal ********** */
 
-/* ********** Start of rating ********** */
+/* =========== End of Journal ========= */
+
+/* === Start of Rating and Completed Task ===== */
+
+/* Container of rating and completed tasks */
 .rating-completed-wrap {
   position: relative;
   height: 40%;
 }
+
 .rating-completed-wrap h4 {
   text-align: center;
   font-size: max(calc(0.7em + 0.4vw), 15px);
@@ -473,17 +455,6 @@ button:hover {
   padding-top: min(1em, 5%);
 }
 
-.feelings {
-  display: flex;
-  justify-content: center;
-  gap: 0em;
-  padding-top: calc(0.4em - 1.2vw);
-  padding-bottom: min(calc(2.2em - 1.8vw), 1.3em);
-  padding-bottom: calc(0.4em - 1.2vw);
-
-  padding: 0;
-}
-
 .rating-widget button img {
   height: max(min(3em, 6vw), 50px);
   height: min(50px, 8vw);
@@ -491,15 +462,27 @@ button:hover {
   border-radius: 50%;
 }
 
+/* Highlight current hovered feelings button */
 .rating-widget button img:hover {
   transform: scale(1.2);
   background: radial-gradient(circle, rgb(3, 128, 237) 0%, rgba(0, 0, 0, 0) 100%);
   transition: 0.1s ease-in-out;
 }
 
+/* Highlight current selected feelings button */
 .rating-widget img.active, .rating-widget img.active:hover {
   background-color: #008FC6;
   transition: 0.1s ease;
+}
+
+.feelings {
+  display: flex;
+  justify-content: center;
+  gap: 0em;
+  padding-top: calc(0.4em - 1.2vw);
+  padding-bottom: min(calc(2.2em - 1.8vw), 1.3em);
+  padding-bottom: calc(0.4em - 1.2vw);
+  padding: 0;
 }
 
 .productiveness {
@@ -509,29 +492,26 @@ button:hover {
   padding-top: calc(1em - 1vw);
 }
 
-/* ********** End of rating ********** */
-
-
-
 /* Completed List */
 .journal-past-wrap .task-list {
   position: absolute;
   right: 2em;
   width: min(44%, 30rem);
   height: 100%;
-  margin: 0; /* Overwrite inherited margin from task-list */
+  margin: 0;
   max-width: none;
   background-color: var(--secondary-color);
-
   border-radius: 1em;
-
   transform: none;
-
 }
 
-/* ********** End Entry Content ********** */
+/* === End of Rating and Completed Task ===== */
 
-/* ********** Start of past week ********** */
+/* ========== End Entry Content ========= */
+
+/* ======== Start of Past Week ========== */
+
+/* Container for past week */
 .past-week-wrap {
   margin-top: 2%;
   margin-right: 5%;
@@ -555,7 +535,6 @@ button:hover {
   border: black solid 2px;
 }
 
-
 /* Calendar Table Styling */
 .table-week {
   width: 100%;
@@ -563,9 +542,7 @@ button:hover {
   table-layout: fixed;
   margin: 0;
   height: 100%;
-
   min-width: 40rem;
-
   font-size: min(16px, 1vw);
 }
 
@@ -650,14 +627,21 @@ td .task-div {
   left: 0;
   z-index: 10;
 }
-/* End of past week */
 
+/* ======== End of Past Week ========== */
+
+/* ******** End of Main Wrap ********** */
+
+/* ****** Start of Responsiveness ****** */
+
+/* Add scroll bar to rating wiget when screen height is small */
 @media (max-height: 740px) {
   .rating-widget {
     overflow: auto;
   }
 }
 
+/* Slide task bar offscreen when screen width is small */
 @media (max-width: 740px) {
   main {
     overflow-x: scroll;
@@ -706,3 +690,5 @@ td .task-div {
     font-size: 10px;
   }
 }
+
+/* ****** End of Responsiveness ****** */
