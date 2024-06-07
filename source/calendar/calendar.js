@@ -10,6 +10,9 @@ var currDate = new Date();
 var month = currDate.getMonth();
 var year = currDate.getFullYear();
 
+// Defines confetti
+const confetti = window.confetti;
+
 /**
  * Updates the global date variables to the current date.
  */

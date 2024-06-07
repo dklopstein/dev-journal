@@ -7,6 +7,9 @@ window.addEventListener('DOMContentLoaded', init);
 // Get current date globals
 var currDate = new Date();
 
+// Defines confetti
+const confetti = window.confetti;
+
 /**
  * Initializes current date heading
  * 
