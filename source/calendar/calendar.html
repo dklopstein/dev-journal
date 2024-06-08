@@ -1,106 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-  
-  <head>
-    <meta charset="UTF-8" />
-    <!-- Title -->
-    <title>Calendar</title>
-    <!-- CSS File -->
-    <link rel="stylesheet" href="calendar.css" />
-    <!-- Icon  -->
-    <link rel="icon" type="image/x-icon" href="/source/icons/website-icon.ico">
-    <!-- Font style -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-  </head>
 
-  <body>
-     <main>
+<head>
+	<meta charset="UTF-8" />
+	<!-- Title -->
+	<title>Calendar</title>
+	<!-- CSS File -->
+	<link rel="stylesheet" href="calendar.css" />
+	<!-- Icon  -->
+	<link rel="icon" type="image/x-icon" href="/source/icons/website-icon.ico">
+	<!-- Font style -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+		rel="stylesheet">
+</head>
 
-      <!-- Task list sidebar -->
-      <div class="task-list">
-        <!-- HEader with title and add task button -->
-        <div class="task-header">
-          <h3>Tasks</h3>
-          <!-- Add Task Button -->
-          <button class="add-task-btn" id="addbutton">
-            <img src="../icons/add-task-icon.png" alt="Add">
-          </button>
-        </div>
-        <!-- Container for tasks in sidebar -->
-        <div class="task-wrapper">
-          <ul class="task-container">
-            <!-- Individual tasks -->
-          </ul>
-        </div>
-      </div>
-  
-      <!-- Calendar -->
-      <div class="full-calendar">
+<body>
+	<main>
 
-        <!--Contain header bar-->
-        <section class="top-bar">
-          <div class="date-header-wrap">
-            <div class="date-header">
-              <!-- Buttons to change the date -->
-              <div class="date-header-buttons">
-                <button class="prev-date-btn"></button>
-                <button class="next-date-btn"></button>
-              </div>
+		<!-- Task list sidebar -->
+		<div class="task-list">
+			<!-- HEader with title and add task button -->
+			<div class="task-header">
+				<h3>Tasks</h3>
+				<!-- Add Task Button -->
+				<button class="add-task-btn" id="addbutton">
+					<img src="../icons/add-task-icon.png" alt="Add">
+				</button>
+			</div>
+			<!-- Container for tasks in sidebar -->
+			<div class="task-wrapper">
+				<ul class="task-container">
+					<!-- Individual tasks -->
+				</ul>
+			</div>
+		</div>
 
-              <!-- Calendar header and date jump -->
-              <div class="jump-header">
-                  <!-- Month jump dropdown -->
-                  <div id="month-dropdown" class="month-drop">
-                    <button class="jump-btn" id="month"></button>
-                  </div>
-                  <!-- Year jump dropdown -->
-                  <div id="year-dropdown" class="year-drop">
-                    <button class="jump-btn" id="year"></button>
-                  </div>
-              </div>
-              
-            </div>
+		<!-- Calendar -->
+		<div class="full-calendar">
 
-            <!-- Navigation buttons betwixt pages -->
-            <div class="nav-buttons">
-              <!-- Button to go to Home Page-->
-              <a href="../homepage/homepage.html">
-                <button class="nav-homepage-btn">
-                  <img src="../icons/home-icon.png" alt="Home">
-                </button>
-              </a>
+			<!--Contain header bar-->
+			<section class="top-bar">
+				<div class="date-header-wrap">
+					<div class="date-header">
+						<!-- Buttons to change the date -->
+						<div class="date-header-buttons">
+							<button class="prev-date-btn"></button>
+							<button class="next-date-btn"></button>
+						</div>
 
-              <!--Button to go to Calendar-->
-              <a href="./calendar.html">
-                <button class="nav-calendar-btn">
-                  <img src="../icons/calendar-icon.webp" alt="Calendar">
-                </button>
-              </a>
+						<!-- Calendar header and date jump -->
+						<div class="jump-header">
+							<!-- Month jump dropdown -->
+							<div id="month-dropdown" class="month-drop">
+								<button class="jump-btn" id="month"></button>
+							</div>
+							<!-- Year jump dropdown -->
+							<div id="year-dropdown" class="year-drop">
+								<button class="jump-btn" id="year"></button>
+							</div>
+						</div>
 
-              <button class="mode-btn">
-                <img id = "mode-icon" src="../icons/darkmode.png" alt="Light Mode On">
-              </button>
+					</div>
 
-              <!--Button to go to Settings-->
-              <!-- <button class="nav-settings-btn" href="">
+					<!-- Navigation buttons betwixt pages -->
+					<div class="nav-buttons">
+						<!-- Button to go to Home Page-->
+						<a href="../homepage/homepage.html">
+							<button class="nav-homepage-btn">
+								<img src="../icons/home-icon.png" alt="Home">
+							</button>
+						</a>
+
+						<!--Button to go to Calendar-->
+						<a href="./calendar.html">
+							<button class="nav-calendar-btn">
+								<img src="../icons/calendar-icon.webp" alt="Calendar">
+							</button>
+						</a>
+
+						<button class="theme-btn">
+							<img id="theme-icon" src="../icons/lightmode.png" alt="Light Mode On">
+						</button>
+
+						<!--Button to go to Settings-->
+						<!-- <button class="nav-settings-btn" href="">
                 <img src="../icons/settings-icon.png" alt="Settings">
               </button> -->
 
-            </div>
-          </div>
-        </section>
+					</div>
+				</div>
+			</section>
 
-        <!-- Calendar Table -->
-          <table class="table-calendar" id="calendar" data-lang="en">
-              <thead id="thead-weekheadings"></thead>
-              <tbody id="tbody-calendar"></tbody>
-          </table>
-      </div>
-    </main>
+			<!-- Calendar Table -->
+			<table class="table-calendar" id="calendar" data-lang="en">
+				<thead id="thead-weekheadings"></thead>
+				<tbody id="tbody-calendar"></tbody>
+			</table>
+		</div>
+	</main>
 
-    <!-- Javascript file -->
-    <script src="./calendar.js"></script>
-  </body>
+	<!-- Javascript file -->
+	<script src="./calendar.js"></script>
+</body>
 
 </html>

@@ -1,256 +1,273 @@
 /* ********** Start of Universal Styling ********** */
 
 * {
-  margin: 0;
-  box-sizing: border-box;
-  font-family: Poppins, sans-serif;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: Poppins, sans-serif;
+	color: #777;
+}
 
-  --main-color: #f2f2f2;
-  --secondary-color: #c1c1c1;
-  --accent-color: #a8ceec;
+:root {
+	--main-color: #f2f2f2;
+	--secondary-color: #c1c1c1;
+	--accent-color: #a8ceec;
+	--text-color: #777;
+	--task-list-color: white;
+	--box-shadow: lightgrey;
+	--input-shadow: #719ECE;
+	--past-date-color: #f2f2f2;
+	--future-date-color: #c1c1c1;
+}
+
+[theme="dark"] {
+	--main-color: #121212;
+	--secondary-color: #1c1c1c;
+	--accent-color: #888888;
+	--task-list-color: #1c1c1c;
+	--box-shadow: #080808;
+	--input-shadow: #d6d6d6;
+	--past-date-color: #1c1c1c;
+	--future-date-color: #121212;
 }
 
 html {
-  height: 100%;
-  background-color: yellow;
-  overflow: hidden;
+	height: 100%;
+	overflow: hidden;
 }
 
 body {
-  height: 100%;
-  background-color: var(--main-color);
+	height: 100%;
+	background-color: var(--main-color);
 }
 
 main {
-  display: flex;
-  overflow: hidden;
-  height: 100%;
-  position: relative;
+	display: flex;
+	overflow: hidden;
+	height: 100%;
+	position: relative;
 
 }
 
 /* Universal background color for buttons to clear */
 button {
-  background-color: rgba(0,0,0,0);
-  border: rgba(0,0,0,1);
+	background-color: rgba(0, 0, 0, 0);
+	border: rgba(0, 0, 0, 1);
 }
 
 /* Remove outline around focused button */
 button:focus {
-  outline: none;
+	outline: none;
 }
 
 /* Change mouse cursor when hovering over button */
 button:hover {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 /* Remove background for all select boxes */
 select {
-  background-color: rgba(0,0,0,0);
-  border: rgba(0,0,0,1);
-  appearance: none;
+	background-color: rgba(0, 0, 0, 0);
+	border: rgba(0, 0, 0, 1);
+	appearance: none;
 }
 
 /* ********** End of Universal Styling **** */
 
 /* ********** Start of task list ********** */
 
-.task-list { 
-  flex: 0 0 18%;
-  max-width: 17rem;
-  height:100%;
-  margin: 5px;
-  padding: 1%;
-  border-radius: 15px;
-  background-color: white;
-  box-shadow: 3px 3px 3px lightgrey;
-  position: relative;
+.task-list {
+	flex: 0 0 18%;
+	max-width: 17rem;
+	height: 100%;
+	margin: 5px;
+	padding: 1%;
+	border-radius: 15px;
+	background-color: var(--task-list-color);
+	box-shadow: 3px 3px 3px var(--box-shadow);
+	position: relative;
 }
 
 /* Wrapper for overflow of current tasks */
 .task-wrapper {
-  position: absolute;
-  top: 44px;
-  bottom: 0;
-  width: 88%;
-  overflow: auto;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+	position: absolute;
+	top: 44px;
+	bottom: 0;
+	width: 88%;
+	overflow: auto;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
 
 /* Formatting for the task list header */
 .task-header {
-  display: flex;
+	display: flex;
 }
 
 /* Aligns add button to right */
 #addbutton {
-  margin-left: auto;
+	margin-left: auto;
 }
 
 /* Formatting for the add button */
 #addbutton img {
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
+	width: 25px;
+	height: 25px;
+	cursor: pointer;
 }
 
 /* Styling for task name */
 .task-list .task-name {
-  width: max(10em, 12vw);
-  resize: none;
-  overflow: hidden;
-  margin-top: -4px;
-  height: 24px;
-  max-height: 108px;
-  background-color: rgba(0, 0, 0, 0);
-  border: rgba(0, 0, 0, 0);
+	width: max(10em, 12vw);
+	resize: none;
+	overflow: hidden;
+	margin-top: -4px;
+	height: 24px;
+	max-height: 108px;
+	background-color: rgba(0, 0, 0, 0);
+	border: rgba(0, 0, 0, 0);
 }
 
 /* New width when in completed task list */
 .complete .task-name {
-  width: max(14em, calc(10em + 13vw));
+	width: max(14em, calc(10em + 13vw));
 }
 
 /* Hides bullets for list */
 .task-list ul {
-  list-style: none;
-  padding: 0;
+	list-style: none;
+	padding: 0;
 }
 
 /* Sizing for each individual task */
 .task {
-  background: var(--main-color);
-  padding: 10px;
-  margin-top: 0.5em;
-  margin-bottom: 0.5;
-  border-radius: 5px;
-  position: relative;
-  overflow: hidden;
-  word-wrap: break-word;
-  text-align: left;
-  list-style-type: none;
-  transition: max-height 0.5s ease-in;
-  max-height: 4em;
+	background: var(--main-color);
+	padding: 10px;
+	margin-top: 0.5em;
+	margin-bottom: 0.5;
+	border-radius: 5px;
+	position: relative;
+	overflow: hidden;
+	word-wrap: break-word;
+	text-align: left;
+	list-style-type: none;
+	transition: max-height 0.5s ease-in;
+	max-height: 4em;
 }
 
 .task:hover {
-  max-height: fit-content;
+	max-height: fit-content;
 }
 
 /* Input box for task name */
 .task-input {
-  margin-left: 1.4em;
-  margin-right: 0.6em;
-  min-width: 80%;
-  border: none;
-  padding: 4px;
+	margin-left: 1.4em;
+	margin-right: 0.6em;
+	min-width: 80%;
+	border: none;
+	padding: 4px;
 }
 
 /* Styling when editing a task */
 .task:has(.task-input:focus) {
-  max-height: fit-content;
+	max-height: fit-content;
 
-  /* Make buttons appear */
-  .color-buttons {
-    opacity: 1;
-  }
+	/* Make buttons appear */
+	.color-buttons {
+		opacity: 1;
+	}
 
-  .task-input {
-    outline: 0px solid transparent;
-    border: var(--accent-color) solid 1px;
-    border-radius: 0.6em;
-    box-shadow: 0 0 5px #719ECE;
-  }
+	.task-input {
+		outline: 0px solid transparent;
+		border: var(--accent-color) solid 1px;
+		border-radius: 0.6em;
+		box-shadow: 0 0 5px var(--input-shadow);
+	}
 }
 
 /* Set task placeholder */
 .task-input:empty:before {
-  content: attr(placeholder);
-  pointer-events: none;
-  display: block;
-
-  color: rgb(97, 97, 97)
+	content: attr(placeholder);
+	pointer-events: none;
+	display: block;
 }
 
 /* Positioning for trash icon */
 .trash-icon {
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	width: 18px;
+	height: 18px;
+	cursor: pointer;
 }
 
 /* Display buttons when hovering or actively editing */
 .task:hover .color-buttons {
-  opacity: 1;
+	opacity: 1;
 }
 
 /* Checkbox appearance */
 .task-checkbox {
-  position: absolute;
-  top: 1.4em;
-  appearance: none;
-  margin: 0 10px 0 0;
-  width: 16px;
-  height: 16px;
-  border: 2px solid black;
-  border-radius: 50%;
-  vertical-align: middle;
-  cursor: pointer;
+	position: absolute;
+	top: 1.4em;
+	appearance: none;
+	margin: 0 10px 0 0;
+	width: 16px;
+	height: 16px;
+	border: 2px solid #777;
+	border-radius: 50%;
+	vertical-align: middle;
+	cursor: pointer;
 }
 
 /* Formatting for check in checkbox */
 .task-checkbox img {
-  height: 15px;
-  margin-left: -6px;
+	height: 15px;
+	margin-left: -6px;
 }
 
 /* Change to indicate task was completed */
 .complete .task-checkbox {
-  background: black;
+	background: #777;
 }
 
 /* Default set up for color buttons */
 .color-buttons {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  max-height: 5em;
-  display: flex;
-  justify-content: space-around;
-  margin-top: 5px;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	max-height: 5em;
+	display: flex;
+	justify-content: space-around;
+	margin-top: 5px;
 }
 
 /* Size of each color button */
 .color-button {
-  width: 15px;
-  height: 15px;
-  border-radius: 100%;
+	width: 15px;
+	height: 15px;
+	border-radius: 100%;
 
-  border: solid grey 1px;
+	border: solid grey 1px;
 
-  &#purple {
-    background-color: #C380CC;
-  }
+	&#purple {
+		background-color: #C380CC;
+	}
 
-  &#green {
-    background-color: #91DC79;
-  }
+	&#green {
+		background-color: #91DC79;
+	}
 
-  &#blue {
-    background-color: #6BB1D9;
-  }
+	&#blue {
+		background-color: #6BB1D9;
+	}
 
-  &#pink {
-    background-color: #EEBAE9;
-  }
+	&#pink {
+		background-color: #EEBAE9;
+	}
 
-  &#grey {
-    background-color: var(--main-color);
-  }
+	&#grey {
+		background-color: var(--main-color);
+	}
 }
 
 /* ********** End of task list ********** */
@@ -259,206 +276,208 @@ select {
 
 /* Container of prev/next buttons, current date, and homepage-calendar buttons */
 .top-bar {
-  position: relative;
-  height: 65px;
+	position: relative;
+	height: 65px;
 
 }
 
 .date-header-wrap {
-  position: absolute;
-  height: max(30%, 5rem);
-  height: 100%;
-  width: min(70em, 100%);
-  width: 100%;
+	position: absolute;
+	height: max(30%, 5rem);
+	height: 100%;
+	width: min(70em, 100%);
+	width: 100%;
 
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
 }
 
 /* Container of prev/next buttons, current date */
 .date-header {
-  display: grid;
-  grid-template-columns: 1fr 8fr;
-  margin-left: 1.1em;
+	display: grid;
+	grid-template-columns: 1fr 8fr;
+	margin-left: 1.1em;
 
-  position: absolute;
-  bottom: 0;
+	position: absolute;
+	bottom: 0;
 
-  width: 50%;
-  max-width: 40em;
+	width: 50%;
+	max-width: 40em;
 }
 
 /* Next and Prev button hover */
 .date-header-buttons button:hover {
-  background-color: var(--secondary-color);
+	background-color: var(--secondary-color);
 }
 
 /* Container of the previous and next day buttons*/
 .date-header-text {
-  width: 100%;
-  margin-top: auto;
-  margin-bottom: 0em;
-  margin-left: 0.2em;
-  white-space: nowrap;
-  font-size: calc(1.4em + .7vw);
+	width: 100%;
+	margin-top: auto;
+	margin-bottom: 0em;
+	margin-left: 0.2em;
+	white-space: nowrap;
+	font-size: calc(1.4em + .7vw);
 }
 
 /* Next and Prev button images */
 .date-header button img {
-  height: 18px;
-  padding: 4px;
+	height: 18px;
+	padding: 4px;
 }
 
 /* Navigation buttons */
 .nav-buttons {
-  position: absolute;
-  top: 0.6em;
-  right: 2em;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 1em;
+	position: absolute;
+	top: 0.6em;
+	right: 2em;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 1em;
 }
 
 /* Navigation buttons */
 .nav-buttons button {
-  background-color: transparent;
-  border: none;
+	background-color: transparent;
+	border: none;
 }
 
 /* Navigation button images */
 .nav-buttons button img {
-  width: min(3.4em, 4vw);
-  min-width: 2.6em;
-  padding-left: 0em;
-  padding-right: 0em;
+	width: min(3.4em, 4vw);
+	min-width: 2.6em;
+	padding-left: 0em;
+	padding-right: 0em;
 }
 
 /* Jump header that contains the month and year */
 .jump-header {
-  display: flex;
-  position: relative;
-  margin-top: -2.5px;
+	display: flex;
+	position: relative;
+	margin-top: -2.5px;
 }
 
 /* Fully extend 1st month and year buttons */
 .jump-btn {
-  width: 100%;
-  padding-bottom: 1px;
+	width: 100%;
+	padding-bottom: 1px;
 }
 
 /* Orient the month button */
 #month {
-  padding-left: 15px;
-  padding-right: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 /* Highlight a certain month button when hovering over it */
 .month-drop:hover .month-btn:hover {
-  background-color: var(--accent-color);
-  color: white;
+	background-color: var(--accent-color);
+	color: white;
 }
 
 /* Highlight a certain year button when hovering over it */
 .year-drop:hover .year-btn:hover {
-  background-color: var(--accent-color);
-  color: white;
+	background-color: var(--accent-color);
+	color: white;
 }
 
 
 /* When hovering on month header button */
-#month:hover{
-  width: 100%;
-  background-color: var(--accent-color); 
-  color: white;
-  transition: background-color 0.3s, color 0.3s;
-  border-radius: 5px;
+#month:hover {
+	width: 100%;
+	background-color: var(--accent-color);
+	color: white;
+	transition: background-color 0.3s, color 0.3s;
+	border-radius: 5px;
 }
 
 /* When hovering on year header button */
-#year:hover{
-  width: 100%;
-  background-color: var(--accent-color); 
-  color: white;
-  transition: background-color 0.3s, color 0.3s;
-  border-radius: 5px;
+#year:hover {
+	width: 100%;
+	background-color: var(--accent-color);
+	color: white;
+	transition: background-color 0.3s, color 0.3s;
+	border-radius: 5px;
 }
 
 /* When hovering over month buttons */
 .month-drop:hover .month-btn {
-  width: 100%;
-  display: block;
-  background-color: var(--main-color);
-  border: 2px solid black;
+	width: 100%;
+	display: block;
+	background-color: var(--main-color);
+	border: 2px solid #777;
 }
 
 /* When hovering over year buttons */
 .year-drop:hover .year-btn {
-  width: 100%;
-  display: block;
-  background-color: var(--main-color);
-  border: 2px solid black;
+	width: 100%;
+	display: block;
+	background-color: var(--main-color);
+	border: 2px solid #777;
 }
 
 /* Position all month buttons */
 .month-drop {
-  position: absolute;
-  margin-top: -10px;
-  z-index: 100;
+	position: absolute;
+	margin-top: -10px;
+	z-index: 100;
 }
 
 /* Position all year buttons */
 .year-drop {
-  position: absolute;
-  margin-top: -10px;
-  z-index: 100;
+	position: absolute;
+	margin-top: -10px;
+	z-index: 100;
 }
 
 /* Initially hide extended month and year buttons */
-.month-btn, .year-btn {
-  display: none;
+.month-btn,
+.year-btn {
+	display: none;
 }
 
 /* Set font size of header */
-#month, #year {
-  font-size: 30px;
+#month,
+#year {
+	font-size: 30px;
 }
 
 /* Wrap the previous and next day buttons*/
 .date-header-buttons {
-  display: grid;
-  grid-template-columns: 1.2em 1fr;
-  margin-top: auto;
-  margin-bottom: min(0.6em, 14%);
-  margin-left: 0.4em;
+	display: grid;
+	grid-template-columns: 1.2em 1fr;
+	margin-top: auto;
+	margin-bottom: min(0.6em, 14%);
+	margin-left: 0.4em;
 
 }
 
 /* Goto previous month button */
 .prev-date-btn {
-  width: 2em;
-  height: 2em;
-  border-radius: 4em;
-  background-image: url('../icons/left-icon.png');
-  background-size: 14px 14px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-position: 4px;
+	width: 2em;
+	height: 2em;
+	border-radius: 4em;
+	background-image: url('../icons/left-icon.png');
+	background-size: 14px 14px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-position: 4px;
 }
 
 /* Goto next month button */
 .next-date-btn {
-  float: left;
-  width: 2em;
-  height: 2em;
-  margin-left: 0.4em;
-  border-radius: 4em;
-  background-image: url('../icons/right-icon.png');
-  background-size: 14px 14px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-position: 8px;
-  
+	float: left;
+	width: 2em;
+	height: 2em;
+	margin-left: 0.4em;
+	border-radius: 4em;
+	background-image: url('../icons/right-icon.png');
+	background-size: 14px 14px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-position: 8px;
+
 }
 
 /* ********** End of Top Bar ********** */
@@ -467,154 +486,159 @@ select {
 
 /* Main calendar */
 .full-calendar {
-  height: 100%;
-  overflow-y: auto;
+	height: 100%;
+	overflow-y: auto;
 }
 
 /* Calendar Styling */
 .calendar {
-  width: 100%;
+	width: 100%;
 }
 
 /* Calendar Table Styling */
 table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: fixed;
 }
 
 /* Header and data of table */
 table th,
 table td {
-  border: 3px solid black;
-  padding: 10px;
+	border: 3px solid #777;
+	padding: 10px;
 }
 
 /* Rows of table head */
 thead tr {
-  color: black;
+	color: #777;
 }
 
 /* Rows of table body */
 tbody tr {
-  height: 13vh;
+	height: 13vh;
 }
 
 /* Data of table */
 tbody td {
-  position: relative;
-  padding: 10px;
+	position: relative;
+	padding: 10px;
 }
 
 /* Change color of numbers in future and past months */
 .other-month-date-num {
-  color: gray;
+	color: gray;
+}
+
+/* Cell is in the past */
+.past-date {
+	background-color: var(--past-date-color);
 }
 
 /* Cell is in the future */
 .future-date {
-  background-color: var(--secondary-color);
+	background-color: var(--future-date-color);
 }
 
 /* Cell is today */
 .current-date {
-  background-color: var(--accent-color);
+	background-color: var(--accent-color);
 }
 
 /* All calendar numbers */
 .curr-month-date-num,
 .other-month-date-num {
-  font-size: 14px;
-  padding-left: 3px;
-  padding-top: 1px;
+	font-size: 14px;
+	padding-left: 3px;
+	padding-top: 1px;
 }
 
 /* Calendar date */
 td .cell-date {
-  position: absolute;
-  left: 5px;
-  top: 5px;
+	position: absolute;
+	left: 5px;
+	top: 5px;
 }
 
 /* Sentiment icon */
 td .sentiment-icon {
-  position: absolute;
-  right: 5px;
-  top: 5px;
-  height: 18px;
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	height: 18px;
 }
 
 /* Productivity icon */
 td .productivity-icon {
-  position: absolute;
-  right: 24px;
-  top: 5px;
-  height: 18px;
+	position: absolute;
+	right: 24px;
+	top: 5px;
+	height: 18px;
 }
 
 /* Task div in calendar cell */
 .task-div {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  top: 25px;
-  width: 96%;
-  height: 65%;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	top: 25px;
+	width: 96%;
+	height: 65%;
 }
 
 /* Unordered list in calendar cell */
-.task-ul{
-  margin: 0;
-  padding-left: 6px;
-  color: black;
-  font-size: 12px;
-  line-height: 1;
+.task-ul {
+	margin: 0;
+	padding-left: 6px;
+	color: #777;
+	font-size: 12px;
+	line-height: 1;
 }
 
 /* Individual tasks in calendar cell */
-.task-item{
-  list-style-position: inside;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+.task-item {
+	list-style-position: inside;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 /* Individual tasks in calendar cell */
-.task-item::marker{
-  color: var(--task-color, "black");
-  font-size: 1.5em; 
+.task-item::marker {
+	color: var(--task-color, "#777");
+	font-size: 1.5em;
 }
 
 /* Extra tasks in calendar cell */
-.task-indicator{
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  padding-top: 7px;
-  font-weight: bolder;
+.task-indicator {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding-top: 7px;
+	font-weight: bolder;
 }
 
 /* Button links to specific homepage in calendar cell */
 .a-link {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
 }
 
 /* Media query to handle window resizing */
 @media (max-height: 500px) {
-  .task-ul {
-      display: none;
-  }
+	.task-ul {
+		display: none;
+	}
 }
 
 @media (max-height: 625px) {
-  .task-indicator {
-      display: none;
-  }
+	.task-indicator {
+		display: none;
+	}
 }
 
 /* ********** End of Calendar ********** */
@@ -622,35 +646,34 @@ td .productivity-icon {
 /* ********** Start of Media Query Responsiveness ********** */
 
 @media (max-width: 740px) {
-  main {
-    overflow-x: scroll;
-  }
+	main {
+		overflow-x: scroll;
+	}
 
-  .task-list {
-    flex: 0 0 25%;
-    z-index: 100000;
-    transition: transform 0.3s ease;
-    transform: translateX(-88%);
-  }
+	.task-list {
+		flex: 0 0 25%;
+		z-index: 100000;
+		transition: transform 0.3s ease;
+		transform: translateX(-88%);
+	}
 
-  .task-list.active {
-    transform: translateX(0%);
-  }
+	.task-list.active {
+		transform: translateX(0%);
+	}
 
-  .task-wrapper {
-    display: none;
-  }
+	.task-wrapper {
+		display: none;
+	}
 
-  .task-wrapper.active {
-    display: block;
-  }
+	.task-wrapper.active {
+		display: block;
+	}
 
-  .full-calendar {
-    position: absolute;
-    left: 5%;
-    bottom: 0;
-    top: 0;
-    right: 0;
-  }
+	.full-calendar {
+		position: absolute;
+		left: 5%;
+		bottom: 0;
+		top: 0;
+		right: 0;
+	}
 }
-
