@@ -306,8 +306,8 @@ describe('Homepage task list tests', () => {
 
     // Expect the task count to increase by 1 after clicking the add button
     expect(taskCount).toBe(2);
-    await page.click('.task-container .task .fas.fa-trash-alt');
-    await page.click('.task-container .task .fas.fa-trash-alt');
+    await page.click('.task-container .task .trash-icon');
+    await page.click('.task-container .task .trash-icon');
     const taskCountAfterDelete = await page.evaluate(() => {
       return document.querySelectorAll('.task-container .task').length;
     });
@@ -443,7 +443,7 @@ describe('Completing tasks', () => {
     console.log('Deleting task...');
 
     // Delete task from completed tasks
-    await page.click('.completed-task-container .task .fas.fa-trash-alt');
+    await page.click('.completed-task-container .task .trash-icon');
 
     // Task count should be 0
     const completeTaskCountAfterComplete = await page.evaluate(() => {
@@ -923,7 +923,7 @@ describe('Basic user path in calendar', () => {
     expect(taskCount).toBe(27); // Modify the expected value based on initial number of tasks
     //Loop the deletion of the tasklist by 27 after the loop
     for(let i = 0; i < 27; i++) {
-      await page.click('.task-list .task .fas.fa-trash-alt');
+      await page.click('.task-list .task .trash-icon');
 
     }
     //check to see if the tasklist length is zero
