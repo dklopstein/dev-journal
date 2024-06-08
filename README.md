@@ -56,11 +56,11 @@ The Developer Journal offers a comprehensive suite of features to help users man
 
 ## Installation
 
-To install the calculator app, simply clone this repository to your local machine:
+To install the journal app, simply clone this repository to your local machine:
 
 `git clone https://github.com/cse110-sp24-group25/cse110-sp24-group25.git`
 
-No additional dependencies are required. You can then open the index.html file in your web browser to start using The Best Journal.
+No additional dependencies are required. You can then open the homepage.html file in your web browser to locally use the journal.
 
 ## Contributing
 If you'd like to contribute to this project, feel free to submit bug reports, feature requests, or pull requests through GitHub. Please follow our Contributing Guidelines.
