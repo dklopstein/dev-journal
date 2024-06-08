@@ -68,15 +68,15 @@ If you'd like to contribute to this project, feel free to submit bug reports, fe
 ## Credits
 This journal app was created by Git Gremlins.
 
-| Name | Github | About |
-| --- | --- | --- |
-| Andrew | [Andrewphanguyen](https://github.com/andrewphanguyen)| 3rd year CS major from San Diego |
-| Kevin | [radiomediocre](https://github.com/qiwenkevin) | 3rd year Math-CS major from Canada |
-|Chris| [ChEdwards492](https://github.com/chedwards492) | 3rd year CE major from Los Angeles |
-|Bobby| [BobbyYuuu](https://github.com/BobbyYuuuu) | 3rd year Math-CS major from San Francisco | 
-|Sonya|  [KimSeongah](https://github.com/kimseongah) | 3rd year CS major from South Korea |
-|Kai|[kaiwoessner](https://github.com/kaiwoessner)| 2nd year CE major from San Diego |
-|Sahana|[sahananar](https://github.com/sahananar)| 3rd year Data Science major from the Bay Area |
-| Derek | [dklopstein](https://github.com/dklopstein) | 3rd year Math-CS major from Bakersfield, California
-|Nathan|[NathanD0wd](https://github.com/NathanD0wd)| 2nd year Computer Science major, Philosophy minor from Virginia |
-|Justin|[jjustinyyang](https://github.com/jjustinyyang)|2nd year Computer Science major from San Diego/Taiwan|
+| Name | Github |
+| --- | --- |
+| Andrew | [Andrewphanguyen](https://github.com/andrewphanguyen)|
+| Kevin | [radiomediocre](https://github.com/qiwenkevin) |
+|Chris| [ChEdwards492](https://github.com/chedwards492) |
+|Bobby| [BobbyYuuu](https://github.com/BobbyYuuuu) |
+|Sonya|  [KimSeongah](https://github.com/kimseongah) |
+|Kai|[kaiwoessner](https://github.com/kaiwoessner)|
+|Sahana|[sahananar](https://github.com/sahananar)|
+| Derek | [dklopstein](https://github.com/dklopstein) |
+|Nathan|[NathanD0wd](https://github.com/NathanD0wd)|
+|Justin|[jjustinyyang](https://github.com/jjustinyyang)|
