@@ -45,7 +45,7 @@ The Developer Journal offers a comprehensive suite of features to help users man
 - Backend and Storage: Utilizes LocalStorage to store user data locally on their device in JSON format.
 - Testing Framework:
   - HTML & CSS: Ensures responsiveness across various screen sizes and tests performance using LightHouse.
-  - JavaScript: Unit testing with Jest to ensure functionality and reliability.
+  - JavaScript: Unit testing with Jest to ensure functionality and reliability and used Puppeteer to perform E2E testing, simulating real-world user scenarios to ensure application functions as expected from start to finish.
 
 ### Non-Functional Features
 - Responsiveness: Ensures the application works seamlessly across different devices and screen sizes.
@@ -65,9 +65,6 @@ No additional dependencies are required. You can then open the index.html file i
 ## Contributing
 If you'd like to contribute to this project, feel free to submit bug reports, feature requests, or pull requests through GitHub. Please follow our Contributing Guidelines.
 
-## License
-This project is licensed under ...
-
 ## Credits
 This journal app was created by Git Gremlins.
 
@@ -83,5 +80,3 @@ This journal app was created by Git Gremlins.
 | Derek | [dklopstein](https://github.com/dklopstein) | 3rd year Math-CS major from Bakersfield, California
 |Nathan|[NathanD0wd](https://github.com/NathanD0wd)| 2nd year Computer Science major, Philosophy minor from Virginia |
 |Justin|[jjustinyyang](https://github.com/jjustinyyang)|2nd year Computer Science major from San Diego/Taiwan|
-
-### Pipeline
