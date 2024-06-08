@@ -60,7 +60,7 @@ button:hover {
 
 /* ********** End of Universal Styling **** */
 
-/* ********** Start of task list ********** */
+/* ********** Start of Task List ********** */
 
 .task-list {
 	flex: 0 0 18%;
@@ -274,7 +274,7 @@ button:hover {
 	}
 }
 
-/* ********** End of task list ********** */
+/* ********** End of Task List ********** */
 
 /* ********** Start of Main Wrap ******** */
 
@@ -643,6 +643,12 @@ td .task-div {
 	top: 0;
 	left: 0;
 	z-index: 10;
+}
+
+/* Highlight boxes when hovering over specific calendar cell */
+.a-link:hover {
+  background-color: skyblue;
+  opacity: 0.3;
 }
 
 /* ======== End of Past Week ========== */

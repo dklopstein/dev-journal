@@ -54,18 +54,28 @@ function initButtons() {
 		});
 	});
 
-	// Add keyboard left, rigth arrow for switching dates
-	window.addEventListener('keydown', function (event) {
-		if ((event.target.tagName.toLowerCase() === "textarea") ||
-			(event.target.tagName.toLowerCase() === "div")) {
-			return;
-		}
-		if (event.key === "ArrowLeft") {
-			prevDate();
-		} else if (event.key === "ArrowRight") {
-			nextDate();
-		}
-	});
+    // Add keyboard left, rigth arrow for switching dates
+    window.addEventListener('keydown', function(event) {
+        if ((event.target.tagName.toLowerCase() === "textarea") ||
+           (event.target.tagName.toLowerCase() === "div")) {
+            return;
+        }
+        if (event.key === "ArrowLeft") {
+            prevDate();
+        } else if (event.key === "ArrowRight") {
+            nextDate();
+        }
+    });
+    // Save user entry to local storage on any changes
+    journal.addEventListener("blur", saveJournal);
+    tasks.addEventListener("blur", saveTasks);
+    tasks.addEventListener("change", saveTasks);
+    tasks.addEventListener("blur", saveCompleted);
+    tasks.addEventListener("change", saveCompleted);
+    completedTasks.addEventListener("blur", saveCompleted);
+    completedTasks.addEventListener("change", saveCompleted);
+    completedTasks.addEventListener("blur", saveTasks);
+    completedTasks.addEventListener("change", saveTasks);
 }
 
 /**
@@ -182,7 +192,7 @@ function addTask(loadTask = false) {
             <button id="pink" class="color-button"></button>
             <button id="grey" class="color-button"></button>
         </div>
-        <img class="fas fa-trash-alt" src="../icons/trash-icon.svg" alt="Remove">
+        <img class="trash-icon" src="../icons/trash-icon.svg" alt="Remove">
     `);
 	task.querySelector(".task-input").addEventListener("input", saveCompleted)
 	taskList.append(task);
@@ -255,13 +265,13 @@ function taskButtonsFunctionality(task) {
 		});
 	});
 
-	// Trash icon delete functionality
-	const deleteIcon = task.querySelector(".fas");
-	deleteIcon.addEventListener("click", () => {
-		task.remove();
-		saveCompleted();
-		saveTasks();
-	});
+    // Trash icon delete functionality
+    const deleteIcon = task.querySelector(".trash-icon");
+    deleteIcon.addEventListener("click", () => {
+        task.remove();
+        saveCompleted();
+        saveTasks();
+    });
 
 	// Checkbox move to Completed Tasks functionality
 	const checkbox = task.querySelector(".task-checkbox");
@@ -376,11 +386,11 @@ function loadAll() {
  * @param {string} value - value to store
  * 
  */
-function saveToStorage(data, dateText, key, value) {
-	if (!(dateText in data)) {
-		data[dateText] = {}
-	}
-	data[dateText][key] = value;
+export function saveToStorage(data, dateText, key, value) {
+    if (!(dateText in data)) {
+        data[dateText] = {}
+    }
+    data[dateText][key] = value;
 }
 
 /**
@@ -390,11 +400,11 @@ function saveToStorage(data, dateText, key, value) {
  * @param {string} dateText - date of the journal entry in locale date string format
  * @param {string} key - key to get the value from
  */
-function loadFromStorage(data, dateText, key) {
-	if (!(dateText in data)) {
-		return;
-	}
-	return data[dateText][key];
+export function loadFromStorage(data, dateText, key) {
+    if (!(dateText in data)) {
+        return null;
+    }
+    return data[dateText][key];
 }
 
 /**
@@ -412,12 +422,12 @@ function saveJournal() {
  * 
  * @returns {string} journal entry text in parsed json format
  */
-function getJournal() {
-	let data = JSON.parse(localStorage.getItem("journals"))
-	if (data == null) {
-		data = {}
-	}
-	return data
+export function getJournal() {
+    let data = JSON.parse(localStorage.getItem("journals"))
+    if (data == null) {
+        data = {}
+    }
+    return data
 }
 
 /**
@@ -689,14 +699,3 @@ function taskListViewHandler() {
 		}
 	});
 }
-
-// Save user entry to local storage on any changes
-journal.addEventListener("blur", saveJournal);
-tasks.addEventListener("blur", saveTasks);
-tasks.addEventListener("change", saveTasks);
-tasks.addEventListener("blur", saveCompleted);
-tasks.addEventListener("change", saveCompleted);
-completedTasks.addEventListener("blur", saveCompleted);
-completedTasks.addEventListener("change", saveCompleted);
-completedTasks.addEventListener("blur", saveTasks);
-completedTasks.addEventListener("change", saveTasks);

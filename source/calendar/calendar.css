@@ -73,7 +73,7 @@ select {
 
 /* ********** End of Universal Styling **** */
 
-/* ********** Start of task list ********** */
+/* ********** Start of Task List ********** */
 
 .task-list {
 	flex: 0 0 18%;
@@ -270,9 +270,9 @@ select {
 	}
 }
 
-/* ********** End of task list ********** */
+/* ********** End of Task List ********** */
 
-/* ********** Start of top bar ********** */
+/* ********** Start of Top Bar ********** */
 
 /* Container of prev/next buttons, current date, and homepage-calendar buttons */
 .top-bar {
@@ -553,7 +553,6 @@ tbody td {
 	padding-top: 1px;
 }
 
-/* Calendar date */
 td .cell-date {
 	position: absolute;
 	left: 5px;
@@ -628,6 +627,12 @@ td .productivity-icon {
 	left: 0;
 }
 
+/* Highlight boxes when hovering over specific calendar cell */
+.a-link:hover {
+  background-color: skyblue;
+  opacity: 0.3;
+}
+
 /* Media query to handle window resizing */
 @media (max-height: 500px) {
 	.task-ul {
@@ -641,9 +646,9 @@ td .productivity-icon {
 	}
 }
 
-/* ********** End of Calendar ********** */
+/* ********** End of Calendar Table ********** */
 
-/* ********** Start of Media Query Responsiveness ********** */
+/* ********** Start of Responsiveness ********** */
 
 @media (max-width: 740px) {
 	main {
@@ -677,3 +682,6 @@ td .productivity-icon {
 		right: 0;
 	}
 }
+
+/* ********** End of Responsiveness ********** */
+
