@@ -34,18 +34,6 @@
 
 	color: white;
 	--mode-color: white;
-
-	.journal-entry #textarea {
-		color: white;
-	}
-
-  /* .task-checkbox {
-    border: white solid 1px;
-  }
-
-  .complete .task-checkbox {
-    background: white;
-  } */
 }
 
 html {
@@ -450,6 +438,7 @@ button:hover {
 	border: none;
 	border-radius: 1em;
 	resize: none;
+	color: var(--mode-color);
 }
 
 /* Highlight journal when clicked on */
@@ -674,8 +663,8 @@ td .task-div {
 
 /* Highlight boxes when hovering over specific calendar cell */
 .a-link:hover {
-  background-color: skyblue;
-  opacity: 0.3;
+	background-color: skyblue;
+	opacity: 0.3;
 }
 
 /* ======== End of Past Week ========== */
