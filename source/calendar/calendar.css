@@ -4,7 +4,6 @@
 	margin: 0;
 	box-sizing: border-box;
 	font-family: Poppins, sans-serif;
-	color: #777;
 }
 
 :root {
@@ -17,6 +16,11 @@
 	--input-shadow: #719ECE;
 	--past-date-color: #f2f2f2;
 	--future-date-color: #c1c1c1;
+
+	--left-icon: url('../icons/left-icon.png');
+	--right-icon: url('../icons/right-icon.png');
+
+	color: black;
 }
 
 [theme="dark"] {
@@ -28,9 +32,11 @@
 	--input-shadow: #d6d6d6;
 	--past-date-color: #1c1c1c;
 	--future-date-color: #121212;
-	div, h1, h2, h3, h4, li, textarea, span, button, th {
-		color: #FFFFFF;
-	}
+
+	--left-icon: url('../icons/left-icon-dark.png');
+	--right-icon: url('../icons/right-icon-dark.png');
+
+	color: white;
 }
 
 html {

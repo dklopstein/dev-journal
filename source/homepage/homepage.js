@@ -16,6 +16,10 @@ function init() {
 		const themeIcon = document.getElementById('theme-icon');
 		themeIcon.src = '../icons/darkmode.png';
 		themeIcon.alt = 'Dark Mode On';
+		const homepageIcon = document.getElementById('homepage-icon');
+		homepageIcon.src = '../icons/home-icon-dark.png';
+		const calendarIcon = document.getElementById('calendar-icon');
+		calendarIcon.src = '../icons/calendar-icon-dark.png';
 	}
 
 	dateQuery();
@@ -121,15 +125,21 @@ function prevDate() {
  */
 function switchTheme() {
 	const themeIcon = document.getElementById('theme-icon');
+	const homepageIcon = document.getElementById('homepage-icon');
+	const calendarIcon = document.getElementById('calendar-icon');
 	if (document.documentElement.hasAttribute('theme')) {
 		document.documentElement.removeAttribute('theme');
 		themeIcon.src = '../icons/lightmode.png';
 		themeIcon.alt = 'Light Mode On';
+		homepageIcon.src = '../icons/home-icon.png';
+		calendarIcon.src = '../icons/calendar-icon.webp';
 		localStorage.removeItem('theme');
 	} else {
 		document.documentElement.setAttribute('theme', 'dark');
 		themeIcon.src = '../icons/darkmode.png';
 		themeIcon.alt = 'Dark Mode On';
+		homepageIcon.src = '../icons/home-icon-dark.png';
+		calendarIcon.src = '../icons/calendar-icon-dark.png';
 		localStorage.setItem('theme', 'dark');
 	}
 }
