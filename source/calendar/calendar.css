@@ -10,7 +10,6 @@
 	--main-color: #f2f2f2;
 	--secondary-color: #c1c1c1;
 	--accent-color: #a8ceec;
-	--text-color: #777;
 	--task-list-color: white;
 	--box-shadow: lightgrey;
 	--input-shadow: #719ECE;
@@ -21,6 +20,9 @@
 	--right-icon: url('../icons/right-icon.png');
 
 	color: black;
+	--mode-color: black;
+	--year-month-hover: white;
+	--table-outline-color: black;
 }
 
 [theme="dark"] {
@@ -37,6 +39,9 @@
 	--right-icon: url('../icons/right-icon-dark.png');
 
 	color: white;
+	--mode-color: white;
+	--year-month-hover: black;
+	--table-outline-color: #777;
 }
 
 html {
@@ -223,7 +228,7 @@ select {
 	margin: 0 10px 0 0;
 	width: 16px;
 	height: 16px;
-	border: 2px solid #777;
+	border: 2px solid var(--mode-color);
 	border-radius: 50%;
 	vertical-align: middle;
 	cursor: pointer;
@@ -237,7 +242,7 @@ select {
 
 /* Change to indicate task was completed */
 .complete .task-checkbox {
-	background: #777;
+	background: var(--mode-color);
 }
 
 /* Default set up for color buttons */
@@ -382,13 +387,13 @@ select {
 /* Highlight a certain month button when hovering over it */
 .month-drop:hover .month-btn:hover {
 	background-color: var(--accent-color);
-	color: white;
+	color: var(--year-month-hover);
 }
 
 /* Highlight a certain year button when hovering over it */
 .year-drop:hover .year-btn:hover {
 	background-color: var(--accent-color);
-	color: white;
+	color: var(--year-month-hover);
 }
 
 
@@ -396,7 +401,7 @@ select {
 #month:hover {
 	width: 100%;
 	background-color: var(--accent-color);
-	color: white;
+	color: var(--year-month-hover);
 	transition: background-color 0.3s, color 0.3s;
 	border-radius: 5px;
 }
@@ -405,7 +410,7 @@ select {
 #year:hover {
 	width: 100%;
 	background-color: var(--accent-color);
-	color: white;
+	color: var(--year-month-hover);
 	transition: background-color 0.3s, color 0.3s;
 	border-radius: 5px;
 }
@@ -415,7 +420,7 @@ select {
 	width: 100%;
 	display: block;
 	background-color: var(--main-color);
-	border: 2px solid #777;
+	border: 2px solid var(--mode-color);
 }
 
 /* When hovering over year buttons */
@@ -423,7 +428,7 @@ select {
 	width: 100%;
 	display: block;
 	background-color: var(--main-color);
-	border: 2px solid #777;
+	border: 2px solid var(--mode-color);
 }
 
 /* Position all month buttons */
@@ -444,12 +449,14 @@ select {
 .month-btn,
 .year-btn {
 	display: none;
+	color: var(--mode-color);
 }
 
 /* Set font size of header */
 #month,
 #year {
 	font-size: 30px;
+	color: var(--mode-color);
 }
 
 /* Wrap the previous and next day buttons*/
@@ -467,7 +474,7 @@ select {
 	width: 2em;
 	height: 2em;
 	border-radius: 4em;
-	background-image: url('../icons/left-icon.png');
+	background-image: var(--left-icon);
 	background-size: 14px 14px;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -481,7 +488,7 @@ select {
 	height: 2em;
 	margin-left: 0.4em;
 	border-radius: 4em;
-	background-image: url('../icons/right-icon.png');
+	background-image: var(--right-icon);
 	background-size: 14px 14px;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -514,13 +521,13 @@ table {
 /* Header and data of table */
 table th,
 table td {
-	border: 3px solid #777;
+	border: 3px solid var(--table-outline-color);
 	padding: 10px;
 }
 
 /* Rows of table head */
 thead tr {
-	color: #777;
+	color: var(--mode-color);
 }
 
 /* Rows of table body */
@@ -536,7 +543,7 @@ tbody td {
 
 /* Change color of numbers in future and past months */
 .other-month-date-num {
-	color: gray;
+	color: #777;
 }
 
 /* Cell is in the past */
@@ -599,7 +606,7 @@ td .productivity-icon {
 .task-ul {
 	margin: 0;
 	padding-left: 6px;
-	color: #777;
+	color: var(--mode-color);
 	font-size: 12px;
 	line-height: 1;
 }
@@ -614,7 +621,7 @@ td .productivity-icon {
 
 /* Individual tasks in calendar cell */
 .task-item::marker {
-	color: var(--task-color, "#777");
+	color: var(--task-color, "black");
 	font-size: 1.5em;
 }
 

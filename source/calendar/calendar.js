@@ -141,6 +141,7 @@ function switchTheme() {
 		calendarIcon.src = '../icons/calendar-icon-dark.png';
 		localStorage.setItem('theme', 'dark');
 	}
+	displayCalendar();
 }
 
 /**
@@ -458,7 +459,17 @@ function loadCellDataTest(cellData, currCalendarMonth) {
 			let taskItem = document.createElement("li");
 			taskItem.textContent = tasks[i]["text"];
 			taskItem.className = "task-item";
-			taskItem.style.setProperty('--task-color', tasks[i]["color"]);
+			if (tasks[i]["color"] === "var(--main-color)") {
+				if (document.documentElement.hasAttribute('theme')) {
+					taskItem.style.setProperty('--task-color', "white");
+				}
+				else {
+					taskItem.style.setProperty('--task-color', "black");
+				}
+			}
+			else {
+				taskItem.style.setProperty('--task-color', tasks[i]["color"]);
+			}
 			taskList.appendChild(taskItem);
 		}
 
