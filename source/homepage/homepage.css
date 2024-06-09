@@ -23,6 +23,9 @@
 	--task-list-color: #1c1c1c;
 	--box-shadow: #080808;
 	--input-shadow: #d6d6d6;
+	div, h1, h2, h3, h4, li, textarea, span, button, th {
+		color: #FFFFFF;
+	}
 }
 
 html {

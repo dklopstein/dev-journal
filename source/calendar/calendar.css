@@ -28,6 +28,9 @@
 	--input-shadow: #d6d6d6;
 	--past-date-color: #1c1c1c;
 	--future-date-color: #121212;
+	div, h1, h2, h3, h4, li, textarea, span, button, th {
+		color: #FFFFFF;
+	}
 }
 
 html {
