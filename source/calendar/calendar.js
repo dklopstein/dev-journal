@@ -159,15 +159,15 @@ function addTask(loadTask = false) {
 	// Add it at the first row
 	task.insertAdjacentHTML("beforeend", `
         <div class="check-input-wrap">
-            <button id="task1" class="task-checkbox"></button>
-            <div contenteditable="true" class="task-input" placeholder="Add a task..." onkeypress="return this.innerText.length <= 180;"></div>
+					<button id="task1" class="task-checkbox" aria-label="Task Checkbox"></button>
+          <div contenteditable="true" class="task-input" placeholder="Add a task..." onkeypress="return this.innerText.length <= 180;"></div>
         </div>
         <div class="color-buttons">
-            <button id="purple" class="color-button"></button>
-            <button id="green" class="color-button"></button>
-            <button id="blue" class="color-button"></button>
-            <button id="pink" class="color-button"></button>
-            <button id="grey" class="color-button"></button>
+					<button id="purple" class="color-button" aria-label="Purle"></button>
+					<button id="green" class="color-button" aria-label="Green"></button>
+					<button id="blue" class="color-button" aria-label="Blue"></button>
+					<button id="pink" class="color-button" aria-label="Pink"></button>
+					<button id="grey" class="color-button" aria-label="Grey"></button>
         </div>
         <img class="trash-icon" src="../icons/trash-icon.svg" alt="Remove">
     `);
@@ -497,6 +497,7 @@ function loadCellDataTest(cellData, currCalendarMonth) {
 	// Query is in format ?date=month-day-year
 	aLink.href = `../homepage/homepage.html?date=${monthLink}-${dayLink}-${yearLink}`;
 	aLink.className = "a-link";
+	aLink.setAttribute("aria-label", `Link to details for ${monthLink + 1}/${dayLink}/${yearLink}`);
 	cellData.appendChild(aLink);
 }
 
