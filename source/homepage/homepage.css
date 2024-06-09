@@ -26,6 +26,14 @@
 	div, h1, h2, h3, h4, li, textarea, span, button, th {
 		color: #FFFFFF;
 	}
+
+  .task-checkbox {
+    border: white solid 1px;
+  }
+
+  .complete .task-checkbox {
+    background: white;
+  }
 }
 
 html {
