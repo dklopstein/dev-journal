@@ -35,6 +35,10 @@
 	color: white;
 	--mode-color: white;
 
+	.journal-entry #textarea {
+		color: white;
+	}
+
   /* .task-checkbox {
     border: white solid 1px;
   }
@@ -719,6 +723,10 @@ td .task-div {
 	.journal-past-wrap {
 		display: block;
 	}
+
+	.rating-widget::-webkit-scrollbar {
+	display: none;
+}
 
 	.rating-widget h4 {
 		font-size: 12px;
