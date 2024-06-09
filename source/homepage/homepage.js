@@ -7,6 +7,9 @@ window.addEventListener('DOMContentLoaded', init);
 // Get current date global
 var currDate = new Date();
 
+// Defines confetti
+const confetti = window.confetti;
+
 /**
  * Initializes all necessary components
  */
@@ -197,11 +200,11 @@ function addTask(loadTask = false) {
 					<div contenteditable="true" class="task-input" placeholder="Add a task..." onkeypress="return this.innerText.length <= 180;"></div>
         </div>
         <div class="color-buttons">
-				<button id="purple" class="color-button" aria-label="Purle"></button>
-				<button id="green" class="color-button" aria-label="Green"></button>
-				<button id="blue" class="color-button" aria-label="Blue"></button>
-				<button id="pink" class="color-button" aria-label="Pink"></button>
-				<button id="grey" class="color-button" aria-label="Grey"></button>
+          <button id="purple" class="color-button" aria-label="Purle"></button>
+          <button id="green" class="color-button" aria-label="Green"></button>
+          <button id="blue" class="color-button" aria-label="Blue"></button>
+          <button id="pink" class="color-button" aria-label="Pink"></button>
+          <button id="grey" class="color-button" aria-label="Grey"></button>
         </div>
         <img class="trash-icon" src="../icons/trash-icon.svg" alt="Remove">
     `);
@@ -301,6 +304,12 @@ function taskButtonsFunctionality(task) {
 			completedTaskContainer.appendChild(task);
 			saveCompleted();
 			saveTasks();
+      
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
 		}
 	});
 }
