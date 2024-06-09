@@ -17,26 +17,37 @@ const confetti = window.confetti;
  * Updates the global date variables to the current date.
  */
 function updateDateGlobals() {
-    month = currDate.getMonth();
-    year = currDate.getFullYear();
+	month = currDate.getMonth();
+	year = currDate.getFullYear();
 }
 
 /**
  * Initializes the page when the DOM content is fully loaded.
  */
 function init() {
-    // Initiaze the jump buttons
-    displayJump(year - 6, year + 5);
-    taskListViewHandler();
+	if (localStorage.getItem('theme') === 'dark') {
+		document.documentElement.setAttribute('theme', 'dark');
+		const themeIcon = document.getElementById('theme-icon');
+		themeIcon.src = '../icons/darkmode.png';
+		themeIcon.alt = 'Dark Mode On';
+		const homepageIcon = document.getElementById('homepage-icon');
+		homepageIcon.src = '../icons/home-icon-dark.png';
+		const calendarIcon = document.getElementById('calendar-icon');
+		calendarIcon.src = '../icons/calendar-icon-dark.png';
+	}
 
-    // Initially display the calendar, calendar header, and task colors
-    calendarHeader();
-    displayCalendar();
+	// Initiaze the jump buttons
+	displayJump(year - 6, year + 5);
+	taskListViewHandler();
 
-    // Initialize the buttons 
-    initButtons();
+	// Initially display the calendar, calendar header, and task colors
+	calendarHeader();
+	displayCalendar();
 
-    loadTasks();
+	// Initialize the buttons 
+	initButtons();
+
+	loadTasks();
 }
 
 /**
@@ -44,68 +55,96 @@ function init() {
  */
 function initButtons() {
 
-    const addTaskBtn = document.querySelector(".add-task-btn");
-    addTaskBtn.addEventListener("click", () => {
-        addTask();
-    });
+	const addTaskBtn = document.querySelector(".add-task-btn");
+	addTaskBtn.addEventListener("click", () => {
+		addTask();
+	});
 
-    // Previous month button
-    let prevBtn = document.querySelector(".prev-date-btn");
-    prevBtn.addEventListener('click', prev);
+	// Previous month button
+	let prevBtn = document.querySelector(".prev-date-btn");
+	prevBtn.addEventListener('click', prev);
 
-    // Next month button
-    let nextBtn = document.querySelector(".next-date-btn");
-    nextBtn.addEventListener('click', next);
+	// Next month button
+	let nextBtn = document.querySelector(".next-date-btn");
+	nextBtn.addEventListener('click', next);
 
-    // Jump header buttons
-    // List of months
-    let monthJumpBtn = document.querySelectorAll(".month-btn");
-    monthJumpBtn.forEach(btn => {
-        btn.addEventListener("click", () => {
-            let monthValue = btn.getAttribute("value");
-            jump(monthValue, year);
-        });
-    });
-    // List of years
-    let yearJumpBtn = document.querySelectorAll(".year-btn");
-    yearJumpBtn.forEach(btn => {
-        btn.addEventListener("click", () => {
-            let yearValue = btn.getAttribute("value");
-            jump(month, yearValue);
-        });
-    });
+	const themeBtn = document.querySelector(".theme-btn");
+	themeBtn.addEventListener("click", switchTheme);
 
-    // Resize window for responsiveness
-    window.addEventListener('resize', windowWidth);
+	// Jump header buttons
+	// List of months
+	let monthJumpBtn = document.querySelectorAll(".month-btn");
+	monthJumpBtn.forEach(btn => {
+		btn.addEventListener("click", () => {
+			let monthValue = btn.getAttribute("value");
+			jump(monthValue, year);
+		});
+	});
+	// List of years
+	let yearJumpBtn = document.querySelectorAll(".year-btn");
+	yearJumpBtn.forEach(btn => {
+		btn.addEventListener("click", () => {
+			let yearValue = btn.getAttribute("value");
+			jump(month, yearValue);
+		});
+	});
 
-    // Add left/right arrows to goto prev/next months
-    window.addEventListener('keydown', function(event) {
-        if (event.key === "ArrowLeft") {
-            prev();
-        } else if (event.key === "ArrowRight") {
-            next();
-        }
-    });
+	// Resize window for responsiveness
+	window.addEventListener('resize', windowWidth);
+
+	// Add left/right arrows to goto prev/next months
+	window.addEventListener('keydown', function (event) {
+		if (event.key === "ArrowLeft") {
+			prev();
+		} else if (event.key === "ArrowRight") {
+			next();
+		}
+	});
 }
 
 /**
  * Updates the global currDate to the next date and displays the next month.
  */
-function next(){
-    // Increment the month
-    currDate.setMonth(currDate.getMonth() + 1);
-    updateDateGlobals();
-    displayCalendar();
+function next() {
+	// Increment the month
+	currDate.setMonth(currDate.getMonth() + 1);
+	updateDateGlobals();
+	displayCalendar();
 }
 
 /**
  * Updates the global currDate to the previous month and displays the previous month's calendar.
  */
 function prev() {
-    // Decrement the month
-    currDate.setMonth(currDate.getMonth() - 1);
-    updateDateGlobals();
-    displayCalendar();
+	// Decrement the month
+	currDate.setMonth(currDate.getMonth() - 1);
+	updateDateGlobals();
+	displayCalendar();
+}
+
+/**
+ * Switch between light and dark mode
+ */
+function switchTheme() {
+	const themeIcon = document.getElementById('theme-icon');
+	const homepageIcon = document.getElementById('homepage-icon');
+	const calendarIcon = document.getElementById('calendar-icon');
+	if (document.documentElement.hasAttribute('theme')) {
+		document.documentElement.removeAttribute('theme');
+		themeIcon.src = '../icons/lightmode.png';
+		themeIcon.alt = 'Light Mode On';
+		homepageIcon.src = '../icons/home-icon.png';
+		calendarIcon.src = '../icons/calendar-icon.webp';
+		localStorage.removeItem('theme');
+	} else {
+		document.documentElement.setAttribute('theme', 'dark');
+		themeIcon.src = '../icons/darkmode.png';
+		themeIcon.alt = 'Dark Mode On';
+		homepageIcon.src = '../icons/home-icon-dark.png';
+		calendarIcon.src = '../icons/calendar-icon-dark.png';
+		localStorage.setItem('theme', 'dark');
+	}
+	displayCalendar();
 }
 
 /**
@@ -115,62 +154,62 @@ function prev() {
  * @returns {HTMLElement} - The newly created task element.
  */
 function addTask(loadTask = false) {
-    // Add a task to an element of task container
-    const taskList = document.querySelector(".task-container");
-    const task = document.createElement("li");
-    task.className = "task";
-    
-    // Add it at the first row
-    task.insertAdjacentHTML("beforeend", `
+	// Add a task to an element of task container
+	const taskList = document.querySelector(".task-container");
+	const task = document.createElement("li");
+	task.className = "task";
+
+	// Add it at the first row
+	task.insertAdjacentHTML("beforeend", `
         <div class="check-input-wrap">
-            <button id="task1" class="task-checkbox" aria-label="Task Checkbox"></button>
-            <div contenteditable="true" class="task-input" placeholder="Add a task..." onkeypress="return this.innerText.length <= 180;"></div>
+					<button id="task1" class="task-checkbox" aria-label="Task Checkbox"></button>
+          <div contenteditable="true" class="task-input" placeholder="Add a task..." onkeypress="return this.innerText.length <= 180;"></div>
         </div>
         <div class="color-buttons">
-            <button id="purple" class="color-button" aria-label="Purle"></button>
-            <button id="green" class="color-button" aria-label="Green"></button>
-            <button id="blue" class="color-button" aria-label="Blue"></button>
-            <button id="pink" class="color-button" aria-label="Pink"></button>
-            <button id="grey" class="color-button" aria-label="Grey"></button>
+					<button id="purple" class="color-button" aria-label="Purle"></button>
+					<button id="green" class="color-button" aria-label="Green"></button>
+					<button id="blue" class="color-button" aria-label="Blue"></button>
+					<button id="pink" class="color-button" aria-label="Pink"></button>
+					<button id="grey" class="color-button" aria-label="Grey"></button>
         </div>
         <img class="trash-icon" src="../icons/trash-icon.svg" alt="Remove">
     `);
-    task.querySelector(".task-input").addEventListener("input", saveTasks);
+	task.querySelector(".task-input").addEventListener("input", saveTasks);
 
 
-    taskList.append(task);
+	taskList.append(task);
 
-    // Listener to stop editing when user presses enter
-    const task_name = task.querySelector(".task-input");
-    task_name.addEventListener('keydown', function (event) {
-        // Shift + Enter pressed, insert a line break
-        if (event.key == 'Enter') {
-            // Enter pressed, end editing
-            if (!event.shiftKey) {
-                // Prevent default behavior of Enter key
-                event.preventDefault(); 
+	// Listener to stop editing when user presses enter
+	const task_name = task.querySelector(".task-input");
+	task_name.addEventListener('keydown', function (event) {
+		// Shift + Enter pressed, insert a line break
+		if (event.key == 'Enter') {
+			// Enter pressed, end editing
+			if (!event.shiftKey) {
+				// Prevent default behavior of Enter key
+				event.preventDefault();
 
-                // Remove focus from the element
-                task_name.blur(); 
-            }
-        }
-    });
+				// Remove focus from the element
+				task_name.blur();
+			}
+		}
+	});
 
-    // Auto click into the task name text box
-    if (loadTask == false){
-        setTimeout(() => {
-            task_name.focus();
-            const selection = document.getSelection();
-            if (selection.rangeCount > 0) {
-                selection.collapseToEnd();
-            }
-        }, 0);
-    }  
+	// Auto click into the task name text box
+	if (loadTask == false) {
+		setTimeout(() => {
+			task_name.focus();
+			const selection = document.getSelection();
+			if (selection.rangeCount > 0) {
+				selection.collapseToEnd();
+			}
+		}, 0);
+	}
 
-    // Add functionality to task buttons
-    taskButtonsFunctionality(task);
+	// Add functionality to task buttons
+	taskButtonsFunctionality(task);
 
-    return task;
+	return task;
 }
 
 /**
@@ -179,87 +218,87 @@ function addTask(loadTask = false) {
  * @param {HTMLElement} task - The task element to add functionality to.
  */
 function taskButtonsFunctionality(task) {
-    // Implement color changing functionality 
-    const colorBtns = task.querySelectorAll(".color-button");
-    colorBtns.forEach(btn => {
-        btn.addEventListener('click', function () {
-            let color;
-            switch (btn.id) {
-                case "purple":
-                    color = "#C380CC";
-                    break;
-                case "green":
-                    color = "#91DC79";
-                    break;
-                case "blue":
-                    color = "#6BB1D9";
-                    break;
-                case "pink":
-                    color = "#EEBAE9";
-                    break;
-                default:
-                    color = "var(--main-color)";
-            }
-            task.style['background-color'] = color;
-            saveTasks();
-        });
-    });
+	// Implement color changing functionality 
+	const colorBtns = task.querySelectorAll(".color-button");
+	colorBtns.forEach(btn => {
+		btn.addEventListener('click', function () {
+			let color;
+			switch (btn.id) {
+				case "purple":
+					color = "#C380CC";
+					break;
+				case "green":
+					color = "#91DC79";
+					break;
+				case "blue":
+					color = "#6BB1D9";
+					break;
+				case "pink":
+					color = "#EEBAE9";
+					break;
+				default:
+					color = "var(--main-color)";
+			}
+			task.style['background-color'] = color;
+			saveTasks();
+		});
+	});
 
-    // Trash icon delete functionality
-    const deleteIcon = task.querySelector(".trash-icon");
-    deleteIcon.addEventListener("click", () => {
-        task.remove();
-        saveTasks();
-    });
+	// Trash icon delete functionality
+	const deleteIcon = task.querySelector(".trash-icon");
+	deleteIcon.addEventListener("click", () => {
+		task.remove();
+		saveTasks();
+	});
 
-    // Checkbox move to completed tasks functionality
-    const checkbox = task.querySelector(".task-checkbox");
-    checkbox.addEventListener('click', function () {
+	// Checkbox move to completed tasks functionality
+	const checkbox = task.querySelector(".task-checkbox");
+	checkbox.addEventListener('click', function () {
 
-        // Add or remove completed from class name
-        if (task.className.includes('complete')) {
-            task.classList.remove('complete');
-            const taskContainer = document.querySelector('.task-container');
-            taskContainer.appendChild(task);
-            task.addEventListener("blur", saveTasks);
-            saveTasks();
-        }
-        else {
-            task.classList.add('complete');
-            saveCompleted(task);
-            task.remove()
-            saveTasks();
-
-            confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
-        }
-    });
+		// Add or remove completed from class name
+		if (task.className.includes('complete')) {
+			task.classList.remove('complete');
+			const taskContainer = document.querySelector('.task-container');
+			taskContainer.appendChild(task);
+			task.addEventListener("blur", saveTasks);
+			saveTasks();
+		}
+		else {
+			task.classList.add('complete');
+			saveCompleted(task);
+			task.remove()
+			saveTasks();
+      
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+		}
+	});
 }
 
 /**
  * Expands task list from collapsed state.
  */
 function taskListViewHandler() {
-    const taskList = document.querySelector('.task-list');
-    const taskWrap = document.querySelector('.task-wrapper');
-    const outSide = document.querySelector('.full-calendar');
-    taskList.addEventListener('click', function(event) {
-        if (event.target === taskList) {
-            if (window.innerWidth <= 800) { 
-                taskList.classList.toggle('active');
-                taskWrap.classList.toggle('active');
-            }
-        }
-    });
-    outSide.addEventListener('click', function(){
-        if (window.innerWidth <= 800) { 
-            taskList.classList.remove('active');
-            taskWrap.classList.remove('active');
-        }
-    });
+	const taskList = document.querySelector('.task-list');
+	const taskWrap = document.querySelector('.task-wrapper');
+	const outSide = document.querySelector('.full-calendar');
+	taskList.addEventListener('click', function (event) {
+		if (event.target === taskList) {
+			if (window.innerWidth <= 800) {
+				taskList.classList.toggle('active');
+				taskWrap.classList.toggle('active');
+			}
+		}
+	});
+	outSide.addEventListener('click', function () {
+		if (window.innerWidth <= 800) {
+			taskList.classList.remove('active');
+			taskWrap.classList.remove('active');
+		}
+	});
 }
 
 /**
@@ -268,115 +307,115 @@ function taskListViewHandler() {
  * @param {HTMLElement} completedTaskElement - The task element that was completed.
  */
 function saveCompleted(completedTaskElement) {
-    let data = getJournal();
-    let dateText = new Date().toLocaleDateString();
-    let completedTask = loadFromStorage(data, dateText, "completedTasks") || [];
-    let taskName = completedTaskElement.querySelector('.task-input').textContent;
-    let taskColor = completedTaskElement.style['background-color']
-    completedTask.push({
-        text: taskName,
-        color: taskColor,
-    });
-    saveToStorage(data, dateText, "completedTasks", completedTask);
-    localStorage.setItem("journals", JSON.stringify(data));
-    displayCalendar();
+	let data = getJournal();
+	let dateText = new Date().toLocaleDateString();
+	let completedTask = loadFromStorage(data, dateText, "completedTasks") || [];
+	let taskName = completedTaskElement.querySelector('.task-input').textContent;
+	let taskColor = completedTaskElement.style['background-color']
+	completedTask.push({
+		text: taskName,
+		color: taskColor,
+	});
+	saveToStorage(data, dateText, "completedTasks", completedTask);
+	localStorage.setItem("journals", JSON.stringify(data));
+	displayCalendar();
 }
 
 /**
  * Displays the calendar for the current month.
  */
 function displayCalendar() {
-    // Get body and clear current calendar
-    let tbody = document.getElementById("tbody-calendar");
-    tbody.innerHTML = "";
+	// Get body and clear current calendar
+	let tbody = document.getElementById("tbody-calendar");
+	tbody.innerHTML = "";
 
-    // Initialize list of months
-    let allMonths = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];
+	// Initialize list of months
+	let allMonths = [
+		"January", "February", "March", "April", "May", "June",
+		"July", "August", "September", "October", "November", "December"
+	];
 
-    // Get day of the week of first day in given month
-    let currCalendarMonth = new Date(year, month, 1);
-    let today = new Date();
-    let dayOffset = -(currCalendarMonth.getDay());
+	// Get day of the week of first day in given month
+	let currCalendarMonth = new Date(year, month, 1);
+	let today = new Date();
+	let dayOffset = -(currCalendarMonth.getDay());
 
-    // Get month and year header
-    let monthHeader = document.getElementById("month");
-    let yearHeader = document.getElementById("year");
-    monthHeader.textContent = allMonths[parseInt(month, 10)];
-    yearHeader.textContent = year;
+	// Get month and year header
+	let monthHeader = document.getElementById("month");
+	let yearHeader = document.getElementById("year");
+	monthHeader.textContent = allMonths[parseInt(month, 10)];
+	yearHeader.textContent = year;
 
-    // Build Calendar
-    // Loop through number of rows
-    let currDay;
-    for (let i = 0; i < 6; i++) {
-        // Create rows
-        let row = document.createElement("tr");
+	// Build Calendar
+	// Loop through number of rows
+	let currDay;
+	for (let i = 0; i < 6; i++) {
+		// Create rows
+		let row = document.createElement("tr");
 
-        // Loop through number of columns
-        for (let j = 0; j < 7; j++) {
-            // Create data for each table cell in the row
-            let cellData = document.createElement("td");
+		// Loop through number of columns
+		for (let j = 0; j < 7; j++) {
+			// Create data for each table cell in the row
+			let cellData = document.createElement("td");
 
-            // Create span for cell number
-            let cellNum = document.createElement('span');
+			// Create span for cell number
+			let cellNum = document.createElement('span');
 
-            // Add offset to first date in calendar
-            if (i === 0 && j === 0) {
-                currCalendarMonth.setDate(currCalendarMonth.getDate() + dayOffset);
-                currDay = currCalendarMonth.getDate();
-            }
-            // Increment date by one
-            else {
-                currCalendarMonth.setDate(currCalendarMonth.getDate() + 1);
-                currDay = currCalendarMonth.getDate();
-            }
-            // Add number and class to cellNum
-            cellNum.textContent = currDay;
-            cellNum.className = "cell-date";
-            let cellDate = new Date(currCalendarMonth);
+			// Add offset to first date in calendar
+			if (i === 0 && j === 0) {
+				currCalendarMonth.setDate(currCalendarMonth.getDate() + dayOffset);
+				currDay = currCalendarMonth.getDate();
+			}
+			// Increment date by one
+			else {
+				currCalendarMonth.setDate(currCalendarMonth.getDate() + 1);
+				currDay = currCalendarMonth.getDate();
+			}
+			// Add number and class to cellNum
+			cellNum.textContent = currDay;
+			cellNum.className = "cell-date";
+			let cellDate = new Date(currCalendarMonth);
 
-            // If current month
-            if (currCalendarMonth.getMonth() === currDate.getMonth()) {
-                cellData.classList.add("curr-month-date-num");
-            }
-            // If other month
-            else {
-                cellData.classList.add("other-month-date-num");
-            }
+			// If current month
+			if (currCalendarMonth.getMonth() === currDate.getMonth()) {
+				cellData.classList.add("curr-month-date-num");
+			}
+			// If other month
+			else {
+				cellData.classList.add("other-month-date-num");
+			}
 
-            // If cell is today
-            if (currCalendarMonth.toDateString() === today.toDateString()) {
-                cellData.classList.add("current-date");
-            }
-            // If cell is in the past
-            else if (currCalendarMonth < today) {
-                cellData.classList.add("past-date");
-            }
-            // If cell is in the future
-            else {
-                cellData.classList.add("future-date");
-            }
+			// If cell is today
+			if (currCalendarMonth.toDateString() === today.toDateString()) {
+				cellData.classList.add("current-date");
+			}
+			// If cell is in the past
+			else if (currCalendarMonth < today) {
+				cellData.classList.add("past-date");
+			}
+			// If cell is in the future
+			else {
+				cellData.classList.add("future-date");
+			}
 
-            // Add cell number to calendar cell
-            cellData.appendChild(cellNum);
+			// Add cell number to calendar cell
+			cellData.appendChild(cellNum);
 
-            if (cellDate <= today) {
-                loadCellDataTest(cellData, currCalendarMonth);
-            }
-            // Append new cell to row
-            row.appendChild(cellData);
-        }
-        // Append row to table
-        tbody.appendChild(row);
-    }
-    // Change the header if the window size is too small
-    windowWidth();
+			if (cellDate <= today) {
+				loadCellDataTest(cellData, currCalendarMonth);
+			}
+			// Append new cell to row
+			row.appendChild(cellData);
+		}
+		// Append row to table
+		tbody.appendChild(row);
+	}
+	// Change the header if the window size is too small
+	windowWidth();
 
-    // Get the width of month and align the year 
-    let monthWidth = document.getElementById('month-dropdown').offsetWidth;
-    document.getElementById('year-dropdown').style.left = monthWidth + 5 + 'px';
+	// Get the width of month and align the year 
+	let monthWidth = document.getElementById('month-dropdown').offsetWidth;
+	document.getElementById('year-dropdown').style.left = monthWidth + 5 + 'px';
 }
 
 /**
@@ -386,79 +425,89 @@ function displayCalendar() {
  * @param {Date} currCalendarMonth - The current month being displayed in the calendar.
  */
 function loadCellDataTest(cellData, currCalendarMonth) {
-    let journals = getJournal();
-    let dateText = currCalendarMonth.toLocaleDateString();
+	let journals = getJournal();
+	let dateText = currCalendarMonth.toLocaleDateString();
 
-    let rating = loadFromStorage(journals, dateText, "rating");
-    let productivity = loadFromStorage(journals, dateText, "productivity");
-    let tasks = loadFromStorage(journals, dateText, "completedTasks");
+	let rating = loadFromStorage(journals, dateText, "rating");
+	let productivity = loadFromStorage(journals, dateText, "productivity");
+	let tasks = loadFromStorage(journals, dateText, "completedTasks");
 
-    if (rating != null) {
-        // Add sentiment icon
-        let sentimentIcon = document.createElement("img");
-        sentimentIcon.src = `../icons/${RATING_FILES_NAMES[rating - 1]}`;
-        sentimentIcon.alt = "sentiment icon";
-        sentimentIcon.className = "sentiment-icon";
+	if (rating != null) {
+		// Add sentiment icon
+		let sentimentIcon = document.createElement("img");
+		sentimentIcon.src = `../icons/${RATING_FILES_NAMES[rating - 1]}`;
+		sentimentIcon.alt = "sentiment icon";
+		sentimentIcon.className = "sentiment-icon";
 
-        // Append sentiment icon to new cell
-        cellData.appendChild(sentimentIcon);
-    }
+		// Append sentiment icon to new cell
+		cellData.appendChild(sentimentIcon);
+	}
 
-    if (productivity != null) {
-        // Add productivity icon
-        let productivityIcon = document.createElement("img");
-        productivityIcon.src = `../icons/${PRODUCTIVITY_FILES_NAMES[productivity - 1 - 5]}`;
-        productivityIcon.alt = "productivity icon";
-        productivityIcon.className = "productivity-icon";
+	if (productivity != null) {
+		// Add productivity icon
+		let productivityIcon = document.createElement("img");
+		productivityIcon.src = `../icons/${PRODUCTIVITY_FILES_NAMES[productivity - 1 - 5]}`;
+		productivityIcon.alt = "productivity icon";
+		productivityIcon.className = "productivity-icon";
 
-        // Append sentiment icon to new cell
-        cellData.appendChild(productivityIcon);
-    }
+		// Append sentiment icon to new cell
+		cellData.appendChild(productivityIcon);
+	}
 
-    // Add tasklist in calendar cell
-    // Create tasklist div
-    let taskDiv = document.createElement("div");
-    taskDiv.className = "task-div";
-    
-    // Create unordered list
-    let taskList = document.createElement("ul");
-    taskList.className = "task-ul";
+	// Add tasklist in calendar cell
+	// Create tasklist div
+	let taskDiv = document.createElement("div");
+	taskDiv.className = "task-div";
 
-    if (tasks != null) {
-        for (let i = 0; i < tasks.length && i < DISPLAY_TASK_COUNT; i++) {
-            let taskItem = document.createElement("li");
-            taskItem.textContent = tasks[i]["text"];
-            taskItem.className = "task-item";
-            taskItem.style.setProperty('--task-color', tasks[i]["color"]);
-            taskList.appendChild(taskItem);
-        }
+	// Create unordered list
+	let taskList = document.createElement("ul");
+	taskList.className = "task-ul";
 
-        if (tasks.length > DISPLAY_TASK_COUNT) {
-            // Handle extra tasks in calendar view
-            let taskExtra = document.createElement("li");
-            taskExtra.textContent = `${tasks.length - DISPLAY_TASK_COUNT} more tasks`;
-            taskExtra.className = "task-indicator";
-            taskList.appendChild(taskExtra);
-        }
-    }
+	if (tasks != null) {
+		for (let i = 0; i < tasks.length && i < DISPLAY_TASK_COUNT; i++) {
+			let taskItem = document.createElement("li");
+			taskItem.textContent = tasks[i]["text"];
+			taskItem.className = "task-item";
+			if (tasks[i]["color"] === "var(--main-color)") {
+				if (document.documentElement.hasAttribute('theme')) {
+					taskItem.style.setProperty('--task-color', "white");
+				}
+				else {
+					taskItem.style.setProperty('--task-color', "black");
+				}
+			}
+			else {
+				taskItem.style.setProperty('--task-color', tasks[i]["color"]);
+			}
+			taskList.appendChild(taskItem);
+		}
 
-    // Append taskList to task div;
-    taskDiv.appendChild(taskList);
+		if (tasks.length > DISPLAY_TASK_COUNT) {
+			// Handle extra tasks in calendar view
+			let taskExtra = document.createElement("li");
+			taskExtra.textContent = `${tasks.length - DISPLAY_TASK_COUNT} more tasks`;
+			taskExtra.className = "task-indicator";
+			taskList.appendChild(taskExtra);
+		}
+	}
 
-    // Append tasklist div to new cell
-    cellData.appendChild(taskDiv);
+	// Append taskList to task div;
+	taskDiv.appendChild(taskList);
 
-    // Create buttons that link to speciic homepage and extract selected date
-    let aLink = document.createElement("a");
-    let dayLink = currCalendarMonth.getDate();
-    let monthLink = currCalendarMonth.getMonth();
-    let yearLink = currCalendarMonth.getFullYear()
+	// Append tasklist div to new cell
+	cellData.appendChild(taskDiv);
 
-    // Query is in format ?date=month-day-year
-    aLink.href = `../homepage/homepage.html?date=${monthLink}-${dayLink}-${yearLink}`;
-    aLink.className = "a-link";
-    aLink.setAttribute("aria-label", `Link to details for ${monthLink + 1}/${dayLink}/${yearLink}`);
-    cellData.appendChild(aLink);
+	// Create buttons that link to speciic homepage and extract selected date
+	let aLink = document.createElement("a");
+	let dayLink = currCalendarMonth.getDate();
+	let monthLink = currCalendarMonth.getMonth();
+	let yearLink = currCalendarMonth.getFullYear()
+
+	// Query is in format ?date=month-day-year
+	aLink.href = `../homepage/homepage.html?date=${monthLink}-${dayLink}-${yearLink}`;
+	aLink.className = "a-link";
+	aLink.setAttribute("aria-label", `Link to details for ${monthLink + 1}/${dayLink}/${yearLink}`);
+	cellData.appendChild(aLink);
 }
 
 /**
@@ -468,34 +517,34 @@ function loadCellDataTest(cellData, currCalendarMonth) {
  * @param {number} endYear - The end year for the dropdown range.
  */
 function displayJump(startYear, endYear) {
-    // Years
-    let yearDropdown = document.getElementById("year-dropdown")
+	// Years
+	let yearDropdown = document.getElementById("year-dropdown")
 
-    // Loop through year range and append to list
-    for (let yr = startYear; yr < endYear + 1; yr++) {
-        let yearJump = document.createElement("button");
-        yearJump.value = yr;
-        yearJump.textContent = yr;
-        yearJump.className = "year-btn";
-        yearDropdown.appendChild(yearJump);
+	// Loop through year range and append to list
+	for (let yr = startYear; yr < endYear + 1; yr++) {
+		let yearJump = document.createElement("button");
+		yearJump.value = yr;
+		yearJump.textContent = yr;
+		yearJump.className = "year-btn";
+		yearDropdown.appendChild(yearJump);
 
-    }
+	}
 
-    // Months
-    let allMonths = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];
-    
-    // Loop through months and append to list
-    let monthDropdown = document.getElementById("month-dropdown")
-    for (let mnth = 0; mnth < 12; mnth++) {
-        let monthJump = document.createElement("button");
-        monthJump.value = mnth;
-        monthJump.textContent = allMonths[parseInt(mnth, 10)];
-        monthJump.className = "month-btn";
-        monthDropdown.appendChild(monthJump);
-    }
+	// Months
+	let allMonths = [
+		"January", "February", "March", "April", "May", "June",
+		"July", "August", "September", "October", "November", "December"
+	];
+
+	// Loop through months and append to list
+	let monthDropdown = document.getElementById("month-dropdown")
+	for (let mnth = 0; mnth < 12; mnth++) {
+		let monthJump = document.createElement("button");
+		monthJump.value = mnth;
+		monthJump.textContent = allMonths[parseInt(mnth, 10)];
+		monthJump.className = "month-btn";
+		monthDropdown.appendChild(monthJump);
+	}
 }
 
 /**
@@ -505,58 +554,58 @@ function displayJump(startYear, endYear) {
  * @param {number} yr - year to jump to
  */
 function jump(mnth, yr) {
-    currDate = new Date(yr, mnth)
-    updateDateGlobals();
-    displayCalendar();
+	currDate = new Date(yr, mnth)
+	updateDateGlobals();
+	displayCalendar();
 }
 
 /**
  * Creates header of the calendar.
  */
-function calendarHeader(){
-    // Initialize list of days of the week
-    let allDays = ["Sun", "Mon", "Tue", "Wed","Thu", "Fri", "Sat"];
+function calendarHeader() {
+	// Initialize list of days of the week
+	let allDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-    // Header of Days of the week
-    let thead = document.getElementById("thead-weekheadings");
-    let headerRow = document.createElement("tr");
+	// Header of Days of the week
+	let thead = document.getElementById("thead-weekheadings");
+	let headerRow = document.createElement("tr");
 
-    // Loop through allDays list and append day of week to row
-    for (let dow of allDays) {
-        let headerData = document.createElement("th");
-        headerData.textContent = dow;
-        headerRow.appendChild(headerData);
-    }
-    thead.appendChild(headerRow);
+	// Loop through allDays list and append day of week to row
+	for (let dow of allDays) {
+		let headerData = document.createElement("th");
+		headerData.textContent = dow;
+		headerRow.appendChild(headerData);
+	}
+	thead.appendChild(headerRow);
 }
 
 /**
  * Adjusts the month header text based on the window width.
  */
 function windowWidth() {
-    if (window.innerWidth < 920) {
-        // Initialize list of abbreviated months
-        let allMonths = [
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-            "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
-        ];
+	if (window.innerWidth < 920) {
+		// Initialize list of abbreviated months
+		let allMonths = [
+			"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+			"Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
+		];
 
-        let monthHeader = document.getElementById("month");
-        monthHeader.textContent = allMonths[parseInt(month, 10)];
-    }
-    else {
-        // Initialize list of months
-        let allMonths = [
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        ];
-        let monthHeader = document.getElementById("month");
-        monthHeader.textContent = allMonths[parseInt(month, 10)];
-    }
+		let monthHeader = document.getElementById("month");
+		monthHeader.textContent = allMonths[parseInt(month, 10)];
+	}
+	else {
+		// Initialize list of months
+		let allMonths = [
+			"January", "February", "March", "April", "May", "June",
+			"July", "August", "September", "October", "November", "December"
+		];
+		let monthHeader = document.getElementById("month");
+		monthHeader.textContent = allMonths[parseInt(month, 10)];
+	}
 
-    // Get the width of month and align the year 
-    let monthWidth = document.getElementById('month-dropdown').offsetWidth;
-    document.getElementById('year-dropdown').style.left = monthWidth + 5 + 'px';
+	// Get the width of month and align the year 
+	let monthWidth = document.getElementById('month-dropdown').offsetWidth;
+	document.getElementById('year-dropdown').style.left = monthWidth + 5 + 'px';
 }
 
 /* ********** Storage and Population ********** */
@@ -566,7 +615,7 @@ const tasks = document.querySelector(".task-container");
 
 // Save journal entry and tasks to local storage on page unload
 window.onbeforeunload = function () {
-    saveTasks()
+	saveTasks()
 }
 
 /**
@@ -578,10 +627,10 @@ window.onbeforeunload = function () {
  * @param {string} value - Value to store.
  */
 function saveToStorage(data, dateText, key, value) {
-    if (!(dateText in data)) {
-        data[dateText] = {}
-    }
-    data[dateText][key] = value;
+	if (!(dateText in data)) {
+		data[dateText] = {}
+	}
+	data[dateText][key] = value;
 }
 
 /**
@@ -593,10 +642,10 @@ function saveToStorage(data, dateText, key, value) {
  * @returns {string|null} - Value of the key in the data or null if not found.
  */
 function loadFromStorage(data, dateText, key) {
-    if (!(dateText in data)) {
-        return null;
-    }
-    return data[dateText][key];
+	if (!(dateText in data)) {
+		return null;
+	}
+	return data[dateText][key];
 }
 
 /**
@@ -605,27 +654,27 @@ function loadFromStorage(data, dateText, key) {
  * @returns {Object} - Journal entry text in parsed json format.
  */
 function getJournal() {
-    let data = JSON.parse(localStorage.getItem("journals"))
-    if (data == null) {
-        data = {}
-    }
-    return data;
+	let data = JSON.parse(localStorage.getItem("journals"))
+	if (data == null) {
+		data = {}
+	}
+	return data;
 }
 
 /**
  * Save tasks to local storage.
  */
 function saveTasks() {
-    let tasks = [];
-    document.querySelectorAll('.task-container li').forEach(task => {
-        let taskName = task.querySelector('.task-input').textContent;
-        let taskColor = task.style['background-color']
-        tasks.push({
-            text: taskName,
-            color: taskColor,
-        });
-    });
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+	let tasks = [];
+	document.querySelectorAll('.task-container li').forEach(task => {
+		let taskName = task.querySelector('.task-input').textContent;
+		let taskColor = task.style['background-color']
+		tasks.push({
+			text: taskName,
+			color: taskColor,
+		});
+	});
+	localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 /**
@@ -634,22 +683,22 @@ function saveTasks() {
  * @returns {string} - Tasks in parsed json format or empty array if no tasks.
  */
 function getTasks() {
-    let storedTasks = localStorage.getItem("tasks");
-    return storedTasks ? JSON.parse(storedTasks) : [];
+	let storedTasks = localStorage.getItem("tasks");
+	return storedTasks ? JSON.parse(storedTasks) : [];
 }
 
 /**
  * Load tasks from local storage.
  */
 function loadTasks() {
-    let tasks = getTasks();
-    if (tasks.length > 0) {
-        tasks.forEach(task => {
-            let curLi = addTask(true);
-            curLi.querySelector(".task-input").textContent = task['text']
-            curLi.style['background-color'] = task['color']
-        });
-    }
+	let tasks = getTasks();
+	if (tasks.length > 0) {
+		tasks.forEach(task => {
+			let curLi = addTask(true);
+			curLi.querySelector(".task-input").textContent = task['text']
+			curLi.style['background-color'] = task['color']
+		});
+	}
 
 }
 

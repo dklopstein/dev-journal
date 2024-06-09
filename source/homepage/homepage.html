@@ -1,165 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Title -->
+  <title>Dev Journal</title>
+  <!-- CSS File --> 
+  <link rel="stylesheet" href="homepage.css" />
+  <!-- Icon  -->
+  <link rel="icon" type="image/x-icon" href="../icons/website-icon.ico">
+  <!-- Font style -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A page to record daily journals and keep track of tasks and mental health.">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
 
-  <head>
-    <meta charset="UTF-8" />
-    <!-- Title -->
-    <title>Dev Journal</title>
-    <!-- CSS File --> 
-    <link rel="stylesheet" href="homepage.css" />
-    <!-- Icon  -->
-    <link rel="icon" type="image/x-icon" href="../icons/website-icon.ico">
-    <!-- Font style -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A page to record daily journals and keep track of tasks and mental health.">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-  </head>
+<body>
+	<main>
 
-  <body>
-    <main>
+		<!-- Task list sidebar -->
+		<div class="task-list">
+			<!-- Header for tasklist with add task button -->
+			<div class="task-header">
+				<h3>Tasks</h3>
+				<!-- Add Task Button -->
+				<button class="add-task-btn" id="addbutton">
+					<img src="../icons/add-task-icon.png" alt="Add">
+				</button>
+			</div>
+			<!-- Container for tasks in sidebar -->
+			<div class="task-wrapper">
+				<ul class="task-container">
+					<!-- Individual tasks -->
+				</ul>
+			</div>
+		</div>
 
-      <!-- Task list sidebar -->
-      <div class="task-list">
-        <!-- Header for tasklist with add task button -->
-        <div class="task-header">
-          <h3>Tasks</h3>
-          <!-- Add Task Button -->
-          <button class="add-task-btn" id="addbutton">
-            <img src="../icons/add-task-icon.png" alt="Add">
-          </button>
-        </div>
-        <!-- Container for tasks in sidebar -->
-        <div class="task-wrapper">
-          <ul class="task-container">
-            <!-- Individual tasks -->
-          </ul>
-        </div>
-      </div>
+		<!-- Everything but the task list -->
+		<div class="main-wrap">
+			<!-- Contain header bar -->
+			<section class="top-bar">
+				<div class="date-header-wrap">
+					<div class="date-header">
+						<!-- Buttons to change date -->
+						<div class="date-header-buttons">
+							<button class="prev-date-btn"></button>
+							<button class="next-date-btn"></button>
+						</div>
+						<!-- Text to display date of current home page -->
+						<div class="date-header-text" id="current-date"></div>
+					</div>
+					<!-- Buttons for Home and Calendar Page -->
+					<div class="nav-buttons">
+						<!-- Button to go to Home Page-->
+						<a href="./homepage.html">
+							<button class="nav-homepage-btn">
+								<img id="homepage-icon" src="../icons/home-icon.png" alt="Home">
+							</button>
+						</a>
+						<!--Button to go to Calendar-->
+						<a href="../calendar/calendar.html">
+							<button class="nav-calendar-btn">
+								<img id="calendar-icon" src="../icons/calendar-icon.webp" alt="Calendar">
+							</button>
+						</a>
+						<button class="theme-btn">
+							<img id="theme-icon" src="../icons/lightmode.png" alt="Light Mode On">
+						</button>
+					</div>
+				</div>
+			</section>
 
-      <!-- Everything but the task list -->
-      <div class="main-wrap">
-          <!-- Contain header bar -->
-          <section class="top-bar">
-            <div class="date-header-wrap">
-              <div class="date-header">
-                <!-- Buttons to change date -->
-                <div class="date-header-buttons">
-                  <button class="prev-date-btn" aria-label="Previous Day"></button>
-                  <button class="next-date-btn" aria-label="Next Day"></button>
-                </div>
-                <!-- Text to display date of current home page -->
-                <div class="date-header-text" id="current-date"></div> 
-              </div>
-              <!-- Buttons for Home and Calendar Page -->
-              <div class="nav-buttons">
-                <!-- Button to go to Home Page-->
-                <a href="./homepage.html">
-                  <button class="nav-homepage-btn">
-                    <img src="../icons/home-icon.png" alt="Home">
-                  </button>
-                </a>
-                <!--Button to go to Calendar-->
-                <a href="../calendar/calendar.html">
-                  <button class="nav-calendar-btn">
-                    <img src="../icons/calendar-icon.webp" alt="Calendar">
-                  </button>
-                </a>
-              </div>
-            </div>  
-          </section>
+			<!--Below header bar-->
+			<div class="journal-past-wrap">
+				<!--Today's Entry, includes journal, ratings, tasks completed-->
+				<section class="today-entry">
+					<!-- Holds the journal -->
+					<div class="journal">
+						<div class="journal-entry">
+							<h4>Journal</h4>
+							<!-- Actual text element of journal -->
+							<textarea id="textarea" placeholder="Type your journal here..."></textarea>
+						</div>
+					</div>
 
-          <!--Below header bar-->
-          <div class="journal-past-wrap">
-            <!--Today's Entry, includes journal, ratings, tasks completed-->
-            <section class="today-entry">
-                <!-- Holds the journal -->
-                <div class="journal">
-                  <div class="journal-entry">
-                    <h4>Journal</h4>
-                    <!-- Actual text element of journal -->
-                    <textarea id="textarea" placeholder="Type your journal here..."></textarea>
-                  </div>
-                </div>
+					<!--Wraps Sentiment Rating and Tasks Completed-->
+					<div class="rating-completed-wrap">
+						<!-- Mental health widget -->
+						<div class="rating-widget">
+							<h4>How's your mental health today?</h4>
+							<div class="feelings">
+								<!-- 1st Angry button  -->
+								<button class="rating-select-btn" id="btn1">
+									<img src="../icons/1angry.png" alt="Angry Button 1" class="">
+								</button>
+								<!-- 2nd Upset button -->
+								<button class="rating-select-btn" id="btn2">
+									<img src="../icons/2upset.png" alt="Upset Button 2" class="">
+								</button>
+								<!-- 3rd Neutral button -->
+								<button class="rating-select-btn" id="btn3">
+									<img src="../icons/3neutral.png" alt="Neutral Button 3" class="">
+								</button>
+								<!-- 4th Happy button -->
+								<button class="rating-select-btn" id="btn4">
+									<img src="../icons/4happy.png" alt="Happy Button 4" class="">
+								</button>
+								<!-- 5th Overjoyed button -->
+								<button class="rating-select-btn" id="btn5">
+									<img src="../icons/5overjoyed.png" alt="Overjoyed Button 5" class="">
+								</button>
+							</div>
 
-                <!--Wraps Sentiment Rating and Tasks Completed-->
-                <div class="rating-completed-wrap">
-                  <!-- Mental health widget -->
-                  <div class="rating-widget">
-                    <h4>How's your mental health today?</h4>
-                    <div class="feelings">
-                      <!-- 1st Angry button  -->
-                      <button class="rating-select-btn" id="btn1">
-                        <img src="../icons/1angry.png" alt="Angry Button 1" class="">
-                      </button>
-                      <!-- 2nd Upset button -->
-                      <button class="rating-select-btn" id="btn2">
-                          <img src="../icons/2upset.png" alt="Upset Button 2" class="">
-                      </button>
-                      <!-- 3rd Neutral button -->
-                      <button class="rating-select-btn" id="btn3">
-                        <img src="../icons/3neutral.png" alt="Neutral Button 3" class="">
-                      </button>
-                      <!-- 4th Happy button -->
-                      <button class="rating-select-btn" id="btn4">
-                        <img src="../icons/4happy.png" alt="Happy Button 4" class="">
-                      </button>
-                      <!-- 5th Overjoyed button -->
-                      <button class="rating-select-btn" id="btn5">
-                        <img src="../icons/5overjoyed.png" alt="Overjoyed Button 5" class="">
-                      </button>
-                    </div>
+							<!-- Productivity widget -->
+							<h4>How productive were you today?</h4>
+							<div class="productiveness">
+								<!-- 1st Button -->
+								<button class="rating-select-btn" id="btn6">
+									<img src="../icons/1-icon.svg" alt="Productivity 1">
+								</button>
+								<!-- 2nd Button -->
+								<button class="rating-select-btn" id="btn7">
+									<img src="../icons/2-icon.svg" alt="Productivity 2">
+								</button>
+								<!-- 3rd Button -->
+								<button class="rating-select-btn" id="btn8">
+									<img src="../icons/3-icon.svg" alt="Productivity 3">
+								</button>
+								<!-- 4th Button -->
+								<button class="rating-select-btn" id="btn9">
+									<img src="../icons/4-icon.svg" alt="Productivity 4">
+								</button>
+								<!-- 5th Button -->
+								<button class="rating-select-btn" id="btn10">
+									<img src="../icons/5-icon.svg" alt="Productivity 5">
+								</button>
+							</div>
+						</div>
 
-                    <!-- Productivity widget -->
-                    <h4>How productive were you today?</h4>
-                    <div class="productiveness">
-                      <!-- 1st Button -->
-                      <button class="rating-select-btn" id="btn6">
-                        <img src="../icons/1-icon.svg" alt="Productivity 1">
-                      </button>
-                      <!-- 2nd Button -->
-                      <button class="rating-select-btn" id="btn7">
-                        <img src="../icons/2-icon.svg" alt="Productivity 2">
-                      </button>
-                      <!-- 3rd Button -->
-                      <button class="rating-select-btn" id="btn8">
-                        <img src="../icons/3-icon.svg" alt="Productivity 3">
-                      </button>
-                      <!-- 4th Button -->
-                      <button class="rating-select-btn" id="btn9">
-                        <img src="../icons/4-icon.svg" alt="Productivity 4">
-                      </button>
-                      <!-- 5th Button -->
-                      <button class="rating-select-btn" id="btn10">
-                        <img src="../icons/5-icon.svg" alt="Productivity 5">
-                      </button>
-                    </div>
-                  </div>
+						<!-- Completed tasks section -->
+						<div class="task-list">
+							<h4>Tasks Completed Today</h4>
+							<div class="completed-task-wrapper">
+								<ul class="completed-task-container">
+									<!-- Completed tasks -->
+								</ul>
+							</div>
+						</div>
 
-                  <!-- Completed tasks section -->
-                  <div class="task-list">
-                    <h4>Tasks Completed Today</h4>
-                    <div class="completed-task-wrapper">
-                      <ul class="completed-task-container">
-                        <!-- Completed tasks -->
-                      </ul>
-                    </div>
-                  </div>
+					</div>
+				</section>
 
-                </div>
-            </section>
+				<!--Holds the past week view-->
+				<section class="past-week-wrap">
+					<!-- Grid to display past week -->
+					<table class="table-week" id="week-calendar" data-lang="en"></table>
+				</section>
+			</div>
 
-            <!--Holds the past week view-->
-            <section class="past-week-wrap">
-              <!-- Grid to display past week -->
-              <table class="table-week" id="week-calendar" data-lang="en"></table>
-            </section>
-          </div>
-          
-      </div>
-    </main>
-    <script src="homepage.js" type="module"></script>
-  </body>
+		</div>
+	</main>
+	<script src="homepage.js" type="module"></script>
+</body>
 
 </html>
