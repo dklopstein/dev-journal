@@ -493,6 +493,10 @@ button:hover {
 	box-shadow: 3px 3px 3px var(--box-shadow);
 }
 
+.rating-widget::-webkit-scrollbar {
+	display: none;
+}
+
 .rating-widget button img {
 	height: max(min(3em, 6vw), 50px);
 	height: min(50px, 8vw);
@@ -723,10 +727,6 @@ td .task-div {
 	.journal-past-wrap {
 		display: block;
 	}
-
-	.rating-widget::-webkit-scrollbar {
-	display: none;
-}
 
 	.rating-widget h4 {
 		font-size: 12px;
