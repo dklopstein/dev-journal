@@ -644,7 +644,7 @@ function loadCellData(cellData, currWeekDay) {
 	let taskList = document.createElement("ul");
 	taskList.className = "task-ul";
 
-	// Format task
+	// Format tasks
 	if (tasks != null) {
 		for (let i = 0; i < tasks.length && i < DISPLAY_TASK_COUNT; i++) {
 			let taskItem = document.createElement("li");
