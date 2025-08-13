@@ -1,9 +1,9 @@
 # Git Gremlins
 
-## [Developer Journal Web App](https://cse110-sp24-group25.github.io/Developer-Journal/source/homepage/homepage.html)
+## [Developer Journal Web App](https://dklopstein.github.io/dev-journal/source/homepage/homepage.html)
 
 [Our Team Page](/admin/team.md)\
-<a href="https://cse110-sp24-group25.github.io/Developer-Journal/js-doc/index.html" target="_blank">Documentation</a>
+<a href="https://dklopstein.github.io/dev-journal/js-doc/index.html" target="_blank">Documentation</a>
 
 [Public Video](https://youtu.be/O4BMl-_iPNE)\
 [Private Video](https://youtu.be/NjnCfApxb44)
